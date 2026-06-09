@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>8vice - Indonesia, Decoded for Chinese Businesses</title>
+<meta name="description" content="8vice helps Chinese companies enter, build, and scale in the Indonesian market - with advisors who've spent decades operating on the ground." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#0A0A0A">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0A0A0A"/>
+    <text x="600" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="180" letter-spacing="-6" fill="#FAFAF7">8vice</text>
+    <circle cx="838" cy="360" r="26" fill="#D62828"/>
+    <path d="M380 470 Q600 360 820 470" stroke="#D62828" stroke-width="6" fill="none" stroke-dasharray="14 16"/>
+  </svg>
+</template>
+
+<!-- ============================ HEADER ============================ -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="#" class="logo" aria-label="8vice home">
+      <span class="logo__word">8vice</span><span class="logo__dot"></span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <div class="nav__item"><a href="About.html" class="nav__link">About</a></div>
+
+      <div class="nav__item" id="services-item">
+        <a href="Services.html" class="nav__link" id="services-trigger" aria-haspopup="true" aria-expanded="false">
+          Our Services
+          <svg class="ico ico-16 nav__caret" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </a>
+        <div class="dropdown dropdown--mega" role="menu" aria-label="Our Services">
+          <div class="dropdown__group">
+            <div class="dropdown__col-title">Consultancy</div>
+            <a class="dropdown__link" href="Consultancy.html">Scope of Work <span>How we scope engagements</span></a>
+            <a class="dropdown__link" href="Consultancy.html">Capabilities <span>Nine advisory areas</span></a>
+            <a class="dropdown__link" href="Case-Study.html">Clients <span>China-focus engagements</span></a>
+          </div>
+          <div class="dropdown__group">
+            <div class="dropdown__col-title">Training</div>
+            <a class="dropdown__link" href="Training.html">Offline &amp; Online <span>Custom, by request</span></a>
+            <a class="dropdown__link" href="Training.html#subscription">Insight Subscription <span>Curated training modules</span></a>
+          </div>
+          <div class="dropdown__group">
+            <div class="dropdown__col-title">Insight</div>
+            <a class="dropdown__link" href="Insight.html">Podcast <span>Free - field conversations</span></a>
+            <a class="dropdown__link" href="Insight.html#books">Book Review <span>Cross-border reading</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav__item"><a href="Case-Study.html" class="nav__link">Clients</a></div>
+
+      <div class="nav__item" id="insight-item">
+        <a href="Insight.html" class="nav__link" id="insight-trigger" aria-haspopup="true" aria-expanded="false">
+          Insight
+          <svg class="ico ico-16 nav__caret" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </a>
+        <div class="dropdown dropdown--menu" role="menu" aria-label="Insight">
+          <a class="dropdown__link" href="Insight.html">Article <span>Field notes &amp; analysis</span></a>
+          <a class="dropdown__link" href="Case-Study.html">Case Study <span>Real client engagements</span></a>
+          <a class="dropdown__link" href="Social-Impact.html">Social Impact <span>Value for the region</span></a>
+        </div>
+      </div>
+
+      <div class="nav__item"><a href="Career.html" class="nav__link">Career</a></div>
+      <div class="nav__item"><a href="Contact.html" class="nav__link">Contact</a></div>
+
+      <div class="nav__utils">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button class="lang-btn is-active" data-lang="en" type="button">EN</button>
+          <button class="lang-btn" data-lang="id" type="button">ID</button>
+        </div>
+        <a href="Contact.html" class="login-btn" aria-label="Log in">
+          <svg class="ico ico-20" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>Log in</span>
+        </a>
+      </div>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <svg class="ico ico-24" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="drawer" id="drawer" aria-label="Mobile menu">
+  <div class="drawer__head">
+    <a href="#" class="logo"><span class="logo__word">8vice</span><span class="logo__dot"></span></a>
+    <button class="drawer__close" id="drawer-close" aria-label="Close menu">
+      <svg class="ico ico-24" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <a class="drawer__link" href="About.html">About</a>
+  <a class="drawer__link" href="Services.html">Our Services</a>
+  <div class="drawer__sub">
+    <a class="drawer__sublink" href="Consultancy.html">Consultancy</a>
+    <a class="drawer__sublink" href="Training.html">Training</a>
+    <a class="drawer__sublink" href="Training.html#subscription">Insight Subscription</a>
+  </div>
+  <a class="drawer__link" href="Case-Study.html">Clients</a>
+  <a class="drawer__link" href="Insight.html">Insight</a>
+  <div class="drawer__sub">
+    <a class="drawer__sublink" href="Insight.html">Article</a>
+    <a class="drawer__sublink" href="Case-Study.html">Case Study</a>
+    <a class="drawer__sublink" href="Social-Impact.html">Social Impact</a>
+  </div>
+  <a class="drawer__link" href="Career.html">Career</a>
+  <a class="drawer__link" href="Contact.html">Contact</a>
+  <div class="drawer__utils">
+    <span class="drawer__util-lbl">Language</span>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-btn is-active" data-lang="en" type="button">EN</button>
+      <button class="lang-btn" data-lang="id" type="button">ID</button>
+    </div>
+    <a href="Contact.html" class="drawer__login">
+      <svg class="ico ico-20" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      Log in
+    </a>
+  </div>
+</aside>
+
+<main>
+
+<!-- ============================ 1. HERO ============================ -->
+<section class="hero" data-screen-label="Hero">
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <div class="eyebrow on-dark hero__eyebrow">China → Indonesia Specialist</div>
+      <h1 class="t-display" style="font-size: clamp(38px, 4.2vw, 52px); max-width: none; width: auto;">Strategic Partner In<br>Business <span class="accent">Excellence.</span></h1>
+      <p class="t-body-lg hero__sub">8vice helps Chinese companies enter, build, and scale in the Indonesian market - with advisors who've spent decades operating on the ground.</p>
+      <div class="hero__ctas">
+        <a href="Contact.html" class="btn btn--primary btn--lg">Book Free Consultancy
+          <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="#help" class="btn btn--ghost-light btn--lg">See How We Help</a>
+      </div>
+      <div class="hero__meta">
+        <div>
+          <div class="hero__stat-num">20<span class="unit">+</span></div>
+          <div class="hero__stat-label">Years operating in-market</div>
+        </div>
+        <div>
+          <div class="hero__stat-num">30<span class="unit">+</span></div>
+          <div class="hero__stat-label">Senior advisors on call</div>
+        </div>
+        <div>
+          <div class="hero__stat-num">16</div>
+          <div class="hero__stat-label">Industries covered</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__visual" id="hero-visual">
+      <!-- variant: skyline (default) -->
+      <div class="hero-viz" data-viz="skyline">
+        <svg class="skyline" viewBox="0 0 560 420" role="img" aria-label="China to Indonesia corridor skyline">
+          <!-- glow under corridor -->
+          <ellipse class="glow" cx="280" cy="250" rx="240" ry="50"></ellipse>
+          <!-- Shanghai cluster (left) -->
+          <g>
+            <rect class="bld" x="20"  y="250" width="26" height="110"></rect>
+            <rect class="bld" x="50"  y="200" width="22" height="160"></rect>
+            <!-- pearl-tower-ish: tall mast with two nodes -->
+            <rect class="bld--near" x="84" y="150" width="10" height="210"></rect>
+            <circle class="bld--near" cx="89" cy="150" r="13"></circle>
+            <circle class="bld--near" cx="89" cy="196" r="9"></circle>
+            <rect class="bld" x="104" y="120" width="20" height="240"></rect>
+            <rect class="bld--near" x="128" y="175" width="24" height="185"></rect>
+            <rect class="bld" x="156" y="225" width="20" height="135"></rect>
+          </g>
+          <!-- Jakarta cluster (right) -->
+          <g>
+            <rect class="bld" x="380" y="235" width="20" height="125"></rect>
+            <rect class="bld--near" x="404" y="180" width="24" height="180"></rect>
+            <rect class="bld" x="432" y="140" width="18" height="220"></rect>
+            <rect class="bld--near" x="454" y="205" width="22" height="155"></rect>
+            <rect class="bld" x="480" y="170" width="20" height="190"></rect>
+            <rect class="bld--near" x="504" y="245" width="24" height="115"></rect>
+            <rect class="bld" x="532" y="280" width="18" height="80"></rect>
+          </g>
+          <!-- ground line -->
+          <line x1="0" y1="360" x2="560" y2="360" stroke="rgba(255,255,255,.1)" stroke-width="1"></line>
+          <!-- corridor arc connecting both -->
+          <path class="corridor" d="M150 150 Q280 40 430 140"></path>
+          <circle class="node" cx="150" cy="150" r="5"></circle>
+          <circle class="node" cx="430" cy="140" r="5"></circle>
+          <text class="label" x="150" y="392" text-anchor="middle">China</text>
+          <text class="label" x="430" y="392" text-anchor="middle">Indonesia</text>
+        </svg>
+      </div>
+
+      <!-- variant: corridor data-viz -->
+      <div class="hero-viz" data-viz="corridor" hidden>
+        <svg class="corridor-viz" viewBox="0 0 560 460" role="img" aria-label="China-Indonesia trade corridor diagram">
+          <circle class="ring" cx="280" cy="230" r="200"></circle>
+          <circle class="ring" cx="280" cy="230" r="135"></circle>
+          <circle class="ring" cx="280" cy="230" r="70"></circle>
+          <!-- flow lines -->
+          <path class="flow" d="M120 110 C 240 180, 320 180, 440 110"></path>
+          <path class="flow" d="M120 110 C 220 240, 340 240, 440 110"></path>
+          <path class="flow" d="M120 350 C 240 280, 320 280, 440 350"></path>
+          <!-- main arc -->
+          <path class="arc" d="M120 110 Q 280 -10 440 110"></path>
+          <path class="arc" d="M120 110 Q 280 470 440 350" opacity=".5"></path>
+          <!-- nodes -->
+          <circle class="dot-o" cx="120" cy="110" r="14"></circle>
+          <circle class="dot" cx="120" cy="110" r="6"></circle>
+          <circle class="dot-o" cx="440" cy="110" r="14"></circle>
+          <circle class="dot" cx="440" cy="110" r="6"></circle>
+          <circle class="dot-o" cx="440" cy="350" r="14"></circle>
+          <circle class="dot" cx="440" cy="350" r="6"></circle>
+          <text class="vlabel" x="120" y="78" text-anchor="middle">CHINA</text>
+          <text class="vsub" x="120" y="150" text-anchor="middle">origin</text>
+          <text class="vlabel" x="470" y="106" text-anchor="start">INDONESIA</text>
+          <text class="vsub" x="470" y="124" text-anchor="start">market entry</text>
+          <text class="vlabel" x="470" y="346" text-anchor="start">SCALE</text>
+          <text class="vsub" x="470" y="364" text-anchor="start">growth &amp; ops</text>
+          <text class="vlabel" x="280" y="226" text-anchor="middle" font-size="13" fill="#D62828">8VICE</text>
+          <text class="vsub" x="280" y="244" text-anchor="middle">the corridor</text>
+        </svg>
+      </div>
+
+      <!-- variant: founder photo placeholder -->
+      <div class="hero-viz" data-viz="founder" hidden>
+        <div class="founder-frame">
+          <div class="ph on-dark" style="aspect-ratio:4/5;border-radius:4px;">
+            <span class="ph__tag">FOUNDER PORTRAIT<br/>Helda Chandra · documentary, natural light · 800×1000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 2. TRUST BAR ============================ -->
+<section class="trust" data-screen-label="Trust bar">
+  <div class="container">
+    <p class="trust__cap">Trusted by Chinese businesses scaling in Indonesia</p>
+    <div class="trust__row" id="trust-row"><!-- logos injected --></div>
+  </div>
+</section>
+
+<!-- ============================ 3. HOW WE HELP ============================ -->
+<section class="section section--paper" id="help" data-screen-label="How we help">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">How We Help You</div>
+      <h2 class="t-h2">Three ways in - wherever you are on the journey.</h2>
+      <p class="t-body-lg">Whether you're scoping the Indonesian market, building your local team, or scaling distribution - our work meets you where you are.</p>
+    </div>
+    <div class="cards-3">
+      <article class="help-card">
+        <div class="help-card__num">01</div>
+        <div class="help-card__icon">
+          <svg class="ico ico-24" viewBox="0 0 24 24"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+        </div>
+        <h3 class="t-h3">Consultancy</h3>
+        <p>Tailored advisory for market entry, expansion, and turnaround - led by senior advisors matched to your industry.</p>
+        <a href="Consultancy.html" class="link-arrow">Explore Consultancy
+          <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </article>
+      <article class="help-card">
+        <div class="help-card__num">02</div>
+        <div class="help-card__icon">
+          <svg class="ico ico-24" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="13" y2="17"></line></svg>
+        </div>
+        <h3 class="t-h3">Training</h3>
+        <p>Practical capability-building for your local team - onsite or online, designed for cross-cultural environments.</p>
+        <a href="Training.html" class="link-arrow">View Training
+          <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </article>
+      <article class="help-card">
+        <div class="help-card__num">03</div>
+        <div class="help-card__icon">
+          <svg class="ico ico-24" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+        </div>
+        <h3 class="t-h3">Insight</h3>
+        <p>Free podcasts and field reports for executives operating in Indonesia. Stay informed, share with your team.</p>
+        <a href="Insight.html" class="link-arrow">Read Insights
+          <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. MACRO BLOCK ============================ -->
+<section class="section section--ink macro" data-screen-label="Why China to Indonesia">
+  <div class="container">
+    <div class="macro__inner">
+      <div class="macro__stat">
+        <span class="big">$130<span class="unit">B</span></span>
+        <span class="cap">China-Indonesia bilateral trade, and continuing to climb. <em>Figure pending verification - latest Kemendag / China Customs data.</em></span>
+      </div>
+      <div>
+        <h2 class="t-h2">Indonesia is now China's <span class="accent">#1 trade partner</span> in ASEAN.</h2>
+        <p class="t-body-lg">Trade between China and Indonesia crossed USD 130 billion in recent years - and continues to climb. Yet most Chinese companies entering Indonesia either underestimate the regulatory complexity, the cultural nuance, or both.</p>
+        <p class="t-body-lg">8vice was built precisely for this corridor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 5. CASE STUDIES ============================ -->
+<section class="section section--white" data-screen-label="Case studies">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Case Studies</div>
+      <h2 class="t-h2">Real engagements. Real outcomes.</h2>
+      <p class="t-body-lg">A selection of the businesses we've helped land, scale, and adapt in Indonesia.</p>
+    </div>
+    <div class="cards-3" id="case-grid"><!-- cases injected --></div>
+    <p class="case-note">Detailed, named case studies are in production with client permission. <a href="Case-Study.html" class="link-arrow" style="font-size:14px;">See all client work
+      <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></p>
+  </div>
+</section>
+
+<!-- ============================ 6. APPROACH ============================ -->
+<section class="section section--ink" data-screen-label="Our approach">
+  <div class="container">
+    <div class="approach__top">
+      <div>
+        <div class="eyebrow on-dark" style="margin-bottom:20px;">What We Do Differently</div>
+        <h2 class="t-h2">Not generalists. Not narrow specialists.</h2>
+      </div>
+      <div>
+        <p class="t-body-lg">Most firms either generalize - advice you've heard before - or hyper-specialize, handing you a piece of the puzzle, not the puzzle.</p>
+        <p class="t-body-lg">We assemble a small, senior advisor team around your specific situation, drawing from a network of operators who've spent decades inside the industries we serve.</p>
+      </div>
+    </div>
+    <div class="principles">
+      <div class="principle">
+        <div class="principle__num">01</div>
+        <h4 class="t-h4">20+ Years Inside the Market</h4>
+        <p>Advisors who have actually built and run businesses in Indonesia - not consultants reading from a deck.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">02</div>
+        <h4 class="t-h4">A Network, Not a Hierarchy</h4>
+        <p>You get the operator best suited to your problem, not whoever happens to be on the bench.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">03</div>
+        <h4 class="t-h4">Scoped to Your Need</h4>
+        <p>Project-based engagements sized to the decision in front of you - from diagnostic to embedded advisory.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">04</div>
+        <h4 class="t-h4">Investment, Not Overhead</h4>
+        <p>Every engagement is built to create measurable progress you can take to your board.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 7. INDUSTRIES ============================ -->
+<section class="section section--paper" data-screen-label="Industries">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Industries Coverage</div>
+      <h2 class="t-h2">Sixteen industries. Three areas of depth.</h2>
+    </div>
+    <div class="ind-cluster">
+      <div class="ind-group">
+        <div class="ind-group__title"><span class="dot"></span><h3 class="t-h3">Market &amp; Brand</h3></div>
+        <ul class="ind-list">
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Consumer &amp; Retail</li>
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Food &amp; Beverage</li>
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Media &amp; Entertainment</li>
+        </ul>
+      </div>
+      <div class="ind-group">
+        <div class="ind-group__title"><span class="dot"></span><h3 class="t-h3">Growth &amp; Strategy</h3></div>
+        <ul class="ind-list">
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Fintech &amp; Payments</li>
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Technology &amp; Digital</li>
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>E-commerce &amp; Logistics</li>
+        </ul>
+      </div>
+      <div class="ind-group">
+        <div class="ind-group__title"><span class="dot"></span><h3 class="t-h3">Operations &amp; Resilience</h3></div>
+        <ul class="ind-list">
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Manufacturing</li>
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Energy &amp; Resources</li>
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Infrastructure</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ind-extra">
+      <span class="chip">Automotive</span>
+      <span class="chip">Healthcare &amp; Pharma</span>
+      <span class="chip">Real Estate</span>
+      <span class="chip">Education</span>
+      <span class="chip">Agribusiness</span>
+      <span class="chip">Financial Services</span>
+      <span class="chip">Tourism &amp; Hospitality</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 7b. TRAINING — ONLINE & OFFLINE (request) ============================ -->
+<section class="section section--white" data-screen-label="Training request">
+  <div class="container">
+    <div class="train-req">
+      <div class="train-req__copy">
+        <div class="eyebrow">Training · Online &amp; Offline</div>
+        <h2 class="t-h2">Custom training, built around your team.</h2>
+        <p class="t-body-lg">Tell us what your local team needs to learn. We design and deliver bespoke programs - onsite in Jakarta, hybrid, or fully online - led by senior operators who've actually run businesses in this market.</p>
+        <ul class="train-feats train-feats--light">
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Scoped to your industry &amp; team size</li>
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Onsite, hybrid, or fully online delivery</li>
+          <li><svg class="ico ico-16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>English &amp; Bahasa Indonesia. Mandarin on request</li>
+        </ul>
+      </div>
+      <div class="train-req__form">
+        <h3 class="t-h4">Request a training program</h3>
+        <p class="train-req__note">Tell us the basics. We'll respond within two business days.</p>
+        <form id="train-form" class="req-form" novalidate>
+          <div class="req-row">
+            <label class="req-field">
+              <span>Full name</span>
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label class="req-field">
+              <span>Company</span>
+              <input type="text" name="company" placeholder="Company name" />
+            </label>
+          </div>
+          <label class="req-field">
+            <span>Work email</span>
+            <input type="email" name="email" placeholder="you@company.com" required />
+          </label>
+          <label class="req-field">
+            <span>What does your team need to learn?</span>
+            <textarea name="topic" rows="3" placeholder="e.g. market entry, distribution, cross-cultural management…"></textarea>
+          </label>
+          <div class="req-field req-field--inline">
+            <span>Preferred format</span>
+            <div class="req-pills" role="group" aria-label="Preferred format">
+              <button type="button" class="req-pill is-active" data-fmt="onsite">Onsite</button>
+              <button type="button" class="req-pill" data-fmt="hybrid">Hybrid</button>
+              <button type="button" class="req-pill" data-fmt="online">Online</button>
+            </div>
+          </div>
+          <span class="field-err" id="train-err"></span>
+          <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Submit request
+            <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </form>
+        <div class="req-success" id="train-success">
+          <svg class="ico ico-24" viewBox="0 0 24 24" style="stroke:var(--color-success)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <div><strong>Request received.</strong><br>Our team will reach out within two business days.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 7c. TRAINING SUBSCRIPTION (e-learning) ============================ -->
+<section class="section section--paper" data-screen-label="Training subscription">
+  <div class="container">
+    <div class="section-head" style="display:flex;align-items:flex-end;justify-content:space-between;max-width:none;gap:24px;flex-wrap:wrap;">
+      <div style="max-width:620px;">
+        <div class="eyebrow">Training Subscription · E-learning</div>
+        <h2 class="t-h2" style="margin-top:20px;">Learn the Indonesian market, on demand.</h2>
+        <p class="t-body-lg" style="margin-top:18px;">Video courses built for teams operating in Indonesia. Start with free modules, unlock premium playbooks anytime.</p>
+      </div>
+      <a href="Training.html#subscription" class="link-arrow">Browse all courses
+        <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+    <div class="course-grid" id="course-grid"><!-- courses injected --></div>
+  </div>
+</section>
+
+<!-- ============================ 7d. HIGHLIGHTS ============================ -->
+<section class="section section--ink" data-screen-label="Highlights">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow on-dark">Highlights</div>
+      <h2 class="t-h2">The latest from 8vice.</h2>
+      <p class="t-body-lg">Fresh from the corridor - new episodes, upcoming sessions, and what we're building.</p>
+    </div>
+    <div class="highlight-grid" id="highlight-grid"><!-- highlights injected --></div>
+  </div>
+</section>
+
+<!-- ============================ 8. INSIGHT PREVIEW ============================ -->
+<section class="section section--white" data-screen-label="Insight preview">
+  <div class="container">
+    <div class="section-head" style="display:flex;align-items:flex-end;justify-content:space-between;max-width:none;gap:24px;">
+      <div style="max-width:620px;">
+        <div class="eyebrow">Insight</div>
+        <h2 class="t-h2" style="margin-top:20px;">Field notes from the corridor.</h2>
+      </div>
+      <a href="Insight.html" class="link-arrow">Browse all insights
+        <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+    <div class="insight-grid" id="insight-grid"><!-- articles injected --></div>
+
+    <!-- Book Review -->
+    <div class="bookreview" data-screen-label="Book review">
+      <div class="bookreview__head">
+        <div>
+          <div class="eyebrow">Book Review</div>
+          <h3 class="t-h3">What we're reading for the corridor.</h3>
+        </div>
+        <a href="#" class="link-arrow">All reviews
+          <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+      <div class="book-grid" id="book-grid"><!-- books injected --></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 9. SOCIETAL IMPACT ============================ -->
+<section class="section impact" data-screen-label="Societal impact">
+  <div class="container">
+    <div class="impact__inner">
+      <div class="ph impact__media">
+        <span class="ph__tag">IMPACT PHOTO<br/>local team / training floor, Jakarta · documentary · 1000×750</span>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:20px;">Societal Impact</div>
+        <h2 class="t-h2">Business that lifts the region.</h2>
+        <p class="t-body-lg">We believe the success of Chinese businesses in Indonesia must also create lasting value for Indonesian communities. From upskilling local talent to sustainable supply practices, our engagements are designed to leave Indonesia stronger than we found it.</p>
+        <div class="impact__chips">
+          <div class="metric-chip"><div class="n">500+</div><div class="l">Local professionals trained</div></div>
+          <div class="metric-chip"><div class="n">12</div><div class="l">Institutional partnerships</div></div>
+        </div>
+        <a href="Social-Impact.html" class="btn btn--ghost-dark">Read our impact stories
+          <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 10. SUBSCRIBE ============================ -->
+<section class="section subscribe" data-screen-label="Subscribe">
+  <div class="container">
+    <div class="subscribe__inner">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:20px;">Newsletter</div>
+      <h2 class="t-h2">Field Notes from the Corridor</h2>
+      <p class="t-body-lg">Monthly insights for Chinese executives operating in Indonesia.</p>
+      <form class="sub-form" id="sub-form" novalidate>
+        <input type="email" id="sub-email" placeholder="Your work email" aria-label="Email address" />
+        <button type="submit" class="btn btn--primary">Subscribe</button>
+      </form>
+      <span class="field-err" id="sub-err"></span>
+      <div class="sub-success" id="sub-success">
+        <svg class="ico ico-20" viewBox="0 0 24 24" style="stroke:var(--color-success)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        You're on the list. First field note lands next month.
+      </div>
+      <p class="sub-micro">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 11. FINAL CTA ============================ -->
+<section class="section final-cta" data-screen-label="Final CTA">
+  <div class="container">
+    <div class="final-cta__inner">
+      <div class="eyebrow on-dark" style="justify-content:center;margin-bottom:20px;">Let's Talk</div>
+      <h2 class="t-h1">Have an Indonesia move on the <span class="accent">horizon?</span></h2>
+      <p class="t-body-lg">Tell us where you're going. We'll respond within two business days with an honest read on whether we can help.</p>
+      <div class="hero__ctas">
+        <a href="Contact.html" class="btn btn--primary btn--lg">Book Free Consultancy
+          <svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="Contact.html" class="btn btn--ghost-light btn--lg">Send a Message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer" data-screen-label="Footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <a href="#" class="logo"><span class="logo__word">8vice</span><span class="logo__dot"></span></a>
+        <p class="footer__tag">Bridging Chinese business into Indonesia - with advisors who've operated on the ground.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Navigate</h4>
+        <a href="About.html">About</a>
+        <a href="Case-Study.html">Clients</a>
+        <a href="Insight.html">Insight</a>
+        <a href="Career.html">Career</a>
+        <a href="Contact.html">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Services</h4>
+        <a href="Consultancy.html">Consultancy</a>
+        <a href="Training.html">Training (Online &amp; Offline)</a>
+        <a href="Training.html#subscription">Training Subscription</a>
+        <a href="Insight.html">Insight &amp; Podcast</a>
+        <a href="Insight.html#books">Book Review</a>
+      </div>
+      <div class="footer__col footer__contact">
+        <h4>Contact</h4>
+        <a href="mailto:hello@8vice.com">hello@8vice.com</a>
+        <span class="lbl">Office</span>
+        <span>SOHO Pancoran, MT Haryono<br/>Jakarta Selatan, Indonesia</span>
+        <span class="lbl">WhatsApp</span>
+        <a href="#">+62 ••• •••• ••••</a>
+        <div class="footer__social" style="margin-top:18px;">
+          <a href="#" aria-label="LinkedIn"><svg class="ico ico-20" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+          <a href="#" aria-label="YouTube"><svg class="ico ico-20" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+          <a href="#" aria-label="Spotify"><svg class="ico ico-20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M8 14.5c2.5-.8 5.5-.5 7.5 1"></path><path d="M7.5 11.5c3-1 6.5-.6 9 1.2"></path><path d="M7.5 8.7c3.4-1 7.4-.5 10 1.3"></path></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 8vice. All rights reserved.</span>
+      <div class="footer__bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="Insight.html">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ FLOATING WHATSAPP ============================ -->
+<a class="wa-fab" id="wa-fab" href="https://wa.me/0000000000?text=Hi%208vice%2C%20I%27d%20like%20to%20learn%20more%20about%20entering%20the%20Indonesian%20market." target="_blank" rel="noopener" aria-label="Chat with 8vice on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.004c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 1 1 6.97 3.86zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.43.06-.65.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.17 1.74 2.66 4.22 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"></path></svg>
+</a>
+
+<script src="app.js"></script>
+
+<!-- Tweaks panel (React island) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+</body>
+</html>

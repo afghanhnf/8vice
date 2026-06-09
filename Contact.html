@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — 8vice</title>
+<meta name="description" content="Book a free consultancy or send a message. We respond within two business days." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="pages.css" />
+</head>
+<body data-page="contact">
+
+<main class="page">
+
+  <section class="page-hero" data-screen-label="Contact hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="8vice Homepage.html">Home</a><span class="sep">/</span><span class="cur">Contact</span></nav>
+      <h1 class="t-h1">Let's talk about your Indonesia move.</h1>
+      <p class="page-hero__lead">Tell us where you're headed. We'll respond within two business days with an honest read on whether and how we can help.</p>
+    </div>
+  </section>
+
+  <section class="section section--white" data-screen-label="Contact form">
+    <div class="container">
+      <div class="contact-split">
+
+        <!-- info -->
+        <div>
+          <div class="eyebrow" style="margin-bottom:24px;">Reach Us</div>
+          <div class="contact-info__item"><div class="lbl">Email</div><div class="val"><a href="mailto:hello@8vice.com">hello@8vice.com</a></div></div>
+          <div class="contact-info__item"><div class="lbl">WhatsApp</div><div class="val"><a href="#">+62 ••• •••• ••••</a></div></div>
+          <div class="contact-info__item"><div class="lbl">Office</div><div class="val">SOHO Pancoran, MT Haryono<br>Jakarta Selatan, Indonesia</div></div>
+          <div class="contact-info__item"><div class="lbl">Hours</div><div class="val">Mon–Fri, 09:00–18:00 WIB</div></div>
+          <div class="ph" style="aspect-ratio:16/10;border-radius:14px;margin-top:28px;"><span class="ph__tag">MAP / OFFICE PHOTO<br>16:10</span></div>
+        </div>
+
+        <!-- form -->
+        <div>
+          <div class="train-req__form" style="box-shadow:0 20px 50px rgba(0,0,0,.05);">
+            <h3 class="t-h4">Book a free consultancy</h3>
+            <p class="train-req__note">A candid 45-minute call. No pitch, no obligation.</p>
+            <form class="req-form" data-demo novalidate>
+              <div class="req-row">
+                <label class="req-field"><span>Full name</span><input type="text" placeholder="Your name" required /></label>
+                <label class="req-field"><span>Company</span><input type="text" placeholder="Company name" /></label>
+              </div>
+              <div class="req-row">
+                <label class="req-field"><span>Work email</span><input type="email" placeholder="you@company.com" required /></label>
+                <label class="req-field"><span>Phone / WhatsApp</span><input type="text" placeholder="Optional" /></label>
+              </div>
+              <div class="req-field req-field--inline"><span>I'm interested in</span>
+                <div class="req-pills" role="group" aria-label="Interest">
+                  <button type="button" class="req-pill is-active" data-int="consultancy">Consultancy</button>
+                  <button type="button" class="req-pill" data-int="training">Training</button>
+                  <button type="button" class="req-pill" data-int="other">Other</button>
+                </div>
+              </div>
+              <label class="req-field"><span>What's the move?</span><textarea rows="4" placeholder="Tell us where you're headed in Indonesia…"></textarea></label>
+              <span class="field-err"></span>
+              <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Send message<svg class="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+            </form>
+            <div class="req-success" data-success>
+              <svg class="ico ico-24" viewBox="0 0 24 24" style="stroke:var(--color-success)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <div><strong>Message sent.</strong><br>We'll get back to you within two business days.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="site-chrome.js"></script>
+<script src="pages.js"></script>
+</body>
+</html>
