@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var HOME = '8vice Homepage.html';
+  var HOME = 'Index.html';
   var page = document.body.getAttribute('data-page') || '';
 
   /* ---------- HEADER ---------- */
