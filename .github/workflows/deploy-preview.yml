@@ -57,10 +57,12 @@ jobs:
       - name: Export Static Site
         run: php artisan export
 
-      - name: Fix hardcoded paths in JS
+      - name: Fix absolute image paths for GitHub Pages subfolder
         run: |
-          find dist -type f -name "*.js" -exec sed -i 's|"/images/|"/8vice/images/|g' {} +
-          find dist -type f -name "*.html" -exec sed -i 's|"/images/|"/8vice/images/|g' {} +
+          find dist -type f -exec sed -i 's|"/images/|"/8vice/images/|g' {} +
+          find dist -type f -exec sed -i "s|'/images/|'/8vice/images/|g" {} +
+          find dist -type f -exec sed -i 's|\\/images\\/|\\/8vice\\/images\\/|g' {} +
+          find dist -type f -exec sed -i 's|url(/images/|url(/8vice/images/|g' {} +
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
