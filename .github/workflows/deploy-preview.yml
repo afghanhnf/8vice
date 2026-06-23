@@ -40,7 +40,7 @@ jobs:
 
       - name: Install Node Dependencies and Build
         run: |
-          npm ci
+          npm install --legacy-peer-deps
           npm run build
 
       - name: Setup Laravel Environment
