@@ -36,8 +36,7 @@ jobs:
       - name: Setup Laravel Environment
         run: |
           cp .env.example .env
-          echo "ASSET_URL=https://afghanhnf.github.io/8vice" >> .env
-          echo "APP_URL=https://afghanhnf.github.io/8vice" >> .env
+          echo "ASSET_URL=/8vice" >> .env
           php artisan key:generate
           touch database/database.sqlite
           sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
