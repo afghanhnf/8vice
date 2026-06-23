@@ -33,6 +33,18 @@ jobs:
       - name: Install PHP Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
 
+      - name: Setup Laravel Environment
+        run: |
+          cp .env.example .env
+          echo "ASSET_URL=https://afghanhnf.github.io/8vice" >> .env
+          echo "APP_URL=https://afghanhnf.github.io/8vice" >> .env
+          php artisan key:generate
+          touch database/database.sqlite
+          sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
+          sed -i 's/DB_DATABASE=laravel/DB_DATABASE=database\/database.sqlite/g' .env
+          php artisan migrate --force
+          php artisan db:seed --force
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -43,18 +55,13 @@ jobs:
           npm install --legacy-peer-deps
           npm run build
 
-      - name: Setup Laravel Environment
-        run: |
-          cp .env.example .env
-          php artisan key:generate
-          touch database/database.sqlite
-          sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
-          sed -i 's/DB_DATABASE=laravel/DB_DATABASE=database\/database.sqlite/g' .env
-          php artisan migrate --force
-          php artisan db:seed --force
-
       - name: Export Static Site
         run: php artisan export
+
+      - name: Fix hardcoded paths in JS
+        run: |
+          find dist -type f -name "*.js" -exec sed -i 's|"/images/|"/8vice/images/|g' {} +
+          find dist -type f -name "*.html" -exec sed -i 's|"/images/|"/8vice/images/|g' {} +
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

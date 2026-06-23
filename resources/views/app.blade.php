@@ -7,8 +7,8 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/png" href="/images/profil/8vice-logo.png" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="{{ asset('images/profil/8vice-logo.png') }}" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,8 +16,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
         <!-- Legacy CSS -->
-        <link rel="stylesheet" href="/css/styles.css" />
-        <link rel="stylesheet" href="/css/pages.css" />
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/pages.css') }}" />
 
         <!-- Scripts -->
         @routes
