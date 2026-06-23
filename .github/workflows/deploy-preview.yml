@@ -61,6 +61,7 @@ jobs:
         run: |
           find dist -type f -exec sed -i 's|"/images/|"/8vice/images/|g' {} +
           find dist -type f -exec sed -i "s|'/images/|'/8vice/images/|g" {} +
+          find dist -type f -exec sed -i 's|`/images/|`/8vice/images/|g' {} +
           find dist -type f -exec sed -i 's|\\/images\\/|\\/8vice\\/images\\/|g' {} +
           find dist -type f -exec sed -i 's|url(/images/|url(/8vice/images/|g' {} +
 
