@@ -41,7 +41,14 @@ export default function CaseStudyDetail({ slug }) {
 
   return (
     <MainLayout>
-      <Head title={`8vice - Case Study - ${caseData.title}`} />
+      <Head>
+        <title>{`8vice - Case Study - ${caseData.title}`}</title>
+        <meta name="description" content={caseData.desc || caseData.p} />
+        <meta property="og:title" content={`8vice - Case Study - ${caseData.title}`} />
+        <meta property="og:description" content={caseData.desc || caseData.p} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={caseData.cover || "/images/og-default.png"} />
+      </Head>
 
       {/* 1. Title & 2. Explanation */}
       <header className="page-hero page-hero--tall" style={{ paddingBottom: '80px', paddingTop: '140px' }}>

@@ -19,7 +19,14 @@ export default function Contact() {
 
   return (
     <MainLayout>
-      <Head title="8vice - Contact" />
+      <Head>
+        <title>{t('meta.contact_title')}</title>
+        <meta name="description" content={t('meta.contact_desc')} />
+        <meta property="og:title" content={t('meta.contact_title')} />
+        <meta property="og:description" content={t('meta.contact_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ HERO ============================ */}
       <section className="page-hero">

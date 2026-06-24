@@ -33,7 +33,14 @@ export default function Article() {
 
   return (
     <MainLayout>
-      <Head title="8vice - Insights & Articles" />
+      <Head>
+        <title>{t('meta.article_title')}</title>
+        <meta name="description" content={t('meta.article_desc')} />
+        <meta property="og:title" content={t('meta.article_title')} />
+        <meta property="og:description" content={t('meta.article_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ HERO ============================ */}
       <section className="page-hero">

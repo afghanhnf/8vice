@@ -94,7 +94,14 @@ export default function CaseStudy() {
 
   return (
     <MainLayout>
-      <Head title="8vice - Case Studies" />
+      <Head>
+        <title>{t('meta.case_title')}</title>
+        <meta name="description" content={t('meta.case_desc')} />
+        <meta property="og:title" content={t('meta.case_title')} />
+        <meta property="og:description" content={t('meta.case_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ FEATURED CASE HERO ============================ */}
       <header className="page-hero page-hero--tall" style={{ paddingBottom: '140px' }}>

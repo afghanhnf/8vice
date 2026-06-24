@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
+import { useTranslation } from '@/Contexts/TranslationContext';
 
 const CheckIcon = () => (
   <svg className="ico ico-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -10,56 +11,59 @@ const CheckIcon = () => (
   </svg>
 );
 
-const capabilitiesList = [
-  {
-    title: 'Branding & Public Relationship',
-    desc: 'Shape and protect your corporate identity in the local market through strategic narrative building and stakeholder engagement.',
-    icon: <><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></>
-  },
-  {
-    title: 'Marketing Communication',
-    desc: 'Craft clear, culturally resonant messaging that bridges the gap between your brand and Indonesian audiences.',
-    icon: <><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></>
-  },
-  {
-    title: 'Digital Marketing',
-    desc: 'Data-driven campaigns across local social platforms, search engines, and marketplaces to drive measurable growth.',
-    icon: <><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></>
-  },
-  {
-    title: 'Business Development',
-    desc: 'Identify and secure high-value partnerships, distribution channels, and B2B opportunities in a relationship-driven economy.',
-    icon: <><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></>
-  },
-  {
-    title: 'Supply Chain',
-    desc: 'Build resilient sourcing, logistics, and distribution networks tailored to Indonesia\'s unique geographical challenges.',
-    icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>
-  },
-  {
-    title: 'Sales & Marketing',
-    desc: 'Integrate sales strategy with marketing execution to maximize conversion rates and customer retention.',
-    icon: <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>
-  },
-  {
-    title: 'Sustainability',
-    desc: 'Align your operations with local ESG regulations and consumer expectations for sustainable business practices.',
-    icon: <><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></>
-  },
-  {
-    title: 'Business Analysis',
-    desc: 'Transform raw market data into actionable insights through rigorous financial and operational analysis.',
-    icon: <><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></>
-  },
-  {
-    title: 'Road to Market',
-    desc: 'A complete, sequenced roadmap taking you from strategic planning to successful market entry and product launch.',
-    icon: <><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></>
-  }
-];
+
 
 export default function Training() {
   const [format, setFormat] = useState('onsite');
+  const { t } = useTranslation();
+
+  const capabilitiesList = [
+    {
+      title: t('training_page.cap1_title'),
+      desc: t('training_page.cap1_desc'),
+      icon: <><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></>
+    },
+    {
+      title: t('training_page.cap2_title'),
+      desc: t('training_page.cap2_desc'),
+      icon: <><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></>
+    },
+    {
+      title: t('training_page.cap3_title'),
+      desc: t('training_page.cap3_desc'),
+      icon: <><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></>
+    },
+    {
+      title: t('training_page.cap4_title'),
+      desc: t('training_page.cap4_desc'),
+      icon: <><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></>
+    },
+    {
+      title: t('training_page.cap5_title'),
+      desc: t('training_page.cap5_desc'),
+      icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>
+    },
+    {
+      title: t('training_page.cap6_title'),
+      desc: t('training_page.cap6_desc'),
+      icon: <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>
+    },
+    {
+      title: t('training_page.cap7_title'),
+      desc: t('training_page.cap7_desc'),
+      icon: <><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></>
+    },
+    {
+      title: t('training_page.cap8_title'),
+      desc: t('training_page.cap8_desc'),
+      icon: <><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></>
+    },
+    {
+      title: t('training_page.cap9_title'),
+      desc: t('training_page.cap9_desc'),
+      icon: <><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></>
+    }
+  ];
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [emailError, setEmailError] = useState('');
 
@@ -78,7 +82,14 @@ export default function Training() {
 
   return (
     <MainLayout>
-      <Head title="8vice - Training" />
+      <Head>
+        <title>{t('meta.training_title')}</title>
+        <meta name="description" content={t('meta.training_desc')} />
+        <meta property="og:title" content={t('meta.training_title')} />
+        <meta property="og:description" content={t('meta.training_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ HERO ============================ */}
       <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '120px' }}>
@@ -94,17 +105,17 @@ export default function Training() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'center' }}>
             <div style={{ flex: '1 1 500px' }}>
               <nav className="breadcrumb">
-                <Link href="/">Home</Link><span className="sep">/</span>
-                <Link href="/services">Services</Link><span className="sep">/</span>
-                <span className="cur">Training</span>
+                <Link href="/">{t('nav.about') === 'Tentang Kami' ? 'Beranda' : 'Home'}</Link><span className="sep">/</span>
+                <Link href="/services">{t('nav.services')}</Link><span className="sep">/</span>
+                <span className="cur">{t('nav.training')}</span>
               </nav>
               <ScrollReveal>
                 <h1 className="t-h1" style={{ maxWidth: '20ch', marginBottom: '24px', color: '#fff' }}>
-                  <span style={{ fontWeight: '400' }}>Make your local team </span>
-                  <span style={{ fontWeight: '800', color: 'var(--color-red)' }}>fluent in the Indonesian market.</span>
+                  <span style={{ fontWeight: '400' }}>{t('training_page.hero_title_1')}</span>
+                  <span style={{ fontWeight: '800', color: 'var(--color-red)' }}>{t('training_page.hero_title_accent')}</span>
                 </h1>
                 <p className="page-hero__lead">
-                  Two ways to build capability: bespoke programs designed and delivered on request, or an on-demand e-learning subscription your whole team can access anytime.
+                  {t('training_page.hero_desc')}
                 </p>
               </ScrollReveal>
             </div>
@@ -125,9 +136,9 @@ export default function Training() {
           <ScrollReveal className="section-head">
             <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
               <span className="about-hero__dot"></span>
-              Capabilities
+              {t('training_page.cap_eyebrow')}
             </div>
-            <h2 className="t-h2" style={{ color: '#fff' }}>Our Training Focus Areas.</h2>
+            <h2 className="t-h2" style={{ color: '#fff' }}>{t('training_page.cap_title')}</h2>
           </ScrollReveal>
 
           <Staggered delay={100} staggerDelay={80} className="svc-cap-grid svc-cap-grid--3col">
@@ -154,30 +165,30 @@ export default function Training() {
               <div className="train-req__copy">
                 <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
                   <span className="about-hero__dot"></span>
-                  Training · Online & Offline
+                  {t('training_page.req_eyebrow')}
                 </div>
-                <h2 className="t-h2">Custom training, built around your team.</h2>
-                <p className="t-body-lg">Tell us what your local team needs to learn. We design and deliver bespoke programs - onsite in Jakarta, hybrid, or fully online - led by senior operators who've actually run businesses in this market.</p>
+                <h2 className="t-h2">{t('training_page.req_title')}</h2>
+                <p className="t-body-lg">{t('training_page.req_desc')}</p>
                 <ul className="train-feats train-feats--light">
-                  <li><CheckIcon /> Scoped to your industry & team size</li>
-                  <li><CheckIcon /> Onsite, hybrid, or fully online delivery</li>
-                  <li><CheckIcon /> English & Bahasa Indonesia. Mandarin on request</li>
-                  <li><CheckIcon /> Delivered by operators, not classroom trainers</li>
+                  <li><CheckIcon /> {t('training_page.feat1')}</li>
+                  <li><CheckIcon /> {t('training_page.feat2')}</li>
+                  <li><CheckIcon /> {t('training_page.feat3')}</li>
+                  <li><CheckIcon /> {t('training_page.feat4')}</li>
                 </ul>
               </div>
               <div className="train-req__form">
-                <h3 className="t-h4">Request a training program</h3>
-                <p className="train-req__note">Tell us the basics. We'll respond within two business days.</p>
+                <h3 className="t-h4">{t('training_page.form_title')}</h3>
+                <p className="train-req__note">{t('training_page.form_note')}</p>
                 {!formSubmitted ? (
                   <form className="req-form" onSubmit={handleFormSubmit} noValidate>
                     <div className="req-row">
-                      <label className="req-field"><span>Full name</span><input type="text" placeholder="Your name" required /></label>
-                      <label className="req-field"><span>Company</span><input type="text" placeholder="Company name" /></label>
+                      <label className="req-field"><span>{t('training_page.form_name')}</span><input type="text" placeholder={t('training_page.form_name_ph')} required /></label>
+                      <label className="req-field"><span>{t('training_page.form_company')}</span><input type="text" placeholder={t('training_page.form_company_ph')} /></label>
                     </div>
-                    <label className="req-field"><span>Work email</span><input type="email" placeholder="you@company.com" required /></label>
-                    <label className="req-field"><span>What does your team need to learn?</span><textarea rows="3" placeholder="e.g. market entry, distribution, cross-cultural management…" /></label>
+                    <label className="req-field"><span>{t('training_page.form_email')}</span><input type="email" placeholder={t('training_page.form_email_ph')} required /></label>
+                    <label className="req-field"><span>{t('training_page.form_learn')}</span><textarea rows="3" placeholder={t('training_page.form_learn_ph')} /></label>
                     <div className="req-field req-field--inline">
-                      <span>Preferred format</span>
+                      <span>{t('training_page.form_format')}</span>
                       <div className="req-pills" role="group" aria-label="Preferred format">
                         {['onsite', 'hybrid', 'online'].map(f => (
                           <button key={f} type="button" className={`req-pill${format === f ? ' is-active' : ''}`} onClick={() => setFormat(f)}>
@@ -188,7 +199,7 @@ export default function Training() {
                     </div>
                     <span className="field-err">{emailError}</span>
                     <button type="submit" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center' }}>
-                      Submit request
+                      {t('training_page.form_submit')}
                       <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                     </button>
                   </form>
@@ -197,7 +208,7 @@ export default function Training() {
                     <svg className="ico ico-24" viewBox="0 0 24 24" fill="none" stroke="var(--color-success, #00b43c)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: 24, height: 24, flexShrink: 0 }}>
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <div><strong>Request received.</strong><br />Our team will reach out within two business days.</div>
+                    <div><strong>{t('training_page.form_success_title')}</strong><br />{t('training_page.form_success_desc')}</div>
                   </div>
                 )}
               </div>
@@ -211,11 +222,11 @@ export default function Training() {
         <section className="svc-section svc-section--dark" style={{ paddingBottom: '120px' }}>
           <div className="container">
             <div className="cta-band" style={{ background: '#141519', border: '1px solid rgba(255,255,255,.1)' }}>
-              <h2 className="t-h2">Build a team that <span className="accent">gets Indonesia.</span></h2>
-              <p className="t-body-lg">Request a bespoke program for your team today.</p>
+              <h2 className="t-h2">{t('training_page.cta_title_1')}<span className="accent">{t('training_page.cta_title_accent')}</span></h2>
+              <p className="t-body-lg">{t('training_page.cta_desc')}</p>
               <div className="hero__ctas" style={{ justifyContent: 'center' }}>
-                <a href="#request" className="btn btn--primary btn--lg">Request Training</a>
-                <Link href="/contact" className="btn btn--ghost-light btn--lg">Contact Us</Link>
+                <a href="#request" className="btn btn--primary btn--lg">{t('training_page.cta_btn_1')}</a>
+                <Link href="/contact" className="btn btn--ghost-light btn--lg">{t('training_page.cta_btn_2')}</Link>
               </div>
             </div>
           </div>

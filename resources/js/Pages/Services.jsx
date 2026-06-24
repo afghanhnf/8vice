@@ -10,7 +10,14 @@ export default function Services() {
 
   return (
     <MainLayout>
-      <Head title="8vice - Services" />
+      <Head>
+        <title>{t('meta.services_title')}</title>
+        <meta name="description" content={t('meta.services_desc')} />
+        <meta property="og:title" content={t('meta.services_title')} />
+        <meta property="og:description" content={t('meta.services_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ HERO ============================ */}
       <section className="about-hero" style={{ paddingBottom: '160px' }}>

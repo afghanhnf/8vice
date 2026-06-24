@@ -4,90 +4,99 @@ import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
 import AccordionFAQ from '@/Components/AccordionFAQ';
+import { useTranslation } from '@/Contexts/TranslationContext';
 
 export default function Consultancy() {
+  const { t } = useTranslation();
 
   const capabilities = [
     {
       icon: <><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></>,
-      title: 'Market Entry Diagnostics',
-      desc: 'A clear-eyed read on whether, when, and how to enter - sized, sequenced, and costed.'
+      title: t('consultancy_page.cap1_title'),
+      desc: t('consultancy_page.cap1_desc')
     },
     {
       icon: <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></>,
-      title: 'Licensing & Regulation',
-      desc: 'OSS, KBLI classification, the negative investment list, and the permits foreign owners trip on.'
+      title: t('consultancy_page.cap2_title'),
+      desc: t('consultancy_page.cap2_desc')
     },
     {
       icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /></>,
-      title: 'Local Team Building',
-      desc: 'Hiring for the market, not the résumé - leadership, structure, and incentives that hold.'
+      title: t('consultancy_page.cap3_title'),
+      desc: t('consultancy_page.cap3_desc')
     },
     {
       icon: <><path d="M3 3v18h18" /><path d="M7 14l4-4 3 3 5-6" /></>,
-      title: 'Distribution Strategy',
-      desc: 'Channel design and partner selection built around real Indonesian buying behaviour.'
+      title: t('consultancy_page.cap4_title'),
+      desc: t('consultancy_page.cap4_desc')
     },
     {
       icon: <><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></>,
-      title: 'Pricing & Positioning',
-      desc: 'Localising value and price for a 270-million-person market that is anything but uniform.'
+      title: t('consultancy_page.cap5_title'),
+      desc: t('consultancy_page.cap5_desc')
     },
     {
       icon: <><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></>,
-      title: 'Partner Due Diligence',
-      desc: 'Knowing who you\'re actually getting into business with, before the ink dries.'
+      title: t('consultancy_page.cap6_title'),
+      desc: t('consultancy_page.cap6_desc')
     },
     {
       icon: <><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /></>,
-      title: 'Cross-Cultural Management',
-      desc: 'Making Mandarin-first HQ and Indonesian operations genuinely work together.'
+      title: t('consultancy_page.cap7_title'),
+      desc: t('consultancy_page.cap7_desc')
     },
     {
       icon: <><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></>,
-      title: 'Supply Chain & Ops',
-      desc: 'Resilient sourcing, production and logistics across Java, Sumatra and beyond.'
+      title: t('consultancy_page.cap8_title'),
+      desc: t('consultancy_page.cap8_desc')
     },
     {
       icon: <><path d="M23 6l-9.5 9.5-5-5L1 18" /><polyline points="17 6 23 6 23 12" /></>,
-      title: 'Turnaround & Recovery',
-      desc: 'When an entry has stalled, we diagnose honestly and rebuild the path forward.'
+      title: t('consultancy_page.cap9_title'),
+      desc: t('consultancy_page.cap9_desc')
     }
   ];
 
   const processSteps = [
-    { num: '1', title: 'Discovery', desc: 'A free, candid call. We pressure-test your assumptions and define the real question.' },
-    { num: '2', title: 'Scoping', desc: 'A written proposal with a fixed scope, team, timeline and price - sized to your decision.' },
-    { num: '3', title: 'Execution', desc: 'We embed with your team and do the work, with weekly checkpoints and zero surprises.' },
-    { num: '4', title: 'Handover', desc: 'Board-ready outcomes and a local team able to carry the work without us.' }
+    { num: '1', title: t('consultancy_page.step1_title'), desc: t('consultancy_page.step1_desc') },
+    { num: '2', title: t('consultancy_page.step2_title'), desc: t('consultancy_page.step2_desc') },
+    { num: '3', title: t('consultancy_page.step3_title'), desc: t('consultancy_page.step3_desc') },
+    { num: '4', title: t('consultancy_page.step4_title'), desc: t('consultancy_page.step4_desc') }
   ];
 
   const faqItems = [
     {
-      question: 'How long is a typical engagement?',
-      answer: 'It depends on the decision. A focused market-entry diagnostic runs four to six weeks. A full entry - from licensing through first local hires - is usually a three-to-six-month engagement. Turnarounds vary with the depth of the problem. We scope to the work, never to a retainer clock.'
+      question: t('consultancy_page.faq1_q'),
+      answer: t('consultancy_page.faq1_a')
     },
     {
-      question: 'Do you stay through execution, or just advise?',
-      answer: 'We stay. The whole point of 8vice is that the operators who diagnose the problem are the ones who help you fix it. We embed alongside your team rather than handing over a report and walking away.'
+      question: t('consultancy_page.faq2_q'),
+      answer: t('consultancy_page.faq2_a')
     },
     {
-      question: 'How is pricing structured?',
-      answer: 'Project-based and fixed at scoping. You\'ll know the price before any work begins, and it won\'t drift. For longer programs we agree milestone-based phases so you can stop or extend at natural decision points.'
+      question: t('consultancy_page.faq3_q'),
+      answer: t('consultancy_page.faq3_a')
     },
     {
-      question: 'Can you work with our Mandarin-first HQ?',
-      answer: 'Yes. Our China Desk works in Mandarin with your headquarters while our Indonesian operators work locally - so nothing is lost in translation between the two sides of your business.'
+      question: t('consultancy_page.faq4_q'),
+      answer: t('consultancy_page.faq4_a')
     },
     {
-      question: 'What if you decide we shouldn\'t proceed?',
-      answer: 'Then we\'ll tell you - clearly and early. Talking a client out of a bad move is part of the service. Our reputation in this corridor is worth more than any single engagement fee.'
+      question: t('consultancy_page.faq5_q'),
+      answer: t('consultancy_page.faq5_a')
     }
   ];
 
   return (
     <MainLayout>
-      <Head title="8vice - Consultancy" />
+      <Head>
+        <title>{t('meta.consultancy_title')}</title>
+        <meta name="description" content={t('meta.consultancy_desc')} />
+        <meta property="og:title" content={t('meta.consultancy_title')} />
+        <meta property="og:description" content={t('meta.consultancy_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ HERO ============================ */}
       <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '120px' }}>
@@ -103,24 +112,24 @@ export default function Consultancy() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'center' }}>
             <div style={{ flex: '1 1 500px' }}>
               <nav className="breadcrumb">
-                <Link href="/">Home</Link><span className="sep">/</span>
-                <Link href="/services">Services</Link><span className="sep">/</span>
-                <span className="cur">Consultancy</span>
+                <Link href="/">{t('nav.about') === 'Tentang Kami' ? 'Beranda' : 'Home'}</Link><span className="sep">/</span>
+                <Link href="/services">{t('nav.services')}</Link><span className="sep">/</span>
+                <span className="cur">{t('nav.consultancy')}</span>
               </nav>
               <ScrollReveal>
                 <h1 className="t-h1" style={{ maxWidth: '18ch', marginBottom: '24px', color: '#fff' }}>
-                  <span style={{ fontWeight: '400' }}>Advisory built around your decision, </span>
-                  <span style={{ fontWeight: '800', color: 'var(--color-red)' }}>not our template.</span>
+                  <span style={{ fontWeight: '400' }}>{t('consultancy_page.hero_title_1')}</span>
+                  <span style={{ fontWeight: '800', color: 'var(--color-red)' }}>{t('consultancy_page.hero_title_accent')}</span>
                 </h1>
                 <p className="page-hero__lead">
-                  We assemble a small, senior team around your specific situation - then stay through execution. Market entry, expansion, or turnaround, led by operators who've done it here before.
+                  {t('consultancy_page.hero_desc')}
                 </p>
               </ScrollReveal>
               <ScrollReveal delay={200}>
                 <div className="page-hero__meta">
-                  <div><div className="n">9</div><div className="l">Advisory capabilities</div></div>
-                  <div><div className="n">6<span className="unit">mo</span></div><div className="l">Typical entry timeline</div></div>
-                  <div><div className="n">100<span className="unit">%</span></div><div className="l">Senior-led, no junior pyramids</div></div>
+                  <div><div className="n">{t('consultancy_page.stat_1_n')}</div><div className="l">{t('consultancy_page.stat_1_l')}</div></div>
+                  <div><div className="n">{t('consultancy_page.stat_2_n')}<span className="unit">{t('consultancy_page.stat_2_u')}</span></div><div className="l">{t('consultancy_page.stat_2_l')}</div></div>
+                  <div><div className="n">{t('consultancy_page.stat_3_n')}<span className="unit">{t('consultancy_page.stat_3_u')}</span></div><div className="l">{t('consultancy_page.stat_3_l')}</div></div>
                 </div>
               </ScrollReveal>
             </div>
@@ -142,14 +151,14 @@ export default function Consultancy() {
             <ScrollReveal>
               <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
                 <span className="about-hero__dot"></span>
-                The Approach
+                {t('consultancy_page.approach_eyebrow')}
               </div>
-              <h2 className="t-h2">Not generalists. Not narrow specialists.</h2>
+              <h2 className="t-h2">{t('consultancy_page.approach_title')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={150}>
               <div className="lead-row__body">
-                <p>Most firms either generalise - advice you've heard before - or hyper-specialise, handing you one piece of the puzzle instead of the puzzle. We do neither.</p>
-                <p>For each engagement we draw from a network of operators who've spent decades inside the specific industry you're entering, and build a team scoped to the decision in front of you. You get depth where it matters and nothing you don't need.</p>
+                <p>{t('consultancy_page.approach_p1')}</p>
+                <p>{t('consultancy_page.approach_p2')}</p>
               </div>
             </ScrollReveal>
           </div>
@@ -162,9 +171,9 @@ export default function Consultancy() {
           <ScrollReveal className="section-head">
             <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
               <span className="about-hero__dot"></span>
-              Nine Capabilities
+              {t('consultancy_page.cap_eyebrow')}
             </div>
-            <h2 className="t-h2" style={{ color: '#fff' }}>What we actually do.</h2>
+            <h2 className="t-h2" style={{ color: '#fff' }}>{t('consultancy_page.cap_title')}</h2>
           </ScrollReveal>
 
           <Staggered delay={100} staggerDelay={80} className="svc-cap-grid svc-cap-grid--3col">
@@ -189,9 +198,9 @@ export default function Consultancy() {
           <ScrollReveal className="section-head" style={{ textAlign: 'left' }}>
             <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
               <span className="about-hero__dot"></span>
-              Engagement Process
+              {t('consultancy_page.process_eyebrow')}
             </div>
-            <h2 className="t-h2" style={{ color: '#fff' }}>How we work, step by step.</h2>
+            <h2 className="t-h2" style={{ color: '#fff' }}>{t('consultancy_page.process_title')}</h2>
           </ScrollReveal>
 
           <div className="svc-process__track" style={{ maxWidth: '100%', margin: 0 }}>
@@ -216,13 +225,13 @@ export default function Consultancy() {
             <ScrollReveal>
               <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
                 <span className="about-hero__dot"></span>
-                Scope Of Work
+                {t('consultancy_page.faq_eyebrow')}
               </div>
-              <h2 className="t-h2">Common questions, answered plainly.</h2>
+              <h2 className="t-h2">{t('consultancy_page.faq_title')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={150}>
               <div className="lead-row__body">
-                <p>The questions every prospective client asks before we begin. If yours isn't here, the answer is one call away.</p>
+                <p>{t('consultancy_page.faq_desc')}</p>
               </div>
             </ScrollReveal>
           </div>
@@ -241,13 +250,13 @@ export default function Consultancy() {
                 {/* Placeholder for case study image */}
               </div>
               <div>
-                <span className="tag">Fintech · Market Entry</span>
-                <h2 className="t-h2" style={{ color: '#fff', margin: '8px 0 18px' }}>A Chinese fintech, live in six months.</h2>
+                <span className="tag">{t('consultancy_page.case_tag')}</span>
+                <h2 className="t-h2" style={{ color: '#fff', margin: '8px 0 18px' }}>{t('consultancy_page.case_title')}</h2>
                 <p className="t-body-lg" style={{ color: 'rgba(255,255,255,0.65)', marginBottom: '28px' }}>
-                  From licensing pathway to a working local operating team - see how a focused engagement compressed a typically 18-month entry into half the time.
+                  {t('consultancy_page.case_desc')}
                 </p>
                 <Link href="/case-study" className="btn btn--ghost-light" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                  Read the case study
+                  {t('consultancy_page.case_btn')}
                   <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                 </Link>
               </div>
@@ -261,11 +270,11 @@ export default function Consultancy() {
         <section className="svc-section svc-section--dark" style={{ paddingBottom: '120px' }}>
           <div className="container">
             <div className="cta-band">
-              <h2 className="t-h2">Have a move on the <span className="accent">horizon?</span></h2>
-              <p className="t-body-lg">Bring us the decision. We'll give you an honest read within two business days.</p>
+              <h2 className="t-h2">{t('consultancy_page.cta_title_1')}<span className="accent">{t('consultancy_page.cta_title_accent')}</span></h2>
+              <p className="t-body-lg">{t('consultancy_page.cta_desc')}</p>
               <div className="hero__ctas">
                 <Link href="/contact" className="btn btn--primary btn--lg">
-                  Book Free Consultation
+                  {t('consultancy_page.cta_btn')}
                   <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                 </Link>
               </div>

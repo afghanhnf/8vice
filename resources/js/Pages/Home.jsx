@@ -70,7 +70,14 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
 
   return (
     <MainLayout>
-      <Head title="8vice - Indonesia, Decoded for Chinese Businesses" />
+      <Head>
+        <title>{t('meta.home_title')}</title>
+        <meta name="description" content={t('meta.home_desc')} />
+        <meta property="og:title" content={t('meta.home_title')} />
+        <meta property="og:description" content={t('meta.home_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ 1. HERO ============================ */}
       <section className="hero has-geo-bg" data-screen-label="Hero">
@@ -353,7 +360,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
               </div>
               <h3 className="t-h3">{t('home.help_card1_title')}</h3>
               <p>{t('home.help_card1_desc')}</p>
-              <Link href="/insight" className="link-arrow">{t('home.help_card1_cta')}
+              <Link href="/market-intelligence" className="link-arrow">{t('home.help_card1_cta')}
                 <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </Link>
             </article>
@@ -667,7 +674,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                 <div className="eyebrow">{t('home.ins_eyebrow')}</div>
                 <h2 className="t-h2" style={{ marginTop: '20px' }}>{t('home.ins_title_1')}<span style={{ color: 'var(--hero-accent, #D62828)' }}>{t('home.ins_title_accent')}</span></h2>
               </div>
-              <Link href="/insight" className="link-arrow">{t('home.ins_cta')}
+              <Link href="/article" className="link-arrow">{t('home.ins_cta')}
                 <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </Link>
             </div>

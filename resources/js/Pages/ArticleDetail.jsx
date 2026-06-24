@@ -22,7 +22,14 @@ export default function ArticleDetail({ slug }) {
 
   return (
     <MainLayout>
-      <Head title={`8vice - ${article.title}`} />
+      <Head>
+        <title>{`8vice - ${article.title}`}</title>
+        <meta name="description" content={`Insight from 8vice: ${article.title}`} />
+        <meta property="og:title" content={`8vice - ${article.title}`} />
+        <meta property="og:description" content={`Insight from 8vice: ${article.title}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={article.cover || "/images/og-default.png"} />
+      </Head>
 
       <article>
         {/* ============================ ARTICLE MASTHEAD ============================ */}

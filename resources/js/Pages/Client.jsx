@@ -31,7 +31,14 @@ export default function Client() {
 
   return (
     <MainLayout>
-      <Head title="8vice - Our Clients" />
+      <Head>
+        <title>{t('meta.client_title')}</title>
+        <meta name="description" content={t('meta.client_desc')} />
+        <meta property="og:title" content={t('meta.client_title')} />
+        <meta property="og:description" content={t('meta.client_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ HERO ============================ */}
       <section className="client-hero has-geo-bg" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', paddingTop: '140px', paddingBottom: '100px' }}>

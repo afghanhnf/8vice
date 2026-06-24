@@ -3,60 +3,69 @@ import { Head } from '@inertiajs/react';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
+import { useTranslation } from '@/Contexts/TranslationContext';
 
 export default function MarketIntelligence() {
+  const { t } = useTranslation();
 
   const capabilities = [
     {
       icon: <><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></>,
-      title: 'Market Sizing & Forecasting',
-      desc: 'Data-backed TAM, SAM, and SOM analysis with 3–5 year projections tailored to Indonesia\'s unique regional dynamics across Java, Sumatra, and Kalimantan.'
+      title: t('mi_page.cap1_title'),
+      desc: t('mi_page.cap1_desc')
     },
     {
       icon: <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></>,
-      title: 'Regulatory & Policy Analysis',
-      desc: 'Deep-dive into Indonesia\'s evolving regulatory landscape including BKPM requirements, negative investment lists, sector-specific licenses, and regional autonomy implications.'
+      title: t('mi_page.cap2_title'),
+      desc: t('mi_page.cap2_desc')
     },
     {
       icon: <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></>,
-      title: 'Competitor Benchmarking',
-      desc: 'Comprehensive mapping of local and international competitors, pricing strategies, distribution networks, and market share analysis across key Indonesian sectors.'
+      title: t('mi_page.cap3_title'),
+      desc: t('mi_page.cap3_desc')
     },
     {
       icon: <><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" /></>,
-      title: 'Consumer & Channel Insights',
-      desc: 'On-the-ground consumer behavior research, retail audit, e-commerce landscape analysis, and distributor network evaluation across Indonesia\'s archipelago.'
+      title: t('mi_page.cap4_title'),
+      desc: t('mi_page.cap4_desc')
     },
     {
       icon: <><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></>,
-      title: 'Digital Economy Analysis',
-      desc: 'Indonesia\'s digital ecosystem mapped - e-commerce platforms, fintech adoption, social commerce trends, and the infrastructure driving 200M internet users.'
+      title: t('mi_page.cap5_title'),
+      desc: t('mi_page.cap5_desc')
     },
     {
       icon: <><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></>,
-      title: 'Industry Sector Deep-Dives',
-      desc: 'Dedicated research programs for specific sectors - manufacturing, consumer goods, healthcare, fintech - with local expert panels and primary data collection.'
+      title: t('mi_page.cap6_title'),
+      desc: t('mi_page.cap6_desc')
     }
   ];
 
   const processSteps = [
-    { num: '1', title: 'Discovery', desc: 'Deep-dive kickoff to understand your business objectives, target sectors, and data requirements.' },
-    { num: '2', title: 'Field Research', desc: 'Primary and secondary data collection across Indonesian markets, including stakeholder interviews and on-ground surveys.' },
-    { num: '3', title: 'Analysis', desc: 'Cross-referencing findings against regulatory, cultural, and economic frameworks with proprietary models.' },
-    { num: '4', title: 'Delivery', desc: 'Actionable intelligence report with clear recommendations and a practical go-to-market roadmap.' }
+    { num: '1', title: t('mi_page.step1_title'), desc: t('mi_page.step1_desc') },
+    { num: '2', title: t('mi_page.step2_title'), desc: t('mi_page.step2_desc') },
+    { num: '3', title: t('mi_page.step3_title'), desc: t('mi_page.step3_desc') },
+    { num: '4', title: t('mi_page.step4_title'), desc: t('mi_page.step4_desc') }
   ];
 
   const scopeItems = [
-    { title: 'Market Entry Report', desc: 'Comprehensive analysis of addressable market, competitive landscape, and regulatory pathways for your specific sector.' },
-    { title: 'Regulatory Compliance Guide', desc: 'Detailed mapping of required licenses, permits, and approvals across national and regional government bodies.' },
-    { title: 'Competitor Profiles', desc: 'In-depth profiles of top 5–10 competitors including their market positioning, pricing, distribution strategy, and local partnerships.' },
-    { title: 'Consumer Survey & Analysis', desc: 'Primary research with target consumer segments, including purchasing behavior, brand awareness, and channel preferences.' },
-    { title: 'Digital Landscape Assessment', desc: 'Full e-commerce, social, and fintech ecosystem mapping with platform-specific entry playbooks and cost benchmarks.' }
+    { title: t('mi_page.scope1_title'), desc: t('mi_page.scope1_desc') },
+    { title: t('mi_page.scope2_title'), desc: t('mi_page.scope2_desc') },
+    { title: t('mi_page.scope3_title'), desc: t('mi_page.scope3_desc') },
+    { title: t('mi_page.scope4_title'), desc: t('mi_page.scope4_desc') },
+    { title: t('mi_page.scope5_title'), desc: t('mi_page.scope5_desc') }
   ];
 
   return (
     <MainLayout>
-      <Head title="8vice - Market Intelligence" />
+      <Head>
+        <title>{t('meta.mi_title')}</title>
+        <meta name="description" content={t('meta.mi_desc')} />
+        <meta property="og:title" content={t('meta.mi_title')} />
+        <meta property="og:description" content={t('meta.mi_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       {/* ============================ HERO ============================ */}
       <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '120px' }}>
@@ -72,24 +81,24 @@ export default function MarketIntelligence() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'center' }}>
             <div style={{ flex: '1 1 500px' }}>
               <nav className="breadcrumb">
-                <Link href="/">Home</Link><span className="sep">/</span>
-                <Link href="/services">Services</Link><span className="sep">/</span>
-                <span className="cur">Market Intelligence</span>
+                <Link href="/">{t('nav.about') === 'Tentang Kami' ? 'Beranda' : 'Home'}</Link><span className="sep">/</span>
+                <Link href="/services">{t('nav.services')}</Link><span className="sep">/</span>
+                <span className="cur">{t('nav.market_intelligence')}</span>
               </nav>
               <ScrollReveal>
-                <h1 className="t-h1" style={{ maxWidth: '20ch', marginBottom: '24px', color: '#fff' }}>
-                  <span style={{ fontWeight: '400' }}>Know the market </span>
-                  <span style={{ fontWeight: '800', color: 'var(--color-red)' }}>before the market knows you.</span>
+                <h1 className="t-h1" style={{ maxWidth: '18ch', marginBottom: '24px', color: '#fff' }}>
+                  <span style={{ fontWeight: '400' }}>{t('mi_page.hero_title_1')}</span>
+                  <span style={{ fontWeight: '800', color: 'var(--color-red)' }}>{t('mi_page.hero_title_accent')}</span>
                 </h1>
                 <p className="page-hero__lead">
-                  Data-driven insights to navigate Indonesia's complex regulatory and competitive landscape. We help Chinese businesses decode local market dynamics with precision.
+                  {t('mi_page.hero_desc')}
                 </p>
               </ScrollReveal>
               <ScrollReveal delay={200}>
                 <div className="page-hero__meta">
-                  <div><div className="n">50<span className="unit">+</span></div><div className="l">Intelligence reports delivered</div></div>
-                  <div><div className="n">15</div><div className="l">Sectors covered</div></div>
-                  <div><div className="n">34</div><div className="l">Provinces researched</div></div>
+                  <div><div className="n">{t('mi_page.stat_1_n')}</div><div className="l">{t('mi_page.stat_1_l')}</div></div>
+                  <div><div className="n">{t('mi_page.stat_2_n')}<span className="unit">{t('mi_page.stat_2_u')}</span></div><div className="l">{t('mi_page.stat_2_l')}</div></div>
+                  <div><div className="n">{t('mi_page.stat_3_n')}<span className="unit">{t('mi_page.stat_3_u')}</span></div><div className="l">{t('mi_page.stat_3_l')}</div></div>
                 </div>
               </ScrollReveal>
             </div>
@@ -111,14 +120,14 @@ export default function MarketIntelligence() {
             <ScrollReveal>
               <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
                 <span className="about-hero__dot"></span>
-                The Approach
+                {t('mi_page.approach_eyebrow')}
               </div>
-              <h2 className="t-h2">Research that actually moves decisions.</h2>
+              <h2 className="t-h2">{t('mi_page.approach_title')}</h2>
             </ScrollReveal>
             <ScrollReveal delay={150}>
               <div className="lead-row__body">
-                <p>We combine rigorous quantitative analysis with deep on-the-ground qualitative research to deliver actionable market intelligence. Our analysts work across Indonesia's major urban centers and emerging regional markets to provide a complete picture.</p>
-                <p>Every engagement begins with understanding your strategic objectives, then we tailor our research framework to deliver insights that directly inform your go-to-market decisions in Indonesia.</p>
+                <p>{t('mi_page.approach_p1')}</p>
+                <p>{t('mi_page.approach_p2')}</p>
               </div>
             </ScrollReveal>
           </div>
@@ -131,9 +140,9 @@ export default function MarketIntelligence() {
           <ScrollReveal className="section-head">
             <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
               <span className="about-hero__dot"></span>
-              Six Intelligence Pillars
+              {t('mi_page.cap_eyebrow')}
             </div>
-            <h2 className="t-h2" style={{ color: '#fff' }}>How we map the market.</h2>
+            <h2 className="t-h2" style={{ color: '#fff' }}>{t('mi_page.cap_title')}</h2>
           </ScrollReveal>
 
           <Staggered delay={100} staggerDelay={80} className="svc-cap-grid svc-cap-grid--3col">
@@ -158,9 +167,9 @@ export default function MarketIntelligence() {
           <ScrollReveal className="section-head" style={{ textAlign: 'left' }}>
             <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
               <span className="about-hero__dot"></span>
-              Research Process
+              {t('mi_page.process_eyebrow')}
             </div>
-            <h2 className="t-h2" style={{ color: '#fff' }}>From question to roadmap.</h2>
+            <h2 className="t-h2" style={{ color: '#fff' }}>{t('mi_page.process_title')}</h2>
           </ScrollReveal>
 
           <div className="svc-process__track" style={{ maxWidth: '100%', margin: 0 }}>
@@ -184,9 +193,9 @@ export default function MarketIntelligence() {
           <ScrollReveal className="section-head">
             <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
               <span className="about-hero__dot"></span>
-              Deliverables
+              {t('mi_page.scope_eyebrow')}
             </div>
-            <h2 className="t-h2" style={{ color: '#fff' }}>What you take away.</h2>
+            <h2 className="t-h2" style={{ color: '#fff' }}>{t('mi_page.scope_title')}</h2>
           </ScrollReveal>
 
           <Staggered delay={100} staggerDelay={80} className="svc-scope-grid">
@@ -216,13 +225,13 @@ export default function MarketIntelligence() {
                 {/* Placeholder for case study image */}
               </div>
               <div>
-                <span className="tag">E-Commerce · Market Assessment</span>
-                <h2 className="t-h2" style={{ margin: '8px 0 18px' }}>Mapping Indonesia's e-commerce battlefield.</h2>
+                <span className="tag">{t('mi_page.case_tag')}</span>
+                <h2 className="t-h2" style={{ margin: '8px 0 18px' }}>{t('mi_page.case_title')}</h2>
                 <p className="t-body-lg" style={{ color: 'var(--color-gray-600)', marginBottom: '28px' }}>
-                  Identified key partnership opportunities with local logistics providers and digital payment gateways for a leading Chinese retail platform entering the Indonesian market.
+                  {t('mi_page.case_desc')}
                 </p>
                 <Link href="/case-study" className="btn btn--ghost-dark" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                  Read the case study
+                  {t('mi_page.case_btn')}
                   <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                 </Link>
               </div>
@@ -236,11 +245,11 @@ export default function MarketIntelligence() {
         <section className="svc-section svc-section--dark" style={{ paddingBottom: '120px' }}>
           <div className="container">
             <div className="cta-band">
-              <h2 className="t-h2">Ready to unlock Indonesia's <span className="accent">market potential?</span></h2>
-              <p className="t-body-lg">Let's talk data. We'll scope your intelligence needs within two business days.</p>
+              <h2 className="t-h2">{t('mi_page.cta_title_1')}<span className="accent">{t('mi_page.cta_title_accent')}</span></h2>
+              <p className="t-body-lg">{t('mi_page.cta_desc')}</p>
               <div className="hero__ctas">
                 <Link href="/contact" className="btn btn--primary btn--lg">
-                  Request a Market Briefing
+                  {t('mi_page.cta_btn')}
                   <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                 </Link>
               </div>

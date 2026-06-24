@@ -10,7 +10,14 @@ export default function About() {
 
   return (
     <MainLayout>
-      <Head title="8vice - About Us" />
+      <Head>
+        <title>{t('meta.about_title')}</title>
+        <meta name="description" content={t('meta.about_desc')} />
+        <meta property="og:title" content={t('meta.about_title')} />
+        <meta property="og:description" content={t('meta.about_desc')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/images/og-default.png" />
+      </Head>
 
       <section className="about-hero has-geo-bg" style={{ padding: '160px 0 100px 0', position: 'relative', overflow: 'hidden' }}>
         <div className="geo-bg">
