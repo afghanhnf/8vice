@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage, router } from '@inertiajs/react';
+import Link from '@/Components/LocalizedLink';
 import { useTranslation } from '@/Contexts/TranslationContext';
 
 export default function Header() {
   const { url } = usePage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { lang, setLang, t } = useTranslation();
+  const { lang, t } = useTranslation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const isActive = (path) => url === path || url.startsWith(path + '/');
+
+  const handleLangSwitch = (targetLang) => {
+    if (targetLang === lang) return;
+    let newUrl = window.location.pathname;
+    if (targetLang === 'id') {
+      newUrl = '/id' + (newUrl === '/' ? '' : newUrl);
+    } else {
+      newUrl = newUrl.replace(/^\/id/, '') || '/';
+    }
+    router.visit(newUrl + window.location.search);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -112,10 +124,10 @@ export default function Header() {
               </div>
             </div>
 
-            <div className="nav__item"><Link href="/clients" className={`nav__link${isActive('/clients') ? ' is-current' : ''}`}>{t('nav.clients')}</Link></div>
+            <div className="nav__item"><Link href="/client" className={`nav__link${isActive('/client') ? ' is-current' : ''}`}>{t('nav.clients')}</Link></div>
             <div className="nav__item"><Link href="/case-study" className={`nav__link${isActive('/case-study') ? ' is-current' : ''}`}>{t('nav.case')}</Link></div>
 
-            {/* Changed Insight to Article */}
+            {/* Insight / Article */}
             <div className="nav__item"><Link href="/article" className={`nav__link${isActive('/article') ? ' is-current' : ''}`}>{t('nav.article')}</Link></div>
 
             <div className="nav__item"><Link href="/career" className={`nav__link${isActive('/career') ? ' is-current' : ''}`}>{t('nav.career')}</Link></div>
@@ -123,8 +135,8 @@ export default function Header() {
 
             <div className="nav__utils">
               <div className="lang-toggle" role="group" aria-label="Language">
-                <button className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`} onClick={() => setLang('en')} type="button">EN</button>
-                <button className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`} onClick={() => setLang('id')} type="button">ID</button>
+                <button className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`} onClick={() => handleLangSwitch('en')} type="button">EN</button>
+                <button className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`} onClick={() => handleLangSwitch('id')} type="button">ID</button>
               </div>
               
               {/* Search */}
@@ -156,7 +168,7 @@ export default function Header() {
           <Link className="drawer__sublink" href="/consultancy">{t('nav.consultancy')}</Link>
           <Link className="drawer__sublink" href="/training">{t('nav.training')}</Link>
         </div>
-        <Link className="drawer__link" href="/clients">{t('nav.clients')}</Link>
+        <Link className="drawer__link" href="/client">{t('nav.clients')}</Link>
         <Link className="drawer__link" href="/case-study">{t('nav.case')}</Link>
         <Link className="drawer__link" href="/article">{t('nav.article')}</Link>
         <Link className="drawer__link" href="/career">{t('nav.career')}</Link>
@@ -164,8 +176,8 @@ export default function Header() {
         <div className="drawer__utils">
           <span className="drawer__util-lbl">Language</span>
           <div className="lang-toggle" role="group" aria-label="Language">
-            <button className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`} onClick={() => setLang('en')} type="button">EN</button>
-            <button className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`} onClick={() => setLang('id')} type="button">ID</button>
+            <button className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`} onClick={() => handleLangSwitch('en')} type="button">EN</button>
+            <button className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`} onClick={() => handleLangSwitch('id')} type="button">ID</button>
           </div>
           <button onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }} className="drawer__login" aria-label="Search" style={{ width: '100%', justifyContent: 'center' }}>
             <svg className="ico ico-20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>

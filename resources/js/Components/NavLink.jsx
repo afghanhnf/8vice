@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import Link from '@/Components/LocalizedLink';
 
 export default function NavLink({
     active = false,

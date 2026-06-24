@@ -1,0 +1,63 @@
+/* ============================================================
+   8VICE — PRD Utility Classes for Secondary Pages
+   ============================================================ */
+
+/* Primary Background Utility */
+.bg-deep-dark {
+  background-color: #0A0A0A;
+  color: #fff;
+}
+
+/* Section Breaker Utility */
+.bg-clean-white {
+  background-color: #FFFFFF;
+  color: #121212;
+}
+
+/* Accent Text Utility */
+.text-accent-red {
+  color: var(--color-red, #E60000);
+}
+
+/* Thin Structural Divider */
+.border-divider {
+  border: 1px solid #222222;
+}
+.border-divider-bottom {
+  border-bottom: 1px solid #222222;
+}
+.border-divider-top {
+  border-top: 1px solid #222222;
+}
+
+/* Card Component Transparent Background */
+.card-transparent {
+  background-color: transparent;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.card-transparent:hover {
+  border-color: var(--color-red, #E60000);
+}
+
+/* Smooth Interactive Transitions */
+.interactive-transition {
+  transition: all 0.3s ease;
+}
+
+/* Rounded Corners for interactive elements */
+.rounded-interactive {
+  border-radius: 8px;
+}
+
+/* Methodology Workflow Step Path */
+.methodology-path {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 2px dotted var(--color-red, #E60000);
+  z-index: 0;
+  opacity: 0.4;
+}

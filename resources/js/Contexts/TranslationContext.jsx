@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { router } from '@inertiajs/react';
 import en from '../lang/en.json';
 import id from '../lang/id.json';
 
@@ -10,14 +11,21 @@ const translations = {
 const TranslationContext = createContext();
 
 export function TranslationProvider({ children }) {
-  const [lang, setLangState] = useState(() => {
-    return localStorage.getItem('app_lang') || 'en';
+  const [lang, setLang] = useState(() => {
+      if (typeof window !== 'undefined') {
+          return window.location.pathname.startsWith('/id') ? 'id' : 'en';
+      }
+      return 'en';
   });
 
-  const setLang = (newLang) => {
-    setLangState(newLang);
-    localStorage.setItem('app_lang', newLang);
-  };
+  useEffect(() => {
+    // Listen for inertia navigations to update language if URL changes
+    const removeListener = router.on('navigate', () => {
+        const newLang = window.location.pathname.startsWith('/id') ? 'id' : 'en';
+        setLang(newLang);
+    });
+    return removeListener;
+  }, []);
 
   const t = (key) => {
     const keys = key.split('.');
@@ -42,7 +50,7 @@ export function TranslationProvider({ children }) {
   };
 
   return (
-    <TranslationContext.Provider value={{ lang, setLang, t }}>
+    <TranslationContext.Provider value={{ lang, t }}>
       {children}
     </TranslationContext.Provider>
   );

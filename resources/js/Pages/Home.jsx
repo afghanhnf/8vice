@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
+import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
 import { useTranslation } from '@/Contexts/TranslationContext';
@@ -11,14 +12,17 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
   const industryGroups = [
     {
       title: "Market & Brand",
+      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>,
       items: ["Retail", "Commerce", "Creative Industry"]
     },
     {
       title: "Growth & Strategy",
+      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>,
       items: ["Digital Platform", "Technology", "Finance"]
     },
     {
       title: "Operations & Resilience",
+      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>,
       items: ["Manufacture", "Electronics", "Automotive"]
     }
   ];
@@ -140,14 +144,14 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
 
                 {/* ===== LEFT: China skyline ===== */}
                 <g>
-                  {/* Building 1 — short wide */}
+                  {/* Building 1 - short wide */}
                   <rect className="bld" x="10" y="265" width="30" height="95" rx="2" />
                   <rect className="bld-win" x="16" y="275" width="4" height="4" />
                   <rect className="bld-win" x="26" y="275" width="4" height="4" />
                   <rect className="bld-win" x="16" y="295" width="4" height="4" />
                   <rect className="bld-win" x="26" y="295" width="4" height="4" />
 
-                  {/* Building 2 — medium with antenna */}
+                  {/* Building 2 - medium with antenna */}
                   <rect className="bld--near" x="44" y="200" width="26" height="160" rx="2" />
                   <line className="bld-ant" x1="57" y1="180" x2="57" y2="200" strokeWidth="1.5" />
                   <circle className="bld-ant-dot" cx="57" cy="178" r="2" />
@@ -160,7 +164,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                   <rect className="bld-win" x="50" y="275" width="5" height="5" />
                   <rect className="bld-win" x="59" y="275" width="5" height="5" />
 
-                  {/* Building 3 — tall, angled roof */}
+                  {/* Building 3 - tall, angled roof */}
                   <rect className="bld" x="74" y="160" width="18" height="200" rx="2" />
                   <polygon className="bld" points="74,160 83,140 92,160" />
                   <rect className="bld-win" x="79" y="200" width="4" height="4" />
@@ -168,7 +172,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                   <rect className="bld-win" x="79" y="250" width="4" height="4" />
                   <rect className="bld-win" x="79" y="275" width="4" height="4" />
 
-                  {/* Building 4 — wide tower with grid windows */}
+                  {/* Building 4 - wide tower with grid windows */}
                   <rect className="bld--near" x="96" y="170" width="20" height="190" rx="2" />
                   <rect className="bld-win" x="100" y="180" width="4" height="4" />
                   <rect className="bld-win" x="108" y="180" width="4" height="4" />
@@ -181,7 +185,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                   <rect className="bld-win" x="100" y="240" width="4" height="4" />
                   <rect className="bld-win" x="108" y="240" width="4" height="4" />
 
-                  {/* Building 5 — stepped/tiered */}
+                  {/* Building 5 - stepped/tiered */}
                   <rect className="bld" x="120" y="240" width="14" height="120" rx="1" />
                   <rect className="bld--near" x="134" y="190" width="20" height="170" rx="2" />
                   <rect className="bld-win" x="138" y="200" width="4" height="4" />
@@ -191,7 +195,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                   <rect className="bld-win" x="138" y="240" width="4" height="4" />
                   <rect className="bld-win" x="146" y="240" width="4" height="4" />
 
-                  {/* Building 6 — slim tall */}
+                  {/* Building 6 - slim tall */}
                   <rect className="bld--near" x="158" y="210" width="12" height="150" rx="1" />
                   <rect className="bld-win" x="161" y="220" width="3" height="3" />
                   <rect className="bld-win" x="161" y="240" width="3" height="3" />
@@ -203,13 +207,13 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
 
                 {/* ===== RIGHT: Indonesia skyline ===== */}
                 <g>
-                  {/* Building 7 — wide low */}
+                  {/* Building 7 - wide low */}
                   <rect className="bld" x="370" y="270" width="28" height="90" rx="2" />
                   <rect className="bld-win" x="376" y="280" width="4" height="4" />
                   <rect className="bld-win" x="384" y="280" width="4" height="4" />
                   <rect className="bld-win" x="376" y="300" width="4" height="4" />
 
-                  {/* Building 8 — with dome top */}
+                  {/* Building 8 - with dome top */}
                   <rect className="bld--near" x="400" y="220" width="22" height="140" rx="2" />
                   <path className="bld--accent" d="M400,220 Q411,200 422,220" fill="var(--hero-accent, #D62828)" opacity=".3" />
                   <rect className="bld-win" x="405" y="235" width="5" height="5" />
@@ -219,7 +223,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                   <rect className="bld-win" x="405" y="275" width="5" height="5" />
                   <rect className="bld-win" x="413" y="275" width="5" height="5" />
 
-                  {/* Building 9 — tallest tower */}
+                  {/* Building 9 - tallest tower */}
                   <rect className="bld" x="426" y="130" width="20" height="230" rx="2" />
                   <polygon className="bld" points="436,110 443,130 429,130" />
                   <line className="bld-ant" x1="436" y1="95" x2="436" y2="110" strokeWidth="1.5" />
@@ -235,7 +239,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                   <rect className="bld-win" x="431" y="225" width="4" height="4" />
                   <rect className="bld-win" x="438" y="225" width="4" height="4" />
 
-                  {/* Building 10 — stepped */}
+                  {/* Building 10 - stepped */}
                   <rect className="bld--near" x="450" y="180" width="18" height="180" rx="2" />
                   <rect className="bld-win" x="454" y="195" width="4" height="4" />
                   <rect className="bld-win" x="460" y="195" width="4" height="4" />
@@ -244,19 +248,19 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                   <rect className="bld-win" x="454" y="235" width="4" height="4" />
                   <rect className="bld-win" x="460" y="235" width="4" height="4" />
 
-                  {/* Building 11 — medium */}
+                  {/* Building 11 - medium */}
                   <rect className="bld" x="472" y="240" width="24" height="120" rx="2" />
                   <rect className="bld-win" x="477" y="250" width="5" height="5" />
                   <rect className="bld-win" x="486" y="250" width="5" height="5" />
                   <rect className="bld-win" x="477" y="270" width="5" height="5" />
                   <rect className="bld-win" x="486" y="270" width="5" height="5" />
 
-                  {/* Building 12 — small */}
+                  {/* Building 12 - small */}
                   <rect className="bld--near" x="500" y="260" width="18" height="100" rx="1" />
                   <rect className="bld-win" x="504" y="270" width="4" height="4" />
                   <rect className="bld-win" x="504" y="290" width="4" height="4" />
 
-                  {/* Building 13 — wide end */}
+                  {/* Building 13 - wide end */}
                   <rect className="bld" x="522" y="275" width="30" height="85" rx="2" />
                   <rect className="bld-win" x="528" y="285" width="4" height="4" />
                   <rect className="bld-win" x="536" y="285" width="4" height="4" />
@@ -488,9 +492,21 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginTop: '40px' }}>
               {industryGroups.map((group, gIdx) => (
                 <div key={gIdx} style={{ backgroundColor: '#fff', borderRadius: '8px', padding: '32px', border: '1px solid #EAEAEA', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--hero-accent, #D62828)' }}></div>
-                    <h3 className="t-h3" style={{ margin: 0, fontSize: '20px' }}>{group.title}</h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+                    <div style={{ 
+                      width: '48px', 
+                      height: '48px', 
+                      borderRadius: '12px', 
+                      backgroundColor: 'rgba(214, 40, 40, 0.06)', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      color: 'var(--hero-accent, #D62828)',
+                      flexShrink: 0
+                    }}>
+                      {group.icon}
+                    </div>
+                    <h3 className="t-h3" style={{ margin: 0, fontSize: '22px' }}>{group.title}</h3>
                   </div>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                     {group.items.map((item, i) => (
@@ -602,7 +618,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                 onClick={() => setIsVideoOpen(true)}
                 className="video-manifesto-thumb"
               >
-                <img src="/images/article-sample.jpg" alt="Video Thumbnail" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4, transition: 'opacity 0.4s ease' }} />
+                <img src="/images/video_manifesto_cover.png" alt="Video Thumbnail" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4, transition: 'opacity 0.4s ease' }} />
                 
                 <div style={{ position: 'absolute', top: '32px', left: '32px' }}>
                   <span style={{ color: 'var(--hero-accent, #D62828)', fontSize: '12px', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase' }}>{t('home.vid_title')} · {t('home.vid_duration')}</span>
@@ -638,7 +654,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
           <div style={{ width: '90%', maxWidth: '1000px', aspectRatio: '16/9', backgroundColor: '#000', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.6)' }}>
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Video Manifesto" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/o4EifELHZNg?autoplay=1&modestbranding=1&rel=0&showinfo=0" title="Video Manifesto" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
           </div>
         </div>
       )}

@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    8VICE - Homepage design system
    Tokens locked from PRD §5.2 / §5.3 / §5.4
    ============================================================ */
@@ -367,24 +367,27 @@ h1, h2, h3, h4, p { margin: 0; }
 /* ============================================================
    TRUST BAR
    ============================================================ */
-.trust { background: var(--color-ink); color: #fff; padding-block: var(--space-6); }
-.trust__cap { text-align: center; color: var(--color-gray-400); font-size: 13px;
+.trust { background: #FAFAF7; color: var(--color-ink); padding-block: var(--space-6); }
+.trust__cap { text-align: center; color: var(--color-gray-600); font-size: 13px;
   letter-spacing: .08em; text-transform: uppercase; margin-bottom: 32px; }
 .trust__row {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
   gap: 14px 36px;
 }
 .logo-mark {
-  display: inline-flex; align-items: center; gap: 9px;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 9px;
+  width: 120px;
+  height: 44px;
   font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: -0.01em;
-  color: rgba(255,255,255,.55); filter: grayscale(1);
-  opacity: .65; transition: opacity .25s ease, color .25s ease, filter .25s ease;
-  padding: 8px 4px;
+  color: var(--color-ink); filter: none;
+  opacity: .7; transition: opacity .25s ease;
 }
 .logo-mark .glyph { width: 22px; height: 22px; border-radius: 5px;
   display: inline-flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.12); font-size: 12px; font-weight: 700; }
-.logo-mark:hover { opacity: 1; color: #fff; filter: grayscale(0); }
+  background: rgba(0,0,0,.08); font-size: 12px; font-weight: 700; }
+.logo-mark:hover { opacity: 1; }
+
 
 /* ============================================================
    HOW WE HELP - 3 cards
@@ -788,3 +791,5 @@ h1, h2, h3, h4, p { margin: 0; }
   .bookreview__head { flex-direction: column; align-items: flex-start; }
   .req-row { grid-template-columns: 1fr; }
 }
+
+

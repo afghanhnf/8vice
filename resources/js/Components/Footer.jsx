@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import Link from '@/Components/LocalizedLink';
 
 export default function Footer() {
   return (
@@ -14,7 +14,8 @@ export default function Footer() {
             <div className="footer__col">
               <h4>Navigate</h4>
               <Link href="/about">About</Link>
-              <Link href="/case-study">Clients</Link>
+              <Link href="/client">Clients</Link>
+              <Link href="/case-study">Case Study</Link>
               <Link href="/insight">Insight</Link>
               <Link href="/career">Career</Link>
               <Link href="/contact">Contact</Link>
