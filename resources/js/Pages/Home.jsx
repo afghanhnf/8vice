@@ -395,13 +395,13 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
         <section className="section section--paper" style={{ paddingTop: '40px', paddingBottom: '120px' }} data-screen-label="What we can do">
           <div className="container">
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '60px', alignItems: 'center' }}>
-              <div style={{ flex: '1 1 400px', textAlign: 'center' }}>
+              <div style={{ flex: '1 1 min(100%, 400px)', textAlign: 'center' }}>
                 <h2 className="t-display" style={{ fontSize: 'clamp(36px, 4vw, 48px)', lineHeight: '1.2', margin: 0 }}>
                   {t('home.what_title')}<br />
                   <span style={{ color: 'var(--hero-accent, #D62828)', opacity: fade ? 1 : 0, transition: 'opacity 0.4s ease-in-out', display: 'inline-block' }}>{rotatingWords[wordIndex]}</span>
                 </h2>
               </div>
-              <div style={{ flex: '1 1 500px' }}>
+              <div style={{ flex: '1 1 min(100%, 500px)' }}>
                 <p className="t-body-lg" style={{ margin: 0, color: '#444' }}>
                   {t('home.what_sub')}
                 </p>
@@ -445,10 +445,10 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                 </h2>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '60px', alignItems: 'center' }}>
-                  <div style={{ flex: '1 1 500px', height: '420px', borderRadius: '16px', overflow: 'hidden', position: 'relative', backgroundColor: '#0a0a0a', backgroundImage: 'url(/images/why_choose_us_thumbnail.png)', backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+                  <div style={{ flex: '1 1 min(100%, 500px)', height: '420px', borderRadius: '16px', overflow: 'hidden', position: 'relative', backgroundColor: '#0a0a0a', backgroundImage: 'url(/images/why_choose_us_thumbnail.png)', backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
                   </div>
 
-                  <div style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  <div style={{ flex: '1 1 min(100%, 400px)', display: 'flex', flexDirection: 'column', gap: '32px' }}>
                     {reasons.map((r, i) => (
                       <div key={i} onClick={() => setActiveReason(i)} style={{ cursor: 'pointer' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: activeReason === i ? 1 : 0.5, transition: 'all 0.3s ease-in-out' }}>
@@ -492,11 +492,11 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
         <section className="section section--white" style={{ paddingBottom: '20px' }} data-screen-label="Industry Coverage">
           <div className="container">
             <div className="section-head">
-              <div className="eyebrow">{t('home.ind_eyebrow')}</div>
+              <div className="eyebrow" style={{ justifyContent: 'center', marginBottom: '16px' }}>{t('home.ind_eyebrow')}</div>
               <h2 className="t-h2">{t('home.ind_title_1')}<span style={{ color: 'var(--hero-accent, #D62828)' }}>{t('home.ind_title_accent')}</span></h2>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginTop: '40px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '24px', marginTop: '40px' }}>
               {industryGroups.map((group, gIdx) => (
                 <div key={gIdx} style={{ backgroundColor: '#fff', borderRadius: '8px', padding: '32px', border: '1px solid #EAEAEA', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
@@ -631,7 +631,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                   <span style={{ color: 'var(--hero-accent, #D62828)', fontSize: '12px', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase' }}>{t('home.vid_title')} · {t('home.vid_duration')}</span>
                 </div>
 
-                <div style={{ position: 'absolute', bottom: '40px', left: '40px', right: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '24px' }}>
+                <div style={{ position: 'absolute', bottom: '5%', left: '5%', right: '5%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '24px' }}>
                   <div style={{ maxWidth: '600px' }}>
                     <h3 style={{ fontSize: 'clamp(28px, 4vw, 42px)', color: 'white', lineHeight: '1.2', margin: '0 0 16px 0', fontWeight: '300' }}>
                       <span style={{ color: 'var(--hero-accent, #D62828)', fontStyle: 'italic' }}>{t('home.vid_quote_1')}</span>{t('home.vid_quote_2')}<br />
@@ -665,11 +665,12 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
           </div>
         </div>
       )}
+
       {/* ============================ 9. INSIGHT PREVIEW ============================ */}
       <ScrollReveal variant="up">
         <section className="section section--white" data-screen-label="Insight preview">
           <div className="container">
-            <div className="section-head" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', maxWidth: 'none', gap: '24px' }}>
+            <div className="section-head" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', maxWidth: 'none', gap: '24px' }}>
               <div style={{ maxWidth: '620px' }}>
                 <div className="eyebrow">{t('home.ins_eyebrow')}</div>
                 <h2 className="t-h2" style={{ marginTop: '20px' }}>{t('home.ins_title_1')}<span style={{ color: 'var(--hero-accent, #D62828)' }}>{t('home.ins_title_accent')}</span></h2>

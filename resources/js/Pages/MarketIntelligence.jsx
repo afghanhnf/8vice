@@ -79,7 +79,7 @@ export default function MarketIntelligence() {
         </div>
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'center' }}>
-            <div style={{ flex: '1 1 500px' }}>
+            <div style={{ flex: '1 1 min(100%, 500px)' }}>
               <nav className="breadcrumb">
                 <Link href="/">{t('nav.about') === 'Tentang Kami' ? 'Beranda' : 'Home'}</Link><span className="sep">/</span>
                 <Link href="/services">{t('nav.services')}</Link><span className="sep">/</span>
@@ -102,7 +102,7 @@ export default function MarketIntelligence() {
                 </div>
               </ScrollReveal>
             </div>
-            <div style={{ flex: '1 1 400px' }}>
+            <div style={{ flex: '1 1 min(100%, 400px)' }}>
               <ScrollReveal delay={300}>
                 <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '4/3', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backgroundColor: '#0a0a0a' }}>
                   <img src="/images/market_intelligence_hero.png" alt="Market Intelligence Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

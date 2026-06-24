@@ -92,7 +92,7 @@ export default function CaseStudyDetail({ slug }) {
         {/* 5. Project Analysis with Side Image */}
         <div className="container" style={{ marginBottom: '80px' }}>
            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'center' }}>
-              <div style={{ flex: '1 1 400px' }}>
+              <div style={{ flex: '1 1 min(100%, 400px)' }}>
                  <ScrollReveal>
                     <h2 className="t-h2" style={{ marginBottom: '24px' }}>Project Analysis</h2>
                     <p style={{ fontSize: '18px', lineHeight: '1.7', color: 'var(--color-ink)', opacity: 0.8, marginBottom: '16px' }}>
@@ -103,7 +103,7 @@ export default function CaseStudyDetail({ slug }) {
                     </p>
                  </ScrollReveal>
               </div>
-              <div style={{ flex: '1 1 500px' }}>
+              <div style={{ flex: '1 1 min(100%, 500px)' }}>
                  <ScrollReveal delay={200}>
                     <div style={{ borderRadius: '12px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', aspectRatio: '4/3' }}>
                        <img src="/images/project_analysis.png" alt="Project Analysis" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -116,14 +116,14 @@ export default function CaseStudyDetail({ slug }) {
         {/* 6. Challenges & Insights with Side Image (Alternating Layout) */}
         <div className="container" style={{ marginBottom: '80px' }}>
            <div style={{ display: 'flex', flexWrap: 'wrap-reverse', gap: '48px', alignItems: 'center' }}>
-              <div style={{ flex: '1 1 500px' }}>
+              <div style={{ flex: '1 1 min(100%, 500px)' }}>
                  <ScrollReveal delay={200}>
                     <div style={{ borderRadius: '12px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', aspectRatio: '4/3' }}>
                        <img src="/images/challenges_insights.png" alt="Challenges and Insights" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </div>
                  </ScrollReveal>
               </div>
-              <div style={{ flex: '1 1 400px' }}>
+              <div style={{ flex: '1 1 min(100%, 400px)' }}>
                  <ScrollReveal>
                     <h2 className="t-h2" style={{ marginBottom: '24px' }}>Challenges & Insights</h2>
                     <p style={{ fontSize: '18px', lineHeight: '1.7', color: 'var(--color-ink)', opacity: 0.8, marginBottom: '16px' }}>

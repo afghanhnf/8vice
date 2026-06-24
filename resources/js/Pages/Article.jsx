@@ -109,7 +109,7 @@ export default function Article() {
               {/* Standard List */}
               <Staggered delay={100} staggerDelay={100} className="job-list" style={{ marginTop: '48px', borderTop: 'none' }}>
                 {listArticles.slice(3).map((article, i) => (
-                  <div key={i} className="job-row" style={{ gridTemplateColumns: '2fr 1fr auto' }}>
+                  <div key={i} className="job-row article-row">
                     <div>
                       <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '8px' }}>
                         <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--color-red)', textTransform: 'uppercase' }}>{article.category}</span>
