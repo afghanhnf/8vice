@@ -16,11 +16,23 @@ export default function Header() {
   const handleLangSwitch = (targetLang) => {
     if (targetLang === lang) return;
     let newUrl = window.location.pathname;
+    
+    const isStaticPreview = typeof window !== 'undefined' && window.location.hostname === 'afghanhnf.github.io';
+    if (isStaticPreview) {
+      newUrl = newUrl.replace(/^\/8vice/, '');
+    }
+
     if (targetLang === 'id') {
       newUrl = '/id' + (newUrl === '/' ? '' : newUrl);
     } else {
       newUrl = newUrl.replace(/^\/id/, '') || '/';
     }
+
+    if (isStaticPreview) {
+      window.location.href = '/8vice' + newUrl + window.location.search;
+      return;
+    }
+    
     router.visit(newUrl + window.location.search);
   };
 

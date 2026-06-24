@@ -14,6 +14,15 @@ export default function LocalizedLink({ href, ...props }) {
           localizedHref = `/id${href}`;
       }
   }
+  // Detect GitHub Pages (UI Preview)
+  const isStaticPreview = typeof window !== 'undefined' && window.location.hostname === 'afghanhnf.github.io';
+  
+  if (isStaticPreview) {
+      if (typeof localizedHref === 'string' && localizedHref.startsWith('/')) {
+          localizedHref = `/8vice${localizedHref}`;
+      }
+      return <a href={localizedHref} {...props} />;
+  }
 
   return <Link href={localizedHref} {...props} />;
 }
