@@ -13,27 +13,30 @@ export default function Header() {
 
   const isActive = (path) => url === path || url.startsWith(path + '/');
 
-  const handleLangSwitch = (targetLang) => {
-    if (targetLang === lang) return;
-    let newUrl = window.location.pathname;
+  const getLangUrl = (targetLang) => {
+    let currentUrl = typeof window !== 'undefined' ? window.location.pathname : url;
     
     const isStaticPreview = typeof window !== 'undefined' && window.location.hostname === 'afghanhnf.github.io';
     if (isStaticPreview) {
-      newUrl = newUrl.replace(/^\/8vice/, '');
+      currentUrl = currentUrl.replace(/^\/8vice/, '');
     }
+    if (!currentUrl.startsWith('/')) currentUrl = '/' + currentUrl;
 
+    let finalUrl = currentUrl;
     if (targetLang === 'id') {
-      newUrl = '/id' + (newUrl === '/' ? '' : newUrl);
+      if (!currentUrl.startsWith('/id/') && currentUrl !== '/id') {
+          finalUrl = '/id' + (currentUrl === '/' ? '' : currentUrl);
+      }
     } else {
-      newUrl = newUrl.replace(/^\/id/, '') || '/';
+      finalUrl = currentUrl.replace(/^\/id(\/|$)/, '/') || '/';
+      finalUrl = finalUrl.replace(/\/\//g, '/');
     }
 
     if (isStaticPreview) {
-      window.location.href = '/8vice' + newUrl + window.location.search;
-      return;
+      return '/8vice' + finalUrl;
     }
     
-    router.visit(newUrl + window.location.search);
+    return finalUrl;
   };
 
   useEffect(() => {
@@ -147,8 +150,8 @@ export default function Header() {
 
             <div className="nav__utils">
               <div className="lang-toggle" role="group" aria-label="Language">
-                <button className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`} onClick={() => handleLangSwitch('en')} type="button">EN</button>
-                <button className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`} onClick={() => handleLangSwitch('id')} type="button">ID</button>
+                <a href={getLangUrl('en')} className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`}>EN</a>
+                <a href={getLangUrl('id')} className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`}>ID</a>
               </div>
               
               {/* Search */}
@@ -188,8 +191,8 @@ export default function Header() {
         <div className="drawer__utils">
           <span className="drawer__util-lbl">Language</span>
           <div className="lang-toggle" role="group" aria-label="Language">
-            <button className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`} onClick={() => handleLangSwitch('en')} type="button">EN</button>
-            <button className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`} onClick={() => handleLangSwitch('id')} type="button">ID</button>
+            <a href={getLangUrl('en')} className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`}>EN</a>
+            <a href={getLangUrl('id')} className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`}>ID</a>
           </div>
           <button onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }} className="drawer__login" aria-label="Search" style={{ width: '100%', justifyContent: 'center' }}>
             <svg className="ico ico-20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
