@@ -3,31 +3,6 @@
    Tokens locked from PRD §5.2 / §5.3 / §5.4
    ============================================================ */
 
-/* ---- Fonts ---------------------------------------------------
-   Heading  : Nexa
-   Body     : Plus Jakarta Sans
--------------------------------------------------------------- */
-
-@font-face {
-  font-family: "Nexa";
-  src: local("Nexa"),
-       url("/fonts/nexa/nexa.woff2") format("woff2"),
-       url("/fonts/nexa/nexa.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Nexa";
-  src: local("Nexa-Regular"),
-       url("/fonts/nexa/nexa-regular.woff2") format("woff2"),
-       url("/fonts/nexa/nexa-regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-:root {
   /* Primary palette */
   --color-ink:       #0A0A0A;
   --color-paper:     #FAFAF7;
@@ -529,7 +504,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .principle:last-child { border-right: 0; padding-right: 0; }
 .principle__num { font-family: var(--font-display); font-size: 13px; font-weight: 600;
   color: var(--color-red); letter-spacing: .08em; margin-bottom: 18px; }
-.principle h4 { margin-bottom: 12px; }
+.principle h3, .principle h4 { margin-bottom: 12px; }
 .principle p { color: var(--color-gray-400); font-size: 14.5px; }
 
 /* ============================================================
@@ -630,7 +605,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: var(--space-6);
   padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,.1); }
 .footer__tag { color: var(--color-gray-400); margin-top: 20px; max-width: 28ch; font-size: 15px; }
-.footer__col h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+.footer__col h3, .footer__col h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
   color: var(--color-gray-400); margin-bottom: 20px; font-family: var(--font-body); font-weight: 600; }
 .footer__col a, .footer__contact a, .footer__contact span { display: block; color: rgba(255,255,255,.78);
   font-size: 14.5px; padding: 7px 0; transition: color .15s ease; }
@@ -653,14 +628,14 @@ h1, h2, h3, h4, p { margin: 0; }
 .wa-fab {
   position: fixed; right: 24px; bottom: 24px; z-index: 90;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 60px; height: 60px;
+  width: 48px; height: 48px;
   background: var(--color-whatsapp); color: #fff;
   border-radius: 50%; border: 0;
   box-shadow: 0 10px 30px rgba(37,211,102,.4);
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .wa-fab:hover { transform: scale(1.06); box-shadow: 0 14px 36px rgba(37,211,102,.5); }
-.wa-fab svg { width: 30px; height: 30px; fill: #fff; stroke: none; }
+.wa-fab svg { width: 24px; height: 24px; fill: #fff; stroke: none; }
 
 /* ============================================================
    RESPONSIVE
@@ -706,7 +681,8 @@ h1, h2, h3, h4, p { margin: 0; }
   .sub-form { flex-direction: column; }
   .sub-form .btn { width: 100%; justify-content: center; }
   .hero__ctas .btn { flex: 1; justify-content: center; }
-  .wa-fab { width: 54px; height: 54px; }
+  .wa-fab { width: 44px; height: 44px; }
+  .wa-fab svg { width: 22px; height: 22px; }
 }
 
 /* ============================================================

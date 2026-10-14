@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    8VICE - Homepage design system
    Tokens locked from PRD §5.2 / §5.3 / §5.4
    ============================================================ */
@@ -580,14 +580,14 @@ h1, h2, h3, h4, p { margin: 0; }
 .wa-fab {
   position: fixed; right: 24px; bottom: 24px; z-index: 90;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 60px; height: 60px;
+  width: 48px; height: 48px;
   background: var(--color-whatsapp); color: #fff;
   border-radius: 50%; border: 0;
   box-shadow: 0 10px 30px rgba(37,211,102,.4);
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .wa-fab:hover { transform: scale(1.06); box-shadow: 0 14px 36px rgba(37,211,102,.5); }
-.wa-fab svg { width: 30px; height: 30px; fill: #fff; stroke: none; }
+.wa-fab svg { width: 24px; height: 24px; fill: #fff; stroke: none; }
 
 /* ============================================================
    RESPONSIVE

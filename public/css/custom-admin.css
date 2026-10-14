@@ -1,0 +1,553 @@
+/* ============================================================
+   8VICE ADMIN PANEL – Material Design 3 (M3) by Google Theme
+   Reference: https://m3.material.io/
+   Tokens: Motion, Tonal Elevation, Surface Tinting, State Layers, Tactile Micro-Interactions
+   ============================================================ */
+
+:root {
+    /* M3 Easing Tokens */
+    --m3-easing-emphasized: cubic-bezier(0.2, 0.0, 0, 1.0);
+    --m3-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+    --m3-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
+    --m3-easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
+    --m3-easing-standard-decelerate: cubic-bezier(0, 0, 0.2, 1);
+    --m3-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+    /* M3 Durations */
+    --m3-duration-short-1: 50ms;
+    --m3-duration-short-2: 100ms;
+    --m3-duration-short-3: 150ms;
+    --m3-duration-short-4: 200ms;
+    --m3-duration-medium-1: 250ms;
+    --m3-duration-medium-2: 300ms;
+    --m3-duration-medium-3: 350ms;
+    --m3-duration-medium-4: 400ms;
+    --m3-duration-long-1: 450ms;
+    --m3-duration-long-2: 500ms;
+
+    /* M3 Tonal Surface Radii */
+    --m3-radius-xs: 4px;
+    --m3-radius-sm: 8px;
+    --m3-radius-md: 12px;
+    --m3-radius-lg: 16px;
+    --m3-radius-xl: 20px;
+    --m3-radius-full: 9999px;
+
+    /* M3 Tonal Elevation Shadows & 8VICE Brand Colors */
+    --m3-admin-primary: #D62828;
+    --m3-admin-primary-hover: #E63939;
+    --m3-admin-primary-dark: #A41E20;
+    --m3-admin-surface: #FFFFFF;
+    --m3-admin-surface-container: #F8F8F5;
+    --m3-admin-surface-container-high: #F2F2EE;
+    --m3-admin-surface-tint: rgba(214, 40, 40, 0.08);
+
+    --m3-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --m3-elevation-2: 0 3px 8px 1px rgba(0, 0, 0, 0.08), 0 1px 4px 0 rgba(0, 0, 0, 0.04);
+    --m3-elevation-3: 0 8px 20px -2px rgba(0, 0, 0, 0.1), 0 3px 8px 0 rgba(0, 0, 0, 0.04);
+    --m3-elevation-4: 0 14px 32px -4px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(214, 40, 40, 0.08);
+    --m3-elevation-5: 0 20px 48px -6px rgba(0, 0, 0, 0.16), 0 8px 24px rgba(214, 40, 40, 0.12);
+}
+
+/* ============================================================
+   1. GLOBAL FOUNDATION & TYPOGRAPHY
+   ============================================================ */
+body, .fi-body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    background-color: #F8F8F5 !important;
+    color: #1A1A1A !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+.fi-header-heading,
+.fi-ta-header-heading,
+.fi-section-header-heading,
+.fi-modal-heading,
+.fi-logo {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: #0A0A0A !important;
+    letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   2. M3 SIDEBAR & NAVIGATION SYSTEM
+   ============================================================ */
+.fi-sidebar {
+    background-color: #FAFAF7 !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 1px 0 0 rgba(0, 0, 0, 0.02) !important;
+}
+
+.fi-sidebar-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    padding-block: 1.25rem !important;
+}
+
+/* Sidebar Navigation Items (M3 Pill Shape) */
+.fi-sidebar-item-button {
+    border-radius: var(--m3-radius-full) !important;
+    margin-inline: 0.5rem !important;
+    padding: 0.6rem 1rem !important;
+    font-size: 0.88rem !important;
+    font-weight: 500 !important;
+    color: #525252 !important;
+    transition: background-color var(--m3-duration-short-3) var(--m3-easing-standard),
+                color var(--m3-duration-short-3) var(--m3-easing-standard),
+                transform var(--m3-duration-short-2) var(--m3-easing-standard) !important;
+}
+
+.fi-sidebar-item-button:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+    color: #0A0A0A !important;
+    transform: translateX(2px) !important;
+}
+
+/* Active Sidebar Item (M3 Primary Tonal Pill) */
+.fi-sidebar-item-active .fi-sidebar-item-button,
+.fi-sidebar-item.fi-active .fi-sidebar-item-button {
+    background-color: rgba(214, 40, 40, 0.12) !important;
+    color: var(--m3-admin-primary) !important;
+    font-weight: 600 !important;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-icon,
+.fi-sidebar-item.fi-active .fi-sidebar-item-icon {
+    color: var(--m3-admin-primary) !important;
+    transform: scale(1.06);
+}
+
+.fi-sidebar-group-label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: #868680 !important;
+    padding-inline: 1.25rem !important;
+}
+
+/* Topbar Glassmorphism Surface */
+.fi-topbar {
+    background-color: rgba(250, 250, 247, 0.88) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ============================================================
+   3. M3 STATS CARDS & WIDGETS (Tonal Elevation Lift)
+   ============================================================ */
+.fi-wi-stats-overview-stat,
+.fi-wi-chart,
+.fi-wi-table,
+.fi-section {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-radius: 18px !important;
+    box-shadow: var(--m3-elevation-1) !important;
+    transition: transform var(--m3-duration-medium-1) var(--m3-easing-emphasized),
+                box-shadow var(--m3-duration-medium-1) var(--m3-easing-emphasized),
+                border-color var(--m3-duration-short-4) var(--m3-easing-standard) !important;
+    overflow: hidden;
+}
+
+.fi-wi-stats-overview-stat:hover,
+.fi-wi-chart:hover {
+    transform: translateY(-3px) !important;
+    border-color: rgba(214, 40, 40, 0.25) !important;
+    box-shadow: var(--m3-elevation-3), 0 4px 18px rgba(214, 40, 40, 0.08) !important;
+}
+
+.fi-wi-stats-overview-stat-value {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    color: #0A0A0A !important;
+}
+
+.fi-wi-stats-overview-stat-label {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    color: #666666 !important;
+}
+
+/* ============================================================
+   4. M3 TABLES & DATA PRESENTATION
+   ============================================================ */
+.fi-ta-ctn {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-radius: 18px !important;
+    box-shadow: var(--m3-elevation-1) !important;
+    overflow: hidden !important;
+}
+
+.fi-ta-header-cell {
+    background-color: #F8F8F5 !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: #666666 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    padding-block: 0.85rem !important;
+}
+
+.fi-ta-row {
+    transition: background-color var(--m3-duration-short-3) var(--m3-easing-standard) !important;
+}
+
+.fi-ta-row:hover {
+    background-color: rgba(214, 40, 40, 0.025) !important;
+}
+
+/* Badges (M3 Pill Chips) */
+.fi-badge {
+    border-radius: var(--m3-radius-full) !important;
+    font-weight: 600 !important;
+    font-size: 0.72rem !important;
+    padding: 0.25rem 0.65rem !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* ============================================================
+   5. M3 BUTTONS & TACTILE ACTIONS
+   ============================================================ */
+.fi-btn {
+    border-radius: var(--m3-radius-full) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 0.88rem !important;
+    letter-spacing: 0.02em !important;
+    padding: 0.55rem 1.25rem !important;
+    transition: background-color var(--m3-duration-short-4) var(--m3-easing-standard),
+                transform var(--m3-duration-short-2) var(--m3-easing-standard),
+                box-shadow var(--m3-duration-short-4) var(--m3-easing-standard),
+                border-color var(--m3-duration-short-4) var(--m3-easing-standard) !important;
+    cursor: pointer !important;
+}
+
+.fi-btn:active {
+    transform: scale(0.97) !important;
+    transition-duration: 80ms !important;
+}
+
+/* Primary Crimson Button */
+.fi-btn-color-primary,
+.fi-btn[type="submit"] {
+    background-color: var(--m3-admin-primary) !important;
+    border-color: var(--m3-admin-primary) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(214, 40, 40, 0.25) !important;
+}
+
+.fi-btn-color-primary:hover,
+.fi-btn[type="submit"]:hover {
+    background-color: var(--m3-admin-primary-hover) !important;
+    border-color: var(--m3-admin-primary-hover) !important;
+    box-shadow: 0 6px 20px rgba(214, 40, 40, 0.35) !important;
+    transform: translateY(-1px) !important;
+}
+
+.fi-icon-btn {
+    border-radius: var(--m3-radius-full) !important;
+    transition: all var(--m3-duration-short-3) var(--m3-easing-standard) !important;
+}
+
+.fi-icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    transform: scale(1.05) !important;
+}
+
+/* ============================================================
+   6. M3 FORM INPUTS & MULTILINGUAL TABS
+   ============================================================ */
+.fi-input-wrp {
+    background-color: #FFFFFF !important;
+    border: 1.5px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--m3-elevation-1) !important;
+    transition: border-color var(--m3-duration-short-4) var(--m3-easing-standard),
+                box-shadow var(--m3-duration-short-4) var(--m3-easing-standard),
+                background-color var(--m3-duration-short-4) ease !important;
+    padding: 0.15rem 0.4rem !important;
+}
+
+.fi-input-wrp:focus-within {
+    border-color: var(--m3-admin-primary) !important;
+    box-shadow: 0 0 0 3px rgba(214, 40, 40, 0.14) !important;
+}
+
+.fi-fo-field-wrp-label label {
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    color: #333333 !important;
+}
+
+/* Multilingual Tabs (M3 Pill Slider) */
+.fi-tabs {
+    background-color: #ECECE8 !important;
+    border-radius: var(--m3-radius-full) !important;
+    padding: 4px !important;
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+    display: inline-flex !important;
+    gap: 2px !important;
+}
+
+.fi-tabs-item-button {
+    border-radius: var(--m3-radius-full) !important;
+    font-weight: 600 !important;
+    font-size: 0.82rem !important;
+    padding: 0.4rem 1.1rem !important;
+    color: #666666 !important;
+    transition: all var(--m3-duration-short-3) var(--m3-easing-standard) !important;
+}
+
+.fi-tabs-item-active .fi-tabs-item-button,
+.fi-tabs-item.fi-active .fi-tabs-item-button {
+    background-color: #FFFFFF !important;
+    color: #0A0A0A !important;
+    box-shadow: var(--m3-elevation-1) !important;
+}
+
+/* ============================================================
+   7. M3 MODALS, DIALOGS & NOTIFICATIONS
+   ============================================================ */
+.fi-modal-window {
+    border-radius: 22px !important;
+    box-shadow: var(--m3-elevation-5) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    animation: m3ModalIn var(--m3-duration-medium-2) var(--m3-easing-emphasized-decelerate) forwards !important;
+}
+
+@keyframes m3ModalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.fi-modal-close-overlay {
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    background-color: rgba(0, 0, 0, 0.35) !important;
+}
+
+.fi-no-notification {
+    border-radius: 16px !important;
+    box-shadow: var(--m3-elevation-4) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ============================================================
+   8. LOGIN PAGE – SPLIT LAYOUT WITH M3 ELEVATIONS
+   ============================================================ */
+.vice-login-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.vice-login-left {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+}
+
+.vice-login-left__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.vice-login-left__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+        160deg,
+        rgba(214, 40, 40, 0.82) 0%,
+        rgba(120, 18, 18, 0.90) 40%,
+        rgba(10, 10, 10, 0.96) 100%
+    );
+}
+
+.vice-login-left::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.05;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+}
+
+.vice-login-left__content {
+    position: relative;
+    z-index: 3;
+    padding: 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    gap: 20px;
+}
+
+.vice-login-left__logo-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    opacity: 0.9;
+}
+
+.vice-login-left__heading {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: #FFFFFF !important;
+    letter-spacing: -0.02em;
+}
+
+.vice-login-left__description {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 420px;
+}
+
+.vice-login-left__footer {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 40px;
+}
+
+.vice-login-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #FAFAF7 0%, #F5F5F2 100%);
+    padding: 40px;
+}
+
+.vice-login-right__inner {
+    width: 100%;
+    max-width: 400px;
+}
+
+.vice-login-right__logo {
+    margin-bottom: 40px;
+}
+
+.vice-login-right__logo-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #D62828;
+    letter-spacing: 0.06em;
+}
+
+.vice-login-right__header {
+    margin-bottom: 36px;
+}
+
+.vice-login-right__heading {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #0A0A0A;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+
+.vice-login-right__subheading {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: #868680;
+    line-height: 1.5;
+}
+
+.vice-login-right__form {
+    width: 100%;
+}
+
+.fi-simple-layout,
+.fi-simple-main-ctn,
+.fi-simple-main,
+.fi-simple-page,
+.fi-simple-page-content {
+    display: contents !important;
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.fi-simple-header {
+    display: none !important;
+}
+
+@media (max-width: 1024px) {
+    .vice-login-split {
+        grid-template-columns: 1fr;
+    }
+    .vice-login-left {
+        min-height: 280px;
+    }
+    .vice-login-left__content {
+        padding: 32px;
+    }
+    .vice-login-left__heading {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 640px) {
+    .vice-login-left {
+        min-height: 220px;
+    }
+    .vice-login-left__content {
+        padding: 24px;
+    }
+    .vice-login-left__heading {
+        font-size: 28px;
+    }
+    .vice-login-left__description {
+        font-size: 13px;
+    }
+    .vice-login-right {
+        padding: 24px;
+    }
+    .vice-login-right__header {
+        margin-bottom: 24px;
+    }
+}
+
+/* NProgress Customization */
+#nprogress .bar {
+    height: 4px !important;
+    background: #D62828 !important;
+    z-index: 9999 !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #D62828, 0 0 5px #D62828 !important;
+}

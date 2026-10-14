@@ -1,88 +1,29 @@
 import React, { useState } from 'react';
 import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import { useTranslation } from '@/Contexts/TranslationContext';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
 
-export default function CaseStudy() {
-  const { t } = useTranslation();
+export default function CaseStudy({ caseStudies = [] }) {
+  const { t, locale } = useTranslation();
+  const isId = locale === 'id';
+  const featured = caseStudies.find(c => c.is_featured) || caseStudies[0] || null;
+  const featuredUrl = featured ? `/case-study/${featured.slug || featured.id}` : '/case-study';
+  const featuredCover = featured?.cover
+    ? (featured.cover.startsWith('/') ? featured.cover : `/storage/${featured.cover}`)
+    : '/images/featured_case_cover.webp';
+  const featuredMetrics = Array.isArray(featured?.metrics) ? featured.metrics.filter(m => m && m.value) : [];
   const [activeTab, setActiveTab] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const allCases = [
-    {
-      category: 'Fintech',
-      tag: 'Fintech · Market Entry',
-      title: 'A Chinese Fintech Live in 6 Months',
-      desc: 'Market entry, licensing pathway, and a local operating team - from scoping to launch.',
-      image: '/images/case/fintech.jpg',
-      link: '/case-study/chinese-fintech-live'
-    },
-    {
-      category: 'Consumer & Retail',
-      tag: 'Consumer · Retail',
-      title: 'Shelf to Scale Across 40 Cities',
-      desc: 'Distribution strategy and channel partnerships built around Indonesian buying behaviour.',
-      image: '/images/case/retail.jpg',
-      link: '/case-study/shelf-to-scale'
-    },
-    {
-      category: 'Manufacturing',
-      tag: 'Manufacturing',
-      title: 'Local Production, De-risked',
-      desc: 'Site selection, regulatory navigation, and a resilient supply chain for a manufacturing entrant.',
-      image: '/images/case/factory.jpg',
-      link: '/case-study/local-production'
-    },
-    {
-      category: 'Logistics',
-      tag: 'Logistics',
-      title: 'Last-Mile Optimization in Java',
-      desc: 'Restructuring local fulfillment to drop delivery times by 30% without burning cash.',
-      image: '/images/case/logistics.jpg',
-      link: '/case-study/last-mile-optimization'
-    },
-    {
-      category: 'Energy',
-      tag: 'Energy',
-      title: 'Navigating Smelter Regulations',
-      desc: 'A compliant roadmap for a nickel downstreaming project in Sulawesi.',
-      image: '/images/case/energy.jpg',
-      link: '/case-study/navigating-smelter'
-    },
-    {
-      category: 'Tech',
-      tag: 'Tech',
-      title: 'Building a Jakarta Engineering Hub',
-      desc: 'Recruiting and retaining 50+ senior engineers for a cross-border SaaS company.',
-      image: '/images/case/tech.jpg',
-      link: '/case-study/engineering-hub'
-    },
-    {
-      category: 'Consumer & Retail',
-      tag: 'Consumer · Retail',
-      title: 'FMCG Market Penetration',
-      desc: 'Helping a global brand enter rural markets in Indonesia through localized distribution.',
-      image: '/images/case/fmcg.jpg',
-      link: '/case-study/fmcg-market-penetration'
-    },
-    {
-      category: 'Fintech',
-      tag: 'Fintech',
-      title: 'P2P Lending Compliance',
-      desc: 'Securing OJK licenses for a foreign peer-to-peer lending platform in record time.',
-      image: '/images/case/p2p.jpg',
-      link: '/case-study/p2p-compliance'
-    }
-  ];
-
-  const categories = ['All', 'Fintech', 'Consumer & Retail', 'Manufacturing', 'Logistics', 'Energy', 'Tech'];
+  const tabs = ['All', ...new Set(caseStudies.map(c => c.tag).filter(Boolean))];
 
   const filteredCases = activeTab === 'All' 
-    ? allCases 
-    : allCases.filter(c => c.category === activeTab);
+    ? caseStudies 
+    : caseStudies.filter(c => c.tag === activeTab);
 
   const totalPages = Math.ceil(filteredCases.length / itemsPerPage);
   const paginatedCases = filteredCases.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -94,14 +35,7 @@ export default function CaseStudy() {
 
   return (
     <MainLayout>
-      <Head>
-        <title>{t('meta.case_title')}</title>
-        <meta name="description" content={t('meta.case_desc')} />
-        <meta property="og:title" content={t('meta.case_title')} />
-        <meta property="og:description" content={t('meta.case_desc')} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/og-default.png" />
-      </Head>
+      <SeoHead pageCode="case_study" />
 
       {/* ============================ FEATURED CASE HERO ============================ */}
       <header className="page-hero page-hero--tall" style={{ paddingBottom: '140px' }}>
@@ -111,34 +45,35 @@ export default function CaseStudy() {
               <Link href="/">Home</Link><span className="sep">/</span><span className="cur">Case Studies</span>
             </div>
             
-            <span className="tag" style={{ background: 'rgba(214,40,40,.15)', marginTop: '8px' }}>Fintech · Market Entry</span>
+            {featured?.tag && (
+              <span className="tag" style={{ background: 'rgba(214,40,40,.15)', marginTop: '8px' }}>{featured.tag}</span>
+            )}
             
             <h1 className="t-display" style={{ fontSize: 'clamp(38px,4.4vw,56px)', marginTop: '18px', maxWidth: '800px', lineHeight: 1.15 }}>
-              {t('case_study_page.dir_hero_1') || 'A Chinese fintech, live in six months.'}
+              {featured?.h || t('case_study_page.dir_hero_1') || 'A Chinese fintech, live in six months.'}
             </h1>
             
             <p className="page-hero__lead" style={{ marginTop: '20px' }}>
-              {t('case_study_page.dir_feat_brief') || 'A payments company with strong product and real capital had stalled twice trying to enter Indonesia. We compressed a typically 18-month entry into six - licensing, structure, and a working local team.'}
+              {featured?.p || t('case_study_page.dir_feat_brief')}
             </p>
-            
-            <div className="page-hero__meta">
-              <div>
-                <div className="n">6<span className="unit">mo</span></div>
-                <div className="l">Scoping to launch</div>
-              </div>
-              <div>
-                <div className="n">3<span className="unit">×</span></div>
-                <div className="l">Faster than prior attempts</div>
-              </div>
-              <div>
-                <div className="n">14</div>
-                <div className="l">Local hires onboarded</div>
-              </div>
-              <div>
-                <div className="n">1</div>
-                <div className="l">License correctly sequenced</div>
-              </div>
+
+            <div style={{ marginTop: '28px', marginBottom: '40px' }}>
+              <Link href={featuredUrl} className="btn btn--primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px' }}>
+                {t('case_study_page.dir_feat_btn') || 'Read Featured Case Study'}
+                <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </Link>
             </div>
+            
+            {featuredMetrics.length > 0 && (
+              <div className="page-hero__meta">
+                {featuredMetrics.map((m, i) => (
+                  <div key={i}>
+                    <div className="n">{m.value}{m.unit ? <span className="unit">{m.unit}</span> : null}</div>
+                    <div className="l">{(isId ? m.label_id : m.label_en) || m.label_en || m.label_id}</div>
+                  </div>
+                ))}
+              </div>
+            )}
           </ScrollReveal>
         </div>
       </header>
@@ -146,9 +81,11 @@ export default function CaseStudy() {
       {/* ============================ CASE COVER IMAGE ============================ */}
       <div className="container" style={{ maxWidth: '1040px', marginTop: '-80px', position: 'relative', zIndex: 2, marginBottom: '100px' }}>
         <ScrollReveal delay={100} variant="up">
-          <div style={{ aspectRatio: '21/9', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
-            <img src="/images/featured_case_cover.png" alt="Featured Case Cover" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
+          <Link href={featuredUrl} style={{ display: 'block', textDecoration: 'none' }}>
+            <div style={{ aspectRatio: '21/9', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', transition: 'transform 0.3s ease' }}>
+              <img width="800" height="600" src={featuredCover} alt={featured?.h || 'Featured Case Cover'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          </Link>
         </ScrollReveal>
       </div>
 
@@ -157,7 +94,7 @@ export default function CaseStudy() {
         <div className="container">
           <ScrollReveal>
             <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '48px' }}>
-              {categories.map((tab, i) => (
+              {tabs.map((tab, i) => (
                 <button 
                   key={i}
                   onClick={() => handleTabChange(tab)}
@@ -173,15 +110,21 @@ export default function CaseStudy() {
           {paginatedCases.length > 0 ? (
             <Staggered delay={100} staggerDelay={100} className="cards-3">
               {paginatedCases.map((caseItem, i) => (
-                <article key={`${caseItem.title}-${i}`} className="case-card">
-                  <div className="ph case-card__cover on-dark">
-                    <span className="ph__tag">CASE THUMBNAIL</span>
-                  </div>
-                  <div className="case-card__body">
-                    <span className="tag">{caseItem.tag}</span>
-                    <h3 className="t-h3">{caseItem.title}</h3>
-                    <p>{caseItem.desc}</p>
-                    <Link href={caseItem.link} className="link-arrow">
+                <article key={caseItem.id || i} className="case-card" style={{ background: '#fff', border: '1px solid #ebebeb', borderRadius: '12px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                  <Link href={`/case-study/${caseItem.slug || caseItem.id}`} style={{ display: 'block', overflow: 'hidden', height: '240px' }}>
+                    {caseItem.cover ? (
+                      <img width="800" height="600" src={caseItem.cover.startsWith('/') ? caseItem.cover : `/storage/${caseItem.cover}`} alt={caseItem.h} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} />
+                    ) : (
+                      <div className="ph case-card__cover on-dark" style={{ height: '100%' }}>
+                        <span className="ph__tag">CASE THUMBNAIL</span>
+                      </div>
+                    )}
+                  </Link>
+                  <div className="case-card__body" style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                    <span className="tag" style={{ marginBottom: '10px', alignSelf: 'flex-start' }}>{caseItem.tag}</span>
+                    <h3 className="t-h3" style={{ fontSize: '19px', lineHeight: 1.3, marginBottom: '12px' }}>{caseItem.h}</h3>
+                    <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.55, marginBottom: '20px', flexGrow: 1 }}>{caseItem.p}</p>
+                    <Link href={`/case-study/${caseItem.slug || caseItem.id}`} className="link-arrow" style={{ fontSize: '14px', fontWeight: 600 }}>
                       Read case study
                       <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </Link>

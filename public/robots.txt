@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /build/
+Allow: /
+
+Sitemap: https://8vice.communic8.id/sitemap.xml

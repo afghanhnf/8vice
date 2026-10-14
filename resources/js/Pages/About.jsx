@@ -1,25 +1,20 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import { useTranslation } from '@/Contexts/TranslationContext';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
 
-export default function About() {
-  const { t } = useTranslation();
+export default function About({ profiles }) {
+  const { t, locale } = useTranslation();
+  const isId = locale === 'id';
 
   return (
     <MainLayout>
-      <Head>
-        <title>{t('meta.about_title')}</title>
-        <meta name="description" content={t('meta.about_desc')} />
-        <meta property="og:title" content={t('meta.about_title')} />
-        <meta property="og:description" content={t('meta.about_desc')} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/og-default.png" />
-      </Head>
+      <SeoHead pageCode="about" />
 
-      <section className="about-hero has-geo-bg" style={{ padding: '160px 0 100px 0', position: 'relative', overflow: 'hidden' }}>
+      <section className="about-hero has-geo-bg" style={{ padding: '48px 0 64px 0', position: 'relative', overflow: 'hidden' }}>
         <div className="geo-bg">
           <div className="geo-bg__grid"></div>
           <div className="geo-bg__gradients"></div>
@@ -35,7 +30,7 @@ export default function About() {
             <div className="breadcrumb" style={{ 
               display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'center',
               fontSize: '14px', color: 'rgba(255,255,255,0.6)', 
-              marginBottom: '40px', fontWeight: '500'
+              marginBottom: '20px', fontWeight: '500'
             }}>
               <Link href="/" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color='#fff'} onMouseLeave={(e) => e.target.style.color='rgba(255,255,255,0.6)'}>Home</Link>
               <span>/</span>
@@ -67,27 +62,57 @@ export default function About() {
         </div>
       </section>
 
-      <section className="about-vm">
+      <section className="about-vm" style={{ padding: '60px 0 80px 0' }}>
         <div className="container">
           <Staggered delay={100} staggerDelay={200} className="vm-grid">
             <div className="vm-card vm-card--vision">
-              <div className="vm-card__icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-red)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 12L6 8M2 12L6 16M2 12H22M18 8L22 12M22 12L18 16"/>
-                </svg>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+                <div className="vm-card__icon" style={{ marginBottom: 0 }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-red)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 12L6 8M2 12L6 16M2 12H22M18 8L22 12M22 12L18 16"/>
+                  </svg>
+                </div>
+                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', color: 'var(--color-red)', textTransform: 'uppercase', backgroundColor: 'rgba(214,40,40,0.12)', padding: '6px 14px', borderRadius: '100px', border: '1px solid rgba(214,40,40,0.25)' }}>
+                  Our Vision
+                </span>
               </div>
               <h2>{t('about.vision_title')}</h2>
-              <p>{t('about.vision_desc')}</p>
+              <p dangerouslySetInnerHTML={{ __html: t('about.vision_desc') }} />
+              <div className="vm-card__pillars">
+                <div className="vm-card__pillar-item">
+                  <span className="vm-card__pillar-dot"></span>
+                  <span>Cross-Border Strategic Knowledge Transfer</span>
+                </div>
+                <div className="vm-card__pillar-item">
+                  <span className="vm-card__pillar-dot"></span>
+                  <span>Sustainable, Long-Term Market Impact</span>
+                </div>
+              </div>
             </div>
 
             <div className="vm-card vm-card--mission">
-              <div className="vm-card__icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+                <div className="vm-card__icon" style={{ marginBottom: 0 }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </div>
+                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', color: '#fff', textTransform: 'uppercase', backgroundColor: 'rgba(255,255,255,0.1)', padding: '6px 14px', borderRadius: '100px', border: '1px solid rgba(255,255,255,0.2)' }}>
+                  Our Mission
+                </span>
               </div>
               <h2>{t('about.mission_title')}</h2>
-              <p>{t('about.mission_desc')}</p>
+              <p dangerouslySetInnerHTML={{ __html: t('about.mission_desc') }} />
+              <div className="vm-card__pillars">
+                <div className="vm-card__pillar-item">
+                  <span className="vm-card__pillar-dot" style={{ backgroundColor: '#fff', boxShadow: '0 0 10px rgba(255,255,255,0.6)' }}></span>
+                  <span>Overcoming Complex Regulatory & Operational Roadblocks</span>
+                </div>
+                <div className="vm-card__pillar-item">
+                  <span className="vm-card__pillar-dot" style={{ backgroundColor: '#fff', boxShadow: '0 0 10px rgba(255,255,255,0.6)' }}></span>
+                  <span>Direct Advisory with 15+ Year In-Market Operators</span>
+                </div>
+              </div>
             </div>
           </Staggered>
         </div>
@@ -105,7 +130,7 @@ export default function About() {
           <div className="leader-split">
             <ScrollReveal delay={200}>
               <div className="leader-img-wrap">
-                <img src="/images/leader_speech_abstract.png" onError={(e) => e.target.src = '/images/article-sample.jpg'} alt="Leadership Vision" />
+                <img width="800" height="600" src="/images/leader_speech_abstract.webp" onError={(e) => e.target.src = '/images/article-sample.webp'} alt="Leadership Vision" />
                 <div className="leader-meta">
                   <h3>{t('about.speech_author')}</h3>
                   <p>{t('about.speech_role')}</p>
@@ -115,20 +140,173 @@ export default function About() {
 
             <ScrollReveal delay={400}>
               <div className="leader-text-wrap">
-                <div className="leader-quote-main">
-                  "{t('about.speech_quote_1')}"
-                </div>
-                <div className="leader-quote-sub">
-                  {t('about.speech_quote_2')}
-                </div>
-                <div className="leader-quote-sub">
-                  {t('about.speech_quote_3')}
-                </div>
+                <div className="leader-quote-main" dangerouslySetInnerHTML={{ __html: `&ldquo;${t('about.speech_quote_1')}&rdquo;` }} />
+                <div className="leader-quote-sub" dangerouslySetInnerHTML={{ __html: t('about.speech_quote_2') }} />
+                <div className="leader-quote-sub" dangerouslySetInnerHTML={{ __html: t('about.speech_quote_3') }} />
               </div>
             </ScrollReveal>
           </div>
         </div>
       </section>
+
+      {/* ============================ TEAM & PROFILES ============================ */}
+      {profiles && profiles.length > 0 && (
+        <section className="section section--white about-team" style={{ padding: '96px 0', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+          <div className="container">
+            <ScrollReveal className="section-head" style={{ textAlign: 'center', marginBottom: '56px' }}>
+              <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                <span className="about-hero__dot" style={{ backgroundColor: 'var(--color-red)' }}></span>
+                Senior Leadership & Advisory
+              </div>
+              <h2 className="t-h2" style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', color: 'var(--color-ink)', fontWeight: 700 }}>
+                Driven by Industry Veterans & Regional Specialists
+              </h2>
+              <p className="t-body" style={{ color: 'var(--color-gray-600)', maxWidth: '680px', margin: '16px auto 0 auto', fontSize: '16px', lineHeight: '1.6' }}>
+                Our leadership team combines deep local Indonesian market understanding with extensive cross-border China-ASEAN advisory track records.
+              </p>
+            </ScrollReveal>
+
+            <div 
+              style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
+                gap: '28px',
+                width: '100%' 
+              }}
+            >
+              {profiles.map((profile, idx) => {
+                const name = typeof profile.title === 'object' 
+                  ? ((isId ? profile.title?.id : profile.title?.en) || profile.title?.en || profile.title?.id || '') 
+                  : (profile.title || '');
+                const role = typeof profile.description === 'object' 
+                  ? ((isId ? profile.description?.id : profile.description?.en) || profile.description?.en || profile.description?.id || '') 
+                  : (profile.description || '');
+
+                const sampleImages = [
+                  '/images/profil/ahmad_rizky.webp',
+                  '/images/profil/wei_chen.webp',
+                  '/images/profil/siti_nurhaliza.webp',
+                  '/images/profil/li_jianhua.webp'
+                ];
+                const imgSrc = (profile.image && !profile.image.includes('placeholder')) 
+                  ? (profile.image.startsWith('http') || profile.image.startsWith('/') ? profile.image : `/storage/${profile.image}`) 
+                  : sampleImages[idx % sampleImages.length];
+
+                const practiceTags = [
+                  'Executive Partner',
+                  'Strategy & Growth',
+                  'Operations & Rigor',
+                  'China Desk Lead'
+                ];
+                const expertisePoints = [
+                  '20+ Years Market Entry & Entity Setup',
+                  'Cross-Border M&A & Corporate Strategy',
+                  'Operational Scaling & Permendag Compliance',
+                  'Industrial Siting & Government Relations'
+                ];
+                const credentials = [
+                  'Jakarta, Indonesia',
+                  'Shanghai • Jakarta',
+                  'Jakarta, Indonesia',
+                  'Beijing • Jakarta'
+                ];
+
+                return (
+                  <div 
+                    key={profile.id || idx} 
+                    className="team-profile-card"
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: '20px',
+                      overflow: 'hidden',
+                      border: '1px solid #EAEAEA',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.04)',
+                      transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease',
+                    }}
+                  >
+                    <div style={{ position: 'relative', width: '100%', height: '280px', backgroundColor: '#F0F0F0', overflow: 'hidden' }}>
+                      <img 
+                        src={imgSrc} 
+                        alt={name} 
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          display: 'block',
+                          transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                        }}
+                      />
+                      <div style={{
+                        position: 'absolute',
+                        top: '16px',
+                        left: '16px',
+                        backgroundColor: 'rgba(10, 10, 10, 0.75)',
+                        backdropFilter: 'blur(8px)',
+                        color: '#FFFFFF',
+                        padding: '4px 12px',
+                        borderRadius: '100px',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase'
+                      }}>
+                        {practiceTags[idx % practiceTags.length]}
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '24px 22px', display: 'flex', flexDirection: 'column', flexGrow: 1, textAlign: 'left' }}>
+                      <h3 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--color-ink)', marginBottom: '4px' }}>
+                        {name}
+                      </h3>
+                      <div style={{ 
+                        fontSize: '13px', 
+                        fontWeight: 600, 
+                        color: 'var(--color-red)', 
+                        textTransform: 'uppercase', 
+                        letterSpacing: '0.03em',
+                        marginBottom: '14px'
+                      }}>
+                        {role}
+                      </div>
+
+                      <div style={{ 
+                        fontSize: '13.5px', 
+                        color: 'var(--color-gray-600)', 
+                        lineHeight: '1.5',
+                        marginBottom: '16px',
+                        fontWeight: 500
+                      }}>
+                        {expertisePoints[idx % expertisePoints.length]}
+                      </div>
+
+                      <div style={{
+                        marginTop: 'auto',
+                        paddingTop: '14px',
+                        borderTop: '1px solid #F0F0F0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '12px',
+                        color: 'var(--color-gray-500)'
+                      }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                          {credentials[idx % credentials.length]}
+                        </span>
+                        <span style={{ fontWeight: 600, color: 'var(--color-ink)', fontSize: '11.5px' }}>
+                          8vice Partner
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       <div className="has-geo-bg" style={{ position: 'relative', overflow: 'hidden', color: '#fff' }}>
         <div className="geo-bg">
@@ -154,7 +332,11 @@ export default function About() {
                 </svg>
               </div>
               <h3>{t('about.solve_card1_title')}</h3>
-              <p>{t('about.solve_card1_desc')}</p>
+              <p dangerouslySetInnerHTML={{ __html: t('about.solve_card1_desc') }} />
+              <div className="bento-box__pill">
+                <span className="bento-box__pill-dot"></span>
+                <span>Tailored Diagnostic & Execution Model</span>
+              </div>
             </div>
 
             <div className="bento-box">
@@ -165,7 +347,11 @@ export default function About() {
                 </svg>
               </div>
               <h3>{t('about.solve_card2_title')}</h3>
-              <p>{t('about.solve_card2_desc')}</p>
+              <p dangerouslySetInnerHTML={{ __html: t('about.solve_card2_desc') }} />
+              <div className="bento-box__pill">
+                <span className="bento-box__pill-dot"></span>
+                <span>Uncovered Efficiency & Maximized ROI</span>
+              </div>
             </div>
 
             <div className="bento-box">
@@ -176,7 +362,11 @@ export default function About() {
                 </svg>
               </div>
               <h3>{t('about.solve_card3_title')}</h3>
-              <p>{t('about.solve_card3_desc')}</p>
+              <p dangerouslySetInnerHTML={{ __html: t('about.solve_card3_desc') }} />
+              <div className="bento-box__pill">
+                <span className="bento-box__pill-dot"></span>
+                <span>Flexible Capability Transfer</span>
+              </div>
             </div>
 
             <div className="bento-box">
@@ -187,7 +377,11 @@ export default function About() {
                 </svg>
               </div>
               <h3>{t('about.solve_card4_title')}</h3>
-              <p>{t('about.solve_card4_desc')}</p>
+              <p dangerouslySetInnerHTML={{ __html: t('about.solve_card4_desc') }} />
+              <div className="bento-box__pill">
+                <span className="bento-box__pill-dot"></span>
+                <span>Direct Executive Alignment & Transparency</span>
+              </div>
             </div>
           </Staggered>
         </div>

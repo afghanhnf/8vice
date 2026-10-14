@@ -1,11 +1,12 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import MainLayout from '@/Layouts/MainLayout';
 
 export default function Insight() {
   return (
     <MainLayout>
-      <Head title="8vice - Insight" />
+      <SeoHead pageCode="article" />
       <section className="section section--white">
         <div className="container">
           <h1 className="t-h1">Insight Page</h1>

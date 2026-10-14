@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Head } from '@inertiajs/react';
+import React, { useState, useEffect } from 'react';
+import { Head, useForm } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
@@ -13,7 +14,16 @@ const CheckIcon = () => (
 
 
 
-export default function Training() {
+const defaultCovers = {
+  'social-media-strategy-indonesia': '/images/challenges_insights.webp',
+  'digital-marketing-indonesian-market': '/images/cases/retail.webp',
+  'navigating-indonesian-business-licensing': '/images/cases/manufacturing.webp',
+  'cross-cultural-team-management': '/images/leader_speech_abstract.webp',
+  'ecommerce-marketplace-playbook': '/images/cases/retail.webp',
+  'indonesian-consumer-behavior-101': '/images/cases/fintech.webp',
+};
+
+export default function Training({ courses = [] }) {
   const [format, setFormat] = useState('onsite');
   const { t } = useTranslation();
 
@@ -64,35 +74,29 @@ export default function Training() {
       icon: <><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></>
     }
   ];
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [emailError, setEmailError] = useState('');
+  const { data, setData, post, processing, errors, recentlySuccessful, reset } = useForm({
+    name: '',
+    company: '',
+    email: '',
+    learn: '',
+    format: 'onsite',
+    website_url: '' // honeypot
+  });
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const emailInput = e.target.querySelector('input[type="email"]');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailInput && !emailRegex.test(emailInput.value.trim())) {
-      setEmailError('Please enter a valid email address.');
-      emailInput.focus();
-      return;
-    }
-    setEmailError('');
-    setFormSubmitted(true);
+    post('/training-request', {
+      preserveScroll: true,
+      onSuccess: () => reset(),
+    });
   };
 
   return (
     <MainLayout>
-      <Head>
-        <title>{t('meta.training_title')}</title>
-        <meta name="description" content={t('meta.training_desc')} />
-        <meta property="og:title" content={t('meta.training_title')} />
-        <meta property="og:description" content={t('meta.training_desc')} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/og-default.png" />
-      </Head>
+      <SeoHead pageCode="training" />
 
       {/* ============================ HERO ============================ */}
-      <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '120px' }}>
+      <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '48px', paddingBottom: '60px' }}>
         <div className="geo-bg">
           <div className="geo-bg__grid"></div>
           <div className="geo-bg__gradients"></div>
@@ -117,12 +121,20 @@ export default function Training() {
                 <p className="page-hero__lead">
                   {t('training_page.hero_desc')}
                 </p>
+                <div style={{ display: 'flex', gap: '12px', marginTop: '28px', flexWrap: 'wrap' }}>
+                  <a href="#courses" className="btn btn--primary" style={{ padding: '12px 24px', fontSize: '14px' }}>
+                    {t('training_page.courses_eyebrow')}
+                  </a>
+                  <a href="#request" className="btn btn--ghost-light" style={{ padding: '12px 24px', fontSize: '14px' }}>
+                    {t('training_page.req_eyebrow')}
+                  </a>
+                </div>
               </ScrollReveal>
             </div>
             <div style={{ flex: '1 1 min(100%, 400px)' }}>
               <ScrollReveal delay={300}>
                 <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '4/3', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backgroundColor: '#0a0a0a' }}>
-                  <img src="/images/training_hero.png" alt="Training Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img width="800" height="600" src="/images/training_hero.webp" alt="Training Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </ScrollReveal>
             </div>
@@ -157,8 +169,116 @@ export default function Training() {
         </div>
       </section>
 
+      {/* ============================ TRAINING SUBSCRIPTION (CMS COURSES) ============================ */}
+      <section className="svc-section svc-section--light" id="courses">
+        <div className="container">
+          <ScrollReveal className="section-head">
+            <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
+              <span className="about-hero__dot"></span>
+              {t('training_page.courses_eyebrow')}
+            </div>
+            <h2 className="t-h2">{t('training_page.courses_title')}</h2>
+            <p className="t-body-lg" style={{ color: 'var(--color-gray-600)', marginTop: '14px' }}>
+              {t('training_page.courses_desc')}
+            </p>
+          </ScrollReveal>
+
+          <Staggered delay={100} staggerDelay={80} className="course-grid">
+            {courses && courses.length > 0 ? (
+              courses.map((course, idx) => {
+                const isFree = Boolean(course.free) || (course.price && course.price.toLowerCase() === 'free');
+                
+                // Determine cover image
+                let coverSrc = null;
+                if (course.cover) {
+                  if (course.cover.startsWith('http://') || course.cover.startsWith('https://') || course.cover.startsWith('/')) {
+                    coverSrc = course.cover;
+                  } else if (course.cover.startsWith('courses/')) {
+                    coverSrc = `/storage/${course.cover}`;
+                  }
+                }
+                
+                if (!coverSrc && defaultCovers[course.slug]) {
+                  coverSrc = defaultCovers[course.slug];
+                }
+
+                return (
+                  <div 
+                    key={course.id || idx} 
+                    className="course-card"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      setData('learn', `${course.title} (${course.cat || ''})`);
+                      const el = document.getElementById('request');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    <div className="course-card__thumb ph on-dark" style={{ background: '#18191e', minHeight: '190px' }}>
+                      {coverSrc ? (
+                        <img 
+                          width="600" 
+                          height="338" 
+                          src={coverSrc} 
+                          alt={course.title} 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                        />
+                      ) : (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '20px', textAlign: 'center' }}>
+                          <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em' }}>
+                            {course.cover || course.cat}
+                          </span>
+                        </div>
+                      )}
+                      <div className="course-card__play">
+                        <span aria-label="Play course">
+                          <svg viewBox="0 0 24 24">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                          </svg>
+                        </span>
+                      </div>
+                      <span className={`course-card__price${isFree ? ' is-free' : ''}`}>
+                        {isFree ? (t('nav.about') === 'Tentang Kami' ? 'Gratis' : 'Free') : course.price}
+                      </span>
+                    </div>
+                    <div className="course-card__body">
+                      <div className="c-cat">{course.cat}</div>
+                      <h3>{course.title}</h3>
+                      <p>{course.desc}</p>
+                      <div className="course-card__meta">
+                        {course.dur && (
+                          <span>
+                            <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <circle cx="12" cy="12" r="10" />
+                              <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            {course.dur}
+                          </span>
+                        )}
+                        {course.lessons && (
+                          <span>
+                            <svg className="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                            </svg>
+                            {course.lessons}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '60px 20px', color: 'var(--color-gray-600)' }}>
+                <p>{t('training_page.courses_empty')}</p>
+              </div>
+            )}
+          </Staggered>
+        </div>
+      </section>
+
       {/* ============================ CUSTOM TRAINING REQUEST ============================ */}
-      <section className="svc-section svc-section--light" id="request">
+      <section className="svc-section svc-section--light" id="request" style={{ borderTop: '1px solid var(--color-gray-200)' }}>
         <div className="container">
           <ScrollReveal>
             <div className="train-req">
@@ -179,28 +299,47 @@ export default function Training() {
               <div className="train-req__form">
                 <h3 className="t-h4">{t('training_page.form_title')}</h3>
                 <p className="train-req__note">{t('training_page.form_note')}</p>
-                {!formSubmitted ? (
+                {!recentlySuccessful ? (
                   <form className="req-form" onSubmit={handleFormSubmit} noValidate>
+                    {/* Honeypot */}
+                    <input type="text" name="website_url" style={{ display: 'none' }} value={data.website_url} onChange={e => setData('website_url', e.target.value)} />
+                    
                     <div className="req-row">
-                      <label className="req-field"><span>{t('training_page.form_name')}</span><input type="text" placeholder={t('training_page.form_name_ph')} required /></label>
-                      <label className="req-field"><span>{t('training_page.form_company')}</span><input type="text" placeholder={t('training_page.form_company_ph')} /></label>
+                      <label className="req-field">
+                        <span>{t('training_page.form_name')}</span>
+                        <input type="text" placeholder={t('training_page.form_name_ph')} value={data.name} onChange={e => setData('name', e.target.value)} required />
+                        {errors.name && <span className="field-err">{errors.name}</span>}
+                      </label>
+                      <label className="req-field">
+                        <span>{t('training_page.form_company')}</span>
+                        <input type="text" placeholder={t('training_page.form_company_ph')} value={data.company} onChange={e => setData('company', e.target.value)} />
+                        {errors.company && <span className="field-err">{errors.company}</span>}
+                      </label>
                     </div>
-                    <label className="req-field"><span>{t('training_page.form_email')}</span><input type="email" placeholder={t('training_page.form_email_ph')} required /></label>
-                    <label className="req-field"><span>{t('training_page.form_learn')}</span><textarea rows="3" placeholder={t('training_page.form_learn_ph')} /></label>
+                    <label className="req-field">
+                      <span>{t('training_page.form_email')}</span>
+                      <input type="email" placeholder={t('training_page.form_email_ph')} value={data.email} onChange={e => setData('email', e.target.value)} required />
+                      {errors.email && <span className="field-err">{errors.email}</span>}
+                    </label>
+                    <label className="req-field">
+                      <span>{t('training_page.form_learn')}</span>
+                      <textarea rows="3" placeholder={t('training_page.form_learn_ph')} value={data.learn} onChange={e => setData('learn', e.target.value)} required />
+                      {errors.learn && <span className="field-err">{errors.learn}</span>}
+                    </label>
                     <div className="req-field req-field--inline">
                       <span>{t('training_page.form_format')}</span>
                       <div className="req-pills" role="group" aria-label="Preferred format">
                         {['onsite', 'hybrid', 'online'].map(f => (
-                          <button key={f} type="button" className={`req-pill${format === f ? ' is-active' : ''}`} onClick={() => setFormat(f)}>
+                          <button key={f} type="button" className={`req-pill${data.format === f ? ' is-active' : ''}`} onClick={() => setData('format', f)}>
                             {f.charAt(0).toUpperCase() + f.slice(1)}
                           </button>
                         ))}
                       </div>
                     </div>
-                    <span className="field-err">{emailError}</span>
-                    <button type="submit" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center' }}>
-                      {t('training_page.form_submit')}
-                      <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                    {errors.format && <span className="field-err">{errors.format}</span>}
+                    <button type="submit" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center' }} disabled={processing}>
+                      {processing ? 'Submitting...' : t('training_page.form_submit')}
+                      {!processing && <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>}
                     </button>
                   </form>
                 ) : (

@@ -50,7 +50,7 @@ export function TranslationProvider({ children }) {
   };
 
   return (
-    <TranslationContext.Provider value={{ lang, t }}>
+    <TranslationContext.Provider value={{ lang, locale: lang, t }}>
       {children}
     </TranslationContext.Provider>
   );

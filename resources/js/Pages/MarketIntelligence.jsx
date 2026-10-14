@@ -1,5 +1,6 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
@@ -58,17 +59,10 @@ export default function MarketIntelligence() {
 
   return (
     <MainLayout>
-      <Head>
-        <title>{t('meta.mi_title')}</title>
-        <meta name="description" content={t('meta.mi_desc')} />
-        <meta property="og:title" content={t('meta.mi_title')} />
-        <meta property="og:description" content={t('meta.mi_desc')} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/og-default.png" />
-      </Head>
+      <SeoHead pageCode="market_intelligence" />
 
       {/* ============================ HERO ============================ */}
-      <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '120px' }}>
+      <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '48px', paddingBottom: '60px' }}>
         <div className="geo-bg">
           <div className="geo-bg__grid"></div>
           <div className="geo-bg__gradients"></div>
@@ -105,7 +99,7 @@ export default function MarketIntelligence() {
             <div style={{ flex: '1 1 min(100%, 400px)' }}>
               <ScrollReveal delay={300}>
                 <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '4/3', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backgroundColor: '#0a0a0a' }}>
-                  <img src="/images/market_intelligence_hero.png" alt="Market Intelligence Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img width="800" height="600" src="/images/market_intelligence_hero.webp" alt="Market Intelligence Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </ScrollReveal>
             </div>
@@ -221,8 +215,14 @@ export default function MarketIntelligence() {
         <div className="container">
           <ScrollReveal>
             <div className="impact__inner">
-              <div className="impact__thumb" style={{ background: 'linear-gradient(135deg, rgba(214,40,40,0.1) 0%, var(--color-gray-100) 100%)' }}>
-                {/* Placeholder for case study image */}
+              <div className="impact__thumb" style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px' }}>
+                <img 
+                  width="800" 
+                  height="600" 
+                  src="/images/cases/retail.webp" 
+                  alt="Mapping Indonesia's e-commerce battlefield" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                />
               </div>
               <div>
                 <span className="tag">{t('mi_page.case_tag')}</span>
@@ -230,7 +230,7 @@ export default function MarketIntelligence() {
                 <p className="t-body-lg" style={{ color: 'var(--color-gray-600)', marginBottom: '28px' }}>
                   {t('mi_page.case_desc')}
                 </p>
-                <Link href="/case-study" className="btn btn--ghost-dark" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <Link href="/case-study/shelf-to-scale-across-40-cities" className="btn btn--ghost-dark" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   {t('mi_page.case_btn')}
                   <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                 </Link>

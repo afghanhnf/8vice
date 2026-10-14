@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookReview extends Model
 {
+    protected $guarded = [];
+
     //
 }

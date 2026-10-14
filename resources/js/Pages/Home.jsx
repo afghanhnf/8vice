@@ -1,42 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { Head } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
 import { useTranslation } from '@/Contexts/TranslationContext';
+import SeoHead from '@/Components/SeoHead';
 
-export default function Home({ clients, caseStudies, insights, bookReviews, courses, highlights }) {
+export default function Home({ clients, caseStudies, insights, bookReviews, courses, highlights, siteSettings, industryCoverages, statistics, heroBanners }) {
   const { t } = useTranslation();
   const rotatingWords = [t('home.what_word_1'), t('home.what_word_2'), t('home.what_word_3')];
 
-  const industryGroups = [
-    {
-      title: "Market & Brand",
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>,
-      items: ["Retail", "Commerce", "Creative Industry"]
-    },
-    {
-      title: "Growth & Strategy",
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>,
-      items: ["Digital Platform", "Technology", "Finance"]
-    },
-    {
-      title: "Operations & Resilience",
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>,
-      items: ["Manufacture", "Electronics", "Automotive"]
-    }
-  ];
+  const targetIndustries = ["Educational Institutional", "Pharmacy", "Tourism & Travel"];
+  let mainIndustries = industryCoverages?.filter(g => g.description && !targetIndustries.includes(g.title)) || [];
+  const mergedIndustries = industryCoverages?.filter(g => targetIndustries.includes(g.title)) || [];
+  if (mergedIndustries.length > 0) {
+      mainIndustries.push({
+          title: "More Category",
+          icon: mergedIndustries.find(g => g.icon)?.icon || '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>',
+          description: mergedIndustries.map(i => i.title).join(",")
+      });
+  }
+  const extraIndustries = industryCoverages?.filter(g => !g.description && !targetIndustries.includes(g.title)).map(g => g.title) || [];
 
-  const extraIndustries = [
-    "Educational Institutional",
-    "Pharmacy",
-    "Tourism & Travel"
-  ];
-
+  const [heroIndex, setHeroIndex] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+
+  const { data: form, setData: setForm, post: postForm, processing: processingForm, reset: resetForm, errors: errorsForm } = useForm({
+    email: '',
+    website_url: '', // honeypot
+  });
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    postForm('/subscribe', {
+      preserveScroll: true,
+      onSuccess: () => {
+        setNewsletterSubmitted(true);
+        resetForm();
+      }
+    });
+  };
   const [fade, setFade] = useState(true);
   const [activeReason, setActiveReason] = useState(0);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [heroImageError, setHeroImageError] = useState(false);
 
   const reasons = [
     {
@@ -58,6 +66,15 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
   ];
 
   useEffect(() => {
+    if (heroBanners?.length > 1) {
+      const heroInterval = setInterval(() => {
+        setHeroIndex(prev => (prev + 1) % heroBanners.length);
+      }, 8000);
+      return () => clearInterval(heroInterval);
+    }
+  }, [heroBanners]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
@@ -69,18 +86,19 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
   }, []);
 
   return (
-    <MainLayout>
-      <Head>
-        <title>{t('meta.home_title')}</title>
-        <meta name="description" content={t('meta.home_desc')} />
-        <meta property="og:title" content={t('meta.home_title')} />
-        <meta property="og:description" content={t('meta.home_desc')} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/og-default.png" />
-      </Head>
+    <MainLayout settings={siteSettings}>
+      <SeoHead pageCode="home" />
 
       {/* ============================ 1. HERO ============================ */}
-      <section className="hero has-geo-bg" data-screen-label="Hero">
+      <section 
+        className="hero has-geo-bg" 
+        data-screen-label="Hero"
+        style={{
+          background: 'radial-gradient(ellipse 90% 55% at 85% 15%, rgba(214, 40, 40, 0.22) 0%, rgba(164, 30, 32, 0.06) 50%, transparent 75%), radial-gradient(ellipse 60% 50% at 10% 85%, rgba(214, 40, 40, 0.12) 0%, transparent 55%), #0C0D10',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
         <div className="geo-bg">
           <div className="geo-bg__grid"></div>
           <div className="geo-bg__gradients"></div>
@@ -90,41 +108,218 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
           <div className="geo-bg__bars"></div>
         </div>
         <ScrollReveal variant="up">
-          <div className="hero__inner container">
+          <div className="hero__inner container" style={{ paddingTop: '52px', paddingBottom: '68px', minHeight: 'auto' }}>
             <div className="hero__copy">
-            <div className="eyebrow on-dark hero__eyebrow">{t('home.hero_eyebrow')}</div>
-            <h1 className="t-display" style={{ fontSize: 'clamp(38px, 4.2vw, 52px)', maxWidth: 'none', width: 'auto' }}>
-              {t('home.hero_title_1')}<br />{t('home.hero_title_2')}<span className="accent">{t('home.hero_title_accent')}</span>
+              <div className="eyebrow on-dark hero__eyebrow" style={{ marginBottom: '22px' }}>
+                {heroBanners?.[heroIndex]?.eyebrow || t('home.hero_eyebrow')}
+              </div>
+
+            <h1 className="t-display" style={{ fontSize: 'clamp(36px, 4vw, 50px)', maxWidth: 'none', width: 'auto', lineHeight: 1.12, letterSpacing: '-0.02em', marginBottom: '20px' }}>
+              {heroBanners?.[heroIndex]?.title || t('home.hero_title_1')}<span className="accent" style={{ color: 'var(--color-red)' }}>{heroBanners?.[heroIndex]?.title_accent ? ` ${heroBanners[heroIndex].title_accent}` : ` ${t('home.hero_title_accent')}`}</span>
             </h1>
-            <p className="t-body-lg hero__sub">
-              {t('home.hero_sub_1')}<br></br>
-              <br></br>{t('home.hero_sub_2')}
+            <p className="t-body-lg hero__sub" style={{ whiteSpace: 'pre-line', fontSize: '16px', lineHeight: '1.65', color: 'rgba(255, 255, 255, 0.75)', marginBottom: '32px' }}>
+              {heroBanners?.[heroIndex]?.description || t('home.hero_sub_1') + '\n\n' + t('home.hero_sub_2')}
             </p>
-            <div className="hero__ctas">
-              <Link href="/contact" className="btn btn--primary btn--lg">{t('home.hero_cta_1')}
+            <div className="hero__ctas" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginBottom: '40px' }}>
+              <Link href={heroBanners?.[heroIndex]?.button_1_url || "/contact"} className="btn btn--primary btn--lg" style={{ boxShadow: '0 8px 24px rgba(214, 40, 40, 0.35)' }}>
+                <span>{heroBanners?.[heroIndex]?.button_1_text || t('home.hero_cta_1')}</span>
                 <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </Link>
-              <a href="#help" className="btn btn--ghost-light btn--lg">{t('home.hero_cta_2')}</a>
+              <a href={heroBanners?.[heroIndex]?.button_2_url || "#help"} className="btn btn--ghost-light btn--lg" style={{ backdropFilter: 'blur(8px)', borderColor: 'rgba(255,255,255,0.2)' }}>
+                <svg className="ico ico-16" viewBox="0 0 24 24" style={{ stroke: 'rgba(255,255,255,0.8)' }}><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 12 12 8 12"></polyline></svg>
+                <span>{heroBanners?.[heroIndex]?.button_2_text || t('home.hero_cta_2')}</span>
+              </a>
             </div>
-            <div className="hero__meta" style={{ border: 'none' }}>
-              <div>
-                <div className="hero__stat-num">20<span className="unit">+</span></div>
-                <div className="hero__stat-label">{t('home.hero_stat_1')}</div>
-              </div>
-              <div>
-                <div className="hero__stat-num">30<span className="unit">+</span></div>
-                <div className="hero__stat-label">{t('home.hero_stat_2')}</div>
-              </div>
-              <div>
-                <div className="hero__stat-num">12<span className="unit">+</span></div>
-                <div className="hero__stat-label">{t('home.hero_stat_3')}</div>
-              </div>
+            
+            {/* M3 Refined Stats Cards (Proportional numbers & subtle icons) */}
+            <div 
+              className="hero__meta" 
+              style={{ 
+                borderTop: '1px solid rgba(255, 255, 255, 0.08)', 
+                paddingTop: '24px', 
+                marginTop: '0', 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', 
+                gap: '14px', 
+                width: '100%' 
+              }}
+            >
+              {(statistics?.length > 0 ? statistics : [
+                { num: "25+", title: "Years Experience", description: "Combined track record" },
+                { num: "100+", title: "Clients Served", description: "Trusted globally" },
+                { num: "20+", title: "Industry Sectors", description: "Deep market coverage" }
+              ]).map((stat, i) => {
+                const statIcons = [
+                  <svg key="0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>,
+                  <svg key="1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>,
+                  <svg key="2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                ];
+
+                return (
+                  <div 
+                    key={i} 
+                    style={{ 
+                      background: 'rgba(255, 255, 255, 0.03)', 
+                      border: '1px solid rgba(255, 255, 255, 0.07)', 
+                      borderRadius: '14px', 
+                      padding: '14px 16px',
+                      transition: 'all 240ms ease',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <div className="hero__stat-num" style={{ fontSize: '22px', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: '1', color: '#FFFFFF' }}>
+                        {stat.num.replace("+", "")}<span className="unit" style={{ fontSize: '18px', color: 'var(--color-red)', fontWeight: 700 }}>+</span>
+                      </div>
+                      <div style={{ opacity: 0.9 }}>
+                        {statIcons[i % statIcons.length]}
+                      </div>
+                    </div>
+                    <div className="hero__stat-label" style={{ fontWeight: 600, fontSize: '12px', color: '#FFFFFF', marginBottom: '2px' }}>{stat.title}</div>
+                    <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.55)', lineHeight: 1.3 }}>{stat.description}</div>
+                  </div>
+                );
+              })}
             </div>
-          </div>
+            </div>
 
           <div className="hero__visual" id="hero-visual">
-            <div className="hero-viz" data-viz="skyline">
-              <svg className="skyline" viewBox="0 0 560 420" role="img" aria-label="China to Indonesia corridor skyline">
+            {heroBanners?.length > 1 && !heroImageError ? (
+              <div 
+                style={{ 
+                  position: "relative", 
+                  width: "100%", 
+                  height: "440px", 
+                  borderRadius: "24px", 
+                  overflow: "hidden",
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  boxShadow: '0 24px 60px -10px rgba(0, 0, 0, 0.6), 0 0 50px -10px rgba(214, 40, 40, 0.22)'
+                }}
+              >
+                {heroBanners.map((banner, i) => (
+                  <img width="800" height="600" 
+                    key={banner.id || i} 
+                    src={`/storage/${banner.image}`} 
+                    onError={() => setHeroImageError(true)}
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", opacity: i === heroIndex ? 1 : 0, transition: "opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)" }} 
+                    alt={banner.title || 'Hero Banner'} 
+                  />
+                ))}
+
+                {/* Subtle dark gradient overlay on image */}
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(12,13,16,0.8) 0%, rgba(12,13,16,0.1) 40%, transparent 100%)', pointerEvents: 'none' }} />
+
+                {/* M3 Slide Counter & Controls Badge */}
+                <div 
+                  style={{
+                    position: 'absolute',
+                    bottom: '18px',
+                    left: '18px',
+                    right: '18px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '8px 14px',
+                    borderRadius: '999px',
+                    background: 'rgba(15, 16, 20, 0.75)',
+                    backdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#FFFFFF', letterSpacing: '0.02em' }}>
+                      {String(heroIndex + 1).padStart(2, '0')}
+                    </span>
+                    <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)' }}>/</span>
+                    <span style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.65)' }}>
+                      {String(heroBanners.length).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  {/* Interactive Slide Dots */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {heroBanners.map((_, dotIdx) => (
+                      <button
+                        key={dotIdx}
+                        onClick={() => setHeroIndex(dotIdx)}
+                        aria-label={`Go to slide ${dotIdx + 1}`}
+                        style={{
+                          width: dotIdx === heroIndex ? '22px' : '7px',
+                          height: '7px',
+                          borderRadius: '999px',
+                          background: dotIdx === heroIndex ? 'var(--color-red)' : 'rgba(255, 255, 255, 0.3)',
+                          border: 'none',
+                          padding: 0,
+                          cursor: 'pointer',
+                          transition: 'all 300ms cubic-bezier(0.16, 1, 0.3, 1)',
+                          boxShadow: dotIdx === heroIndex ? '0 0 10px rgba(214, 40, 40, 0.6)' : 'none'
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Navigation Arrows */}
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <button
+                      onClick={() => setHeroIndex(prev => (prev - 1 + heroBanners.length) % heroBanners.length)}
+                      aria-label="Previous slide"
+                      style={{
+                        background: 'rgba(255,255,255,0.08)',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '24px',
+                        height: '24px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button
+                      onClick={() => setHeroIndex(prev => (prev + 1) % heroBanners.length)}
+                      aria-label="Next slide"
+                      style={{
+                        background: 'rgba(255,255,255,0.08)',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '24px',
+                        height: '24px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#fff',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : heroBanners?.length === 1 && !heroImageError ? (
+              <div 
+                className="hero__visual" 
+                style={{ 
+                  position: "relative",
+                  width: "100%", 
+                  height: "440px", 
+                  borderRadius: "24px", 
+                  overflow: "hidden",
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  boxShadow: '0 24px 60px -10px rgba(0, 0, 0, 0.6), 0 0 50px -10px rgba(214, 40, 40, 0.22)'
+                }}
+              >
+              {heroBanners && heroBanners.length > 0 && heroBanners[0].image ? (
+                <img width="800" height="600" src={heroBanners[0].image.startsWith('/') ? heroBanners[0].image : `/storage/${heroBanners[0].image}`} onError={() => setHeroImageError(true)} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt={heroBanners[0].title || 'Hero Banner'} />
+              ) : (
+                <img width="800" height="600" src="/images/article-sample.webp" onError={() => setHeroImageError(true)} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="Default Hero Banner" />
+              )}
+            </div>) : (
+              <div className="hero-viz" data-viz="skyline">
+                <svg className="skyline" viewBox="0 0 560 420" role="img" aria-label="China to Indonesia corridor skyline">
                 <defs>
                   <linearGradient id="grd-glr" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="var(--hero-accent, #D62828)" stopOpacity=".08" />
@@ -308,7 +503,8 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                 <text className="label" x="145" y="400" textAnchor="middle">China</text>
                 <text className="label" x="425" y="400" textAnchor="middle">Indonesia</text>
               </svg>
-            </div>
+              </div>
+            )}
           </div>
           </div>
         </ScrollReveal>
@@ -320,23 +516,16 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
           <p className="trust__cap container">{t('home.trust_cap')}</p>
           <div className="trust__track-wrap">
             <div className="trust__track" id="trust-track">
-              {[...clients, ...clients]?.map((l, idx) => {
-                const logoMap = {
-                  'Alipay': '/images/logos-client/alipay.png',
-                  'DiDi': '/images/logos-client/didi.png',
-                  'DingTalk': '/images/logos-client/dingtalk.png',
-                  'Coolita': '/images/logos-client/coolita.png',
-                  'Skyworth': '/images/logos-client/skyworth.png',
-                  'MangoTV': '/images/logos-client/mangotv.webp',
-                };
-                const src = logoMap[l.name];
-                if (!src) return null;
-                return (
-                  <span key={idx} className="logo-mark" title={l.name}>
-                    <img src={src} alt={l.name} />
-                  </span>
-                );
-              })}
+              {(() => {
+                const clientList = clients?.filter(l => l.image) || [];
+                return [...clientList, ...clientList]?.map((l, idx) => {
+                  return (
+                    <span key={idx} className="logo-mark" title={l.name}>
+                      <img src={l.image ? (l.image.startsWith('/') ? l.image : `/storage/${l.image}`) : '/images/article-sample.webp'} alt={l.name} width="210" height="60" />
+                    </span>
+                  );
+                });
+              })()}
             </div>
           </div>
         </section>
@@ -424,8 +613,8 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
             <div className="macro__inner">
               <ScrollReveal variant="left" delay={100}>
                 <div className="macro__stat">
-                  <span className="big">$130<span className="unit">B</span></span>
-                  <span className="cap">{t('home.macro_stat_cap')}</span>
+                  <span className="big">{siteSettings?.macro_stat_value || '$130B'}</span>
+                  <span className="cap">{siteSettings?.macro_stat_label || t('home.macro_stat_cap')}</span>
                 </div>
               </ScrollReveal>
               <ScrollReveal variant="right" delay={200}>
@@ -445,16 +634,16 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                 </h2>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '60px', alignItems: 'center' }}>
-                  <div style={{ flex: '1 1 min(100%, 500px)', height: '420px', borderRadius: '16px', overflow: 'hidden', position: 'relative', backgroundColor: '#0a0a0a', backgroundImage: 'url(/images/why_choose_us_thumbnail.png)', backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+                  <div style={{ flex: '1 1 min(100%, 500px)', height: '420px', borderRadius: '16px', overflow: 'hidden', position: 'relative', backgroundColor: '#0a0a0a', backgroundImage: 'url(/images/why_choose_us_thumbnail.webp)', backgroundSize: 'cover', backgroundPosition: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
                   </div>
 
                   <div style={{ flex: '1 1 min(100%, 400px)', display: 'flex', flexDirection: 'column', gap: '32px' }}>
                     {reasons.map((r, i) => (
                       <div key={i} onClick={() => setActiveReason(i)} style={{ cursor: 'pointer' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', opacity: activeReason === i ? 1 : 0.5, transition: 'all 0.3s ease-in-out' }}>
-                          <h4 className="t-h4" style={{ margin: 0, color: 'white', fontWeight: '400', fontSize: activeReason === i ? '28px' : '22px', transition: 'all 0.3s' }}>
+                          <h3 className="t-h4" style={{ margin: 0, color: 'white', fontWeight: '400', fontSize: activeReason === i ? '28px' : '22px', transition: 'all 0.3s' }}>
                             {r.title}
-                          </h4>
+                          </h3>
                           <span style={{ fontSize: activeReason === i ? '24px' : '20px', transition: 'all 0.3s', color: 'white', fontWeight: '300', transform: activeReason === i ? 'translateY(2px)' : 'none' }}>
                             {activeReason === i ? '↓' : '→'}
                           </span>
@@ -496,35 +685,37 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
               <h2 className="t-h2">{t('home.ind_title_1')}<span style={{ color: 'var(--hero-accent, #D62828)' }}>{t('home.ind_title_accent')}</span></h2>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '24px', marginTop: '40px' }}>
-              {industryGroups.map((group, gIdx) => (
-                <div key={gIdx} style={{ backgroundColor: '#fff', borderRadius: '8px', padding: '32px', border: '1px solid #EAEAEA', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+            
+            {/* 1 Single Row Grid (4 Columns on Desktop) */}
+            <div className="industry-coverage-grid">
+              {mainIndustries.map((group, gIdx) => {
+                const items = (group.description || "").split(",").map(i => i.trim());
+                return (
+                <div key={gIdx} className="industry-coverage-card">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
                     <div style={{ 
-                      width: '48px', 
-                      height: '48px', 
+                      width: '42px', 
+                      height: '42px', 
                       borderRadius: '12px', 
-                      backgroundColor: 'rgba(214, 40, 40, 0.06)', 
+                      backgroundColor: 'rgba(214, 40, 40, 0.08)', 
                       display: 'flex', 
                       alignItems: 'center', 
                       justifyContent: 'center',
-                      color: 'var(--hero-accent, #D62828)',
+                      color: 'var(--color-red)',
                       flexShrink: 0
-                    }}>
-                      {group.icon}
-                    </div>
-                    <h3 className="t-h3" style={{ margin: 0, fontSize: '22px' }}>{group.title}</h3>
+                    }} dangerouslySetInnerHTML={{ __html: group.icon || '' }} />
+                    <h3 className="t-h3" style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--color-ink)' }}>{group.title}</h3>
                   </div>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                    {group.items.map((item, i) => (
-                      <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px 0', borderBottom: i < group.items.length - 1 ? '1px solid #F0F0F0' : 'none', color: '#555' }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        {item}
+                    {items.map((item, i) => (
+                      <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 0', borderBottom: i < items.length - 1 ? '1px solid #F0F0F0' : 'none', color: 'var(--color-gray-600)', fontSize: '13.5px', lineHeight: 1.4 }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-red)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-              ))}
+              )})}
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', marginTop: '40px' }}>
@@ -549,28 +740,36 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
             </div>
           </ScrollReveal>
           <Staggered className="cards-3" staggerDelay={120}>
-            {caseStudies?.map((c, idx) => (
+            {caseStudies?.slice(0, 3).map((c, idx) => (
               <article key={idx} className="case-card">
                 <div className="case-card__cover on-dark" style={{ position: 'relative', overflow: 'hidden' }}>
-                  {c.cover?.startsWith('/') ? (
-                    <img src={c.cover} alt={c.h} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {c.cover ? (
+                    <img width="800" height="600" src={c.cover.startsWith('/') ? c.cover : `/storage/${c.cover}`} alt={c.h} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
-                    <div className="ph" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}><span className="ph__tag">{c.cover}</span></div>
+                    <img width="800" height="600" src="/images/article-sample.webp" alt="Case Study Cover" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                   )}
                 </div>
                 <div className="case-card__body">
                   <span className="tag">{c.tag}</span>
                   <h3 className="t-h3">{c.h}</h3>
                   <p>{c.p}</p>
-                  <Link href="/case-study" className="link-arrow">{t('home.case_cta')}
+                  <Link href={`/case-study/${c.slug}`} className="link-arrow">{t('home.case_cta')}
                     <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </Link>
                 </div>
               </article>
             ))}
           </Staggered>
-          <p className="case-note">{t('home.case_note_1')}<Link href="/case-study" className="link-arrow" style={{ fontSize: '14px' }}>{t('home.case_note_link')}
-            <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></Link></p>
+          <div style={{ textAlign: 'center', marginTop: '52px' }}>
+            <Link 
+              href="/case-study" 
+              className="btn btn--primary btn--lg" 
+              style={{ minWidth: '240px', justifyContent: 'center', boxShadow: '0 8px 24px rgba(214, 40, 40, 0.22)' }}
+            >
+              <span>{t('home.case_view_all') || 'Explore All Case Studies'}</span>
+              <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -598,22 +797,22 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
             <Staggered className="principles" staggerDelay={100}>
               <div className="principle">
                 <div className="principle__num">01</div>
-                <h4 className="t-h4">{t('home.app_p1_title')}</h4>
+                <h3 className="t-h4">{t('home.app_p1_title')}</h3>
                 <p>{t('home.app_p1_desc')}</p>
               </div>
               <div className="principle">
                 <div className="principle__num">02</div>
-                <h4 className="t-h4">{t('home.app_p2_title')}</h4>
+                <h3 className="t-h4">{t('home.app_p2_title')}</h3>
                 <p>{t('home.app_p2_desc')}</p>
               </div>
               <div className="principle">
                 <div className="principle__num">03</div>
-                <h4 className="t-h4">{t('home.app_p3_title')}</h4>
+                <h3 className="t-h4">{t('home.app_p3_title')}</h3>
                 <p>{t('home.app_p3_desc')}</p>
               </div>
               <div className="principle">
                 <div className="principle__num">04</div>
-                <h4 className="t-h4">{t('home.app_p4_title')}</h4>
+                <h3 className="t-h4">{t('home.app_p4_title')}</h3>
                 <p>{t('home.app_p4_desc')}</p>
               </div>
             </Staggered>
@@ -625,7 +824,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                 onClick={() => setIsVideoOpen(true)}
                 className="video-manifesto-thumb"
               >
-                <img src="/images/video_manifesto_cover.png" alt="Video Thumbnail" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4, transition: 'opacity 0.4s ease' }} />
+                <img width="800" height="600" src="/images/video_manifesto_cover.webp" alt="Video Thumbnail" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4, transition: 'opacity 0.4s ease' }} />
                 
                 <div style={{ position: 'absolute', top: '32px', left: '32px' }}>
                   <span style={{ color: 'var(--hero-accent, #D62828)', fontSize: '12px', fontWeight: 'bold', letterSpacing: '1px', textTransform: 'uppercase' }}>{t('home.vid_title')} · {t('home.vid_duration')}</span>
@@ -668,7 +867,7 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
 
       {/* ============================ 9. INSIGHT PREVIEW ============================ */}
       <ScrollReveal variant="up">
-        <section className="section section--white" data-screen-label="Insight preview">
+        <section className="section section--white" style={{ paddingBottom: '120px' }} data-screen-label="Insight preview">
           <div className="container">
             <div className="section-head" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', maxWidth: 'none', gap: '24px' }}>
               <div style={{ maxWidth: '620px' }}>
@@ -680,21 +879,32 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
               </Link>
             </div>
             <Staggered className="insight-grid" staggerDelay={100}>
-              {insights?.map((a, idx) => (
+              {insights?.slice(0, 3).map((a, idx) => (
                 <article key={idx} className="article-card">
-                  <div className="article-card__thumb" style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#0a0a0a', paddingBottom: '60%', borderRadius: '12px', marginBottom: '16px' }}>
-                    {a.cover?.startsWith('/') ? (
-                      <img src={a.cover} alt={a.t} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                    ) : (
-                      <div className="ph" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}><span className="ph__tag">{a.cover}</span></div>
-                    )}
-                  </div>
-                  <div className="meta"><span className="cat">{a.cat}</span><span className="rt">{a.rt}</span></div>
-                  <h3 className="t-h3">{a.t}</h3>
+                  <Link href={`/article/${a.slug}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+                    <div className="article-card__thumb" style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#0a0a0a', paddingBottom: '60%', borderRadius: '12px', marginBottom: '16px' }}>
+                      {a.cover ? (
+                        <img width="800" height="600" src={a.cover.startsWith('/') ? a.cover : `/storage/${a.cover}`} alt={a.title || a.t} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : (
+                        <img width="800" height="600" src="/images/article-sample.webp" alt="Insight Cover" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                      )}
+                    </div>
+                    <div className="meta"><span className="cat">{a.cat || a.category}</span><span className="rt">{a.rt || '5 min read'}</span></div>
+                    <h3 className="t-h3">{a.title || a.t}</h3>
+                  </Link>
                 </article>
               ))}
-
             </Staggered>
+            <div style={{ textAlign: 'center', marginTop: '52px' }}>
+              <Link 
+                href="/article" 
+                className="btn btn--primary btn--lg" 
+                style={{ minWidth: '240px', justifyContent: 'center', boxShadow: '0 8px 24px rgba(214, 40, 40, 0.22)' }}
+              >
+                <span>{t('home.ins_view_all') || 'View All Insights & News'}</span>
+                <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </Link>
+            </div>
           </div>
         </section>
       </ScrollReveal>
@@ -707,11 +917,23 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
               <div className="eyebrow" style={{ justifyContent: 'center', marginBottom: '16px' }}>{t('home.sub_eyebrow')}</div>
               <h2 className="t-h2">{t('home.sub_title_1')}<span style={{ color: 'var(--hero-accent, #D62828)' }}>{t('home.sub_title_accent')}</span></h2>
               <p className="t-body-lg">{t('home.sub_desc')}</p>
-              
-              <form className="sub-form" onSubmit={(e) => e.preventDefault()}>
-                <input type="email" placeholder={t('home.sub_placeholder')} required />
-                <button type="submit" className="btn btn--primary">{t('home.sub_btn')}</button>
-              </form>
+              {newsletterSubmitted ? (
+                <div style={{ textAlign: 'center', marginTop: '24px' }}>
+                  <h4 style={{ color: 'var(--color-success)', fontSize: '20px', marginBottom: '8px' }}>Subscribed!</h4>
+                  <p>You'll receive our next insight soon.</p>
+                </div>
+              ) : (
+                <form className="sub-form" onSubmit={handleSubscribe}>
+                  <div style={{ display: 'none' }} aria-hidden="true">
+                    <input type="text" name="website_url" value={form.website_url} onChange={e => setForm('website_url', e.target.value)} tabIndex="-1" autoComplete="off" />
+                  </div>
+                  <input type="email" placeholder={t('home.sub_placeholder')} value={form.email} onChange={e => setForm('email', e.target.value)} required />
+                  <button type="submit" disabled={processingForm} className="btn btn--primary" style={{ opacity: processingForm ? 0.7 : 1 }}>
+                    {processingForm ? 'Subscribing...' : t('home.sub_btn')}
+                  </button>
+                </form>
+              )}
+              {errorsForm.email && <div className="text-red-500 text-sm mt-2" style={{ color: 'var(--color-error)' }}>{errorsForm.email}</div>}
               <div className="sub-micro">{t('home.sub_micro')}</div>
             </div>
           </div>

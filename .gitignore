@@ -25,3 +25,14 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+*.zip
+/scratch
+patch_*.php
+update_*.php
+update_*.py
+write_forms_direct.php
+fix_all_resources.php
+get_columns.php
+seed_missing.php
+check_nav.php
+

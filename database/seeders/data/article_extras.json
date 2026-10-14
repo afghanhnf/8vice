@@ -1,0 +1,626 @@
+{
+  "indonesia-ev-battery-supply-chain-tkdn-mandate": {
+    "tags": {
+      "en": [
+        "TKDN Mandate",
+        "EV Battery",
+        "Nickel Downstreaming",
+        "Supply Chain",
+        "Indonesia Manufacturing",
+        "Tax Incentives"
+      ],
+      "id": [
+        "Mandat TKDN",
+        "Baterai EV",
+        "Hilirisasi Nikel",
+        "Rantai Pasok",
+        "Manufaktur Indonesia",
+        "Insentif Fiskal"
+      ]
+    },
+    "faqs": {
+      "en": [
+        {
+          "q": "What is the current TKDN roadmap required for EV manufacturers in Indonesia?",
+          "a": "Under Presidential Regulation (Perpres) No. 79/2023, electric two-wheelers and four-wheelers must satisfy a minimum 40% TKDN through 2026. This threshold escalates to 60% between 2027 and 2029, and reaches 80% by 2030."
+        },
+        {
+          "q": "How is the 40% local content threshold formally calculated and audited?",
+          "a": "Verification is conducted by designated state surveyor bodies (PT Sucofindo or PT Surveyor Indonesia) auditing direct domestic manufacturing expenditures, local raw materials (e.g., refined nickel-cobalt), local labor hours, and Indonesian R&D investments."
+        },
+        {
+          "q": "What tax and duty incentives are contingent upon meeting the TKDN threshold?",
+          "a": "OEMs qualifying under the certified TKDN regime receive 0% Luxury Goods Sales Tax (PPnBM), government-borne VAT reduction (PPN DTP reduced from 11% to 1%), and import duty exemptions on completely knocked-down (CKD) and incompletely knocked-down (IKD) kits."
+        },
+        {
+          "q": "Can Chinese cell manufacturers utilize bonded zones (Kawasan Berikat) for battery exports?",
+          "a": "Yes. Battery plants established in Kawasan Berikat or Special Economic Zones (such as Kendal or Batang) benefit from deferral or exemption of import tariffs on sub-components, provided export or domestic sales quotas comply with customs regulations."
+        }
+      ],
+      "id": [
+        {
+          "q": "Bagaimana peta jalan (roadmap) TKDN yang diwajibkan bagi produsen kendaraan listrik di Indonesia?",
+          "a": "Berdasarkan Perpres No. 79/2023, kendaraan listrik roda dua dan empat wajib memenuhi ambang batas TKDN minimal 40% hingga tahun 2026. Ambang batas ini meningkat menjadi 60% pada periode 2027-2029, dan mencapai 80% mulai tahun 2030."
+        },
+        {
+          "q": "Bagaimana ambang batas kandungan lokal 40% dihitung dan diaudit secara resmi?",
+          "a": "Verifikasi dilakukan oleh surveyor independen pemerintah (PT Sucofindo atau PT Surveyor Indonesia) yang mengaudit biaya manufaktur domestik, material lokal (seperti olahan nikel dan kobalt), jam tenaga kerja lokal, serta investasi R&D di Indonesia."
+        },
+        {
+          "q": "Apa saja insentif perpajakan dan bea masuk yang diperoleh jika memenuhi ambang batas TKDN?",
+          "a": "Produsen yang memenuhi syarat berhak atas PPnBM 0%, pemotongan PPN ditanggung pemerintah (PPN DTP menjadi 1% dari 11%), serta fasilitas pembebasan bea masuk untuk komponen terurai (CKD/IKD)."
+        },
+        {
+          "q": "Apakah pabrik sel baterai dapat memanfaatkan Kawasan Berikat untuk orientasi ekspor?",
+          "a": "Bisa. Pabrik sel baterai yang berlokasi di Kawasan Berikat atau KEK (seperti Kendal atau Batang) memperoleh penangguhan atau pembebasan bea masuk atas sub-komponen impor, asalkan alokasi kuota pasar ekspor dan domestik mematuhi ketentuan kepabeanan."
+        }
+      ]
+    },
+    "references": [
+      {
+        "title": "Peraturan Presiden Republik Indonesia Nomor 79 Tahun 2023",
+        "source": "Lembaran Negara Republik Indonesia No. 172 · Perubahan atas Perpres 55/2019",
+        "type": "Presidential Regulation",
+        "year": "2023"
+      },
+      {
+        "title": "Peraturan Menteri Perindustrian No. 6 Tahun 2022 tentang Spesifikasi dan Peta Jalan TKDN Kendaraan Listrik",
+        "source": "Kementerian Perindustrian Republik Indonesia",
+        "type": "Ministerial Regulation",
+        "year": "2022"
+      },
+      {
+        "title": "Peraturan Menteri Keuangan No. 38 Tahun 2024 tentang PPN DTP Kendaraan Bermotor Listrik",
+        "source": "Kementerian Keuangan Republik Indonesia",
+        "type": "Tax Directive",
+        "year": "2024"
+      }
+    ]
+  },
+  "indonesia-cross-border-ecommerce-permendag-live-selling": {
+    "tags": {
+      "en": [
+        "Permendag 31",
+        "Live Commerce",
+        "TikTok Shop",
+        "PT PMA",
+        "BPOM Compliance",
+        "Cross-Border Retail"
+      ],
+      "id": [
+        "Permendag 31",
+        "Live Shopping",
+        "Tokopedia & TikTok",
+        "PT PMA",
+        "Izin Edar BPOM",
+        "Retail Lintas Batas"
+      ]
+    },
+    "faqs": {
+      "en": [
+        {
+          "q": "What are the primary restrictions introduced by Permendag 31/2023 for cross-border merchants?",
+          "a": "Permendag 31 prohibits direct overseas parcel shipments for goods under USD 100 FOB per unit, mandates the separation of social media networks from transactional e-commerce platforms, and requires cross-border merchants to hold local entity registrations."
+        },
+        {
+          "q": "What is the recommended legal and supply chain structure for consumer brands in Indonesian live commerce?",
+          "a": "The proven model involves establishing a foreign-owned trading company (PT PMA KBLI 46900/47912), warehousing bulk inventory in domestic Bonded Logistics Centers (PLB) or 3PL fulfillment facilities, and managing localized Indonesian-speaking creator studios."
+        },
+        {
+          "q": "How long does product registration with BPOM take for beauty and wellness categories?",
+          "a": "Cosmetics and health supplements require 3 to 6 months for notification and distribution license numbers (NIE) once formulation dossiers, GMP certification, and manufacturer letters of authorization are vetted."
+        },
+        {
+          "q": "Can overseas brands sell electronics via local live-commerce channels without domestic SNI testing?",
+          "a": "No. Mandated consumer electronic categories must possess Indonesian National Standards (SNI) certification and SDPPI type approvals issued by Kominfo before listing or broadcast promotion."
+        }
+      ],
+      "id": [
+        {
+          "q": "Apa pembatasan utama yang diatur dalam Permendag 31/2023 bagi pedagang lintas batas?",
+          "a": "Permendag 31 melarang pengiriman langsung dari luar negeri untuk produk dengan nilai di bawah USD 100 per unit, mewajibkan pemisahan platform media sosial dari sistem transaksi e-commerce, dan menuntut kepemilikan izin usaha lokal."
+        },
+        {
+          "q": "Struktur hukum dan rantai pasok apa yang disarankan untuk brand internasional di pasar live-shopping?",
+          "a": "Struktur yang terbukti sukses adalah mendirikan entitas PT PMA perdagangan, menyimpan stok impor massal di Pusat Logistik Berikat (PLB) atau gudang 3PL domestik, serta mengoperasikan studio live dengan host lokal berbahasa Indonesia."
+        },
+        {
+          "q": "Berapa lama estimasi waktu pengurusan izin edar BPOM untuk produk kecantikan dan suplemen?",
+          "a": "Produk kosmetik dan suplemen memerlukan waktu 3 hingga 6 bulan untuk memperoleh Nomor Izin Edar (NIE) setelah berkas formula, sertifikat GMP, dan surat kuasa pabrik diverifikasi."
+        },
+        {
+          "q": "Apakah produk elektronik impor dapat dipasarkan via live commerce tanpa uji sertifikasi SNI lokal?",
+          "a": "Tidak bisa. Kategori elektronik konsumen wajib memiliki sertifikasi Standar Nasional Indonesia (SNI) serta sertifikasi alat telekomunikasi SDPPI dari Kominfo sebelum dapat dijual di marketplace."
+        }
+      ]
+    },
+    "references": [
+      {
+        "title": "Peraturan Menteri Perdagangan Nomor 31 Tahun 2023 tentang Perizinan Berusaha Melalui Sistem Elektronik (PMSE)",
+        "source": "Kementerian Perdagangan Republik Indonesia",
+        "type": "Trade Regulation",
+        "year": "2023"
+      },
+      {
+        "title": "Peraturan Badan Pengawas Obat dan Makanan No. 19 Tahun 2021 tentang Pedoman Registrasi Produk Kosmetika",
+        "source": "BPOM RI",
+        "type": "Public Health Directive",
+        "year": "2021"
+      },
+      {
+        "title": "Peraturan Direktur Jenderal Bea dan Cukai No. PER-11/BC/2020 tentang Tata Laksana Kepabeanan Barang Kiriman",
+        "source": "Direktorat Jenderal Bea dan Cukai (DJBC)",
+        "type": "Customs Mandate",
+        "year": "2020"
+      }
+    ]
+  },
+  "uu-pdp-indonesia-enterprise-saas-cloud-compliance": {
+    "tags": {
+      "en": [
+        "UU PDP",
+        "Data Privacy",
+        "Enterprise SaaS",
+        "Cloud Compliance",
+        "Data Protection Officer",
+        "Data Sovereignty"
+      ],
+      "id": [
+        "UU PDP",
+        "Pelindungan Data",
+        "SaaS Perusahaan",
+        "Kepatuhan Cloud",
+        "DPO Indonesia",
+        "Kedaulatan Data"
+      ]
+    },
+    "faqs": {
+      "en": [
+        {
+          "q": "Does Law No. 27/2022 (UU PDP) apply extraterritorially to cloud providers hosted abroad?",
+          "a": "Yes. Article 2 of UU PDP explicitly applies to any legal entity operating outside Indonesian territory if its data processing activities produce legal effects within Indonesia or process personal data of Indonesian citizens."
+        },
+        {
+          "q": "When is an enterprise software vendor required to appoint a Data Protection Officer (DPO)?",
+          "a": "A DPO is mandatory if processing activities involve systemic, large-scale monitoring of individuals, or if processing relates to specific categories of sensitive personal data (such as financial records, biometric data, or health records)."
+        },
+        {
+          "q": "What legal mechanisms are recognized for transferring personal data out of Indonesia?",
+          "a": "Controllers must verify that the recipient country provides an equivalent or higher degree of data protection. Otherwise, cross-border transfers require binding contractual guarantees, Standard Contractual Clauses (SCCs), or unambiguous explicit consent."
+        },
+        {
+          "q": "What are the non-compliance liabilities under UU PDP for enterprise technology firms?",
+          "a": "Administrative fines reach up to 2% of annual global turnover, accompanied by potential confiscation of profits, service blocking by Kominfo, and criminal sanctions for intentional unauthorized disclosure."
+        }
+      ],
+      "id": [
+        {
+          "q": "Apakah Undang-Undang No. 27/2022 (UU PDP) berlaku ekstrateritorial bagi penyedia SaaS di luar negeri?",
+          "a": "Ya. Pasal 2 UU PDP menegaskan keberlakuan undang-undang bagi setiap entitas di luar wilayah Indonesia jika pemrosesan datanya berdampak hukum di Indonesia atau menyangkut data warga negara Indonesia."
+        },
+        {
+          "q": "Kapan penyedia software enterprise diwajibkan mengangkat Pejabat Pelindungan Data Pribadi (DPO)?",
+          "a": "Penunjukan DPO wajib jika aktivitas pemrosesan memerlukan pemantauan sistematis berskala besar terhadap subjek data, atau memproses data pribadi spesifik (seperti data keuangan, biometrik, dan catatan kesehatan)."
+        },
+        {
+          "q": "Mekanisme hukum apa yang diakui untuk transfer data pribadi lintas negara dari Indonesia?",
+          "a": "Pengendali data wajib memastikan negara penerima memiliki tingkat pelindungan data setara atau lebih tinggi. Jika tidak terpenuhi, transfer harus dilindungi klausul kontrak standar (SCC) atau persetujuan tegas subjek data."
+        },
+        {
+          "q": "Berapa besaran sanksi administratif dan hukum jika terjadi pelanggaran UU PDP?",
+          "a": "Denda administratif mencapai hingga 2% dari total pendapatan tahunan, disertai potensi pembekuan operasional sistem oleh Kominfo, ganti rugi perdata, hingga sanksi pidana kurungan."
+        }
+      ]
+    },
+    "references": [
+      {
+        "title": "Undang-Undang Republik Indonesia Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP)",
+        "source": "Lembaran Negara RI Tahun 2022 No. 196 · Tambahan Lembaran Negara RI No. 6820",
+        "type": "Statutory Law",
+        "year": "2022"
+      },
+      {
+        "title": "Peraturan Pemerintah No. 71 Tahun 2019 tentang Penyelenggaraan Sistem dan Transaksi Elektronik (PSTE)",
+        "source": "Sekretariat Negara Republik Indonesia",
+        "type": "Government Regulation",
+        "year": "2019"
+      },
+      {
+        "title": "Pedoman Penunjukan Pejabat Pelindungan Data Pribadi (DPO) & Transfer Data Internasional",
+        "source": "Kementerian Komunikasi dan Informatika (Kominfo)",
+        "type": "Regulatory Guidance",
+        "year": "2024"
+      }
+    ]
+  },
+  "indonesia-industrial-park-site-selection-java-kendal-batang": {
+    "tags": {
+      "en": [
+        "Industrial Parks",
+        "Kendal SEZ",
+        "Batang KITB",
+        "Site Selection",
+        "Labor Costs",
+        "Port Infrastructure"
+      ],
+      "id": [
+        "Kawasan Industri",
+        "KEK Kendal",
+        "KITB Batang",
+        "Pemilihan Lahan",
+        "Upah Tenaga Kerja",
+        "Logistik Pelabuhan"
+      ]
+    },
+    "faqs": {
+      "en": [
+        {
+          "q": "How do minimum wage (UMK) levels in Central Java compare against West Java manufacturing centers?",
+          "a": "Central Java industrial zones (such as Kendal, Batang, and Demak) feature minimum wage rates roughly 45% to 55% lower than West Java industrial corridors like Karawang, Bekasi, and Cikarang, substantially improving operating margins for labor-intensive assembly."
+        },
+        {
+          "q": "What fiscal advantages are granted to enterprises locating inside Kendal Special Economic Zone (KEK)?",
+          "a": "Eligible investors receive corporate income tax holidays (up to 100% reduction for 10 to 20 years depending on capital investment), 0% import duty on machinery and raw materials, and VAT non-collection on capital goods."
+        },
+        {
+          "q": "What port infrastructure limitations should international manufacturers plan around?",
+          "a": "Tanjung Mas Port in Semarang currently serves feeder vessels connecting to Singapore and Tanjung Priok (Jakarta). For deep-water bulk ocean freight, intermodal transport to Patimban or Tanjung Priok must be factored into total landed costs."
+        },
+        {
+          "q": "Does Batang Integrated Industrial Estate (KITB) provide direct construction permits (KLIK)?",
+          "a": "Yes. Both Batang (KITB) and Kendal offer the KLIK facility, allowing manufacturers to start civil construction immediately while building approvals (PBG) and environmental permits (AMDAL) run concurrently."
+        }
+      ],
+      "id": [
+        {
+          "q": "Bagaimana perbandingan Upah Minimum Kabupaten/Kota (UMK) di Jawa Tengah versus Jawa Barat?",
+          "a": "Kawasan industri di Jawa Tengah (seperti Kendal dan Batang) menawarkan tingkat UMK sekitar 45% hingga 55% lebih terjangkau dibandingkan koridor Karawang, Bekasi, dan Cikarang, memberikan efisiensi signifikan bagi industri perakitan."
+        },
+        {
+          "q": "Apa keuntungan fiskal utama mendirikan fasilitas produksi di KEK Kendal?",
+          "a": "Perusahaan yang memenuhi kriteria memperoleh Tax Holiday PPh Badan hingga 100% selama 10 hingga 20 tahun, pembebasan bea masuk mesin dan peralatan impor, serta fasilitas PPN tidak dipungut untuk bahan bangunan pabrik."
+        },
+        {
+          "q": "Keterbatasan infrastruktur pelabuhan apa yang perlu diantisipasi oleh pabrik berorientasi ekspor?",
+          "a": "Pelabuhan Tanjung Mas Semarang saat ini terutama melayani kapal pengumpan (feeder) menuju Singapura dan Tanjung Priok Jakarta. Pengiriman kargo samudra besar memerlukan perencanaan logistik intermodal."
+        },
+        {
+          "q": "Apakah Kawasan Industri Terpadu Batang (KITB) menyediakan fasilitas Kemudahan Investasi Langsung Konstruksi (KLIK)?",
+          "a": "Ya. KITB Batang dan KEK Kendal menyediakan fasilitas KLIK, sehingga investor dapat langsung memulai konstruksi fisik pabrik secara paralel bersamaan dengan proses perizinan PBG dan AMDAL kawasan."
+        }
+      ]
+    },
+    "references": [
+      {
+        "title": "Peraturan Pemerintah Nomor 40 Tahun 2021 tentang Penyelenggaraan Kawasan Ekonomi Khusus (KEK)",
+        "source": "Kementerian Koordinator Bidang Perekonomian RI",
+        "type": "Government Regulation",
+        "year": "2021"
+      },
+      {
+        "title": "Keputusan Gubernur Jawa Tengah tentang Upah Minimum Kabupaten/Kota (UMK)",
+        "source": "Pemerintah Provinsi Jawa Tengah",
+        "type": "Regional Wage Gazette",
+        "year": "2025/2026"
+      },
+      {
+        "title": "Pedoman Fasilitas Kemudahan Investasi Langsung Konstruksi (KLIK) Kawasan Industri",
+        "source": "Kementerian Investasi / Badan Koordinasi Penanaman Modal (BKPM)",
+        "type": "Investment Policy",
+        "year": "2023"
+      }
+    ]
+  },
+  "tier-2-tier-3-indonesia-consumer-markets-distribution": {
+    "tags": {
+      "en": [
+        "Tier-2 & Tier-3 Cities",
+        "FMCG Distribution",
+        "Warung Ecosystem",
+        "Consumer Behavior",
+        "Cash on Delivery",
+        "Regional Retail"
+      ],
+      "id": [
+        "Kota Tier 2 & 3",
+        "Distribusi FMCG",
+        "Ekosistem Warung",
+        "Perilaku Belanja",
+        "Cash on Delivery",
+        "Retail Daerah"
+      ]
+    },
+    "faqs": {
+      "en": [
+        {
+          "q": "Why do marketing campaigns designed for Greater Jakarta underperform in Tier-2 and Tier-3 cities?",
+          "a": "Consumers in non-tier-1 markets have distinct cash-flow rhythms, prioritize smaller transactional pack sizes (sachets and multi-packs under Rp 50,000), depend heavily on local peer networks, and exhibit strong brand loyalty once physical availability is established."
+        },
+        {
+          "q": "What is the most effective distribution architecture to penetrate regional Java and Sumatra?",
+          "a": "A tiered distribution matrix pairing trusted regional master distributors (distributor lokal) with dedicated field sales forces visiting traditional mom-and-pop kiosks (warung) weekly, supported by regional inventory buffers."
+        },
+        {
+          "q": "How can brands mitigate high Cash-on-Delivery (COD) refusal and return-to-seller (RTS) rates?",
+          "a": "Top consumer brands use automated WhatsApp order verification bots, partner with localized last-mile logistics fleets with cash-remittance escrow, and offer localized introductory payment incentives."
+        },
+        {
+          "q": "Is BPJPH Halal certification legally required for FMCG distribution in secondary cities?",
+          "a": "Yes. Under Law No. 33/2014, Halal certification is mandatory for food, beverage, cosmetic, and personal care products sold across Indonesia, and serves as an indispensable prerequisite for shelf space in regional trade."
+        }
+      ],
+      "id": [
+        {
+          "q": "Mengapa kampanye pemasaran yang dirancang untuk Jakarta kerap kurang efektif di kota tier-2 dan tier-3?",
+          "a": "Konsumen di luar wilayah metropolitan memiliki pola arus kas harian, lebih menyukai kemasan bernominal terjangkau (di bawah Rp 50.000), mengandalkan rekomendasi komunitas sekitar, serta sangat setia pada produk yang mudah didapat."
+        },
+        {
+          "q": "Struktur distribusi apa yang paling efektif untuk menembus pasar ritel daerah Jawa dan Sumatra?",
+          "a": "Kombinasi kemitraan bersama distributor lokal kawakan yang membawahi ribuan warung kelontong tradisional (general trade), didukung tim sales kanvaser lapangan dan mini-hub logistik regional."
+        },
+        {
+          "q": "Bagaimana cara menekan rasio retur barang gagal terkirim (Return to Seller) pada pesanan COD?",
+          "a": "Mengintegrasikan konfirmasi pesanan otomatis lewat WhatsApp bot sebelum paket dikirim, memilih kurir logistik lokal dengan reputasi serah-terima uang tunai terpercaya, serta opsi diskon untuk pembayaran digital."
+        },
+        {
+          "q": "Apakah sertifikasi Halal BPJPH mutlak diperlukan untuk distribusi produk konsumen di daerah?",
+          "a": "Ya. Berdasarkan UU No. 33/2014, sertifikasi Halal bersifat wajib untuk produk makanan, minuman, dan kosmetik di seluruh wilayah Indonesia, serta menjadi faktor penentu utama kepercayaan konsumen daerah."
+        }
+      ]
+    },
+    "references": [
+      {
+        "title": "Undang-Undang Nomor 33 Tahun 2014 tentang Jaminan Produk Halal (UU JPH)",
+        "source": "Badan Penyelenggara Jaminan Produk Halal (BPJPH) Kementerian Agama RI",
+        "type": "Statutory Law",
+        "year": "2014"
+      },
+      {
+        "title": "Laporan Perkembangan Pasar Retail dan Pola Konsumsi Rumah Tangga Provinsi",
+        "source": "Badan Pusat Statistik (BPS) Republik Indonesia",
+        "type": "Statistical Census",
+        "year": "2025"
+      },
+      {
+        "title": "NielsenIQ Market Snapshot: Retail Penetration Dynamics Beyond Tier-1 Metro Areas",
+        "source": "NielsenIQ Indonesia Intelligence",
+        "type": "Market Research",
+        "year": "2025"
+      }
+    ]
+  },
+  "cross-border-payments-qris": {
+    "tags": {
+      "en": [
+        "QRIS Interoperability",
+        "Local Currency Settlement",
+        "Bank Indonesia",
+        "Fintech Infrastructure",
+        "Cross-Border Payments",
+        "PBOC"
+      ],
+      "id": [
+        "QRIS Antarnegara",
+        "Local Currency Settlement",
+        "Bank Indonesia",
+        "Infrastruktur Fintech",
+        "Pembayaran Cross-Border",
+        "PBOC"
+      ]
+    },
+    "faqs": {
+      "en": [
+        {
+          "q": "How does bilateral cross-border QRIS between Indonesia and China function?",
+          "a": "Bank Indonesia and the People’s Bank of China (PBOC) link national QR code rails, enabling Indonesian QRIS and Chinese payment apps (such as Alipay and WeChat Pay) to scan local merchants directly, with transactions cleared in real time."
+        },
+        {
+          "q": "What are the cost savings associated with Local Currency Settlement (LCS)?",
+          "a": "LCS settles transactions directly between Indonesian Rupiah (IDR) and Chinese Yuan (CNY) without converting through the US Dollar as an intermediary, reducing foreign exchange conversion spreads and transaction fees by 1.5% to 3%."
+        },
+        {
+          "q": "Who can open and operate an ACCD banking account for trade settlements?",
+          "a": "Corporations engaged in genuine cross-border trade and investment can open specialized LCS accounts through designated Appointed Cross Currency Dealer (ACCD) commercial banks approved by BI and PBOC."
+        },
+        {
+          "q": "What is the standard Merchant Discount Rate (MDR) for cross-border QRIS transactions?",
+          "a": "MDR rates are established under Bank Indonesia ASPI guidelines, typically ranging from 0.7% to 1.2% for cross-border payments, split among acquiring banks, switches, and issuing payment institutions."
+        }
+      ],
+      "id": [
+        {
+          "q": "Bagaimana cara kerja interkoneksi QRIS antarnegara antara Indonesia dan Tiongkok?",
+          "a": "Bank Indonesia dan People’s Bank of China mengintegrasikan standarisasi QR nasional, sehingga turis dan pebisnis dapat memindai barcode merchant secara langsung menggunakan aplikasi dompet digital masing-masing."
+        },
+        {
+          "q": "Berapa potensi efisiensi biaya yang dihasilkan melalui Local Currency Settlement (LCS)?",
+          "a": "Penyelesaian langsung antara Rupiah (IDR) dan Renminbi (CNY) meniadakan mata uang perantara Dolar AS (USD), memangkas selisih kurs valuta asing dan biaya administrasi perbankan sebesar 1,5% hingga 3%."
+        },
+        {
+          "q": "Siapa yang berhak membuka rekening khusus untuk penyelesaian transaksi perdagangan LCS?",
+          "a": "Perusahaan yang memiliki underlying transaksi perdagangan atau investasi lintas batas dapat membuka rekening LCS melalui bank Appointed Cross Currency Dealer (ACCD) yang ditunjuk oleh BI dan PBOC."
+        },
+        {
+          "q": "Berapa besaran Merchant Discount Rate (MDR) untuk transaksi QRIS antarnegara?",
+          "a": "Tarif MDR diatur oleh regulasi Bank Indonesia dan ASPI, berkisar antara 0,7% hingga 1,2% untuk transaksi lintas batas, dialokasikan bagi pihak acquirer, switching, dan penerbit dompet digital."
+        }
+      ]
+    },
+    "references": [
+      {
+        "title": "Peraturan Bank Indonesia No. 23/16/PBI/2021 tentang Transaksi Bilateral Menggunakan Mata Uang Lokal Melalui Bank",
+        "source": "Bank Indonesia",
+        "type": "Central Bank Regulation",
+        "year": "2021"
+      },
+      {
+        "title": "Pedoman Teknis dan Tata Cara Implementasi QRIS Antarnegara (Cross-Border QRIS)",
+        "source": "Asosiasi Sistem Pembayaran Indonesia (ASPI)",
+        "type": "Payment Standard",
+        "year": "2023"
+      },
+      {
+        "title": "Joint Statement on the Bilateral Payment Connectivity & Local Currency Transactions Framework",
+        "source": "Bank Indonesia & The People's Bank of China (PBOC)",
+        "type": "Bilateral Agreement",
+        "year": "2024"
+      }
+    ]
+  },
+  "decoding-china-5-year-plan": {
+    "tags": {
+      "en": [
+        "15th Five-Year Plan",
+        "China Macro Strategy",
+        "ASEAN Corridor",
+        "Industrial Relocation",
+        "Green Energy",
+        "Belt and Road"
+      ],
+      "id": [
+        "Rencana Lima Tahun",
+        "Strategi Makro Tiongkok",
+        "Koridor ASEAN",
+        "Relokasi Industri",
+        "Energi Terbarukan",
+        "Inisiatif Sabuk & Jalan"
+      ]
+    },
+    "faqs": {
+      "en": [
+        {
+          "q": "Which manufacturing sectors are prioritized for outbound expansion in China’s Five-Year Plan?",
+          "a": "Beijing’s strategic economic plans emphasize outbound enterprise capital in renewable energy equipment (solar PV, wind turbines, power electronics), high-grade battery materials, grid automation, and precision machine engineering."
+        },
+        {
+          "q": "How does this outward policy intersect with Indonesia’s Vision 2045 industrial transformation?",
+          "a": "It directly aligns with Indonesia’s policy of transitioning from raw resource extraction to domestic industrial value-add (hilirisasi), establishing complete integrated ecosystems for nickel, aluminum, and clean tech."
+        },
+        {
+          "q": "How are Chinese private and state enterprises structuring their foreign investments in ASEAN?",
+          "a": "There has been a decisive shift from state-backed debt financing toward joint-equity ventures, co-investments with local industrial conglomerates, and commercial consortiums anchored in specialized industrial parks."
+        },
+        {
+          "q": "What ESG compliance standards are expected of outbound Chinese manufacturing plants in Indonesia?",
+          "a": "Firms must comply with Indonesian AMDAL environmental impact mandates, PROPER environmental ratings, and increasingly international buyer standards regarding clean energy sourcing (captive power transition)."
+        }
+      ],
+      "id": [
+        {
+          "q": "Sektor manufaktur apa yang menjadi prioritas ekspansi ke luar negeri dalam Rencana Lima Tahun Tiongkok?",
+          "a": "Rencana ekonomi strategis Beijing memprioritaskan ekspansi modal di bidang teknologi energi terbarukan (solar cell, turbin angin), material baterai canggih, otomasi sistem kelistrikan, dan permesinan presisi."
+        },
+        {
+          "q": "Bagaimana keselarasan strategi outbound ini dengan visi transformasi industri Indonesia Emas 2045?",
+          "a": "Kebijakan ini selaras dengan program hilirisasi nasional Indonesia untuk membangun ekosistem terpadu pengolahan mineral (nikel, aluminium) dan teknologi bersih secara mandiri di dalam negeri."
+        },
+        {
+          "q": "Bagaimana pola kemitraan investasi yang diterapkan perusahaan Tiongkok di kawasan Asia Tenggara?",
+          "a": "Terjadi pergeseran dari pembiayaan utang proyek ke skema penyertaan modal bersama (joint venture) dengan konglomerasi lokal, konsorsium komersial, serta investasi di kawasan industri terintegrasi."
+        },
+        {
+          "q": "Standar kepatuhan ESG apa yang diwajibkan bagi pabrik manufaktur internasional di Indonesia?",
+          "a": "Pabrik wajib mematuhi izin lingkungan AMDAL, audit peringkat PROPER dari Kementerian LHK, serta pemenuhan standar dekarbonisasi rantai pasok global (transisi energi bersih)."
+        }
+      ]
+    },
+    "references": [
+      {
+        "title": "Garis Besar Rencana Pembangunan Jangka Panjang Nasional (RPJPN) 2025-2045",
+        "source": "Kementerian PPN / Bappenas Republik Indonesia",
+        "type": "National Master Plan",
+        "year": "2024"
+      },
+      {
+        "title": "Outbound Direct Investment Guidance & Foreign Economic Cooperation Catalog",
+        "source": "National Development and Reform Commission (NDRC) & MOFCOM China",
+        "type": "State Strategic Guidance",
+        "year": "2025"
+      },
+      {
+        "title": "Rencana Induk Pembangunan Industri Nasional (RIPIN) 2015-2035",
+        "source": "Kementerian Perindustrian Republik Indonesia",
+        "type": "Industrial Policy",
+        "year": "2020"
+      }
+    ]
+  },
+  "asean-china-strategic-partnership": {
+    "tags": {
+      "en": [
+        "RCEP Agreement",
+        "Tariff Elimination",
+        "Rules of Origin",
+        "Trade Facilitation",
+        "Bilateral Supply Chain",
+        "Customs Clearance"
+      ],
+      "id": [
+        "Perjanjian RCEP",
+        "Penghapusan Tarif",
+        "Aturan Asal Barang",
+        "Fasilitasi Perdagangan",
+        "Rantai Pasok Bilateral",
+        "Kepabeanan"
+      ]
+    },
+    "faqs": {
+      "en": [
+        {
+          "q": "How does RCEP’s regional accumulation rule benefit bilateral manufacturers?",
+          "a": "Under RCEP Chapter 3, components and raw materials originating from any of the 15 member states (including ASEAN, China, Japan, and South Korea) can be combined together toward satisfying the 40% Regional Value Content (RVC) threshold."
+        },
+        {
+          "q": "Which Indonesian export categories secure zero-tariff treatment upon import into China?",
+          "a": "Key tariff-free lines include processed mineral ores, specialty chemical compounds, refined palm oil fractions, automotive components, and processed tropical aquaculture products."
+        },
+        {
+          "q": "What customs documentation must be presented to claim preferential RCEP tariff rates?",
+          "a": "Importers must submit a valid Certificate of Origin (Form RCEP) issued by the relevant issuing authority (Kementerian Perdagangan in Indonesia) or an approved Declarator of Origin (DAB)."
+        },
+        {
+          "q": "Does RCEP streamline non-tariff customs clearance for perishable goods?",
+          "a": "Yes. Article 4.15 mandates customs authorities to release perishable goods within six hours of arrival, provided all regulatory declarations and sanitary/phytosanitary requirements are fulfilled."
+        }
+      ],
+      "id": [
+        {
+          "q": "Bagaimana aturan kumulasi regional RCEP menguntungkan produsen lintas negara?",
+          "a": "Berdasarkan Bab 3 RCEP, bahan baku yang berasal dari salah satu dari 15 negara anggota (ASEAN, Tiongkok, Jepang, Korea Selatan) dapat dihitung bersama guna memenuhi ambang 40% Regional Value Content (RVC)."
+        },
+        {
+          "q": "Komoditas ekspor Indonesia apa saja yang mendapatkan fasilitas tarif 0% saat masuk ke pasar Tiongkok?",
+          "a": "Pos tarif bebas bea mencakup produk olahan hilirisasi mineral, bahan kimia turunan sawit, suku cadang otomotif, tekstil khusus, serta produk perikanan dan pertanian olahan."
+        },
+        {
+          "q": "Dokumen kepabeanan apa yang wajib ditunjukkan untuk mengklaim tarif preferensi RCEP?",
+          "a": "Importir wajib menunjukkan Surat Keterangan Asal (Form RCEP) resmi dari Kementerian Perdagangan RI atau Deklarasi Asal Barang (DAB) oleh Eksportir Teregistrasi yang sah."
+        },
+        {
+          "q": "Apakah RCEP memberikan percepatan waktu kliring bea cukai untuk produk cepat rusak?",
+          "a": "Ya. Pasal 4.15 mewajibkan otoritas kepabeanan menyelesaikan pengeluaran barang cepat rusak (perishable goods) maksimal dalam waktu 6 jam setelah kedatangan jika berkas karantina telah lengkap."
+        }
+      ]
+    },
+    "references": [
+      {
+        "title": "Persetujuan Kemitraan Ekonomi Komprehensif Regional (Regional Comprehensive Economic Partnership / RCEP)",
+        "source": "Sekretariat ASEAN & Kementerian Perdagangan Republik Indonesia",
+        "type": "International Treaty",
+        "year": "2022"
+      },
+      {
+        "title": "Peraturan Menteri Perdagangan No. 62 Tahun 2022 tentang Ketentuan Asal Barang Ekspor untuk RCEP",
+        "source": "Kementerian Perdagangan Republik Indonesia",
+        "type": "Trade Regulation",
+        "year": "2022"
+      },
+      {
+        "title": "Peraturan Menteri Keuangan tentang Penetapan Tarif Bea Masuk dalam Rangka Persetujuan RCEP",
+        "source": "Kementerian Keuangan Republik Indonesia",
+        "type": "Tariff Schedule",
+        "year": "2023"
+      }
+    ]
+  }
+}

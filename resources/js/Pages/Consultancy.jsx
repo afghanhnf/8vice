@@ -1,5 +1,6 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
@@ -89,17 +90,10 @@ export default function Consultancy() {
 
   return (
     <MainLayout>
-      <Head>
-        <title>{t('meta.consultancy_title')}</title>
-        <meta name="description" content={t('meta.consultancy_desc')} />
-        <meta property="og:title" content={t('meta.consultancy_title')} />
-        <meta property="og:description" content={t('meta.consultancy_desc')} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/og-default.png" />
-      </Head>
+      <SeoHead pageCode="consultancy" />
 
       {/* ============================ HERO ============================ */}
-      <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '120px' }}>
+      <section className="page-hero page-hero--tall has-geo-bg" style={{ background: 'var(--color-ink)', paddingTop: '48px', paddingBottom: '60px' }}>
         <div className="geo-bg">
           <div className="geo-bg__grid"></div>
           <div className="geo-bg__gradients"></div>
@@ -136,7 +130,7 @@ export default function Consultancy() {
             <div style={{ flex: '1 1 min(100%, 400px)' }}>
               <ScrollReveal delay={300}>
                 <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '4/3', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backgroundColor: '#0a0a0a' }}>
-                  <img src="/images/consultancy_hero.png" alt="Consultancy Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img width="800" height="600" src="/images/consultancy_hero.webp" alt="Consultancy Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </ScrollReveal>
             </div>
@@ -246,8 +240,14 @@ export default function Consultancy() {
         <div className="container">
           <ScrollReveal>
             <div className="impact__inner">
-              <div className="impact__thumb" style={{ background: 'linear-gradient(135deg, rgba(214,40,40,0.15) 0%, #111 100%)' }}>
-                {/* Placeholder for case study image */}
+              <div className="impact__thumb" style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px' }}>
+                <img 
+                  width="800" 
+                  height="600" 
+                  src="/images/cases/fintech.webp" 
+                  alt="A Chinese fintech, live in six months" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                />
               </div>
               <div>
                 <span className="tag">{t('consultancy_page.case_tag')}</span>
@@ -255,7 +255,7 @@ export default function Consultancy() {
                 <p className="t-body-lg" style={{ color: 'rgba(255,255,255,0.65)', marginBottom: '28px' }}>
                   {t('consultancy_page.case_desc')}
                 </p>
-                <Link href="/case-study" className="btn btn--ghost-light" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <Link href="/case-study/chinese-fintech-live-in-6-months" className="btn btn--ghost-light" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                   {t('consultancy_page.case_btn')}
                   <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                 </Link>

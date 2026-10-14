@@ -1,0 +1,681 @@
+/* ============================================================
+   8VICE — Material Design 3 (M3) Motion & Ornament System
+   Reference: https://m3.material.io/
+   Tokens: Easing, Durations, Tonal Elevation, State Layers, Micro-Interactions
+   ============================================================ */
+
+:root {
+  /* M3 Easing Tokens */
+  --m3-easing-emphasized: cubic-bezier(0.2, 0.0, 0, 1.0);
+  --m3-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+  --m3-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
+  --m3-easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
+  --m3-easing-standard-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --m3-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+  /* M3 Duration Tokens */
+  --m3-duration-short-1: 50ms;
+  --m3-duration-short-2: 100ms;
+  --m3-duration-short-3: 150ms;
+  --m3-duration-short-4: 200ms;
+  --m3-duration-medium-1: 250ms;
+  --m3-duration-medium-2: 300ms;
+  --m3-duration-medium-3: 350ms;
+  --m3-duration-medium-4: 400ms;
+  --m3-duration-long-1: 450ms;
+  --m3-duration-long-2: 500ms;
+  --m3-duration-long-3: 550ms;
+  --m3-duration-long-4: 600ms;
+
+  /* M3 Tonal Shadows + 8VICE Crimson Ambient Glow */
+  --m3-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+  --m3-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
+  --m3-elevation-3: 0 12px 28px -4px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(214, 40, 40, 0.12);
+  --m3-elevation-4: 0 18px 40px -6px rgba(0, 0, 0, 0.22), 0 6px 18px rgba(214, 40, 40, 0.18);
+  --m3-elevation-5: 0 24px 56px -8px rgba(0, 0, 0, 0.28), 0 8px 24px rgba(214, 40, 40, 0.24);
+}
+
+/* ============================================================
+   1. HEADER & NAVIGATION (Title Case / Natural Casing)
+   ============================================================ */
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 14.5px !important;
+  font-weight: 500;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important; /* Non-capital / Natural title case */
+  padding: 8px 15px !important;
+  border-radius: 9999px;
+  position: relative;
+  transition: color var(--m3-duration-short-4) var(--m3-easing-standard),
+              background-color var(--m3-duration-short-4) var(--m3-easing-standard),
+              transform var(--m3-duration-short-3) var(--m3-easing-standard) !important;
+}
+
+.nav__link:hover {
+  color: #FFFFFF !important;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav__link.is-current {
+  color: #FFFFFF !important;
+  background-color: rgba(214, 40, 40, 0.14);
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--color-red);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--m3-duration-medium-1) var(--m3-easing-emphasized) !important;
+}
+
+.nav__link.is-current::after,
+.nav__item.is-open .nav__link::after {
+  transform: scaleX(1) !important;
+}
+
+.nav__caret {
+  transition: transform var(--m3-duration-medium-1) var(--m3-easing-emphasized) !important;
+}
+
+/* Dropdown Menu Container Transform */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: auto;
+  background: rgba(18, 18, 18, 0.94) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 24px 60px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.96) !important;
+  transform-origin: top left;
+  transition: opacity var(--m3-duration-short-4) var(--m3-easing-standard),
+              transform var(--m3-duration-medium-1) var(--m3-easing-emphasized-decelerate),
+              visibility var(--m3-duration-short-4) !important;
+  z-index: 1000;
+}
+
+.nav__item.is-open .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1) !important;
+}
+
+.dropdown--svc {
+  width: 360px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  padding: 10px !important;
+  left: 0 !important;
+  right: auto !important;
+  grid-template-columns: none !important;
+}
+
+.dropdown__svc {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 12px 14px !important;
+  border-radius: 12px !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  text-decoration: none !important;
+  transition: background-color var(--m3-duration-short-3) var(--m3-easing-standard),
+              transform var(--m3-duration-short-3) var(--m3-easing-standard),
+              color var(--m3-duration-short-3) ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.dropdown__svc:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+  transform: translateX(4px) !important;
+}
+
+.dropdown__svc-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(214, 40, 40, 0.12);
+  border: 1px solid rgba(214, 40, 40, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.dropdown__svc:hover .dropdown__svc-icon-box {
+  background: var(--color-red);
+  border-color: var(--color-red);
+  transform: scale(1.05);
+}
+
+.dropdown__svc-ico {
+  width: 20px !important;
+  height: 20px !important;
+  color: var(--color-red) !important;
+  transition: color 200ms ease;
+}
+
+.dropdown__svc:hover .dropdown__svc-ico {
+  color: #FFFFFF !important;
+}
+
+.dropdown__svc-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.dropdown__svc-title {
+  font-family: var(--font-display);
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  color: #FFFFFF !important;
+  line-height: 1.3 !important;
+  margin-bottom: 2px !important;
+  text-transform: none !important;
+}
+
+.dropdown__svc-desc {
+  font-family: var(--font-body) !important;
+  font-size: 12px !important;
+  color: var(--color-gray-400) !important;
+  line-height: 1.4 !important;
+  margin: 0 !important;
+  white-space: normal !important;
+}
+
+.dropdown__svc:hover .dropdown__svc-desc {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.dropdown__svc-arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--color-gray-400);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 180ms ease, transform 180ms cubic-bezier(0.2, 0, 0, 1), color 180ms ease;
+  flex: none;
+}
+
+.dropdown__svc:hover .dropdown__svc-arrow {
+  opacity: 1;
+  color: var(--color-red);
+  transform: translateX(0);
+}
+
+/* Mobile Drawer Links (Natural Title Case) */
+.drawer__link {
+  display: block;
+  color: #FFFFFF;
+  font-size: 15.5px !important;
+  font-weight: 500;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  padding: 14px 12px !important;
+  border-radius: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background-color var(--m3-duration-short-3) ease,
+              color var(--m3-duration-short-3) ease !important;
+}
+
+.drawer__link:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--color-red);
+}
+
+.drawer__sublink {
+  text-transform: none !important;
+  font-size: 14px !important;
+}
+
+.login-btn {
+  text-transform: none !important;
+  font-size: 13.5px !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* ============================================================
+   2. BUTTONS & TACTILE INTERACTIONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 15px 30px;
+  border-radius: 9999px;
+  border: 1.5px solid transparent;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--m3-duration-short-4) var(--m3-easing-standard),
+              color var(--m3-duration-short-4) var(--m3-easing-standard),
+              border-color var(--m3-duration-short-4) var(--m3-easing-standard),
+              transform var(--m3-duration-short-2) var(--m3-easing-standard),
+              box-shadow var(--m3-duration-short-4) var(--m3-easing-standard) !important;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -4px rgba(214, 40, 40, 0.35);
+}
+
+.btn:active {
+  transform: scale(0.97) translateY(0) !important;
+  transition-duration: 80ms !important;
+}
+
+.btn .ico {
+  transition: transform var(--m3-duration-short-4) var(--m3-easing-standard);
+}
+
+.btn:hover .ico {
+  transform: translateX(4px);
+}
+
+.btn--primary {
+  background: var(--color-red) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 16px rgba(214, 40, 40, 0.28);
+}
+
+.btn--primary:hover {
+  background: #E63939 !important;
+  box-shadow: 0 8px 24px rgba(214, 40, 40, 0.4) !important;
+}
+
+/* Subtle Shimmer Light Streak on Primary CTA */
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-20deg);
+  animation: m3BtnShimmer 6s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes m3BtnShimmer {
+  0%, 80% { left: -120%; }
+  100% { left: 160%; }
+}
+
+/* ============================================================
+   3. TONAL ELEVATION & CARDS
+   ============================================================ */
+.help-card,
+.case-card,
+.course-card,
+.ind-group,
+.highlight-card,
+.aside-box,
+.card-transparent,
+.metric-chip {
+  transition: transform var(--m3-duration-medium-2) var(--m3-easing-emphasized),
+              box-shadow var(--m3-duration-medium-2) var(--m3-easing-emphasized),
+              border-color var(--m3-duration-short-4) var(--m3-easing-standard) !important;
+}
+
+.help-card:hover,
+.case-card:hover,
+.course-card:hover {
+  transform: translateY(-6px) !important;
+  border-color: rgba(214, 40, 40, 0.35) !important;
+  box-shadow: 0 20px 44px -10px rgba(0, 0, 0, 0.09),
+              0 8px 24px -4px rgba(214, 40, 40, 0.15) !important;
+}
+
+.highlight-card:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(214, 40, 40, 0.45) !important;
+  box-shadow: 0 16px 36px -6px rgba(214, 40, 40, 0.18),
+              0 4px 14px rgba(0, 0, 0, 0.4) !important;
+}
+
+.card-transparent:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-red) !important;
+  box-shadow: 0 12px 28px -4px rgba(214, 40, 40, 0.16) !important;
+}
+
+/* Image Thumbnail Zoom feedback */
+.article-card {
+  transition: transform var(--m3-duration-medium-2) var(--m3-easing-emphasized) !important;
+}
+.article-card:hover {
+  transform: translateY(-4px) !important;
+}
+.article-card__thumb,
+.case-card__cover {
+  overflow: hidden;
+}
+.article-card__thumb img,
+.case-card__cover img {
+  transition: transform var(--m3-duration-long-1) var(--m3-easing-emphasized) !important;
+}
+.article-card:hover .article-card__thumb img,
+.case-card:hover .case-card__cover img {
+  transform: scale(1.05) !important;
+}
+
+/* ============================================================
+   4. FILTER CHIPS & PILL BADGES
+   ============================================================ */
+.tab {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid var(--color-gray-200) !important;
+  border-radius: 9999px !important;
+  padding: 8px 18px !important;
+  margin-right: 8px !important;
+  margin-bottom: 8px !important;
+  font-family: var(--font-body);
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--color-gray-600) !important;
+  position: relative;
+  transition: all var(--m3-duration-short-4) var(--m3-easing-standard) !important;
+  cursor: pointer;
+}
+
+.tab:hover {
+  background: rgba(214, 40, 40, 0.08) !important;
+  border-color: rgba(214, 40, 40, 0.3) !important;
+  color: var(--color-red) !important;
+  transform: translateY(-1px);
+}
+
+.tab.is-active {
+  background: var(--color-red) !important;
+  border-color: var(--color-red) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(214, 40, 40, 0.32) !important;
+}
+
+.tab::after {
+  display: none !important;
+}
+
+.tab.is-active .count {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.tag {
+  border-radius: 9999px !important;
+  padding: 6px 12px !important;
+  font-size: 11.5px !important;
+}
+
+/* ============================================================
+   5. FLOATING WHATSAPP BUTTON (M3 Radar Pulse Animation)
+   ============================================================ */
+.wa-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--color-whatsapp) !important;
+  color: #fff;
+  border-radius: 50%;
+  border: 0;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.38) !important;
+  transition: transform var(--m3-duration-medium-1) var(--m3-easing-emphasized),
+              box-shadow var(--m3-duration-medium-1) var(--m3-easing-emphasized) !important;
+}
+
+.wa-fab::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid var(--color-whatsapp);
+  opacity: 0.8;
+  animation: m3PulseRadar 2.4s cubic-bezier(0.2, 0, 0, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes m3PulseRadar {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { opacity: 0.3; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.wa-fab:hover {
+  transform: scale(1.08) translateY(-2px) !important;
+  box-shadow: 0 16px 36px rgba(37, 211, 102, 0.48) !important;
+}
+
+/* ============================================================
+   6. AMBIENT BACKGROUND GLOW PULSE (Hero & Geometry)
+   ============================================================ */
+.geo-bg__gradients::before {
+  animation: m3AmbientPulse 10s ease-in-out infinite alternate;
+}
+
+@keyframes m3AmbientPulse {
+  0% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.04); }
+  100% { opacity: 0.15; transform: scale(1); }
+}
+
+/* ============================================================
+   7. SMART SEARCH MODAL CONTAINER TRANSFORM
+   ============================================================ */
+.smartsearch-backdrop {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  transition: opacity var(--m3-duration-medium-1) ease !important;
+}
+
+.smartsearch-dialog {
+  border-radius: 20px !important;
+  animation: m3ModalEnter var(--m3-duration-medium-3) var(--m3-easing-emphasized-decelerate) forwards !important;
+}
+
+@keyframes m3ModalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================================
+   8. GOOGLE MATERIAL 3 (M3) SYSTEM TOKENS ALIASES
+   ============================================================ */
+:root {
+  --md-sys-motion-easing-emphasized: var(--m3-easing-emphasized);
+  --md-sys-motion-easing-emphasized-decelerate: var(--m3-easing-emphasized-decelerate);
+  --md-sys-motion-easing-emphasized-accelerate: var(--m3-easing-emphasized-accelerate);
+  --md-sys-motion-easing-standard: var(--m3-easing-standard);
+  --md-sys-motion-easing-standard-decelerate: var(--m3-easing-standard-decelerate);
+  --md-sys-motion-easing-standard-accelerate: var(--m3-easing-standard-accelerate);
+
+  --md-sys-motion-duration-short1: var(--m3-duration-short-1);
+  --md-sys-motion-duration-short2: var(--m3-duration-short-2);
+  --md-sys-motion-duration-short3: var(--m3-duration-short-3);
+  --md-sys-motion-duration-short4: var(--m3-duration-short-4);
+  --md-sys-motion-duration-medium1: var(--m3-duration-medium-1);
+  --md-sys-motion-duration-medium2: var(--m3-duration-medium-2);
+  --md-sys-motion-duration-medium3: var(--m3-duration-medium-3);
+  --md-sys-motion-duration-medium4: var(--m3-duration-medium-4);
+  --md-sys-motion-duration-long1: var(--m3-duration-long-1);
+  --md-sys-motion-duration-long2: var(--m3-duration-long-2);
+  --md-sys-motion-duration-long3: var(--m3-duration-long-3);
+  --md-sys-motion-duration-long4: var(--m3-duration-long-4);
+}
+
+/* ============================================================
+   9. MATERIAL SYMBOLS OUTLINED HELPER
+   ============================================================ */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   10. LAZY LOAD & CONTENT VISIBILITY (Load Optimization)
+   ============================================================ */
+/* Skip offscreen layout rendering until near viewport */
+.section:not(.page-hero):not(.hero):not(.geo-hero):not(.section--hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
+/* Progressive Image Lazy Loading (Blur-up to Sharp Fade) */
+img[loading="lazy"],
+.lazy-img {
+  opacity: 0;
+  filter: blur(8px);
+  transform: scale(1.015);
+  transition: opacity var(--m3-duration-medium-3) var(--m3-easing-standard),
+              filter var(--m3-duration-medium-3) var(--m3-easing-standard),
+              transform var(--m3-duration-medium-3) var(--m3-easing-standard) !important;
+  will-change: opacity, filter, transform;
+}
+
+img[loading="lazy"].is-loaded,
+.lazy-img.is-loaded,
+img:not([loading="lazy"]) {
+  opacity: 1 !important;
+  filter: blur(0) !important;
+  transform: scale(1) !important;
+}
+
+/* ============================================================
+   11. M3 SECTION TRANSITIONS (Shared Axis Y Motion)
+   ============================================================ */
+.m3-section-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity var(--m3-duration-long-2) var(--m3-easing-emphasized-decelerate),
+              transform var(--m3-duration-long-2) var(--m3-easing-emphasized-decelerate) !important;
+  will-change: opacity, transform;
+}
+
+.m3-section-reveal.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ScrollReveal enhancements with M3 curve */
+.reveal {
+  opacity: 0;
+  transition: opacity var(--m3-duration-medium-4) var(--m3-easing-emphasized-decelerate),
+              transform var(--m3-duration-medium-4) var(--m3-easing-emphasized-decelerate) !important;
+  will-change: opacity, transform;
+}
+
+.reveal--up {
+  transform: translateY(28px);
+}
+
+.reveal--up.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.reveal--scale {
+  transform: scale(0.96);
+}
+
+.reveal--scale.is-visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+.reveal--fade.is-visible {
+  opacity: 1 !important;
+}
+
+/* ============================================================
+   12. M3 INERTIA PAGE TRANSITIONS (Fade Through)
+   ============================================================ */
+.m3-page-transition {
+  animation: m3PageFadeThrough var(--m3-duration-medium-3) var(--m3-easing-emphasized-decelerate) both;
+  will-change: opacity, transform;
+}
+
+@keyframes m3PageFadeThrough {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Active tactile state layer (M3) */
+.m3-active-state {
+  transform: scale(0.978) translateY(0) !important;
+  transition: transform var(--m3-duration-short-1) var(--m3-easing-emphasized) !important;
+}
+
+/* Smooth scrolling across the site */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .m3-section-reveal,
+  .m3-page-transition,
+  img[loading="lazy"] {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import MainLayout from '@/Layouts/MainLayout';
 
 export default function SocialImpact() {
   return (
     <MainLayout>
-      <Head title="8vice - SocialImpact" />
+      <SeoHead pageCode="social_impact" />
       <section className="section section--white">
         <div className="container">
           <h1 className="t-h1">SocialImpact Page</h1>

@@ -56,7 +56,7 @@ export default function ServiceDetailLayout({
             <ScrollReveal delay={200}>
               <div style={{ width: '100%', height: '380px', borderRadius: '16px', overflow: 'hidden', background: '#111' }}>
                 {heroImage ? (
-                  <img src={heroImage} alt={pageTitle} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }} />
+                  <img width="800" height="600" src={heroImage} alt={pageTitle} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }} />
                 ) : (
                   <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, rgba(214,40,40,0.15) 0%, transparent 100%)' }}></div>
                 )}
@@ -90,7 +90,7 @@ export default function ServiceDetailLayout({
               <ScrollReveal delay={200}>
                 <div className="svc-approach__media">
                   {approachImage ? (
-                    <img src={approachImage} alt="Approach" />
+                    <img width="800" height="600" src={approachImage} alt="Approach" />
                   ) : (
                     <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, rgba(214,40,40,0.1) 0%, transparent 100%)' }}></div>
                   )}
@@ -206,7 +206,7 @@ export default function ServiceDetailLayout({
                 <div key={i} className="svc-case-card">
                   <div className="svc-case-card__cover">
                     {cs.image ? (
-                      <img src={cs.image} alt={cs.title} />
+                      <img width="800" height="600" src={cs.image} alt={cs.title} />
                     ) : (
                       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-gray-400)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>

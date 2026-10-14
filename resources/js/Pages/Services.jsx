@@ -1,23 +1,17 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
+import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import { useTranslation } from '@/Contexts/TranslationContext';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
 
-export default function Services() {
-  const { t } = useTranslation();
+export default function Services({ services, industryCoverages }) {
+  const { t, locale } = useTranslation();
 
   return (
     <MainLayout>
-      <Head>
-        <title>{t('meta.services_title')}</title>
-        <meta name="description" content={t('meta.services_desc')} />
-        <meta property="og:title" content={t('meta.services_title')} />
-        <meta property="og:description" content={t('meta.services_desc')} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/og-default.png" />
-      </Head>
+      <SeoHead pageCode="services" />
 
       {/* ============================ HERO ============================ */}
       <section className="about-hero" style={{ paddingBottom: '160px' }}>
@@ -43,50 +37,22 @@ export default function Services() {
       {/* ============================ SERVICE PILLARS ============================ */}
       <section style={{ backgroundColor: 'var(--ink-black)', paddingBottom: '120px', marginTop: '-80px' }}>
         <div className="container">
+          
           <Staggered delay={300} staggerDelay={200} className="grid-responsive grid-responsive--320" style={{ gap: '24px', position: 'relative', zIndex: 10 }}>
-            
-            {/* Consultancy */}
-            <div className="bento-box" style={{ padding: '48px 40px', display: 'flex', flexDirection: 'column' }}>
-              <div className="bento-num">01</div>
-              <div style={{ color: 'var(--hero-accent)', marginBottom: '24px' }}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+            {(services?.length > 0 ? services : []).map((service, idx) => (
+              <div key={idx} className="bento-box" style={{ padding: '48px 40px', display: 'flex', flexDirection: 'column' }}>
+                <div className="bento-num">0{idx + 1}</div>
+                <div style={{ color: 'var(--hero-accent)', marginBottom: '24px' }}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                </div>
+                <h3 style={{ fontSize: '28px', color: '#fff', fontFamily: 'var(--font-display)', marginBottom: '16px' }}>{service.title}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.65)', lineHeight: '1.7', marginBottom: '40px', flexGrow: 1 }}>{service.description}</p>
+                <Link href={service.link_url || '/contact'} style={{ color: 'var(--hero-accent)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                  {locale === 'id' ? 'Pelajari' : 'Discover'} {service.title}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </Link>
               </div>
-              <h3 style={{ fontSize: '28px', color: '#fff', fontFamily: 'var(--font-display)', marginBottom: '16px' }}>{t('services_page.card1_title')}</h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', lineHeight: '1.7', marginBottom: '40px', flexGrow: 1 }}>{t('services_page.card1_desc')}</p>
-              <Link href="/consultancy" style={{ color: 'var(--hero-accent)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                {t('services_page.card1_cta')}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </Link>
-            </div>
-
-            {/* Training */}
-            <div className="bento-box" style={{ padding: '48px 40px', display: 'flex', flexDirection: 'column' }}>
-              <div className="bento-num">02</div>
-              <div style={{ color: 'var(--hero-accent)', marginBottom: '24px' }}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-              </div>
-              <h3 style={{ fontSize: '28px', color: '#fff', fontFamily: 'var(--font-display)', marginBottom: '16px' }}>{t('services_page.card2_title')}</h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', lineHeight: '1.7', marginBottom: '40px', flexGrow: 1 }}>{t('services_page.card2_desc')}</p>
-              <Link href="/training" style={{ color: 'var(--hero-accent)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                {t('services_page.card2_cta')}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </Link>
-            </div>
-
-            {/* Insight */}
-            <div className="bento-box" style={{ padding: '48px 40px', display: 'flex', flexDirection: 'column' }}>
-              <div className="bento-num">03</div>
-              <div style={{ color: 'var(--hero-accent)', marginBottom: '24px' }}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-              </div>
-              <h3 style={{ fontSize: '28px', color: '#fff', fontFamily: 'var(--font-display)', marginBottom: '16px' }}>{t('services_page.card3_title')}</h3>
-              <p style={{ color: 'rgba(255,255,255,0.65)', lineHeight: '1.7', marginBottom: '40px', flexGrow: 1 }}>{t('services_page.card3_desc')}</p>
-              <Link href="/insight" style={{ color: 'var(--hero-accent)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                {t('services_page.card3_cta')}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </Link>
-            </div>
-
+            ))}
           </Staggered>
         </div>
       </section>
@@ -150,9 +116,9 @@ export default function Services() {
             
             <ScrollReveal delay={200}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                {['Consumer & Retail', 'Food & Beverage', 'Fintech & Payments', 'Technology & Digital', 'E-commerce & Logistics', 'Manufacturing', 'Energy & Resources', 'Infrastructure', 'Automotive', 'Healthcare & Pharma', 'Real Estate', 'Education', 'Agribusiness', 'Financial Services', 'Media & Entertainment', 'Tourism & Hospitality'].map((ind, i) => (
+                {industryCoverages?.map((ind, i) => (
                   <span key={i} style={{ padding: '10px 20px', borderRadius: '40px', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '14px', whiteSpace: 'nowrap', backgroundColor: '#111' }}>
-                    {ind}
+                    {ind.title}
                   </span>
                 ))}
               </div>
