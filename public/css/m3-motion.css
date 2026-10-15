@@ -581,11 +581,10 @@ img[loading="lazy"],
 }
 
 img[loading="lazy"].is-loaded,
-.lazy-img.is-loaded,
-img:not([loading="lazy"]) {
-  opacity: 1 !important;
-  filter: blur(0) !important;
-  transform: scale(1) !important;
+.lazy-img.is-loaded {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
 }
 
 /* ============================================================

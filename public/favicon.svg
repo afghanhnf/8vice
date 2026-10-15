@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#18191D"/>
+      <stop offset="100%" stop-color="#08080A"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF4245"/>
+      <stop offset="100%" stop-color="#D62828"/>
+    </linearGradient>
+    <mask id="cutout">
+      <rect width="512" height="512" fill="#FFFFFF"/>
+      <ellipse cx="218" cy="182.5" rx="43" ry="41" fill="#000000"/>
+      <ellipse cx="218" cy="325" rx="53.5" ry="49" fill="#000000"/>
+    </mask>
+  </defs>
+
+  <!-- Squircle Base with subtle luxury border -->
+  <rect x="18" y="18" width="476" height="476" rx="112" fill="url(#bgGrad)" stroke="rgba(255, 255, 255, 0.1)" stroke-width="6"/>
+
+  <!-- Iconic 8 with Cutout Holes -->
+  <g mask="url(#cutout)">
+    <ellipse cx="218" cy="182.5" rx="95" ry="87.5" fill="#FFFFFF"/>
+    <ellipse cx="218" cy="325" rx="116" ry="102.5" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Signature 8vice Crimson Red Dot -->
+  <circle cx="376" cy="393.5" r="34" fill="url(#redGrad)"/>
+</svg>

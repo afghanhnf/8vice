@@ -117,8 +117,12 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
             <h1 className="t-display" style={{ fontSize: 'clamp(36px, 4vw, 50px)', maxWidth: 'none', width: 'auto', lineHeight: 1.12, letterSpacing: '-0.02em', marginBottom: '20px' }}>
               {heroBanners?.[heroIndex]?.title || t('home.hero_title_1')}<span className="accent" style={{ color: 'var(--color-red)' }}>{heroBanners?.[heroIndex]?.title_accent ? ` ${heroBanners[heroIndex].title_accent}` : ` ${t('home.hero_title_accent')}`}</span>
             </h1>
-            <p className="t-body-lg hero__sub" style={{ whiteSpace: 'pre-line', fontSize: '16px', lineHeight: '1.65', color: 'rgba(255, 255, 255, 0.75)', marginBottom: '32px' }}>
-              {heroBanners?.[heroIndex]?.description || t('home.hero_sub_1') + '\n\n' + t('home.hero_sub_2')}
+            <p className="t-body-lg hero__sub" style={{ fontSize: '16px', lineHeight: '1.65', color: 'rgba(255, 255, 255, 0.75)', marginBottom: '32px', maxWidth: '64ch' }}>
+              {(heroBanners?.[heroIndex]?.description 
+                ? (typeof heroBanners[heroIndex].description === 'object'
+                    ? (heroBanners[heroIndex].description[lang] || heroBanners[heroIndex].description.en || heroBanners[heroIndex].description.id || '')
+                    : heroBanners[heroIndex].description)
+                : t('home.hero_sub_1')).replace(/\r?\n+/g, ' ').trim()}
             </p>
             <div className="hero__ctas" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginBottom: '40px' }}>
               <Link href={heroBanners?.[heroIndex]?.button_1_url || "/contact"} className="btn btn--primary btn--lg" style={{ boxShadow: '0 8px 24px rgba(214, 40, 40, 0.35)' }}>
@@ -198,9 +202,20 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
                 {heroBanners.map((banner, i) => (
                   <img width="800" height="600" 
                     key={banner.id || i} 
-                    src={`/storage/${banner.image}`} 
+                    src={banner.image.startsWith('/') ? `${banner.image}?v=2` : `/storage/${banner.image}?v=2`} 
                     onError={() => setHeroImageError(true)}
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", opacity: i === heroIndex ? 1 : 0, transition: "opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)" }} 
+                    style={{ 
+                      position: "absolute", 
+                      top: 0, 
+                      left: 0, 
+                      width: "100%", 
+                      height: "100%", 
+                      objectFit: "cover", 
+                      opacity: i === heroIndex ? 1 : 0, 
+                      zIndex: i === heroIndex ? 2 : 1,
+                      pointerEvents: i === heroIndex ? "auto" : "none",
+                      transition: "opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)" 
+                    }} 
                     alt={banner.title || 'Hero Banner'} 
                   />
                 ))}
@@ -879,21 +894,53 @@ export default function Home({ clients, caseStudies, insights, bookReviews, cour
               </Link>
             </div>
             <Staggered className="insight-grid" staggerDelay={100}>
-              {insights?.slice(0, 3).map((a, idx) => (
-                <article key={idx} className="article-card">
-                  <Link href={`/article/${a.slug}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
-                    <div className="article-card__thumb" style={{ position: 'relative', overflow: 'hidden', backgroundColor: '#0a0a0a', paddingBottom: '60%', borderRadius: '12px', marginBottom: '16px' }}>
-                      {a.cover ? (
-                        <img width="800" height="600" src={a.cover.startsWith('/') ? a.cover : `/storage/${a.cover}`} alt={a.title || a.t} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                      ) : (
-                        <img width="800" height="600" src="/images/article-sample.webp" alt="Insight Cover" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                      )}
-                    </div>
-                    <div className="meta"><span className="cat">{a.cat || a.category}</span><span className="rt">{a.rt || '5 min read'}</span></div>
-                    <h3 className="t-h3">{a.title || a.t}</h3>
-                  </Link>
-                </article>
-              ))}
+              {insights?.slice(0, 3).map((a, idx) => {
+                const excerpt = typeof a.excerpt === 'string' ? a.excerpt : (a.excerpt?.en || a.excerpt?.id || a.desc || a.description || "Practical analysis and strategic intelligence for enterprises navigating cross-border operations between China and Indonesia.");
+                const title = typeof a.title === 'string' ? a.title : (a.title?.en || a.title?.id || (typeof a.t === 'string' ? a.t : (a.t?.en || a.t?.id || '')));
+                const coverUrl = a.cover ? (a.cover.startsWith('/') ? a.cover : `/storage/${a.cover}`) : '/images/article-sample.webp';
+
+                return (
+                  <article key={idx} className="article-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <Link href={`/article/${a.slug || a.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                      <div className="article-card__thumb" style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/10', width: '100%', backgroundColor: '#0a0a0a', margin: 0, borderRadius: 0 }}>
+                        <img 
+                          width="800" 
+                          height="500" 
+                          src={coverUrl} 
+                          alt={title} 
+                          loading="lazy"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                        />
+                      </div>
+                      <div className="article-card__body" style={{ padding: '24px 28px 28px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                        <div className="meta" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                          <span className="cat" style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-red, #D62828)' }}>
+                            {a.cat || a.category || 'Strategic Insight'}
+                          </span>
+                          <span className="rt" style={{ fontSize: '13px', color: 'var(--color-gray-400, #A3A3A3)' }}>
+                            {a.rt || '5 min read'}
+                          </span>
+                        </div>
+                        <h3 className="t-h3" style={{ fontSize: '20px', lineHeight: 1.35, fontWeight: 700, marginBottom: '14px', color: 'var(--color-ink, #0A0A0A)' }}>
+                          {title}
+                        </h3>
+                        <p style={{ color: 'var(--color-gray-600, #525252)', fontSize: '14.5px', lineHeight: 1.6, marginBottom: '24px', flex: 1, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                          {excerpt}
+                        </p>
+                        <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--color-gray-100, #F5F5F5)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <span style={{ fontSize: '12.5px', color: 'var(--color-gray-400, #A3A3A3)', fontWeight: 500 }}>
+                            {a.author_name || '8vice Research'}
+                          </span>
+                          <span className="link-arrow" style={{ fontSize: '14px', fontWeight: 600 }}>
+                            <span>{t('home.ins_read') || 'Read Article'}</span>
+                            <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </article>
+                );
+              })}
             </Staggered>
             <div style={{ textAlign: 'center', marginTop: '52px' }}>
               <Link 

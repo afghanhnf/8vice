@@ -10,6 +10,9 @@ export default function Contact() {
   const { t, lang } = useTranslation();
   const isId = lang === 'id';
   const { siteSettings } = usePage().props;
+  const rawEmail = siteSettings?.email || 'hello@8vice.com';
+  const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
+  const emailHref = `mailto:${cleanEmail}`;
   const [activeInterest, setActiveInterest] = useState('Consultancy');
   const [submitted, setSubmitted] = useState(false);
 
@@ -67,7 +70,7 @@ export default function Contact() {
                 
                 <div className="contact-info__item">
                   <div className="lbl">Email</div>
-                  <div className="val"><a href={`mailto:${siteSettings?.email || 'hello@8vice.com'}`}>{siteSettings?.email || 'hello@8vice.com'}</a></div>
+                  <div className="val"><a href={emailHref}>{cleanEmail}</a></div>
                 </div>
                 
                 <div className="contact-info__item">

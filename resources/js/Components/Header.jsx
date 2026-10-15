@@ -100,7 +100,9 @@ export default function Header() {
     };
   }, [isMobileMenuOpen, isSearchOpen]);
 
-  const emailHref = siteSettings?.email ? `mailto:${siteSettings.email}` : 'mailto:hello@8vice.com';
+  const rawEmail = siteSettings?.email || 'hello@8vice.com';
+  const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
+  const emailHref = `mailto:${cleanEmail}`;
   const displayTagline = typeof siteSettings?.tagline === 'object' 
     ? (siteSettings?.tagline?.[lang] || siteSettings?.tagline?.en || 'Indonesia, Decoded for Chinese Businesses') 
     : (siteSettings?.tagline || 'Indonesia, Decoded for Chinese Businesses');
@@ -113,8 +115,14 @@ export default function Header() {
           <div className="top-bar__inner">
             <div className="top-bar__tagline">{displayTagline}</div>
             <div className="top-bar__contact">
-              <a href={emailHref} aria-label="Email us">
+              <a 
+                href={emailHref} 
+                aria-label={`Email ${cleanEmail}`} 
+                className="top-bar__email-link"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ico ico-16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span className="top-bar__email-text" style={{ fontSize: '12.5px' }}>{cleanEmail}</span>
               </a>
               {(siteSettings?.instagram_url || 'https://www.instagram.com/8viceofficial') && (
                 <a href={siteSettings?.instagram_url || 'https://www.instagram.com/8viceofficial'} target="_blank" rel="noopener noreferrer" aria-label="Instagram">

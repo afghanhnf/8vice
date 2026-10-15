@@ -14,6 +14,10 @@ export default function Footer() {
         ? 'Membantu bisnis mentransformasi peluang menjadi pertumbuhan berkelanjutan melalui riset pasar, strategi produk, dan ekspansi lintas batas.'
         : 'We help businesses transform opportunities into sustainable growth through market intelligence, product strategy, and cross-border expansion expertise.'));
 
+  const rawEmail = siteSettings?.email || 'hello@8vice.com';
+  const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
+  const emailHref = `mailto:${cleanEmail}`;
+
   return (
     <>
       <footer className="footer" data-screen-label="Footer">
@@ -68,9 +72,9 @@ export default function Footer() {
               <div className="footer__contact-items">
                 <div className="footer__contact-item">
                   <span className="lbl">Email</span>
-                  <a href={`mailto:${siteSettings?.email || 'hello@8vice.com'}`} className="val">
+                  <a href={emailHref} className="val" aria-label={`Email ${cleanEmail}`}>
                     <svg className="ico ico-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    <span>{siteSettings?.email || 'hello@8vice.com'}</span>
+                    <span>{cleanEmail}</span>
                   </a>
                 </div>
 
