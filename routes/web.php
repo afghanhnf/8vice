@@ -23,6 +23,7 @@ Route::middleware('throttle:5,1')->group(function () {
 
 $pageRoutes = function() {
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/home-2', [HomeController::class, 'home2']);
     
     Route::get('/about', function () { 
         $profiles = \App\Models\Profile::all();
@@ -31,52 +32,86 @@ $pageRoutes = function() {
         ]); 
     });
     
-    Route::get('/services', function () { 
-        $services = \App\Models\Service::orderBy('sort_order')->orderBy('id')->get();
-        $industryCoverages = \App\Models\IndustryCoverage::all();
-        return Inertia::render('Services', [
-            'services' => $services->isEmpty() ? collect(\App\Helpers\SeedData::getServices()) : $services, 
-            'industryCoverages' => $industryCoverages->isEmpty() ? collect(\App\Helpers\SeedData::getIndustryCoverages()) : $industryCoverages
-        ]); 
+    Route::get('/services', function () { return Inertia::render('Services'); });
+
+    Route::get('/services/{slug}', function ($slug) {
+        return Inertia::render('ServiceDetail', ['slug' => $slug]);
+    })->whereIn('slug', ['advisory', 'gov-relations', 'business-matching', 'comms', 'media-relations', 'investment']);
+
+    Route::get('/gateway', function () {
+        return Inertia::render('Gateway');
+    });
+
+    Route::get('/industries', function () {
+        return Inertia::render('Industries');
     });
     
-    Route::get('/consultancy', function () { return Inertia::render('Consultancy'); });
+    Route::get('/consultancy', function () {
+        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
+        return redirect($prefix . '/services/advisory');
+    });
     Route::get('/training', function () { 
         $courses = \App\Models\Course::all();
         return Inertia::render('Training', [
             'courses' => $courses->isEmpty() ? collect(\App\Helpers\SeedData::getCourses()) : $courses
         ]); 
     });
-    Route::get('/insight', function () { return redirect('/article'); });
-    Route::get('/market-intelligence', function () { return Inertia::render('MarketIntelligence'); });
-    
-    Route::get('/article', function () { 
+
+    $renderInsightsIndex = function () {
         $insights = \App\Models\Insight::published()->orderBy('id', 'desc')->get();
         return Inertia::render('Article', [
             'insights' => $insights->isEmpty() ? collect(\App\Helpers\SeedData::getInsights()) : $insights
-        ]); 
-    });
-    
-    Route::get('/article/{slug}', function ($slug) { 
+        ]);
+    };
+
+    $renderInsightDetail = function ($slug) {
+        $allInsights = \App\Models\Insight::published()->orderBy('id', 'desc')->get();
+        if ($allInsights->isEmpty()) {
+            $allInsights = collect(\App\Helpers\SeedData::getInsights());
+        }
+
         $insight = \App\Models\Insight::published()->bySlug($slug)->first();
         if ($insight) {
             $relatedInsights = \App\Models\Insight::published()
                 ->where('id', '!=', $insight->id)
                 ->orderByRaw('cat = ? desc', [$insight->cat])
                 ->orderBy('id', 'desc')
-                ->take(3)->get();
+                ->take(4)->get();
         } else {
             // Only fall back to bundled sample content while the CMS table is still empty.
             abort_if(\App\Models\Insight::exists(), 404);
             $seed = collect(\App\Helpers\SeedData::getInsights());
             $insight = $seed->firstWhere('slug', $slug);
             abort_unless($insight, 404);
-            $relatedInsights = $seed->where('slug', '!=', $slug)->take(3);
+            $relatedInsights = $seed->where('slug', '!=', $slug)->take(4)->values();
         }
         return Inertia::render('ArticleDetail', [
             'insight' => $insight,
-            'relatedInsights' => $relatedInsights
-        ]); 
+            'relatedInsights' => $relatedInsights,
+            'allInsights' => $allInsights,
+        ]);
+    };
+
+    Route::get('/insights', $renderInsightsIndex);
+    Route::get('/insights-partnerships', $renderInsightsIndex);
+    Route::get('/insight', function () {
+        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
+        return redirect($prefix . '/insights');
+    });
+    Route::get('/article', function () {
+        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
+        return redirect($prefix . '/insights');
+    });
+    Route::get('/market-intelligence', function () {
+        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
+        return redirect($prefix . '/insights');
+    });
+    
+    Route::get('/insights/{slug}', $renderInsightDetail);
+    Route::get('/insights-partnerships/{slug}', $renderInsightDetail);
+    Route::get('/article/{slug}', function ($slug) {
+        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
+        return redirect($prefix . "/insights/{$slug}");
     });
     
     Route::get('/client', function () { 

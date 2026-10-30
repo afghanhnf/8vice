@@ -109,7 +109,7 @@ export default function Training({ courses = [] }) {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'center' }}>
             <div style={{ flex: '1 1 min(100%, 500px)' }}>
               <nav className="breadcrumb">
-                <Link href="/">{t('nav.about') === 'Tentang Kami' ? 'Beranda' : 'Home'}</Link><span className="sep">/</span>
+                <Link href="/">{t('nav.home')}</Link><span className="sep">/</span>
                 <Link href="/services">{t('nav.services')}</Link><span className="sep">/</span>
                 <span className="cur">{t('nav.training')}</span>
               </nav>
@@ -237,7 +237,7 @@ export default function Training({ courses = [] }) {
                         </span>
                       </div>
                       <span className={`course-card__price${isFree ? ' is-free' : ''}`}>
-                        {isFree ? (t('nav.about') === 'Tentang Kami' ? 'Gratis' : 'Free') : course.price}
+                        {isFree ? (t('nav.about') === 'Tentang Kami' || t('nav.about') === 'Tentang' ? 'Gratis' : 'Free') : course.price}
                       </span>
                     </div>
                     <div className="course-card__body">

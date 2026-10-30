@@ -29,7 +29,7 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
           <div className="container" style={{ maxWidth: '1240px', position: 'relative', zIndex: 10 }}>
             <ScrollReveal>
               <div className="breadcrumb">
-                <Link href="/">{t('nav.about') === 'Tentang Kami' ? 'Beranda' : 'Home'}</Link><span className="sep">/</span>
+                <Link href="/">{t('nav.home')}</Link><span className="sep">/</span>
                 <Link href="/case-study">{t('nav.case') || 'Case Studies'}</Link><span className="sep">/</span>
                 <span className="cur">{caseStudy.tag || 'Case Study'}</span>
               </div>

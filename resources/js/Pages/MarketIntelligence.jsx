@@ -75,7 +75,7 @@ export default function MarketIntelligence() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'center' }}>
             <div style={{ flex: '1 1 min(100%, 500px)' }}>
               <nav className="breadcrumb">
-                <Link href="/">{t('nav.about') === 'Tentang Kami' ? 'Beranda' : 'Home'}</Link><span className="sep">/</span>
+                <Link href="/">{t('nav.home')}</Link><span className="sep">/</span>
                 <Link href="/services">{t('nav.services')}</Link><span className="sep">/</span>
                 <span className="cur">{t('nav.market_intelligence')}</span>
               </nav>

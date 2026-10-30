@@ -41,7 +41,7 @@ export default function Client({ clients = [] }) {
         <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <ScrollReveal>
             <div className="breadcrumb" style={{ justifyContent: 'center', marginBottom: '28px' }}>
-              <Link href="/">{t('nav.about') === 'Tentang Kami' ? 'Beranda' : 'Home'}</Link>
+              <Link href="/">{t('nav.home')}</Link>
               <span className="sep">/</span>
               <span className="cur">{t('nav.clients') || 'Clients'}</span>
             </div>

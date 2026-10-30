@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@/Components/LocalizedLink';
 import { usePage } from '@inertiajs/react';
 import { useTranslation } from '@/Contexts/TranslationContext';
+import ChatFloatingWidget from '@/Components/ChatFloatingWidget';
 
 export default function Footer() {
   const { siteSettings } = usePage().props;
   const { lang, t } = useTranslation();
   const isId = lang === 'id';
+  const [activeLegalModal, setActiveLegalModal] = useState(null); // 'privacy' | 'terms' | null
+
+  // Escape key listener for legal modal
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setActiveLegalModal(null);
+    };
+    if (activeLegalModal) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeLegalModal]);
 
   const displayTagline = typeof siteSettings?.tagline === 'object'
     ? (siteSettings?.tagline?.[lang] || siteSettings?.tagline?.en)
-    : (siteSettings?.tagline || (isId
-        ? 'Membantu bisnis mentransformasi peluang menjadi pertumbuhan berkelanjutan melalui riset pasar, strategi produk, dan ekspansi lintas batas.'
-        : 'We help businesses transform opportunities into sustainable growth through market intelligence, product strategy, and cross-border expansion expertise.'));
+    : (siteSettings?.tagline || (isId ? (
+        <>
+          Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.
+          <br />
+          Menghubungkan pasar, membangun kemitraan, dan mendorong pertumbuhan lintas batas.
+        </>
+      ) : (
+        <>
+          Your Strategic Gateway to Indonesia and China.
+          <br />
+          Connecting markets, building partnerships, and enabling cross-border growth.
+        </>
+      )));
 
   const rawEmail = siteSettings?.email || 'hello@8vice.com';
   const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
@@ -41,28 +70,47 @@ export default function Footer() {
               </Link>
             </div>
 
-            {/* Column 2: Navigation */}
+            {/* Column 2: Explore */}
             <div className="footer__col">
-              <h3>{isId ? 'Navigasi' : 'Navigate'}</h3>
+              <h3>{isId ? 'Eksplorasi' : 'Explore'}</h3>
               <div className="footer__nav-list">
-                <Link href="/about">{t('nav.about') || 'About'}</Link>
-                <Link href="/client">{t('nav.clients') || 'Clients'}</Link>
-                <Link href="/case-study">{t('nav.case') || 'Case Study'}</Link>
-                <Link href="/article">{t('nav.article') || 'Article'}</Link>
-                <Link href="/career">{t('nav.career') || 'Career'}</Link>
-                <Link href="/social-impact">{isId ? 'Dampak Sosial' : 'Social Impact'}</Link>
-                <Link href="/contact">{t('nav.contact') || 'Contact'}</Link>
+                <Link href="/about">{isId ? 'Tentang Kami' : 'About Us'}</Link>
+                <Link href="/services">{isId ? 'Layanan Kami' : 'Our Services'}</Link>
+                <Link href="/gateway">{isId ? 'Gerbang Indonesia–China' : 'Indonesia–China Gateway'}</Link>
+                <Link href="/industries">{isId ? 'Industri & Peluang' : 'Industries & Opportunities'}</Link>
+                <Link href="/insights">{isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships'}</Link>
+                <Link href="/client">{isId ? 'Klien & Portofolio Mitra' : 'Clients & Brand Portfolio'}</Link>
+                <Link href="/case-study">{isId ? 'Studi Kasus Ekspansi' : 'Client Case Studies'}</Link>
+                <Link href="/career">{isId ? 'Karier di 8vice' : 'Careers & Opportunities'}</Link>
+                <Link href="/contact">{isId ? 'Hubungi Kami' : 'Contact Us'}</Link>
               </div>
             </div>
 
-            {/* Column 3: Services */}
+            {/* Column 3: 6 Services */}
             <div className="footer__col">
-              <h3>{isId ? 'Layanan Kami' : 'Services'}</h3>
+              <h3>{isId ? 'Layanan Kami' : 'Our Services'}</h3>
               <div className="footer__nav-list">
-                <Link href="/market-intelligence">{t('nav.market_intelligence') || 'Market Intelligence'}</Link>
-                <Link href="/consultancy">{t('nav.consultancy') || 'Consultancy'}</Link>
-                <Link href="/training">{t('nav.training') || 'Training'}</Link>
-                <Link href="/services">{t('nav.services') || 'All Practices'}</Link>
+                <Link href="/services/advisory">{t('nav.svc_strategic_advisory') || 'Strategic Advisory & Market Entry'}</Link>
+                <Link href="/services/gov-relations">{t('nav.svc_gov_relations') || 'Government Relations'}</Link>
+                <Link href="/services/business-matching">{t('nav.svc_business_matching') || 'Business Matching & Partnerships'}</Link>
+                <Link href="/services/comms">{t('nav.svc_strategic_comms') || 'Strategic Communications'}</Link>
+                <Link href="/services/media-relations">{t('nav.svc_media_relations') || (isId ? 'Hubungan Media & Komunikasi Krisis' : 'Media Relations & Crisis Communications')}</Link>
+                <Link href="/services/investment">{t('nav.svc_investment_dev') || 'Investment & Project Facilitation'}</Link>
+                <Link
+                  href="/social-impact"
+                  style={{
+                    marginTop: '8px',
+                    paddingTop: '10px',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                    color: 'rgba(255, 255, 255, 0.62)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#E63946' }}></span>
+                  <span>{isId ? 'Dampak Sosial & ESG' : 'Social Impact & ESG'}</span>
+                </Link>
               </div>
             </div>
 
@@ -117,16 +165,276 @@ export default function Footer() {
             </div>
 
             <div className="footer__bottom-links">
-              <a href="#" onClick={(e) => e.preventDefault()}>Privacy</a>
-              <a href="#" onClick={(e) => e.preventDefault()}>Terms</a>
+              <button
+                type="button"
+                onClick={() => setActiveLegalModal('privacy')}
+                style={{ background: 'transparent', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0 }}
+              >
+                {isId ? 'Kebijakan Privasi' : 'Privacy Policy'}
+              </button>
+              <span style={{ opacity: 0.3 }}>·</span>
+              <button
+                type="button"
+                onClick={() => setActiveLegalModal('terms')}
+                style={{ background: 'transparent', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0 }}
+              >
+                {isId ? 'Syarat & Ketentuan' : 'Terms of Engagement'}
+              </button>
             </div>
           </div>
         </div>
       </footer>
 
-      <a className="wa-fab" id="wa-fab" href={siteSettings?.whatsapp_url || 'https://wa.me/628118005110'} target="_blank" rel="noopener noreferrer" aria-label="Chat with 8vice on WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.004c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 1 1 6.97 3.86zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.43-.06-.65.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.17 1.74 2.66 4.22 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"></path></svg>
-      </a>
+      {/* ========================================================================= */}
+      {/* LEGAL DIALOG MODAL (PRIVACY & TERMS OF ENGAGEMENT)                       */}
+      {/* ========================================================================= */}
+      {activeLegalModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="legal-modal-title"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 99999,
+            background: 'rgba(5, 6, 8, 0.82)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px'
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setActiveLegalModal(null);
+          }}
+        >
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '680px',
+              maxHeight: '88vh',
+              background: '#0D0E13',
+              border: '1px solid rgba(255, 255, 255, 0.14)',
+              borderRadius: '24px',
+              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.75), 0 0 40px rgba(230, 57, 70, 0.16)',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              color: '#FFFFFF'
+            }}
+          >
+            {/* Modal Header */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '22px 28px',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'rgba(255, 255, 255, 0.02)'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '10px',
+                    background: 'rgba(230, 57, 70, 0.12)',
+                    color: '#E63946',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 id="legal-modal-title" style={{ fontSize: '17px', fontWeight: 700, margin: 0, color: '#FFFFFF' }}>
+                    {activeLegalModal === 'privacy'
+                      ? (isId ? 'Kebijakan Privasi & Perlindungan Data' : 'Privacy & Data Protection Policy')
+                      : (isId ? 'Syarat & Ketentuan Penugasan' : 'Terms of Advisory & Client Engagement')}
+                  </h3>
+                  <span style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.5)' }}>
+                    PT Delapan Solusi Penasihat (8vice) · Jakarta, Indonesia
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveLegalModal(null)}
+                aria-label="Close dialog"
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div
+              style={{
+                padding: '28px',
+                overflowY: 'auto',
+                fontSize: '14.5px',
+                lineHeight: 1.75,
+                color: 'rgba(255, 255, 255, 0.78)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px'
+              }}
+            >
+              {activeLegalModal === 'privacy' ? (
+                isId ? (
+                  <>
+                    <p>
+                      <strong>1. Komitmen Kerahasiaan & PDP Indonesia</strong><br />
+                      8vice berkomitmen menjaga integritas data klien korporasi, dokumen riset, dan informasi perorangan sesuai Undang-Undang Perlindungan Data Pribadi (UU PDP No. 27/2022) Republik Indonesia dan standar tata kelola kepatuhan internasional.
+                    </p>
+                    <p>
+                      <strong>2. Penggunaan Informasi Penugasan</strong><br />
+                      Setiap informasi pasar, data komersial, materi kontak, dan korespondensi yang disampaikan melalui situs ini semata-mata digunakan untuk evaluasi inisiasi kemitraan, konsultasi strategis, atau pemenuhan pengiriman dokumen riset berbayar.
+                    </p>
+                    <p>
+                      <strong>3. Batasan Berbagi Data Pihak Ketiga</strong><br />
+                      Kami tidak pernah menjual, menyewakan, atau memindahtangankan data identitas klien kepada pihak ketiga mana pun tanpa persetujuan tertulis (*Non-Disclosure Agreement*).
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      <strong>1. Data Protection & Indonesia PDP Law Compliance</strong><br />
+                      8vice is committed to safeguarding corporate client data, proprietary market insights, and institutional correspondence in strict compliance with Indonesia&apos;s Personal Data Protection Law (Law No. 27/2022) and international security best practices.
+                    </p>
+                    <p>
+                      <strong>2. Purpose of Information Processing</strong><br />
+                      Information submitted through our digital channels is utilized exclusively for strategic advisory evaluation, bilateral business matching facilitation, or fulfillment of licensed research paper access.
+                    </p>
+                    <p>
+                      <strong>3. Non-Disclosure & Third-Party Protections</strong><br />
+                      Under no circumstances does 8vice sell, rent, or distribute client intelligence to third parties without prior mutual Non-Disclosure Agreement (NDA) covenants.
+                    </p>
+                  </>
+                )
+              ) : (
+                isId ? (
+                  <>
+                    <p>
+                      <strong>1. Ruang Lingkup Penugasan Konsultasi</strong><br />
+                      Kajian, artikel riset, dan analisis komersial yang dipublikasikan oleh 8vice disiapkan berdasarkan metodologi riset independen. Informasi ini bersifat strategis dan ditujukan sebagai panduan awal ekspansi pasar.
+                    </p>
+                    <p>
+                      <strong>2. Hak Cipta & Lisensi Research Paper</strong><br />
+                      Seluruh publikasi riset, data model (.xlsx), dan dokumen kajian China-Indonesia Blueprint dilindungi hak cipta intelektual 8vice. Lisensi Eksekutif dan Korporat diberikan sesuai ketentuan hak pakai yang disepakati.
+                    </p>
+                    <p>
+                      <strong>3. Integritas Hubungan Pemerintah & Regulasi</strong><br />
+                      Seluruh fasilitasi kelembagaan publik-swasta dijalankan melalui jalur resmi, transparan, dan mematuhi etika anti-penyuapan serta peraturan penanaman modal bilateral.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      <strong>1. Advisory Scope of Engagement</strong><br />
+                      Market analyses, intelligence briefs, and strategic roadmaps prepared by 8vice represent independent professional evaluations aimed at facilitating cross-border expansion and investment decisions.
+                    </p>
+                    <p>
+                      <strong>2. Intellectual Property & Research Licensing</strong><br />
+                      All research publications, quantitative datasets, and bilateral industrial blueprints remain the intellectual property of 8vice. Executive and Corporate licenses are granted strictly per user seat covenants.
+                    </p>
+                    <p>
+                      <strong>3. Regulatory & Institutional Transparency</strong><br />
+                      All government liaison and public-private dialogue engagements are conducted through sanctioned, compliant channels adhering to anti-corruption standards and statutory investment codes.
+                    </p>
+                  </>
+                )
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '16px 28px',
+                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'rgba(255, 255, 255, 0.02)'
+              }}
+            >
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  type="button"
+                  onClick={() => setActiveLegalModal('privacy')}
+                  style={{
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: activeLegalModal === 'privacy' ? 'rgba(230, 57, 70, 0.2)' : 'transparent',
+                    color: activeLegalModal === 'privacy' ? '#FF7B7B' : 'rgba(255, 255, 255, 0.6)',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  {isId ? 'Privasi' : 'Privacy'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveLegalModal('terms')}
+                  style={{
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: activeLegalModal === 'terms' ? 'rgba(230, 57, 70, 0.2)' : 'transparent',
+                    color: activeLegalModal === 'terms' ? '#FF7B7B' : 'rgba(255, 255, 255, 0.6)',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  {isId ? 'Ketentuan' : 'Terms'}
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveLegalModal(null)}
+                style={{
+                  padding: '9px 20px',
+                  borderRadius: '999px',
+                  background: 'linear-gradient(135deg, #E63946 0%, #B81D2A 100%)',
+                  border: 'none',
+                  color: '#FFFFFF',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                {isId ? 'Tutup' : 'Understood'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ChatFloatingWidget />
     </>
   );
 }

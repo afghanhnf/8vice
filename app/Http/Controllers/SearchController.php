@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Insight;
 use App\Models\CaseStudy;
-use App\Models\Service;
-use App\Models\Course;
 use App\Helpers\SeedData;
 
 class SearchController extends Controller
@@ -48,50 +46,82 @@ class SearchController extends Controller
     }
 
     /**
-     * Return curated service recommendations.
+     * The 6 service detail pages (/services/{slug}); mirrors resources/js/data/services.js.
+     */
+    private function servicePages(bool $isId): array
+    {
+        $type = $isId ? 'Layanan' : 'Service';
+        return [
+            [
+                'title' => $isId ? 'Konsultasi Strategis & Ekspansi Pasar' : 'Strategic Advisory & Market Entry',
+                'desc' => $isId
+                    ? 'Mengevaluasi peluang lintas negara, memahami dinamika komersial, dan menyusun strategi penetrasi pasar yang terukur.'
+                    : 'Evaluate cross-border opportunities, understand commercial dynamics, and formulate executable market entry roadmaps.',
+                'url' => '/services/advisory',
+                'type' => $type,
+                'keywords' => ['market entry', 'ekspansi', 'penetrasi', 'strategy', 'strategi', 'advisory', 'konsultasi', 'consult', 'go-to-market', 'feasibility', 'kelayakan', 'research', 'riset', 'localization', 'lokalisasi', 'roadmap'],
+            ],
+            [
+                'title' => $isId ? 'Hubungan Pemerintah & Pemangku Kepentingan' : 'Government Relations & Stakeholder Engagement',
+                'desc' => $isId
+                    ? 'Pemetaan pemangku kepentingan, pelibatan kelembagaan, dan dialog publik-swasta melalui jalur yang tepat.'
+                    : 'Stakeholder mapping, institutional engagement, and public-private dialogue through appropriate channels.',
+                'url' => '/services/gov-relations',
+                'type' => $type,
+                'keywords' => ['government', 'pemerintah', 'stakeholder', 'pemangku', 'institution', 'institusi', 'kelembagaan', 'public-private', 'publik', 'association', 'asosiasi', 'regulator', 'liaison'],
+            ],
+            [
+                'title' => $isId ? 'Pencocokan Bisnis & Kemitraan Strategis' : 'Business Matching & Strategic Partnerships',
+                'desc' => $isId
+                    ? 'Menghubungkan korporasi dengan mitra, distributor, investor, dan pelaku industri yang relevan.'
+                    : 'Connecting businesses with relevant partners, distributors, investors, and industry stakeholders.',
+                'url' => '/services/business-matching',
+                'type' => $type,
+                'keywords' => ['partner', 'mitra', 'kemitraan', 'partnership', 'matching', 'matchmaking', 'b2b', 'distributor', 'delegation', 'delegasi', 'trade mission', 'misi dagang', 'mou'],
+            ],
+            [
+                'title' => $isId ? 'Komunikasi Strategis & Positioning Pasar' : 'Strategic Communications & Market Positioning',
+                'desc' => $isId
+                    ? 'Positioning korporat, narasi merek, dan strategi komunikasi yang memperkuat relevansi pasar.'
+                    : 'Corporate positioning, brand narratives, and communications strategies that build market relevance.',
+                'url' => '/services/comms',
+                'type' => $type,
+                'keywords' => ['communication', 'komunikasi', 'brand', 'merek', 'branding', 'positioning', 'marketing', 'pemasaran', 'narrative', 'narasi', 'public relations'],
+            ],
+            [
+                'title' => $isId ? 'Hubungan Media & Komunikasi Krisis' : 'Media Relations & Crisis Communications',
+                'desc' => $isId
+                    ? 'Kemitraan media, konferensi pers, wawancara eksekutif, dan perlindungan reputasi korporat.'
+                    : 'Media partnerships, press conferences, executive interviews, and corporate reputation protection.',
+                'url' => '/services/media-relations',
+                'type' => $type,
+                'keywords' => ['media', 'press', 'pers', 'crisis', 'krisis', 'reputation', 'reputasi', 'interview', 'wawancara', 'press conference', 'konferensi', 'journalist', 'jurnalis', 'issue', 'isu'],
+            ],
+            [
+                'title' => $isId ? 'Fasilitasi Investasi & Pengembangan Bisnis' : 'Investment & Business Development Facilitation',
+                'desc' => $isId
+                    ? 'Mendukung tahap awal pengembangan bisnis, perumusan tujuan proyek, dan struktur kemitraan komersial.'
+                    : 'Supporting early-stage business development, project objectives, and commercial partnership structures.',
+                'url' => '/services/investment',
+                'type' => $type,
+                'keywords' => ['investment', 'investasi', 'investor', 'business development', 'pengembangan bisnis', 'project', 'proyek', 'proposal', 'funding'],
+            ],
+        ];
+    }
+
+    /**
+     * Curated recommendations shown when a query has no direct match.
      */
     private function getRecommendedServices(string $lang = 'en'): array
     {
         $isId = $lang === 'id';
-
-        return [
-            [
-                'type' => $isId ? 'Layanan Rekomendasi' : 'Recommended Service',
-                'title' => $isId ? 'Market Intelligence & Riset Pasar' : 'Market Intelligence & Feasibility',
-                'desc' => $isId
-                    ? 'Pemetaan lanskap industri, analisis regulasi, komparasi kompetitor, dan sentimen konsumen Indonesia.'
-                    : 'In-depth market sizing, regulatory landscapes, competitor benchmarking, and consumer sentiment across Indonesia.',
-                'url' => '/market-intelligence',
-                'badge' => $isId ? 'Riset & Data' : 'Intelligence',
-            ],
-            [
-                'type' => $isId ? 'Layanan Rekomendasi' : 'Recommended Service',
-                'title' => $isId ? 'Konsultasi Strategis & Penetrasi Pasar' : 'Strategic Consultancy & Market Entry',
-                'desc' => $isId
-                    ? 'Navigasi perizinan OSS, kepatuhan TKDN, pembentukan PT PMA, dan integrasi mitra lokal strategis.'
-                    : 'End-to-end regulatory advisory, OSS licensing, TKDN compliance, and local operating partner matching.',
-                'url' => '/consultancy',
-                'badge' => $isId ? 'Regulasi & Izin' : 'Consultancy',
-            ],
-            [
-                'type' => $isId ? 'Layanan Rekomendasi' : 'Recommended Service',
-                'title' => $isId ? 'Pelatihan Eksekutif & Kapabilitas Tim' : 'Executive & Workforce Training',
-                'desc' => $isId
-                    ? 'Kurikulum praktis strategi pemasaran digital, kepemimpinan lintas budaya, dan kepatuhan hukum Indonesia.'
-                    : 'High-impact curriculum covering digital marketing, cross-cultural team management, and compliance.',
-                'url' => '/training',
-                'badge' => $isId ? 'Pelatihan' : 'Capability',
-            ],
-            [
-                'type' => $isId ? 'Layanan Rekomendasi' : 'Recommended Service',
-                'title' => $isId ? 'Semua Solusi & Praktik Layanan 8vice' : 'Practice Overview & Full Solutions',
-                'desc' => $isId
-                    ? 'Katalog menyeluruh solusi konsultasi terarah untuk ekspansi bisnis lintas batas di Indonesia.'
-                    : 'Comprehensive cross-border advisory practices decoded for foreign enterprises entering Indonesia.',
-                'url' => '/services',
-                'badge' => $isId ? 'Solusi Lengkap' : 'Overview',
-            ],
-        ];
+        return array_map(fn ($s) => [
+            'type' => $s['type'],
+            'title' => $s['title'],
+            'desc' => $s['desc'],
+            'url' => $s['url'],
+            'badge' => $isId ? 'Layanan Rekomendasi' : 'Recommended Service',
+        ], array_slice($this->servicePages($isId), 0, 4));
     }
 
     public function index(Request $request)
@@ -113,44 +143,44 @@ class SearchController extends Controller
         $results = [];
 
         // -------------------------------------------------------------
-        // 1. Key Pages (About, Career, Client, Contact, Social Impact, Services)
+        // 1. Key Pages (6 services, Gateway, Industries, Insights, About, Contact, ...)
         // -------------------------------------------------------------
         $staticPages = [
             [
-                'title' => $isId ? 'Layanan: Riset Pasar & Intelijen Industri' : 'Service: Market Intelligence & Research',
+                'title' => $isId ? 'Semua Layanan 8 Vice' : 'All Services — 6 Service Pillars',
                 'desc' => $isId
-                    ? 'Studi kelayakan mendalam, analisis rantai pasok, dan pemetaan ekosistem bisnis Indonesia.'
-                    : 'Market sizing, regulatory assessments, competitor intelligence, and consumer dynamics in Indonesia.',
-                'url' => '/market-intelligence',
-                'type' => $isId ? 'Layanan' : 'Service',
-                'keywords' => ['market', 'intelligence', 'pasar', 'riset', 'research', 'survey', 'survei', 'assessment', 'feasibility', 'kelayakan', 'data', 'benchmark', 'e-commerce', 'ecommerce', 'tokopedia', 'shopee', 'tiktok shop'],
-            ],
-            [
-                'title' => $isId ? 'Layanan: Konsultasi Regulasi & Penetrasi Pasar' : 'Service: Strategic Consultancy & Market Entry',
-                'desc' => $isId
-                    ? 'Struktur korporasi, perizinan OSS, pemenuhan TKDN, dan strategi operasional lokal.'
-                    : 'End-to-end advisory for market entry, OSS licensing, regulatory compliance, TKDN, and partner matching.',
-                'url' => '/consultancy',
-                'type' => $isId ? 'Layanan' : 'Service',
-                'keywords' => ['consultancy', 'consulting', 'consult', 'konsultasi', 'konsultan', 'advisory', 'market entry', 'penetrasi pasar', 'ekspansi', 'licensing', 'perizinan', 'izin', 'oss', 'kbli', 'regulatory', 'hukum', 'legal', 'compliance', 'kepatuhan', 'tkdn', 'fintech', 'pma', 'pt pma'],
-            ],
-            [
-                'title' => $isId ? 'Layanan: Pelatihan Bisnis & Manajemen Lokal' : 'Service: Executive & Workforce Training',
-                'desc' => $isId
-                    ? 'Program workshop dan pelatihan intensif untuk tim ekspansi dan tenaga kerja lokal.'
-                    : 'Specialized corporate learning modules for localized digital marketing, licensing, and leadership.',
-                'url' => '/training',
-                'type' => $isId ? 'Layanan' : 'Service',
-                'keywords' => ['training', 'train', 'pelatihan', 'kursus', 'course', 'courses', 'workshop', 'capability', 'kapabilitas', 'belajar', 'curriculum', 'kurikulum', 'academy'],
-            ],
-            [
-                'title' => $isId ? 'Semua Praktik Layanan 8vice' : 'Our Practice Overview — All Services',
-                'desc' => $isId
-                    ? 'Panduan menyeluruh solusi 8vice mulai dari intelijen pasar hingga implementasi operasional.'
-                    : 'Comprehensive advisory and operational solutions for cross-border expansion.',
+                    ? 'Konsultasi strategis dan pengembangan bisnis lintas negara terpadu untuk Indonesia dan Tiongkok.'
+                    : 'Integrated strategic advisory and cross-border business development across Indonesia and China.',
                 'url' => '/services',
                 'type' => $isId ? 'Layanan' : 'Service',
-                'keywords' => ['service', 'services', 'layanan', 'solusi', 'solution', 'solutions', 'praktik', 'practice', 'practices', 'offerings'],
+                'keywords' => ['service', 'services', 'layanan', 'solusi', 'solution', 'capability', 'kapabilitas'],
+            ],
+            [
+                'title' => $isId ? 'Gerbang Indonesia–China' : 'Indonesia–China Gateway',
+                'desc' => $isId
+                    ? 'Dua arah ekspansi: perusahaan Tiongkok masuk ke Indonesia dan perusahaan Indonesia menjajaki pasar Tiongkok.'
+                    : 'Two directions: Chinese companies entering Indonesia and Indonesian companies exploring China.',
+                'url' => '/gateway',
+                'type' => $isId ? 'Halaman' : 'Page',
+                'keywords' => ['gateway', 'gerbang', 'china', 'tiongkok', 'indonesia', 'cross-border', 'lintas', 'bilateral', 'corridor', 'koridor', 'expansion'],
+            ],
+            [
+                'title' => $isId ? 'Industri & Peluang' : 'Industries & Opportunities',
+                'desc' => $isId
+                    ? 'Infrastruktur, teknologi, pariwisata, ekonomi kreatif, serta perdagangan & FMCG.'
+                    : 'Infrastructure, technology, tourism, creative economy, and trade & FMCG.',
+                'url' => '/industries',
+                'type' => $isId ? 'Halaman' : 'Page',
+                'keywords' => ['industry', 'industries', 'industri', 'sector', 'sektor', 'infrastructure', 'infrastruktur', 'technology', 'teknologi', 'digital', 'tourism', 'pariwisata', 'travel', 'hospitality', 'creative', 'kreatif', 'trade', 'perdagangan', 'fmcg', 'opportunity', 'peluang'],
+            ],
+            [
+                'title' => $isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships',
+                'desc' => $isId
+                    ? 'Intelijen pasar, panduan ekspansi, perspektif industri, dan kegiatan kemitraan bilateral.'
+                    : 'Market intelligence, expansion guides, industry perspectives, and bilateral partnership activities.',
+                'url' => '/insights',
+                'type' => $isId ? 'Halaman' : 'Page',
+                'keywords' => ['insight', 'insights', 'wawasan', 'article', 'artikel', 'news', 'berita', 'intelligence', 'intelijen', 'guide', 'panduan', 'report', 'laporan'],
             ],
             [
                 'title' => $isId ? 'Tentang Kami — Visi, Misi & Tim Kepemimpinan' : 'About Us — Leadership, Vision & Approach',
@@ -199,6 +229,8 @@ class SearchController extends Controller
             ],
         ];
 
+        $staticPages = array_merge($this->servicePages($isId), $staticPages);
+
         foreach ($staticPages as $page) {
             $matched = false;
             if (str_contains(mb_strtolower($page['title']), $lowerQ) || str_contains(mb_strtolower($page['desc']), $lowerQ)) {
@@ -224,58 +256,7 @@ class SearchController extends Controller
         }
 
         // -------------------------------------------------------------
-        // 2. Training Courses
-        // -------------------------------------------------------------
-        $courses = Course::all();
-        if ($courses->isEmpty()) {
-            $courses = collect(SeedData::getCourses());
-        }
-
-        foreach ($courses as $crs) {
-            $title = $this->extractText($crs->title ?? '', $lang);
-            $desc = $this->extractText($crs->desc ?? '', $lang);
-            $cat = (string) ($crs->cat ?? '');
-
-            if (
-                str_contains(mb_strtolower($title), $lowerQ) ||
-                str_contains(mb_strtolower($desc), $lowerQ) ||
-                str_contains(mb_strtolower($cat), $lowerQ)
-            ) {
-                $results[] = [
-                    'type' => $isId ? 'Pelatihan' : 'Training Course',
-                    'title' => ($cat ? "[$cat] " : "") . $title,
-                    'desc' => $this->cleanSnippet($desc),
-                    'url' => '/training',
-                    'score' => str_contains(mb_strtolower($title), $lowerQ) ? 28 : 18,
-                ];
-            }
-        }
-
-        // -------------------------------------------------------------
-        // 3. Database Services
-        // -------------------------------------------------------------
-        $services = Service::all();
-        if ($services->isEmpty()) {
-            $services = collect(SeedData::getServices());
-        }
-
-        foreach ($services as $srv) {
-            $title = $this->extractText($srv->title ?? '', $lang);
-            $desc = $this->extractText($srv->description ?? '', $lang);
-
-            if (str_contains(mb_strtolower($title), $lowerQ) || str_contains(mb_strtolower($desc), $lowerQ)) {
-                $results[] = [
-                    'type' => $isId ? 'Layanan' : 'Service',
-                    'title' => $title ?: ($isId ? 'Layanan 8vice' : '8vice Service'),
-                    'desc' => $this->cleanSnippet($desc),
-                    'url' => '/services',
-                    'score' => str_contains(mb_strtolower($title), $lowerQ) ? 27 : 17,
-                ];
-            }
-        }
-
-        // -------------------------------------------------------------
-        // 4. Articles / Insights
+        // 2. Articles / Insights
         // -------------------------------------------------------------
         $insights = Insight::where('status', 'Publish')
             ->orWhere('status', 'published')
@@ -315,14 +296,14 @@ class SearchController extends Controller
                     'type' => $isId ? 'Artikel' : 'Article',
                     'title' => $title ?: 'Insight',
                     'desc' => $this->cleanSnippet($excerpt ?: $body),
-                    'url' => '/article/' . $slug,
+                    'url' => '/insights/' . $slug,
                     'score' => $score,
                 ];
             }
         }
 
         // -------------------------------------------------------------
-        // 5. Case Studies
+        // 3. Case Studies
         // -------------------------------------------------------------
         $cases = CaseStudy::all();
         if ($cases->isEmpty()) {

@@ -15,6 +15,9 @@ class SeedData
             (object)['name' => 'MangoTV', 'glyph' => '芒', 'image' => '/images/logos-client/mangotv.webp'],
             (object)['name' => 'Grand Melia', 'glyph' => 'M', 'image' => '/images/logos-client/grandmelia.webp'],
             (object)['name' => 'Zhongnan Animation', 'glyph' => '中', 'image' => '/images/logos-client/zhongnan-animation.webp'],
+            (object)['name' => 'Edutech', 'glyph' => 'E', 'image' => '/images/logos-client/edutech.png'],
+            (object)['name' => 'AHA 2026', 'glyph' => 'A', 'image' => '/images/logos-client/aha.png'],
+            (object)['name' => 'Guangdong Province Inbound Tourism Conference', 'glyph' => 'G', 'image' => '/images/logos-client/guangdong.png'],
         ];
     }
 
@@ -67,6 +70,18 @@ class SeedData
     public static function getInsights()
     {
         return [
+            (object)[
+                'cat' => 'China Research & Industrial Strategy',
+                'rt' => '15 min read · 58-Page Paper',
+                't' => 'China–Indonesia Industrial Relocation & Cross-Border Supply Chain Blueprint (2026–2030)',
+                'slug' => 'china-cross-border-industrial-blueprint-2026',
+                'cover' => '/images/china_city_network.jpg',
+                'date' => 'October 2026',
+                'author_name' => '8 Vice Strategic Research Desk',
+                'author_role' => 'Industrial Practice & Macro Corridor Intelligence',
+                'excerpt' => 'An empirical research paper benchmarking 120+ Chinese enterprises establishing manufacturing hubs in Kendal, Batang, Cikarang, and Morowali: TKDN regulatory compliance formulas, industrial estate siting costs, logistics tariffs, and joint-venture governance.',
+                'body' => null,
+            ],
             (object)[
                 'cat' => 'Automotive & Energy',
                 'rt' => '8 min read',
@@ -441,42 +456,6 @@ class SeedData
                 'button_1_url' => '/training',
                 'button_2_text' => 'See How We Help',
                 'button_2_url' => '#help',
-            ],
-        ];
-    }
-
-    public static function getServices()
-    {
-        return [
-            (object)[
-                'title' => 'Market Entry Strategy',
-                'description' => 'End-to-end market entry planning for Chinese companies entering Indonesia, covering regulatory, competitive, and operational landscapes.',
-                'image' => null,
-            ],
-            (object)[
-                'title' => 'Regulatory & Licensing Support',
-                'description' => 'Navigate OSS, KBLI codes, investment licenses, and sector-specific permits with confidence and speed.',
-                'image' => null,
-            ],
-            (object)[
-                'title' => 'Business Matchmaking & Partnerships',
-                'description' => 'Connect with vetted Indonesian partners, distributors, and institutional stakeholders through our curated network.',
-                'image' => null,
-            ],
-            (object)[
-                'title' => 'Trade & Export-Import Advisory',
-                'description' => 'Customs, tariffs, logistics, and trade compliance advisory tailored for the Indonesia-China corridor.',
-                'image' => null,
-            ],
-            (object)[
-                'title' => 'Digital & Social Media Localization',
-                'description' => 'Localize your brand for Indonesian platforms — from TikTok and Instagram to Tokopedia and Shopee.',
-                'image' => null,
-            ],
-            (object)[
-                'title' => 'Talent & Workforce Solutions',
-                'description' => 'Source, recruit, and manage local Indonesian teams with cross-cultural management frameworks.',
-                'image' => null,
             ],
         ];
     }
