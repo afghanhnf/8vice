@@ -25,7 +25,7 @@ class MediaLibraryResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Images Library';
 
-    protected static ?int $navigationSort = 99;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

@@ -1373,8 +1373,10 @@ export default function Home({
               >
                 <div style={{ position: 'relative', height: '500px', overflow: 'hidden' }} className="overview-photo-wrap">
                   <img
-                    src="/images/executive_profile_bw.jpg"
+                    src="/images/executive_profile_bw.webp"
                     alt="8 Vice Executive Strategic Advisory"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1811,6 +1813,8 @@ export default function Home({
                 <img
                   src="/images/why_choose_us_thumbnail.webp"
                   alt="8 Vice Cross-Border Strategic Advisory"
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }}
                 />
                 <div
@@ -2117,11 +2121,11 @@ export default function Home({
                 <IndustryTradeIcon key="4" size={20} color="#FFFFFF" />
               ];
               const industryImages = [
-                '/images/industry_infrastructure.jpg',
-                '/images/industry_technology.jpg',
-                '/images/industry_tourism.jpg',
-                '/images/industry_creative.jpg',
-                '/images/industry_trade.jpg'
+                '/images/industry_infrastructure.webp',
+                '/images/industry_technology.webp',
+                '/images/industry_tourism.webp',
+                '/images/industry_creative.webp',
+                '/images/industry_trade.webp'
               ];
               return (
                 <div
@@ -2135,6 +2139,7 @@ export default function Home({
                     alt={ind.title}
                     className="industry-card-img"
                     loading="lazy"
+                    decoding="async"
                   />
 
                   {/* Base Dark Vignette Overlay (Default State) */}
@@ -2320,6 +2325,8 @@ export default function Home({
                             <img
                               src={imgSrc.startsWith('/') ? imgSrc : `/${imgSrc}`}
                               alt={client.name || 'Partner'}
+                              loading="lazy"
+                              decoding="async"
                               style={{
                                 height: logoHeight,
                                 maxWidth: logoMaxWidth,
@@ -2652,8 +2659,10 @@ export default function Home({
                 }}
               >
                 <img
-                  src="/images/consultation_advisory_bw.jpg"
+                  src="/images/consultation_advisory_bw.webp"
                   alt="8 Vice Bilateral Strategic Advisory Consultation Jakarta"
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(100%) contrast(106%)' }}
                 />
                 <div

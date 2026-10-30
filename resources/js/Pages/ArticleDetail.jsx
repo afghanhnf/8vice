@@ -15,21 +15,21 @@ function getContextualMediaAndBacklinks(insight, isId) {
 
   let gallery = [
     {
-      src: '/images/china_city_network.jpg',
+      src: '/images/china_city_network.webp',
       tag: isId ? 'KORIDOR BILATERAL' : 'BILATERAL CORRIDOR',
       caption: isId
         ? 'Konektivitas ekosistem bisnis dan investasi strategis antara pusat ekonomi Tiongkok dan Indonesia.'
         : 'Strategic business ecosystem and investment connectivity linking major Chinese and Indonesian economic hubs.'
     },
     {
-      src: '/images/industry_infrastructure.jpg',
+      src: '/images/industry_infrastructure.webp',
       tag: isId ? 'INFRASTRUKTUR & INDUSTRI' : 'INFRASTRUCTURE & INDUSTRY',
       caption: isId
         ? 'Pengembangan kawasan industri terpadu, logistik pelabuhan, dan rantai pasok hilirisasi di koridor Jawa dan luar Jawa.'
         : 'Integrated industrial estate development, port logistics, and downstream supply chains across Java and outer islands.'
     },
     {
-      src: '/images/china_tech_hub.jpg',
+      src: '/images/china_tech_hub.webp',
       tag: isId ? 'EKOSISTEM DIGITAL & REGULASI' : 'DIGITAL ECOSYSTEM & POLICY',
       caption: isId
         ? 'Transformasi infrastruktur digital, kepatuhan data lintas batas, dan adopsi teknologi enterprise.'
@@ -40,21 +40,21 @@ function getContextualMediaAndBacklinks(insight, isId) {
   if (cat.includes('digital') || cat.includes('tech') || cat.includes('finance') || slug.includes('qris') || slug.includes('pdp')) {
     gallery = [
       {
-        src: '/images/industry_technology.jpg',
+        src: '/images/industry_technology.webp',
         tag: isId ? 'TEKNOLOGI & PEMBAYARAN' : 'FINTECH & DIGITAL ECOSYSTEM',
         caption: isId
           ? 'Integrasi pembayaran lintas batas, arsitektur cloud lokal, dan ekosistem platform digital Indonesia–Tiongkok.'
           : 'Cross-border payment integration, localized cloud architecture, and Indonesia–China digital platform ecosystems.'
       },
       {
-        src: '/images/china_tech_hub.jpg',
+        src: '/images/china_tech_hub.webp',
         tag: isId ? 'KEPATUHAN & TATA KELOLA DATA' : 'DATA GOVERNANCE & COMPLIANCE',
         caption: isId
           ? 'Implementasi kepatuhan regulasi perlindungan data (UU PDP) dan lokalisasi sistem enterprise.'
           : 'Implementation of Personal Data Protection (UU PDP) compliance and enterprise system localization.'
       },
       {
-        src: '/images/city_orbiting_cards.jpg',
+        src: '/images/city_orbiting_cards.webp',
         tag: isId ? 'TRANSFORMASI KOMERSIAL' : 'COMMERCIAL TRANSFORMATION',
         caption: isId
           ? 'Sinergi antara inovator teknologi Tiongkok dengan jaringan perbankan, ritel, dan konsumen Indonesia.'
@@ -64,21 +64,21 @@ function getContextualMediaAndBacklinks(insight, isId) {
   } else if (cat.includes('consumer') || cat.includes('retail') || slug.includes('ecommerce')) {
     gallery = [
       {
-        src: '/images/industry_trade.jpg',
+        src: '/images/industry_trade.webp',
         tag: isId ? 'DISTRIBUSI & RITEL MODERN' : 'DISTRIBUTION & MODERN RETAIL',
         caption: isId
           ? 'Jaringan distribusi multi-tier dan adaptasi saluran ritel modern maupun tradisional di pasar Indonesia.'
           : 'Multi-tier distribution networks and adaptation across modern and traditional retail channels in Indonesia.'
       },
       {
-        src: '/images/industry_creative.jpg',
+        src: '/images/industry_creative.webp',
         tag: isId ? 'LOKALISASI MEREK & LIVE COMMERCE' : 'BRAND LOCALIZATION & LIVE COMMERCE',
         caption: isId
           ? 'Strategi komunikasi merek, studio live-commerce, dan kemitraan kreator lokal untuk penetrasi konsumen.'
           : 'Brand communication strategy, live-commerce studios, and local creator partnerships for consumer penetration.'
       },
       {
-        src: '/images/china_trade_port.jpg',
+        src: '/images/china_trade_port.webp',
         tag: isId ? 'RANTAI PASOK LINTAS BATAS' : 'CROSS-BORDER SUPPLY CHAIN',
         caption: isId
           ? 'Fasilitasi impor resmi melalui entitas PT PMA lokal, gudang berikat, dan sertifikasi produk.'
@@ -180,6 +180,16 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
   const [checkoutProcessing, setCheckoutProcessing] = useState(false);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [readerActivePage, setReaderActivePage] = useState(1);
+
+  const redirectUrl = insight?.research_paper_link || researchPaper?.paymentLink;
+
+  const handlePaperRedirectOrCheckout = () => {
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+      return;
+    }
+    setIsCheckoutModalOpen(true);
+  };
 
   const getLocalized = (val) => {
     if (!val) return '';
@@ -376,7 +386,13 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
             ================================================================ */}
         <header className="ad-hero">
           <div className="ad-hero__bg-wrap">
-            <img src={coverUrl} alt={titleText} className="ad-hero__bg-img" />
+            <img
+              src={coverUrl}
+              alt={titleText}
+              className="ad-hero__bg-img"
+              loading="lazy"
+              decoding="async"
+            />
             <div className="ad-hero__bg-shade" />
             <div className="ad-hero__grid-overlay" />
           </div>
@@ -509,7 +525,13 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                       })
                     }
                   >
-                    <img src={coverUrl} alt={titleText} className="ad-cover-figure__img" />
+                    <img
+                      src={coverUrl}
+                      alt={titleText}
+                      className="ad-cover-figure__img"
+                      loading="lazy"
+                      decoding="async"
+                    />
                     <span className="ad-cover-figure__zoom">
                       🔍 {isId ? 'Perbesar Gambar' : 'Click to Enlarge'}
                     </span>
@@ -693,7 +715,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                               className="ad-paper-toolbar-btn"
                               onClick={() => {
                                 if (!isPaperUnlocked) {
-                                  setIsCheckoutModalOpen(true);
+                                  handlePaperRedirectOrCheckout();
                                 }
                               }}
                               title={isPaperUnlocked ? 'Download PDF' : 'Document Locked'}
@@ -887,7 +909,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                   <button
                                     type="button"
                                     className="ad-paywall-btn ad-paywall-btn--primary"
-                                    onClick={() => setIsCheckoutModalOpen(true)}
+                                    onClick={handlePaperRedirectOrCheckout}
                                   >
                                     <span>
                                       {selectedLicense === 'individual'
@@ -1039,7 +1061,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                         onClick={() => setLightboxImg(img)}
                       >
                         <div className="ad-gallery-card__img-wrap">
-                          <img src={img.src} alt={img.tag} loading="lazy" />
+                          <img src={img.src} alt={img.tag} loading="lazy" decoding="async" />
                           <span className="ad-gallery-card__badge">{img.tag}</span>
                           <span className="ad-gallery-card__zoom-ico">⤢</span>
                         </div>
@@ -1459,7 +1481,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                   return (
                     <article key={rel.slug || i} className="ad-rel-card">
                       <Link href={`/insights/${rel.slug}`} className="ad-rel-card__media">
-                        <img src={relCover} alt={relTitle} loading="lazy" />
+                        <img src={relCover} alt={relTitle} loading="lazy" decoding="async" />
                         <span className="ad-rel-card__cat">{rel.cat}</span>
                       </Link>
                       <div className="ad-rel-card__body">
@@ -1498,7 +1520,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
               >
                 ×
               </button>
-              <img src={lightboxImg.src} alt={lightboxImg.tag} className="ad-lightbox__img" />
+              <img src={lightboxImg.src} alt={lightboxImg.tag} className="ad-lightbox__img" loading="lazy" decoding="async" />
               <div className="ad-lightbox__caption">
                 <span className="ad-lightbox__tag">{lightboxImg.tag}</span>
                 <p>{lightboxImg.caption}</p>
@@ -1716,6 +1738,10 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                       className="ad-checkout-confirm-btn"
                       disabled={checkoutProcessing}
                       onClick={() => {
+                        if (redirectUrl) {
+                          window.location.href = redirectUrl;
+                          return;
+                        }
                         setCheckoutProcessing(true);
                         setTimeout(() => {
                           setCheckoutProcessing(false);

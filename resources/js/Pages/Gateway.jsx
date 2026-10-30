@@ -429,7 +429,7 @@ export default function Gateway() {
       supports: copy.cnIdSupports,
       closing: copy.cnIdClosing,
       cta: copy.cnIdCta,
-      image: '/images/china_city_network.jpg',
+      image: '/images/china_city_network.webp',
       photo: isId ? 'Delegasi bisnis Tiongkok di Jakarta' : 'Chinese business delegation in Jakarta'
     },
     {
@@ -444,7 +444,7 @@ export default function Gateway() {
       supports: copy.idCnSupports,
       closing: copy.idCnClosing,
       cta: copy.idCnCta,
-      image: '/images/china_trade_port.jpg',
+      image: '/images/china_trade_port.webp',
       photo: isId ? 'Misi dagang Indonesia di Shanghai / Guangzhou' : 'Indonesian trade mission in Shanghai / Guangzhou'
     }
   ];
@@ -730,7 +730,12 @@ export default function Gateway() {
 
             {/* Large Panoramic Image with Embedded Statement Inside */}
             <div className="gw-hero-frame m3-reveal m3-reveal--scale is-visible m3-delay-1">
-              <img src="/images/hero_globe_china_indonesia.jpg" alt={copy.breadcrumb} />
+              <img
+                src="/images/hero_globe_china_indonesia.webp"
+                alt={copy.breadcrumb}
+                loading="lazy"
+                decoding="async"
+              />
 
               <div
                 style={{
@@ -914,8 +919,10 @@ export default function Gateway() {
                   }}
                 >
                   <img
-                    src="/images/city_orbiting_cards.jpg"
+                    src="/images/city_orbiting_cards.webp"
                     alt="Jakarta – Shanghai Strategic Gateway"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1097,6 +1104,8 @@ export default function Gateway() {
                     <img
                       src={c.image}
                       alt={c.photo}
+                      loading="lazy"
+                      decoding="async"
                       style={{
                         width: '100%',
                         height: '100%',

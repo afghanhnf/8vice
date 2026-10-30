@@ -43,12 +43,13 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->navigationGroups([
-                'Site Settings',
-                'Homepage',
-                'Content',
-                'Data & Inquiries',
-                'Communications',
-                'Recruitment',
+                'Core Advisory & Services',
+                'Insights & Research',
+                'Company & Leadership',
+                'Inquiries & Communications',
+                'Recruitment & HR',
+                'Settings & SEO',
+                'Data & Analytics',
                 'Media & Assets',
             ])
             ->pages([

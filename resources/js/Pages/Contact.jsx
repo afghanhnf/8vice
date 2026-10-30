@@ -395,9 +395,11 @@ export default function Contact() {
             <div className="cnt-hero__showcase m3-reveal m3-reveal--scale" style={{ transitionDelay: '120ms' }}>
               <div className="cnt-hero__image-frame">
                 <img
-                  src="/images/consultation_advisory_bw.jpg"
+                  src="/images/consultation_advisory_bw.webp"
                   alt={isId ? 'Konsultasi Strategis 8 Vice' : '8 Vice Strategic Consultation'}
                   className="cnt-hero__image"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="cnt-hero__image-overlay" />
                 <div className="cnt-hero__corner cnt-hero__corner--tl" />
@@ -441,9 +443,11 @@ export default function Contact() {
                 <div className="cnt-office-card m3-reveal m3-reveal--left">
                   <div className="cnt-office-card__banner">
                     <img
-                      src="/images/city_orbiting_cards.jpg"
+                      src="/images/city_orbiting_cards.webp"
                       alt="8 Vice Jakarta Office"
                       className="cnt-office-card__banner-img"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="cnt-office-card__banner-shade" />
                     <div className="cnt-office-card__banner-body">
@@ -906,7 +910,12 @@ export default function Contact() {
                   : 'Scan the official QR code below using your WeChat app.'}
               </p>
               <div className="cnt-modal-qr-frame">
-                <img src="/images/wechat.jpeg" alt="8 Vice WeChat QR Code" />
+                <img
+                  src="/images/wechat.webp"
+                  alt="8 Vice WeChat QR Code"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <button
                 type="button"

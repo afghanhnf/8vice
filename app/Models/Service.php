@@ -8,12 +8,15 @@ use App\Models\Traits\Translatable;
 class Service extends Model
 {
     use Translatable;
+
     protected $guarded = [];
 
     protected $casts = [
         'title' => 'array',
+        'headline' => 'array',
         'description' => 'array',
+        'deliverables' => 'array',
+        'scope_items' => 'array',
+        'faqs' => 'array',
     ];
-
-    //
 }

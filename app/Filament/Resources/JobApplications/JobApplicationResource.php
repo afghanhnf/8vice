@@ -20,7 +20,7 @@ class JobApplicationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Recruitment';
+    protected static string|\UnitEnum|null $navigationGroup = 'Recruitment & HR';
 
     protected static ?string $navigationLabel = 'Job Applications';
 

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
@@ -117,10 +118,27 @@ function ModernCityBg({ opacity = 0.28, flip = false }) {
   );
 }
 
-export default function About() {
+export default function About({ profiles = [] }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock background scroll when modal is active
+  useEffect(() => {
+    if (selectedPerson) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedPerson]);
 
   // Smooth scroll-triggered transition observer + Escape key for modal
   useEffect(() => {
@@ -306,64 +324,67 @@ export default function About() {
           {
             id: 'helda',
             callName: 'Ibu Helda',
-            fullName: 'Nama Lengkap, S.E., M.M.',
-            nameNote: 'Ibu Helda',
-            subtitle: 'Co-Founder & Managing Partner · Strategic Advisory & Institutional Relations',
+            fullName: 'Helda Chandra, S.E., M.Si.',
+            nameNote: 'CEO & Managing Partner',
+            subtitle: 'CEO & Co-Founder, 8 Vice · Managing Partner, Gentala Institute',
             shortBio:
-              'Memimpin arah penasihat strategis, hubungan kelembagaan, serta pengembangan kolaborasi tingkat eksekutif antara pemangku kepentingan di Indonesia dan Tiongkok.',
-            photo: '/images/profil/siti_nurhaliza.webp',
-            focusTags: ['Strategic Advisory', 'Institutional Engagement', 'Public-Private Dialogue'],
+              'Konsultan bisnis dan penasihat strategis dengan pengalaman 20+ tahun memandu korporasi multinasional, BUMN, dan pemerintah. Memimpin advisori lintas batas untuk Alibaba Group, DingTalk, Alipay, DiDi, Coolita, dan Skyworth. Menjabat Konsultan Ahli di Kementerian Ekonomi Kreatif RI dan purna Komite Dewan Komisaris PT MRT Jakarta.',
+            photo: '/images/profiles/helda_chandra.webp',
+            focusTags: ['Strategi Indonesia–Tiongkok', 'Hubungan Pemerintah', 'Strategi Merek', 'GRC & Advisori', 'Ekonomi Kreatif'],
             socials: {
-              linkedin: 'https://www.linkedin.com/company/8-vice/',
-              instagram: 'https://www.instagram.com/8viceofficial',
-              email: 'mailto:hello@8vice.com'
+              linkedin: 'https://www.linkedin.com/in/helda-chandra-a0b27b1b/',
+              instagram: 'https://www.instagram.com/heldachandra',
+              email: 'mailto:Heldachandra@gmail.com'
             },
-            quoteTitle: 'Membangun Kepercayaan sebagai Fondasi Ekspansi Lintas Batas',
+            quoteTitle: 'Menjembatani Tata Kelola, Inovasi Korporasi, dan Pertumbuhan Bilateral',
             message: [
-              '“Dalam setiap inisiatif lintas negara antara Indonesia dan Tiongkok, keberhasilan jangka panjang tidak pernah ditentukan oleh kecepatan transaksi semata, melainkan oleh kedalaman kepercayaan dan pemahaman terhadap konteks lokal.”',
-              '“Di 8 Vice, komitmen kami adalah memastikan setiap klien melangkah dengan kejelasan strategis, terhubung dengan pemangku kepentingan yang tepat, dan membangun kemitraan yang memberikan nilai berkelanjutan bagi kedua belah pihak.”'
+              '“Dalam setiap inisiatif lintas negara antara Indonesia dan Tiongkok, keberhasilan jangka panjang tidak pernah ditentukan oleh kecepatan transaksi semata, melainkan oleh kedalaman kepercayaan institusional, kepatuhan regulasi, dan pemahaman budaya lokal yang matang.”',
+              '“Dengan lebih dari dua dekade pengalaman mendampingi BUMN, pemerintah, dan korporasi global—mulai dari infrastruktur publik di PT MRT Jakarta, strategi pemasaran di Kementerian Ekonomi Kreatif RI, hingga ekspansi Alibaba Group, DingTalk, dan DiDi—fokus kami di 8 Vice adalah membangun kemitraan bernilai jangka panjang.”',
+              '“Latar Belakang Pendidikan & Sertifikasi:\n• Universitas Indonesia - Magister Ilmu Komunikasi (Marketing Communication)\n• Universitas Indonesia - Sarjana Ekonomi (Manajemen & Pemasaran)\n• Beijing Language and Culture University - Chinese Literature & Culture\n• Certified Marketing Analyst (AAPM, USA)\n• Certified Strategic Business Analyst (AAFM)”'
             ]
           },
           {
             id: 'gandhi',
             callName: 'Pak Gandhi',
-            fullName: 'Nama Lengkap, S.I.Kom., M.B.A.',
-            nameNote: 'Pak Gandhi',
-            subtitle: 'Co-Founder & Partner · Strategic Communications, Media & Brand Positioning',
+            fullName: 'Gandhi Priambodho',
+            nameNote: 'Director of International Business',
+            subtitle: 'Director of International Business · Partner, 8 Vice',
             shortBio:
-              'Mengarahkan strategi komunikasi korporat, penempatan posisi pasar (market positioning), hubungan media, dan manajemen reputasi lintas budaya.',
-            photo: '/images/profil/ahmad_rizky.webp',
-            focusTags: ['Strategic Communications', 'Media Relations', 'Brand Localization'],
+              'Memimpin ekspansi jaringan bisnis, perdagangan, dan investasi di Indonesia dan Tiongkok. Berdomisili di Beijing sejak 2002, Gandhi telah lama membangun jejaring pengembangan bisnis lintas sektor: perdagangan, kerja sama industri, energi & mineral, media, industri kreatif & pariwisata, pendidikan, properti, dan layanan kesehatan.',
+            photo: '/images/profiles/gandhi_priambodho.webp',
+            focusTags: ['Bisnis Internasional', 'Perdagangan & Investasi', 'Energi & Mineral', 'Jejaring Beijing', 'Media & Industri Kreatif'],
             socials: {
               linkedin: 'https://www.linkedin.com/company/8-vice/',
               instagram: 'https://www.instagram.com/8viceofficial',
               email: 'mailto:hello@8vice.com'
             },
-            quoteTitle: 'Menjembatani Persepsi melalui Komunikasi yang Kredibel',
+            quoteTitle: 'Dua Dekade Membangun Jejaring Lintas Batas di Beijing & Jakarta',
             message: [
-              '“Memasuki pasar baru berarti memperkenalkan identitas dan nilai perusahaan kepada audiens yang memiliki cara pandang, budaya, dan ekspektasi yang berbeda.”',
-              '“Melalui pendekatan komunikasi strategis dan hubungan media yang terarah, kami membantu perusahaan membangun narasi yang relevan, menjaga reputasi korporat, serta memenangkan kepercayaan publik di pasar Indonesia maupun Tiongkok.”'
+              '“DIRECTOR OF INTERNATIONAL BUSINESS yang memimpin ekspansi jaringan bisnis, perdagangan, dan investasi di Indonesia dan Tiongkok. Menetap di Beijing sejak tahun 2002, Gandhi telah lama membina jejaring pengembangan bisnis di berbagai sektor strategis: perdagangan & kerja sama industri, energi dan mineral, media, industri kreatif & pariwisata, pendidikan, properti, hingga layanan kesehatan.”',
+              "Latar Belakang Pendidikan:\n• Renmin University of China - Program Pascasarjana (Contemporary China Studies)\n• American World University in California - Sarjana (Administrasi Bisnis)\n• Universitas Indonesia - Sarjana (Bahasa dan Sastra Mandarin)",
+              "Pengalaman Profesional:\n• Nanyang Bridge Media, co. Ltd\n• Red&White China\n• Beijing An Hua Property Consultant, China\n• CENTURY 21 Troop Real Estate, China\n• Indonesia Shangbao\n• PT Falah Jaya Agung, Indonesia\n• Lippo Group, Indonesia\n• Indonesia Air Show Foundation"
             ]
           },
           {
             id: 'christine',
             callName: 'Ci Christine',
-            fullName: 'Nama Lengkap, B.A., M.Sc.',
-            nameNote: 'Ci Christine',
-            subtitle: 'Co-Founder & Partner · China–Indonesia Cross-Border Business Development',
+            fullName: 'Christine Susanna Tjhin',
+            nameNote: 'Director of Strategic Communication & Research',
+            subtitle: 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute · Strategic Partner, 8 Vice',
             shortBio:
-              'Memfokuskan keahlian pada konektivitas bisnis bilateral Indonesia–Tiongkok, kurasi mitra strategis B2B, serta fasilitasi proyek dan delegasi lintas batas.',
-            photo: '/images/profil/wei_chen.webp',
-            focusTags: ['Indonesia–China Corridor', 'Business Matching', 'Cross-Cultural Advisory'],
+              'Co-Founder dan Director of Strategic Communication and Research di Gentala Institute serta Partner di 8 Vice. Menjabat penasihat urusan Tiongkok untuk Deputi Bidang Geopolitik Dewan Pertahanan Nasional (DPN), Dewan Sinolog Indonesia, Senior Expert FPCI China Policy Group, serta peneliti senior di CSIS Indonesia (2003).',
+            photo: '/images/profiles/christine_tjhin.webp',
+            focusTags: ['Geopolitik & Kebijakan', 'Gentala Institute', 'Sinologi & Urusan Tiongkok', 'CSIS Indonesia', 'Komunikasi Strategis'],
             socials: {
-              linkedin: 'https://www.linkedin.com/company/8-vice/',
+              linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
               instagram: 'https://www.instagram.com/8viceofficial',
               email: 'mailto:hello@8vice.com'
             },
-            quoteTitle: 'Menghubungkan Dua Budaya Bisnis Menjadi Peluang Nyata',
+            quoteTitle: 'Wawasan Geopolitik Teruji sebagai Landasan Kemitraan Bilateral yang Tangguh',
             message: [
-              '“Perusahaan Tiongkok dan Indonesia memiliki potensi sinergi yang luar biasa, namun sering kali terkendala oleh perbedaan bahasa bisnis, ritme negosiasi, dan struktur ekosistem lokal.”',
-              '“Peran kami di 8 Vice adalah menjadi jembatan aktif yang menerjemahkan ambisi bisnis dari kedua sisi menjadi kolaborasi yang konkret, saling menguntungkan, dan siap dieksekusi di lapangan.”'
+              '“Christine Susanna Tjhin adalah Co-Founder dan Director of Strategic Communication and Research di Gentala Institute. Didirikan pada tahun 2020 untuk mendukung distribusi vaksin dan alat kesehatan antara Indonesia dan Tiongkok, Gentala Institute telah berkembang menjadi lembaga riset kebijakan dan konsultasi bisnis yang memajukan kemitraan berkelanjutan dan bertanggung jawab secara sosial.”',
+              '“Di luar Gentala Institute, Christine menjabat sebagai penasihat urusan Tiongkok untuk Deputi Bidang Geopolitik Dewan Pertahanan Nasional (DPN), Anggota Badan Pengawas Dewan Sinolog Indonesia (World Sinology Center), Pakar Senior China Policy Group di FPCI, dan Koordinator jejaring pengamat Tiongkok untuk Kementerian Luar Negeri RI.”',
+              '“Memulai karier think-tank pada tahun 2002 di Indonesian Pluralism Institute (IPI) dan tahun 2003 di Centre for Strategic and International Studies (CSIS Indonesia). Menempuh studi Ekonomi, Manajemen Strategis, Studi Asia Timur, dan Hubungan Internasional di Peking University, Beihang University, Fujian Normal University, Australian National University, dan Universitas Tarumanagara.”'
             ]
           }
         ],
@@ -606,64 +627,67 @@ export default function About() {
           {
             id: 'helda',
             callName: 'Ibu Helda',
-            fullName: 'Nama Lengkap, S.E., M.M.',
-            nameNote: 'Ibu Helda',
-            subtitle: 'Co-Founder & Managing Partner · Strategic Advisory & Institutional Relations',
+            fullName: 'Helda Chandra, S.E., M.Si.',
+            nameNote: 'CEO & Managing Partner',
+            subtitle: 'CEO & Co-Founder, 8 Vice · Managing Partner, Gentala Institute',
             shortBio:
-              'Leading corporate strategic advisory, institutional stakeholder engagement, and executive-level collaboration across Indonesia and China.',
-            photo: '/images/profil/siti_nurhaliza.webp',
-            focusTags: ['Strategic Advisory', 'Institutional Engagement', 'Public-Private Dialogue'],
+              'Seasoned business strategist with over 20 years guiding multinational corporations, BUMN, and governments. Spearheads cross-border advisory for Alibaba Group, DingTalk, Alipay, DiDi, Coolita, and Skyworth. Serves as Expert Consultant to the Indonesian Ministry of Creative Economy and former PT MRT Jakarta Commissioner Committee.',
+            photo: '/images/profiles/helda_chandra.webp',
+            focusTags: ['Indonesia–China Strategy', 'Government Relations', 'Brand Strategy', 'GRC & Advisory', 'Creative Economy'],
             socials: {
-              linkedin: 'https://www.linkedin.com/company/8-vice/',
-              instagram: 'https://www.instagram.com/8viceofficial',
-              email: 'mailto:hello@8vice.com'
+              linkedin: 'https://www.linkedin.com/in/helda-chandra-a0b27b1b/',
+              instagram: 'https://www.instagram.com/heldachandra',
+              email: 'mailto:Heldachandra@gmail.com'
             },
-            quoteTitle: 'Building Trust as the Foundation of Cross-Border Growth',
+            quoteTitle: 'Bridging Governance, Enterprise Innovation, and Bilateral Growth',
             message: [
-              '“In every cross-border initiative between Indonesia and China, sustainable success is never defined by the speed of a transaction alone, but by the depth of trust and local context behind it.”',
-              '“At 8 Vice, our commitment is to ensure that every client moves forward with strategic clarity, connects with the right institutional and commercial stakeholders, and builds partnerships that create lasting mutual value.”'
+              '“In every cross-border initiative between Indonesia and China, sustainable success is never defined by transaction speed alone, but by the depth of institutional trust, regulatory compliance, and nuanced cultural understanding.”',
+              '“With over two decades of advisory experience—from public infrastructure at PT MRT Jakarta and creative economy strategy for the Indonesian Government, to market entry for Alibaba Group, DingTalk, and DiDi—our focus at 8 Vice is building high-trust partnerships that create long-term commercial and sovereign value.”',
+              '“Education & Credentials: Master of Communication Studies (Marketing Communication) & Bachelor of Economics & Management from University of Indonesia; Associate in Chinese Literature & Culture from Beijing Language and Culture University; Certified Marketing Analyst (AAPM USA) & Certified Strategic Business Analyst (AAFM).”'
             ]
           },
           {
             id: 'gandhi',
             callName: 'Pak Gandhi',
-            fullName: 'Nama Lengkap, S.I.Kom., M.B.A.',
-            nameNote: 'Pak Gandhi',
-            subtitle: 'Co-Founder & Partner · Strategic Communications, Media & Brand Positioning',
+            fullName: 'Gandhi Priambodho',
+            nameNote: 'Director of International Business',
+            subtitle: 'Director of International Business · Partner, 8 Vice',
             shortBio:
-              'Directing strategic corporate communications, market positioning, cross-cultural media relations, and executive reputation management.',
-            photo: '/images/profil/ahmad_rizky.webp',
-            focusTags: ['Strategic Communications', 'Media Relations', 'Brand Localization'],
+              'Spearheads the expansion of business, trade and investment networks in Indonesia and China. Based in Beijing since 2002, Gandhi has long fostered eclectic business development networks across trade, industrial cooperation, energy & minerals, media, creative industry, tourism, education, real estate, and healthcare.',
+            photo: '/images/profiles/gandhi_priambodho.webp',
+            focusTags: ['International Business', 'Trade & Investment', 'Energy & Minerals', 'Beijing Network', 'Media & Industry'],
             socials: {
               linkedin: 'https://www.linkedin.com/company/8-vice/',
               instagram: 'https://www.instagram.com/8viceofficial',
               email: 'mailto:hello@8vice.com'
             },
-            quoteTitle: 'Bridging Perceptions Through Credible Communication',
+            quoteTitle: 'Two Decades of Grounded Cross-Border Networks in Beijing & Jakarta',
             message: [
-              '“Entering a new market means introducing your corporate identity and value proposition to stakeholders with distinct cultural perspectives, media landscapes, and expectations.”',
-              '“Through integrated strategic communications and trusted media engagement, we help organizations craft resonant narratives, safeguard corporate reputation, and earn long-term credibility across Indonesia and China.”'
+              '“DIRECTOR OF INTERNATIONAL BUSINESS spearheads the expansion of business, trade and investment networks in Indonesia and China. Based in Beijing since 2002, Gandhi has long fostered eclectic business development networks in various sectors, including: trade and industrial cooperation, energy and minerals, media, creative industry and tourism, education, real estate, health services and many others.”',
+              "Educational Background:\n• Renmin University of China - Graduate Program (Contemporary China Studies)\n• American World University in California - Bachelor Program (Business Administration)\n• University of Indonesia - Bachelor Program (Chinese Language and Literature)",
+              "Professional Experiences:\n• Nanyang Bridge Media, co. Ltd\n• Red&White China\n• Beijing An Hua Property Consultant, China\n• CENTURY 21 Troop Real Estate, China\n• Indonesia Shangbao\n• PT Falah Jaya Agung, Indonesia\n• Lippo Group, Indonesia\n• Indonesia Air Show Foundation"
             ]
           },
           {
             id: 'christine',
             callName: 'Ci Christine',
-            fullName: 'Nama Lengkap, B.A., M.Sc.',
-            nameNote: 'Ci Christine',
-            subtitle: 'Co-Founder & Partner · China–Indonesia Cross-Border Business Development',
+            fullName: 'Christine Susanna Tjhin',
+            nameNote: 'Director of Strategic Communication & Research',
+            subtitle: 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute · Strategic Partner, 8 Vice',
             shortBio:
-              'Spearheading bilateral China–Indonesia business connectivity, curated B2B partner matching, and cross-border project facilitation.',
-            photo: '/images/profil/wei_chen.webp',
-            focusTags: ['Indonesia–China Corridor', 'Business Matching', 'Cross-Cultural Advisory'],
+              'Co-Founder and Director of Strategic Communication and Research at Gentala Institute and Partner at 8 Vice. Serves as advisor on China affairs to the Deputy for Geopolitics at the Indonesian National Defense Council (DPN), Member of the Supervisory Body of Indonesia Council of Sinologists, Senior Expert at FPCI China Policy Group, and former CSIS Indonesia researcher.',
+            photo: '/images/profiles/christine_tjhin.webp',
+            focusTags: ['Geopolitics & Policy', 'Gentala Institute', 'Sinology & China Affairs', 'CSIS Indonesia', 'Strategic Communications'],
             socials: {
-              linkedin: 'https://www.linkedin.com/company/8-vice/',
+              linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
               instagram: 'https://www.instagram.com/8viceofficial',
               email: 'mailto:hello@8vice.com'
             },
-            quoteTitle: 'Connecting Two Business Cultures into Actionable Opportunity',
+            quoteTitle: 'Rigorous Geopolitical Insight as the Bedrock of Resilient Bilateral Partnerships',
             message: [
-              '“Chinese and Indonesian enterprises share extraordinary complementary strengths, yet promising opportunities often stall due to differences in business customs, communication styles, and local networks.”',
-              '“Our role at 8 Vice is to serve as an active bridge—translating commercial ambition on both sides into structured, high-trust collaborations that are ready for real-world execution.”'
+              '“Christine Susanna Tjhin is the Co-Founder and Director of Strategic Communication and Research at Gentala Institute. Established in 2020 to support the distribution of vaccines and medical equipment between Indonesia and China, Gentala Institute has since evolved into a business consultancy and policy research institute promoting sustainable, smart, and socially responsible partnerships.”',
+              '“Beyond Gentala Institute, Christine serves as an advisor on China affairs to the Deputy for Geopolitics at the Indonesian National Defense Council (DPN); a member of the Supervisory Body of the Indonesia Council of Sinologists (World Sinology Center); a Senior Expert in the China Policy Group at the Foreign Policy Community Indonesia (FPCI); and Coordinator for China observer networks consulting regularly with the Indonesian Ministry of Foreign Affairs.”',
+              '“She commenced her think tank career in 2002 at the Indonesian Pluralism Institute (IPI) and in 2003 at the Centre for Strategic and International Studies (CSIS Indonesia). She studied Economics, Strategic Management, East Asian Studies, and International Relations across Peking University, Beihang University, Fujian Normal University, Australian National University, and Universitas Tarumanagara.”'
             ]
           }
         ],
@@ -757,6 +781,35 @@ export default function About() {
         ctaPrimary: 'Start a Conversation',
         ctaSecondary: 'Explore Our Services'
       };
+
+  // Combine CMS profiles from backend props if available, or fall back to static copy.people
+  const peopleList = useMemo(() => {
+    if (profiles && profiles.length > 0) {
+      return profiles.map((p, idx) => {
+        const role = typeof p.role === 'object' ? (p.role?.[lang] || p.role?.en || '') : (p.role || '');
+        const bio = typeof p.short_bio === 'object' ? (p.short_bio?.[lang] || p.short_bio?.en || '') : (p.short_bio || '');
+        const qTitle = typeof p.quote_title === 'object' ? (p.quote_title?.[lang] || p.quote_title?.en || '') : (p.quote_title || '');
+        const qMsg = typeof p.quote_message === 'object' ? (p.quote_message?.[lang] || p.quote_message?.en || '') : (p.quote_message || '');
+        const msgArray = Array.isArray(qMsg) ? qMsg : (typeof qMsg === 'string' ? qMsg.split('\n\n').filter(Boolean) : []);
+        const fallback = copy.people[idx] || copy.people[0];
+
+        return {
+          id: p.call_name ? p.call_name.toLowerCase().replace(/[^a-z0-9]/g, '') : (fallback?.id || `person-${idx}`),
+          callName: p.call_name || fallback?.callName || '',
+          fullName: p.full_title || fallback?.fullName || '',
+          nameNote: role.split('·')[0]?.trim() || fallback?.nameNote || '',
+          subtitle: role || fallback?.subtitle || '',
+          shortBio: bio || fallback?.shortBio || '',
+          photo: p.image ? (p.image.startsWith('/') ? p.image : `/storage/${p.image}`) : (fallback?.photo || ''),
+          focusTags: Array.isArray(p.focus_tags) ? p.focus_tags : (fallback?.focusTags || []),
+          socials: p.socials || fallback?.socials || { linkedin: '', instagram: '', email: '' },
+          quoteTitle: qTitle || fallback?.quoteTitle || '',
+          message: msgArray.length > 0 ? msgArray : (fallback?.message || [])
+        };
+      });
+    }
+    return copy.people;
+  }, [profiles, lang, copy.people]);
 
   return (
     <MainLayout>
@@ -1098,8 +1151,10 @@ export default function About() {
             {/* Large Panoramic Image with Embedded Statement Inside */}
             <div className="about-hero-frame about-anim about-anim--scale is-visible about-delay-1">
               <img
-                src="/images/china_city_network.jpg"
+                src="/images/china_city_network.webp"
                 alt="8 Vice Indonesia-China Cross-Border Gateway"
+                loading="lazy"
+                decoding="async"
               />
 
               {/* Multi-layered Dark & Red Cinematic Overlay */}
@@ -1331,8 +1386,10 @@ export default function About() {
                   }}
                 >
                   <img
-                    src="/images/executive_profile_bw.jpg"
+                    src="/images/executive_profile_bw.webp"
                     alt="8 Vice Executive Advisory"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1807,8 +1864,10 @@ export default function About() {
                   }}
                 >
                   <img
-                    src="/images/consultation_advisory_bw.jpg"
+                    src="/images/consultation_advisory_bw.webp"
                     alt="8 Vice Leadership & Strategic Advisory"
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       height: '500px',
@@ -2062,7 +2121,7 @@ export default function About() {
 
             {/* 3 Executive Cards: Ibu Helda, Pak Gandhi, Ci Christine */}
             <div className="about-people-grid">
-              {copy.people.map((person, idx) => (
+              {peopleList.map((person, idx) => (
                 <div
                   key={person.id}
                   onClick={() => setSelectedPerson(person)}
@@ -2080,8 +2139,23 @@ export default function About() {
                   <div style={{ position: 'relative', height: '340px', overflow: 'hidden', background: '#10131C' }}>
                     <img
                       src={person.photo}
-                      alt={person.callName}
-                      className="about-person-img"
+                      alt={person.fullName}
+                      className="about-person-img is-loaded"
+                      loading="eager"
+                      decoding="async"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'top center',
+                        opacity: 1,
+                        filter: 'none'
+                      }}
+                      onLoad={(e) => {
+                        e.currentTarget.classList.add('is-loaded');
+                        e.currentTarget.style.opacity = '1';
+                        e.currentTarget.style.filter = 'none';
+                      }}
                     />
                     <div
                       style={{
@@ -2091,29 +2165,6 @@ export default function About() {
                           'linear-gradient(180deg, rgba(8, 9, 12, 0.1) 0%, rgba(8, 9, 12, 0.35) 55%, rgba(12, 14, 20, 0.98) 100%)'
                       }}
                     />
-
-                    {/* Top Call-Name Badge */}
-                    <div style={{ position: 'absolute', top: '18px', left: '18px' }}>
-                      <span
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          padding: '6px 14px',
-                          borderRadius: '999px',
-                          background: 'rgba(10, 12, 18, 0.85)',
-                          border: '1px solid rgba(230, 57, 70, 0.45)',
-                          backdropFilter: 'blur(10px)',
-                          color: '#FFFFFF',
-                          fontSize: '12px',
-                          fontWeight: 700,
-                          letterSpacing: '0.04em'
-                        }}
-                      >
-                        <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#E63946' }} />
-                        {person.callName}
-                      </span>
-                    </div>
 
                     {/* Social Media Floating Icons on Portrait Top-Right */}
                     <div
@@ -2126,45 +2177,51 @@ export default function About() {
                       }}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <a
-                        href={person.socials.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="about-social-btn"
-                        aria-label={`${person.callName} LinkedIn`}
-                        title="LinkedIn"
-                      >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                          <rect x="2" y="9" width="4" height="12" />
-                          <circle cx="4" cy="4" r="2" />
-                        </svg>
-                      </a>
-                      <a
-                        href={person.socials.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="about-social-btn"
-                        aria-label={`${person.callName} Instagram`}
-                        title="Instagram"
-                      >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                        </svg>
-                      </a>
-                      <a
-                        href={person.socials.email}
-                        className="about-social-btn"
-                        aria-label={`Email ${person.callName}`}
-                        title="Email"
-                      >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                          <polyline points="22,6 12,13 2,6" />
-                        </svg>
-                      </a>
+                      {person.socials?.linkedin && (
+                        <a
+                          href={person.socials.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="about-social-btn"
+                          aria-label={`${person.fullName} LinkedIn`}
+                          title="LinkedIn"
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                            <rect x="2" y="9" width="4" height="12" />
+                            <circle cx="4" cy="4" r="2" />
+                          </svg>
+                        </a>
+                      )}
+                      {person.socials?.instagram && (
+                        <a
+                          href={person.socials.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="about-social-btn"
+                          aria-label={`${person.fullName} Instagram`}
+                          title="Instagram"
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                          </svg>
+                        </a>
+                      )}
+                      {person.socials?.email && (
+                        <a
+                          href={person.socials.email.startsWith('mailto:') ? person.socials.email : `mailto:${person.socials.email}`}
+                          className="about-social-btn"
+                          aria-label={`Email ${person.fullName}`}
+                          title="Email"
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                          </svg>
+                        </a>
+                      )}
                     </div>
                   </div>
 
@@ -2232,7 +2289,7 @@ export default function About() {
 
                       {/* Focus Tags */}
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '22px' }}>
-                        {person.focusTags.map((tag) => (
+                        {(Array.isArray(person.focusTags) ? person.focusTags : []).map((tag) => (
                           <span
                             key={tag}
                             style={{
@@ -2677,20 +2734,26 @@ export default function About() {
         {/* ========================================================================= */}
         {/* MODAL: EXECUTIVE MESSAGE & PROFILE (IBU HELDA, PAK GANDHI, CI CHRISTINE)  */}
         {/* ========================================================================= */}
-        {selectedPerson && (
+        {mounted && selectedPerson && typeof document !== 'undefined' && createPortal(
           <div
             onClick={() => setSelectedPerson(null)}
             style={{
               position: 'fixed',
-              inset: 0,
-              zIndex: 99999,
-              background: 'rgba(5, 7, 11, 0.85)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              width: '100vw',
+              height: '100vh',
+              zIndex: 99999999,
+              background: 'rgba(5, 7, 11, 0.88)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               padding: '24px',
+              boxSizing: 'border-box',
               animation: 'aboutBackdropIn 0.25s ease forwards'
             }}
           >
@@ -2699,10 +2762,13 @@ export default function About() {
               style={{
                 maxWidth: '760px',
                 width: '100%',
+                maxHeight: 'calc(100vh - 48px)',
+                display: 'flex',
+                flexDirection: 'column',
                 borderRadius: '26px',
                 background: 'linear-gradient(165deg, #141824 0%, #0B0D14 100%)',
                 border: '1px solid rgba(230, 57, 70, 0.45)',
-                boxShadow: '0 32px 90px rgba(0, 0, 0, 0.8), 0 0 50px rgba(230, 57, 70, 0.18)',
+                boxShadow: '0 32px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(230, 57, 70, 0.22)',
                 overflow: 'hidden',
                 position: 'relative',
                 animation: 'aboutModalIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards'
@@ -2720,14 +2786,16 @@ export default function About() {
                   width: '40px',
                   height: '40px',
                   borderRadius: '50%',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.14)',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.16)',
                   color: '#FFFFFF',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  zIndex: 10
+                  zIndex: 10,
+                  fontSize: '15px',
+                  transition: 'background 0.2s, transform 0.2s'
                 }}
               >
                 &#10005;
@@ -2736,14 +2804,15 @@ export default function About() {
               {/* Modal Header with Portrait & Credentials */}
               <div
                 style={{
-                  padding: '36px 36px 28px',
+                  padding: '32px 36px 24px',
                   background:
                     'radial-gradient(ellipse 80% 90% at 0% 0%, rgba(230, 57, 70, 0.22) 0%, transparent 70%)',
                   borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   gap: '24px',
                   alignItems: 'center',
-                  flexWrap: 'wrap'
+                  flexWrap: 'wrap',
+                  flexShrink: 0
                 }}
               >
                 <div
@@ -2760,92 +2829,102 @@ export default function About() {
                 >
                   <img
                     src={selectedPerson.photo}
-                    alt={selectedPerson.callName}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
+                    alt={selectedPerson.fullName}
+                    loading="eager"
+                    decoding="sync"
+                    className="is-loaded"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center 20%',
+                      display: 'block',
+                      opacity: 1,
+                      filter: 'none',
+                      transform: 'none'
+                    }}
+                    onLoad={(e) => {
+                      e.currentTarget.classList.add('is-loaded');
+                      e.currentTarget.style.opacity = '1';
+                      e.currentTarget.style.filter = 'none';
+                    }}
                   />
                 </div>
 
                 <div style={{ flex: 1, minWidth: '240px' }}>
-                  <div
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '4px 12px',
-                      borderRadius: '999px',
-                      background: 'rgba(230, 57, 70, 0.16)',
-                      border: '1px solid rgba(230, 57, 70, 0.4)',
-                      color: '#FF7B7B',
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
-                      marginBottom: '10px'
-                    }}
-                  >
-                    <span>{selectedPerson.callName}</span>
-                  </div>
-
                   <h3
                     style={{
                       fontSize: '26px',
                       fontWeight: 800,
                       color: '#FFFFFF',
-                      margin: '0 0 6px',
+                      margin: '0 0 8px',
                       letterSpacing: '-0.02em'
                     }}
                   >
                     {selectedPerson.fullName}
                   </h3>
 
-                  <div style={{ fontSize: '14px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.78)', marginBottom: '12px' }}>
+                  <div style={{ fontSize: '13.5px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.78)', marginBottom: '14px', lineHeight: 1.45 }}>
                     {selectedPerson.subtitle}
                   </div>
 
                   {/* Social Links inside Modal */}
                   <div style={{ display: 'flex', gap: '8px' }}>
-                    <a
-                      href={selectedPerson.socials.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="about-social-btn"
-                      aria-label="LinkedIn"
-                    >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                        <rect x="2" y="9" width="4" height="12" />
-                        <circle cx="4" cy="4" r="2" />
-                      </svg>
-                    </a>
-                    <a
-                      href={selectedPerson.socials.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="about-social-btn"
-                      aria-label="Instagram"
-                    >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                      </svg>
-                    </a>
-                    <a
-                      href={selectedPerson.socials.email}
-                      className="about-social-btn"
-                      aria-label="Email"
-                    >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                        <polyline points="22,6 12,13 2,6" />
-                      </svg>
-                    </a>
+                    {selectedPerson.socials?.linkedin && (
+                      <a
+                        href={selectedPerson.socials.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="about-social-btn"
+                        aria-label="LinkedIn"
+                      >
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                          <rect x="2" y="9" width="4" height="12" />
+                          <circle cx="4" cy="4" r="2" />
+                        </svg>
+                      </a>
+                    )}
+                    {selectedPerson.socials?.instagram && (
+                      <a
+                        href={selectedPerson.socials.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="about-social-btn"
+                        aria-label="Instagram"
+                      >
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                      </a>
+                    )}
+                    {selectedPerson.socials?.email && (
+                      <a
+                        href={selectedPerson.socials.email.startsWith('mailto:') ? selectedPerson.socials.email : `mailto:${selectedPerson.socials.email}`}
+                        className="about-social-btn"
+                        aria-label="Email"
+                      >
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                          <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
 
               {/* Modal Body: Words / Message from 8 Vice Team */}
-              <div style={{ padding: '32px 36px 36px' }}>
+              <div
+                style={{
+                  padding: '28px 36px 36px',
+                  overflowY: 'auto',
+                  WebkitOverflowScrolling: 'touch',
+                  flex: 1
+                }}
+              >
                 <div
                   style={{
                     fontSize: '11.5px',
@@ -2886,15 +2965,15 @@ export default function About() {
                     marginBottom: '26px'
                   }}
                 >
-                  {selectedPerson.message.map((para, i) => (
+                  {(Array.isArray(selectedPerson.message) ? selectedPerson.message : [selectedPerson.message]).map((para, i) => (
                     <p
                       key={i}
                       style={{
-                        fontSize: '15.5px',
+                        fontSize: '15px',
                         lineHeight: 1.75,
                         color: 'rgba(255, 255, 255, 0.88)',
-                        fontStyle: 'italic',
-                        margin: 0
+                        margin: 0,
+                        whiteSpace: 'pre-line'
                       }}
                     >
                       {para}
@@ -2902,9 +2981,9 @@ export default function About() {
                   ))}
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px' }}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                    {selectedPerson.focusTags.map((tag) => (
+                    {(Array.isArray(selectedPerson.focusTags) ? selectedPerson.focusTags : []).map((tag) => (
                       <span
                         key={tag}
                         style={{
@@ -2942,7 +3021,8 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
     </MainLayout>

@@ -7,6 +7,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TagsInput;
@@ -71,6 +72,29 @@ class InsightForm
                                     ])
                                     ->default('Publish')
                                     ->required(),
+                            ]),
+                        Section::make('Research Paper & Monetization (Gate / Paywall)')
+                            ->description('Configure this insight as an exclusive research paper with paid access redirect.')
+                            ->columnSpan(12)
+                            ->columns(3)
+                            ->schema([
+                                Toggle::make('is_research_paper')
+                                    ->label('Is Research Paper?')
+                                    ->helperText('Enable if this article represents a premium deep-dive research paper.')
+                                    ->default(false),
+                                TextInput::make('research_paper_link')
+                                    ->label('Research Paper Landing & Checkout Link (Redirect URL)')
+                                    ->placeholder('https://... (URL landing & product bayar khusus paper)')
+                                    ->helperText('Redirect link placement: clicking unlock/buy directly sends readers here.')
+                                    ->columnSpan(2),
+                                TextInput::make('paper_pages')
+                                    ->label('Document Page Count')
+                                    ->numeric()
+                                    ->default(48),
+                                Toggle::make('is_paywall_locked')
+                                    ->label('Lock with Paywall Default')
+                                    ->helperText('Keep document preview locked behind paywall until purchased.')
+                                    ->default(true),
                             ]),
                         Section::make('Author')
                             ->columnSpan(6)

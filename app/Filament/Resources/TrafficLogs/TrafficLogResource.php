@@ -14,9 +14,9 @@ class TrafficLogResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-chart-bar';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Data & Inquiries';
+    protected static string|\UnitEnum|null $navigationGroup = 'Data & Analytics';
 
-    protected static ?string $navigationLabel = 'Traffic & Activity Logs';
+    protected static ?string $navigationLabel = 'Traffic & Analytics Logs';
 
     protected static ?int $navigationSort = 1;
 

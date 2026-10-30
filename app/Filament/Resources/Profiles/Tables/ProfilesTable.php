@@ -16,9 +16,12 @@ class ProfilesTable
     {
         return $table
             ->columns([
-                TextColumn::make('title')->label('Title')->searchable(),
-                TextColumn::make('description')->label('Description')->limit(50)
+                ImageColumn::make('image')->label('Portrait')->circular(),
+                TextColumn::make('call_name')->label('Leader Name')->searchable()->weight('bold'),
+                TextColumn::make('role')->label('Designation')->limit(40),
+                TextColumn::make('sort_order')->label('Order')->sortable(),
             ])
+            ->defaultSort('sort_order')
             ->filters([
                 //
             ])

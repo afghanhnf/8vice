@@ -8,7 +8,7 @@ export default function PageHeroBanner({
   title = '',
   subtitle = '',
   lead = '',
-  bannerImage = '/images/hero_globe_china_indonesia.jpg',
+  bannerImage = '/images/hero_globe_china_indonesia.webp',
   children = null,
   align = 'left',
   minHeight = '440px'

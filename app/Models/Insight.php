@@ -8,6 +8,7 @@ use App\Models\Traits\Translatable;
 class Insight extends Model
 {
     use Translatable;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -17,6 +18,8 @@ class Insight extends Model
         'tags' => 'array',
         'faqs' => 'array',
         'references' => 'array',
+        'is_research_paper' => 'boolean',
+        'is_paywall_locked' => 'boolean',
     ];
 
     /**
@@ -27,6 +30,14 @@ class Insight extends Model
         return $query->where(function ($q) {
             $q->whereIn('status', ['Publish', 'published'])->orWhereNull('status');
         });
+    }
+
+    /**
+     * Research papers only.
+     */
+    public function scopeResearchPapers($query)
+    {
+        return $query->published()->where('is_research_paper', true);
     }
 
     /**

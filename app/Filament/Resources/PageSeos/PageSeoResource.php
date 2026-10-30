@@ -19,7 +19,7 @@ class PageSeoResource extends Resource
     protected static ?string $model = PageSeo::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMagnifyingGlassCircle;
-    protected static string|\UnitEnum|null $navigationGroup = 'Site Settings';
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings & SEO';
     protected static ?string $navigationLabel = 'Page SEO & Meta';
     protected static ?string $modelLabel = 'Page SEO';
     protected static ?string $pluralModelLabel = 'Page SEO Settings';

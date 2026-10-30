@@ -19,8 +19,8 @@ class SiteSettingResource extends Resource
     protected static ?string $model = SiteSetting::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
-    protected static string|\UnitEnum|null $navigationGroup = 'Site Settings';
-    protected static ?string $navigationLabel = 'Site Setting';
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings & SEO';
+    protected static ?string $navigationLabel = 'General Site Settings';
     protected static ?int $navigationSort = 1;
 
     public static function canCreate(): bool

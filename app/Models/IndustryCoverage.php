@@ -8,12 +8,13 @@ use App\Models\Traits\Translatable;
 class IndustryCoverage extends Model
 {
     use Translatable;
+
     protected $guarded = [];
 
     protected $casts = [
         'title' => 'array',
+        'tagline' => 'array',
         'description' => 'array',
+        'highlights' => 'array',
     ];
-
-    //
 }

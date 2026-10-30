@@ -19,8 +19,11 @@ class ProfileResource extends Resource
     protected static ?string $model = Profile::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
-    protected static string|\UnitEnum|null $navigationGroup = 'Content';
-    protected static ?int $navigationSort = 4;
+    protected static string|\UnitEnum|null $navigationGroup = 'Company & Leadership';
+    protected static ?string $navigationLabel = 'People Behind 8Vice';
+    protected static ?string $modelLabel = 'Leadership Profile';
+    protected static ?string $pluralModelLabel = 'Leadership Profiles';
+    protected static ?int $navigationSort = 1;
 
 
     public static function form(Schema $schema): Schema

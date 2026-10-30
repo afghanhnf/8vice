@@ -357,8 +357,10 @@ export default function ChatFloatingWidget() {
               }}
             >
               <img
-                src="/images/wechat.jpeg"
+                src="/images/wechat.webp"
                 alt="8Vice WeChat QR Code"
+                loading="lazy"
+                decoding="async"
                 style={{
                   width: '210px',
                   height: '210px',

@@ -9,7 +9,10 @@ class ImageToWebpObserver
 {
     public function saving(Model $model)
     {
-        $columns = ['image', 'cover', 'icon', 'logo', 'favicon'];
+        $columns = [
+            'image', 'cover', 'icon', 'logo', 'favicon',
+            'detail_image', 'wechat_qr', 'hero_image', 'default_og_image', 'og_image'
+        ];
         
         foreach ($columns as $column) {
             if ($model->isDirty($column)) {

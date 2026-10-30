@@ -19,10 +19,10 @@ class IndustryCoverageResource extends Resource
     protected static ?string $model = IndustryCoverage::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAlt;
-    protected static string|\UnitEnum|null $navigationGroup = 'Content';
+    protected static string|\UnitEnum|null $navigationGroup = 'Core Advisory & Services';
 
     protected static ?string $navigationLabel = 'Industry Coverage';
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 2;
 
 
     public static function form(Schema $schema): Schema

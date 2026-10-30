@@ -16,9 +16,10 @@ class ServicesTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image')->label('Banner')->circular(),
+                TextColumn::make('slug')->label('Slug')->badge()->sortable(),
                 TextColumn::make('title')->label('Title')->searchable(),
-                TextColumn::make('description')->label('Description')->limit(50),
-                TextColumn::make('link_url')->label('Link'),
+                TextColumn::make('link_url')->label('Path')->limit(30),
                 TextColumn::make('sort_order')->label('Order')->sortable(),
             ])
             ->defaultSort('sort_order')

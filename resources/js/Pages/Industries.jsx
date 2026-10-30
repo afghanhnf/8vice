@@ -394,7 +394,7 @@ export default function Industries() {
             title: 'Infrastructure & Urban Development',
             idTitle: 'Infrastruktur & Pembangunan Perkotaan',
             tagline: 'Menghubungkan kapabilitas untuk kota masa depan.',
-            image: '/images/industry_infrastructure.jpg',
+            image: '/images/industry_infrastructure.webp',
             desc: 'Kami mengeksplorasi peluang kolaborasi di bidang infrastruktur perkotaan, transportasi publik (MRT/LRT), mobilitas cerdas, dan pengembangan kawasan perkotaan, dengan menghubungkan pemangku kepentingan yang relevan guna mendukung evaluasi proyek serta kemitraan potensial.',
             highlights: [
               'Transportasi Perkotaan & Mobilitas Terintegrasi',
@@ -409,7 +409,7 @@ export default function Industries() {
             title: 'Technology & Digital Ecosystems',
             idTitle: 'Teknologi & Ekosistem Digital',
             tagline: 'Mendekatkan inovasi teknologi dengan kebutuhan pasar.',
-            image: '/images/industry_technology.jpg',
+            image: '/images/industry_technology.webp',
             desc: 'Kami membantu menjajaki kemitraan yang melibatkan platform digital, teknologi konsumen, ekosistem pembayaran lintas batas, serta layanan berbasis teknologi, dengan fokus pada identifikasi aplikasi komersial potensial dan peluang kolaborasi lokal.',
             highlights: [
               'Platform Digital & Ekosistem Pembayaran Lintas Batas',
@@ -424,7 +424,7 @@ export default function Industries() {
             title: 'Tourism, Travel & Hospitality',
             idTitle: 'Pariwisata, Perjalanan & Perhotelan',
             tagline: 'Menciptakan koneksi melalui perjalanan dan pengalaman destinasi.',
-            image: '/images/industry_tourism.jpg',
+            image: '/images/industry_tourism.webp',
             desc: 'Kami mendukung kolaborasi sektor pariwisata melalui promosi destinasi, kemitraan industri perjalanan, inisiatif keterlibatan wisatawan (inbound/outbound), pengembangan MICE, serta peluang yang menghubungkan destinasi Indonesia dengan pasar wisata Tiongkok.',
             highlights: [
               'Promosi Destinasi Bilateral & Kampanye Pariwisata',
@@ -439,7 +439,7 @@ export default function Industries() {
             title: 'Creative Economy & Lifestyle',
             idTitle: 'Ekonomi Kreatif & Gaya Hidup',
             tagline: 'Menghubungkan budaya, kreativitas, dan peluang komersial.',
-            image: '/images/industry_creative.jpg',
+            image: '/images/industry_creative.webp',
             desc: 'Kami menjajaki kolaborasi di sektor fesyen, kriya, kuliner, film, animasi, musik, gim, aplikasi, dan sektor kreatif lainnya, dengan mendukung positioning pasar, kemitraan merek, serta keterlibatan industri lintas batas.',
             highlights: [
               'Film, Animasi, Media & Lisensi Kekayaan Intelektual (IP)',
@@ -454,7 +454,7 @@ export default function Industries() {
             title: 'Trade & Consumer Goods',
             idTitle: 'Perdagangan & Barang Konsumsi (FMCG)',
             tagline: 'Membantu bisnis menemukan jalur komersial baru.',
-            image: '/images/industry_trade.jpg',
+            image: '/images/industry_trade.webp',
             desc: 'Kami membantu perusahaan mengeksplorasi kemitraan distribusi, lokalisasi produk, positioning pasar, serta jalur komersial potensial untuk memasuki pasar baru dan mengembangkan hubungan perdagangan lintas negara.',
             highlights: [
               'Kemitraan Distributor & Saluran Ritel Modern',
@@ -496,7 +496,7 @@ export default function Industries() {
             title: 'Infrastructure & Urban Development',
             idTitle: 'Infrastructure & Urban Development',
             tagline: 'Connecting capabilities for future-ready cities.',
-            image: '/images/industry_infrastructure.jpg',
+            image: '/images/industry_infrastructure.webp',
             desc: 'We explore opportunities for collaboration across urban infrastructure, transportation, mobility, and city development, connecting relevant stakeholders to support the evaluation of potential projects and partnerships.',
             highlights: [
               'Urban Transit, Rail & Smart Mobility Systems',
@@ -511,7 +511,7 @@ export default function Industries() {
             title: 'Technology & Digital Ecosystems',
             idTitle: 'Technology & Digital Ecosystems',
             tagline: 'Bringing technology and markets closer together.',
-            image: '/images/industry_technology.jpg',
+            image: '/images/industry_technology.webp',
             desc: 'We help explore partnerships involving digital platforms, consumer technology, payment ecosystems, and technology-enabled services, with a focus on identifying potential commercial applications and local collaboration opportunities.',
             highlights: [
               'Digital Platforms & Cross-Border Payment Ecosystems',
@@ -526,7 +526,7 @@ export default function Industries() {
             title: 'Tourism, Travel & Hospitality',
             idTitle: 'Tourism, Travel & Hospitality',
             tagline: 'Creating connections through travel and destination experiences.',
-            image: '/images/industry_tourism.jpg',
+            image: '/images/industry_tourism.webp',
             desc: 'We support tourism-related collaboration through destination promotion, travel industry partnerships, visitor engagement initiatives, MICE development, and opportunities connecting Indonesian destinations with Chinese tourism markets.',
             highlights: [
               'Bilateral Destination Promotion & Marketing',
@@ -541,7 +541,7 @@ export default function Industries() {
             title: 'Creative Economy & Lifestyle',
             idTitle: 'Creative Economy & Lifestyle',
             tagline: 'Connecting culture, creativity, and commercial opportunity.',
-            image: '/images/industry_creative.jpg',
+            image: '/images/industry_creative.webp',
             desc: 'We explore collaboration across fashion, crafts, culinary, film, music, games, applications, and other creative sectors, supporting market positioning, brand partnerships, and cross-border industry engagement.',
             highlights: [
               'Film, Animation, Digital Media & IP Collaboration',
@@ -556,7 +556,7 @@ export default function Industries() {
             title: 'Trade & Consumer Goods',
             idTitle: 'Trade & Consumer Goods',
             tagline: 'Helping businesses find new commercial pathways.',
-            image: '/images/industry_trade.jpg',
+            image: '/images/industry_trade.webp',
             desc: 'We help businesses explore distribution partnerships, product localization, market positioning, and potential commercial channels for entering new markets and developing cross-border trade relationships.',
             highlights: [
               'Strategic Distribution & Retail Channel Partnerships',
@@ -624,9 +624,11 @@ export default function Industries() {
             <div className="ind-hero__showcase m3-reveal m3-reveal--scale" style={{ transitionDelay: '120ms' }}>
               <div className="ind-hero__image-frame">
                 <img
-                  src="/images/china_city_network.jpg"
+                  src="/images/china_city_network.webp"
                   alt={copy.breadcrumb}
                   className="ind-hero__image"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="ind-hero__image-overlay" />
                 <div className="ind-hero__corner ind-hero__corner--tl" />
@@ -696,9 +698,11 @@ export default function Industries() {
                   {/* Photo Backdrop with Gradient Blend */}
                   <div className="ind-overview-card__photo-wrap">
                     <img
-                      src="/images/china_tech_hub.jpg"
+                      src="/images/china_tech_hub.webp"
                       alt={copy.overviewTitle}
                       className="ind-overview-card__photo"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="ind-overview-card__photo-tint" />
                     <div className="ind-overview-card__badge">
@@ -772,6 +776,7 @@ export default function Industries() {
                             alt={title}
                             className="ind-sector-card__img"
                             loading="lazy"
+                            decoding="async"
                           />
                           <div className="ind-sector-card__img-shade" />
 

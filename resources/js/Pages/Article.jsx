@@ -774,6 +774,8 @@ export default function Article({ insights = [] }) {
                       src="/images/market_intelligence_hero.webp"
                       alt={copy.dualHubTitle1}
                       className="ins-hub-card__bg"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="ins-hub-card__overlay" />
                     <div className="ins-hub-card__top">
@@ -791,9 +793,11 @@ export default function Article({ insights = [] }) {
                   {/* Card 02: Collaborative Partnership Hub with Direct Registration CTA */}
                   <div className="ins-hub-card ins-hub-card--partner">
                     <img
-                      src="/images/china_city_network.jpg"
+                      src="/images/china_city_network.webp"
                       alt={copy.dualHubTitle2}
                       className="ins-hub-card__bg"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="ins-hub-card__overlay ins-hub-card__overlay--red" />
 
@@ -900,6 +904,8 @@ export default function Article({ insights = [] }) {
                     src={flagshipPaper.cover}
                     alt={isId ? flagshipPaper.title.id : flagshipPaper.title.en}
                     className="ins-research-flagship__img"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="ins-research-flagship__shade" />
 
@@ -1115,6 +1121,8 @@ export default function Article({ insights = [] }) {
                     src={getCoverUrl(featuredArticle.cover)}
                     alt={getLocalized(featuredArticle.t || featuredArticle.title)}
                     className="ins-featured-card__img"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="ins-featured-card__shade" />
                   <span className="ins-featured-card__badge">
@@ -1194,6 +1202,7 @@ export default function Article({ insights = [] }) {
                         alt={getLocalized(art.t || art.title)}
                         className="ins-art-card__img"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="ins-art-card__shade" />
                       {art.cat && <span className="ins-art-card__cat-pill">{art.cat}</span>}
@@ -1296,9 +1305,11 @@ export default function Article({ insights = [] }) {
                 <div className="ins-register-card">
                   <div className="ins-register-card__banner">
                     <img
-                      src="/images/city_orbiting_cards.jpg"
+                      src="/images/city_orbiting_cards.webp"
                       alt={copy.partnerBoxTitle}
                       className="ins-register-card__banner-img"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="ins-register-card__banner-shade" />
                     <div className="ins-register-card__banner-content">

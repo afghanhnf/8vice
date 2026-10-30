@@ -19,8 +19,10 @@ class ServiceResource extends Resource
     protected static ?string $model = Service::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedWrenchScrewdriver;
-    protected static string|\UnitEnum|null $navigationGroup = 'Content';
-    protected static ?int $navigationSort = 3;
+    protected static string|\UnitEnum|null $navigationGroup = 'Core Advisory & Services';
+    protected static ?string $navigationLabel = 'Advisory Services';
+    protected static ?string $modelLabel = 'Service';
+    protected static ?int $navigationSort = 1;
 
 
     public static function form(Schema $schema): Schema

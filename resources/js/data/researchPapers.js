@@ -20,7 +20,8 @@ export const chinaResearchPapers = [
       en: 'An empirical benchmark of 120+ Chinese enterprises establishing manufacturing hubs in Kendal, Batang, Cikarang, and Morowali.',
       id: 'Kajian empiris terhadap 120+ korporasi manufaktur Tiongkok yang merelokasi fasilitas produksi ke Kendal, Batang, Cikarang, dan Morowali.'
     },
-    cover: '/images/china_city_network.jpg',
+    cover: '/images/china_city_network.webp',
+    paymentLink: 'https://8vice.id/checkout/china-cross-border-blueprint',
     publishedDate: 'October 2026',
     pagesCount: 58,
     fileFormat: 'PDF (Print-Ready A4, 300 DPI) + Raw Model (.XLSX)',

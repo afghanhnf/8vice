@@ -443,8 +443,10 @@ export default function Header() {
               }}
             >
               <img
-                src="/images/wechat.jpeg"
+                src="/images/wechat.webp"
                 alt="8vice WeChat QR"
+                loading="lazy"
+                decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
               />
             </div>

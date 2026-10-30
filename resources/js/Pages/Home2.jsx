@@ -1083,9 +1083,11 @@ export default function Home2({
             <div>
               <div className="h2-hero-visual-frame">
                 <img 
-                  src="/images/china_city_network.jpg" 
+                  src="/images/china_city_network.webp" 
                   alt="Indonesia China Strategic Bilateral Gateway" 
                   className="h2-hero-img"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="h2-hero-overlay-tag">
                   <div>
@@ -1349,8 +1351,10 @@ export default function Home2({
             <div>
               <div style={{ borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(0,0,0,0.1)', boxShadow: '0 20px 50px rgba(0,0,0,0.08)', marginBottom: '24px' }}>
                 <img 
-                  src="/images/consultation_advisory_bw.jpg" 
+                  src="/images/consultation_advisory_bw.webp" 
                   alt="8 Vice Bilateral Bridge" 
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }} 
                 />
               </div>
@@ -1643,6 +1647,8 @@ export default function Home2({
                     <img 
                       src={imgSrc.startsWith('/') ? imgSrc : `/${imgSrc}`} 
                       alt={cl.name || 'Client Logo'} 
+                      loading="lazy"
+                      decoding="async" 
                       style={{
                         maxHeight: '34px',
                         maxWidth: '120px',

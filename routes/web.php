@@ -26,7 +26,7 @@ $pageRoutes = function() {
     Route::get('/home-2', [HomeController::class, 'home2']);
     
     Route::get('/about', function () { 
-        $profiles = \App\Models\Profile::all();
+        $profiles = \App\Models\Profile::orderBy('sort_order', 'asc')->get();
         return Inertia::render('About', [
             'profiles' => $profiles->isEmpty() ? collect(\App\Helpers\SeedData::getProfiles()) : $profiles
         ]); 

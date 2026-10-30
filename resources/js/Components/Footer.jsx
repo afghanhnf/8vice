@@ -29,19 +29,10 @@ export default function Footer() {
 
   const displayTagline = typeof siteSettings?.tagline === 'object'
     ? (siteSettings?.tagline?.[lang] || siteSettings?.tagline?.en)
-    : (siteSettings?.tagline || (isId ? (
-        <>
-          Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.
-          <br />
-          Menghubungkan pasar, membangun kemitraan, dan mendorong pertumbuhan lintas batas.
-        </>
-      ) : (
-        <>
-          Your Strategic Gateway to Indonesia and China.
-          <br />
-          Connecting markets, building partnerships, and enabling cross-border growth.
-        </>
-      )));
+    : (siteSettings?.tagline || (isId
+        ? 'Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.'
+        : 'Your Strategic Gateway to Indonesia and China.'
+      ));
 
   const rawEmail = siteSettings?.email || 'hello@8vice.com';
   const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();

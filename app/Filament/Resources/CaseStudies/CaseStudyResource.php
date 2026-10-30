@@ -19,9 +19,10 @@ class CaseStudyResource extends Resource
     protected static ?string $model = CaseStudy::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
-    protected static string|\UnitEnum|null $navigationGroup = 'Content';
+    protected static string|\UnitEnum|null $navigationGroup = 'Company & Leadership';
 
-    protected static ?string $navigationLabel = 'Case Study';
+    protected static ?string $navigationLabel = 'Track Record & Cases';
+    protected static ?string $modelLabel = 'Case Study';
     protected static ?int $navigationSort = 2;
 
 

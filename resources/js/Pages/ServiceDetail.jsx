@@ -720,6 +720,8 @@ export default function ServiceDetail({ slug }) {
               <img
                 src={svc.heroImage || '/images/consultancy_hero.webp'}
                 alt={svc.title}
+                loading="lazy"
+                decoding="async"
               />
 
               <div
@@ -916,8 +918,10 @@ export default function ServiceDetail({ slug }) {
                   }}
                 >
                   <img
-                    src={svc.detailImage || '/images/consultation_advisory_bw.jpg'}
+                    src={svc.detailImage || '/images/consultation_advisory_bw.webp'}
                     alt={svc.photo}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       width: '100%',
                       height: '100%',

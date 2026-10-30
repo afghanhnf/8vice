@@ -19,9 +19,11 @@ class InsightResource extends Resource
     protected static ?string $model = Insight::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
-    protected static string|\UnitEnum|null $navigationGroup = 'Content';
+    protected static string|\UnitEnum|null $navigationGroup = 'Insights & Research';
 
-    protected static ?string $navigationLabel = 'Article';
+    protected static ?string $navigationLabel = 'Insights & Research Papers';
+    protected static ?string $modelLabel = 'Insight / Paper';
+    protected static ?string $pluralModelLabel = 'Insights & Papers';
     protected static ?int $navigationSort = 1;
 
 

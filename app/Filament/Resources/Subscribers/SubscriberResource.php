@@ -20,9 +20,9 @@ class SubscriberResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Communications';
+    protected static string|\UnitEnum|null $navigationGroup = 'Inquiries & Communications';
 
-    protected static ?string $navigationLabel = 'Subscribers';
+    protected static ?string $navigationLabel = 'Newsletter Subscribers';
 
     protected static ?int $navigationSort = 2;
 
