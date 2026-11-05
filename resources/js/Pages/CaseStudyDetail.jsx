@@ -49,17 +49,17 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
                 <Link href="/case-study">{isCn ? '案例研究' : isId ? 'Studi Kasus' : 'Case Studies'}</Link><span className="sep">/</span>
                 <span className="cur">{tagText || (isCn ? '案例研究' : 'Case Study')}</span>
               </div>
-              
+
               <div className="meta" style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '18px', marginTop: '16px' }}>
                 <span style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--color-red)' }}>
                   {tagText}
                 </span>
               </div>
-              
+
               <h1 className="t-h1" style={{ marginBottom: '20px', fontSize: 'clamp(32px, 3.8vw, 48px)', lineHeight: 1.2 }}>
                 {titleText}
               </h1>
-              
+
               {pText && (
                 <p className="page-hero__lead" style={{ fontSize: '20px', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.85)', margin: 0, maxWidth: '80ch' }}>
                   {pText}
@@ -76,7 +76,7 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
               {caseStudy.cover ? (
                 <img width="1200" height="600" src={caseStudy.cover.startsWith('/') ? caseStudy.cover : `/storage/${caseStudy.cover}`} alt={titleText} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
-                <img width="1200" height="600" src="/images/article-sample.webp" alt="Cover Placeholder" style={{ width:'100%', height:'100%', objectFit:'cover' }} />
+                <img width="1200" height="600" src="/images/article-sample.webp" alt="Cover Placeholder" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               )}
             </div>
           </ScrollReveal>
@@ -86,7 +86,7 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
         <section className="section section--white">
           <div className="container" style={{ maxWidth: '1240px' }}>
             <div className="article-layout" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 350px', gap: '56px', alignItems: 'start' }}>
-              
+
               {/* Main Content */}
               <div className="prose" style={{ maxWidth: '100%' }}>
                 <ScrollReveal>
@@ -97,7 +97,7 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
               {/* Sidebar */}
               <aside className="article-aside">
                 <ScrollReveal delay={200}>
-                  
+
                   {/* Engagement Snapshot (CMS: sector = tag, corridor, capabilities) */}
                   <div className="aside-box" style={{ background: '#fafafa', border: '1px solid #ebebeb' }}>
                     <div className="eyebrow" style={{ marginBottom: '14px', color: 'var(--color-ink)' }}>
@@ -141,7 +141,7 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
                         <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`} target="_blank" rel="noreferrer" className="btn btn--secondary" style={{ padding: '8px 12px', minWidth: 0 }} aria-label="LinkedIn">
                           <svg className="ico ico-16" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                         </a>
-                        <button onClick={() => { if(typeof window !== 'undefined') navigator.clipboard.writeText(window.location.href); alert(isCn ? '链接已复制！' : isId ? 'Tautan disalin!' : 'Link copied!'); }} className="btn btn--secondary" style={{ padding: '8px 12px', minWidth: 0 }} aria-label="Copy link">
+                        <button onClick={() => { if (typeof window !== 'undefined') navigator.clipboard.writeText(window.location.href); alert(isCn ? '链接已复制！' : isId ? 'Tautan disalin!' : 'Link copied!'); }} className="btn btn--secondary" style={{ padding: '8px 12px', minWidth: 0 }} aria-label="Copy link">
                           <svg className="ico ico-16" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                         </button>
                         <a href={`mailto:?subject=Sharing Case Study: ${encodeURIComponent(titleText || '')}&body=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`} className="btn btn--secondary" style={{ padding: '8px 12px', minWidth: 0 }} aria-label="Email">
@@ -160,8 +160,8 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
                       {isCn
                         ? '探讨 8vice 如何协助您应对印尼监管法规、构建本土伙伴关系并降低跨境扩张风险。'
                         : isId
-                        ? 'Mari diskusikan bagaimana 8vice membantu Anda menavigasi regulasi Indonesia, membangun kemitraan lokal, dan menekan risiko ekspansi pasar Anda.'
-                        : "Let's discuss how 8vice can help you navigate Indonesian regulations, build local partnerships, and de-risk your market expansion."}
+                          ? 'Mari diskusikan bagaimana 8vice membantu Anda menavigasi regulasi Indonesia, membangun kemitraan lokal, dan menekan risiko ekspansi pasar Anda.'
+                          : "Let's discuss how 8vice can help you navigate Indonesian regulations, build local partnerships, and de-risk your market expansion."}
                     </p>
                     <Link href="/contact" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center', padding: '13px 20px', fontWeight: 600 }}>
                       {isCn ? '预约免费战略咨询' : isId ? 'Jadwalkan Konsultasi Gratis' : 'Book Free Consultancy'}

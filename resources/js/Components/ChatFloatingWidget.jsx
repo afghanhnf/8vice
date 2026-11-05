@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { usePage } from '@inertiajs/react';
 import { useTranslation } from '@/Contexts/TranslationContext';
 
@@ -10,9 +11,28 @@ export default function ChatFloatingWidget() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [showWechatModal, setShowWechatModal] = useState(false);
+  const [copiedWechat, setCopiedWechat] = useState(false);
   const widgetRef = useRef(null);
 
   const whatsappUrl = siteSettings?.whatsapp_url || 'https://wa.me/628118005110';
+
+  // Body scroll lock when WeChat modal is open
+  useEffect(() => {
+    if (!showWechatModal) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [showWechatModal]);
+
+  const handleCopyWechatId = () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText('eightvice');
+      setCopiedWechat(true);
+      setTimeout(() => setCopiedWechat(false), 2000);
+    }
+  };
 
   // Close popup menu when clicking outside
   useEffect(() => {
@@ -225,23 +245,32 @@ export default function ChatFloatingWidget() {
         </button>
       </div>
 
-      {/* WeChat QR Code Modal */}
-      {showWechatModal && (
+      {/* WeChat QR Code Modal (Rendered via Portal to document.body) */}
+      {showWechatModal && typeof document !== 'undefined' && createPortal(
         <div
           role="dialog"
           aria-modal="true"
+          aria-label="WeChat Consultation Modal"
           onClick={() => setShowWechatModal(false)}
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'rgba(5, 7, 12, 0.82)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            height: '100vh',
+            height: '100dvh',
+            backgroundColor: 'rgba(5, 7, 12, 0.85)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 99999,
+            zIndex: 999999,
             padding: '20px',
+            overflowY: 'auto',
             animation: 'chatModalFadeIn 0.2s ease-out'
           }}
         >
@@ -249,14 +278,15 @@ export default function ChatFloatingWidget() {
             onClick={(e) => e.stopPropagation()}
             style={{
               background: '#12141B',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
+              border: '1px solid rgba(255, 255, 255, 0.14)',
               borderRadius: '24px',
-              padding: '36px 30px 30px',
-              maxWidth: '380px',
+              padding: '36px 30px 28px',
+              maxWidth: '390px',
               width: '100%',
-              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+              boxShadow: '0 28px 70px rgba(0, 0, 0, 0.8), 0 0 40px rgba(7, 193, 96, 0.15)',
               position: 'relative',
               textAlign: 'center',
+              margin: 'auto',
               animation: 'chatModalScaleUp 0.24s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
@@ -264,14 +294,14 @@ export default function ChatFloatingWidget() {
             <button
               type="button"
               onClick={() => setShowWechatModal(false)}
-              aria-label="Tutup"
+              aria-label={isCn ? '关闭' : isId ? 'Tutup' : 'Close'}
               style={{
                 position: 'absolute',
                 top: '16px',
                 right: '16px',
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                color: 'rgba(255, 255, 255, 0.75)',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                color: 'rgba(255, 255, 255, 0.8)',
                 width: '32px',
                 height: '32px',
                 borderRadius: '50%',
@@ -282,12 +312,12 @@ export default function ChatFloatingWidget() {
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
                 e.currentTarget.style.color = '#FFFFFF';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-                e.currentTarget.style.color = 'rgba(255, 255, 255, 0.75)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.color = 'rgba(255, 255, 255, 0.8)';
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -309,7 +339,7 @@ export default function ChatFloatingWidget() {
                 color: '#07C160',
                 fontSize: '12.5px',
                 fontWeight: 600,
-                marginBottom: '16px'
+                marginBottom: '14px'
               }}
             >
               <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -335,35 +365,42 @@ export default function ChatFloatingWidget() {
             <p
               style={{
                 fontSize: '13px',
-                color: 'rgba(255, 255, 255, 0.65)',
+                color: 'rgba(255, 255, 255, 0.68)',
                 lineHeight: 1.5,
-                marginBottom: '20px',
+                marginBottom: '16px',
                 padding: '0 4px'
               }}
             >
               {isCn
-                ? '使用微信扫描下方二维码，直接与 8Vice 战略咨询团队取得联系。'
+                ? '使用微信扫描下方官方二维码，或直接添加微信号与 8Vice 战略咨询团队取得联系。'
                 : isId
-                ? 'Pindai kode QR di bawah ini dengan aplikasi WeChat Anda untuk terhubung langsung dengan tim penasihat 8Vice.'
-                : 'Scan the QR code below using your WeChat scanner to connect directly with 8Vice advisory team.'}
+                ? 'Pindai kode QR di bawah ini dengan WeChat, atau salin WeChat ID kami untuk terhubung langsung dengan tim 8Vice.'
+                : 'Scan the QR code below using WeChat, or copy our WeChat ID to connect directly with 8Vice advisory team.'}
             </p>
 
             {/* QR Code Container */}
             <div
               style={{
                 background: '#FFFFFF',
-                padding: '16px',
+                padding: '12px',
                 borderRadius: '16px',
                 display: 'inline-block',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)',
-                marginBottom: '16px'
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.45)',
+                marginBottom: '14px'
               }}
             >
               <img
                 src="/images/wechat.webp"
                 alt="8Vice WeChat QR Code"
-                loading="lazy"
-                decoding="async"
+                loading="eager"
+                decoding="sync"
+                fetchPriority="high"
+                onError={(e) => {
+                  if (!e.currentTarget.dataset.fallback) {
+                    e.currentTarget.dataset.fallback = 'true';
+                    e.currentTarget.src = '/images/wechat.jpeg';
+                  }
+                }}
                 style={{
                   width: '210px',
                   height: '210px',
@@ -372,6 +409,50 @@ export default function ChatFloatingWidget() {
                   borderRadius: '6px'
                 }}
               />
+            </div>
+
+            {/* WeChat ID & Copy Box */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                padding: '8px 14px',
+                fontSize: '13px',
+                marginBottom: '14px'
+              }}
+            >
+              <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>WeChat ID:</span>
+              <strong style={{ color: '#07C160', letterSpacing: '0.5px' }}>eightvice</strong>
+              <button
+                type="button"
+                onClick={handleCopyWechatId}
+                style={{
+                  background: 'rgba(7, 193, 96, 0.18)',
+                  border: '1px solid rgba(7, 193, 96, 0.4)',
+                  color: '#07C160',
+                  fontSize: '11.5px',
+                  fontWeight: 600,
+                  borderRadius: '6px',
+                  padding: '3px 8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#07C160';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(7, 193, 96, 0.18)';
+                  e.currentTarget.style.color = '#07C160';
+                }}
+              >
+                {copiedWechat ? (isCn ? '已复制 ✓' : isId ? 'Tersalin ✓' : 'Copied ✓') : (isCn ? '复制' : isId ? 'Salin' : 'Copy')}
+              </button>
             </div>
 
             {/* Footer note */}
@@ -385,7 +466,8 @@ export default function ChatFloatingWidget() {
               {isCn ? '跨境战略咨询' : isId ? 'Konsultasi Strategis Lintas Batas' : 'Cross-Border Strategic Advisory'} · Indonesia &amp; China
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Embedded Animation Styles */}

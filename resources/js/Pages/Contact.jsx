@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { router, usePage } from '@inertiajs/react';
 import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
@@ -98,6 +99,33 @@ export default function Contact() {
   const [processing, setProcessing] = useState(false);
   const [errors, setErrors] = useState({});
   const [isWechatModalOpen, setIsWechatModalOpen] = useState(false);
+  const [copiedWechat, setCopiedWechat] = useState(false);
+
+  /* Lock body scroll and listen for Escape key when WeChat modal is open */
+  useEffect(() => {
+    if (!isWechatModalOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsWechatModalOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isWechatModalOpen]);
+
+  const handleCopyWechatId = () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText('eightvice');
+      setCopiedWechat(true);
+      setTimeout(() => setCopiedWechat(false), 2000);
+    }
+  };
 
   /* IntersectionObserver for Google M3 scroll-reveal animations */
   useEffect(() => {
@@ -991,41 +1019,79 @@ export default function Contact() {
         </section>
 
         {/* ================================================================
-            WECHAT OFFICIAL QR CODE MODAL
+            WECHAT OFFICIAL QR CODE MODAL (Rendered via Portal to document.body)
             ================================================================ */}
-        {isWechatModalOpen && (
-          <div className="cnt-modal-backdrop" onClick={() => setIsWechatModalOpen(false)}>
+        {isWechatModalOpen && typeof document !== 'undefined' && createPortal(
+          <div
+            className="cnt-modal-backdrop"
+            onClick={() => setIsWechatModalOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="WeChat QR Code Modal"
+          >
             <div className="cnt-modal-card" onClick={(e) => e.stopPropagation()}>
-              <div className="cnt-eyebrow-pill" style={{ justifyContent: 'center', marginBottom: '8px' }}>
+              <button
+                type="button"
+                className="cnt-modal-close-btn"
+                onClick={() => setIsWechatModalOpen(false)}
+                aria-label={isCn ? '关闭' : isId ? 'Tutup' : 'Close'}
+              >
+                ✕
+              </button>
+
+              <div className="cnt-eyebrow-pill" style={{ justifyContent: 'center', marginBottom: '10px' }}>
                 <span className="cnt-eyebrow-dot" />
                 <span>WECHAT OFFICIAL</span>
               </div>
               <h3>{isCn ? '通过微信与我们联系' : isId ? 'Hubungi Kami via WeChat' : 'Connect on WeChat'}</h3>
               <p>
                 {isCn
-                  ? '请使用微信扫描下方官方二维码与我们取得联系。'
+                  ? '请使用微信扫描下方官方二维码，或直接添加微信号与我们取得联系。'
                   : isId
-                  ? 'Pindai QR Code resmi di bawah ini menggunakan aplikasi WeChat Anda.'
-                  : 'Scan the official QR code below using your WeChat app.'}
+                  ? 'Pindai QR Code resmi di bawah ini menggunakan aplikasi WeChat, atau salin WeChat ID kami.'
+                  : 'Scan the official QR code below using your WeChat app, or add our WeChat ID directly.'}
               </p>
+
               <div className="cnt-modal-qr-frame">
                 <img
                   src="/images/wechat.webp"
                   alt="8 Vice WeChat QR Code"
-                  loading="lazy"
-                  decoding="async"
+                  loading="eager"
+                  decoding="sync"
+                  fetchPriority="high"
+                  onError={(e) => {
+                    if (!e.currentTarget.dataset.fallback) {
+                      e.currentTarget.dataset.fallback = 'true';
+                      e.currentTarget.src = '/images/wechat.jpeg';
+                    }
+                  }}
                 />
               </div>
+
+              <div className="cnt-modal-id-box">
+                <span className="cnt-modal-id-label">WeChat ID:</span>
+                <span className="cnt-modal-id-val">eightvice</span>
+                <button
+                  type="button"
+                  className="cnt-modal-id-copy"
+                  onClick={handleCopyWechatId}
+                  title={isCn ? '复制微信号' : isId ? 'Salin ID' : 'Copy ID'}
+                >
+                  {copiedWechat ? (isCn ? '已复制 ✓' : isId ? 'Tersalin ✓' : 'Copied ✓') : (isCn ? '复制' : isId ? 'Salin' : 'Copy')}
+                </button>
+              </div>
+
               <button
                 type="button"
                 onClick={() => setIsWechatModalOpen(false)}
                 className="cnt-btn cnt-btn--secondary"
-                style={{ width: '100%' }}
+                style={{ width: '100%', marginTop: '14px' }}
               >
                 {isCn ? '关闭' : isId ? 'Tutup' : 'Close'}
               </button>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
 
@@ -1856,48 +1922,127 @@ export default function Contact() {
 
         /* WeChat Modal */
         .cnt-modal-backdrop {
-          position: fixed;
-          inset: 0;
-          z-index: 99999;
-          background: rgba(6,8,12,0.85);
-          backdrop-filter: blur(10px);
+          position: fixed !important;
+          inset: 0 !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          width: 100vw !important;
+          height: 100vh !important;
+          height: 100dvh !important;
+          z-index: 999999 !important;
+          background: rgba(6, 8, 12, 0.86) !important;
+          backdrop-filter: blur(12px) !important;
+          -webkit-backdrop-filter: blur(12px) !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          padding: 20px !important;
+          overflow-y: auto !important;
+          animation: cntFadeIn 0.2s ease-out;
+        }
+        .cnt-modal-card {
+          position: relative;
+          background: #10131C;
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          border-radius: 24px;
+          padding: 34px 28px 28px;
+          max-width: 400px;
+          width: 100%;
+          text-align: center;
+          box-shadow: 0 28px 70px rgba(0, 0, 0, 0.8), 0 0 40px rgba(7, 193, 96, 0.14);
+          animation: cntScaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+          margin: auto;
+        }
+        .cnt-modal-close-btn {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #ffffff;
+          font-size: 14px;
+          cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 20px;
+          transition: background 0.2s ease;
         }
-        .cnt-modal-card {
-          background: #10131C;
-          border: 1px solid rgba(255,255,255,0.14);
-          border-radius: 24px;
-          padding: 32px 28px;
-          max-width: 380px;
-          width: 100%;
-          text-align: center;
-          box-shadow: 0 28px 70px rgba(0,0,0,0.7);
+        .cnt-modal-close-btn:hover {
+          background: rgba(255, 255, 255, 0.2);
         }
         .cnt-modal-card h3 {
           font-size: 20px;
           font-weight: 800;
           margin: 0 0 6px;
+          color: #FFFFFF;
         }
         .cnt-modal-card p {
           font-size: 13.5px;
-          color: rgba(255,255,255,0.68);
-          margin: 0 0 20px;
+          color: rgba(255, 255, 255, 0.7);
+          margin: 0 0 16px;
+          line-height: 1.5;
         }
         .cnt-modal-qr-frame {
           background: #ffffff;
-          padding: 14px;
+          padding: 12px;
           border-radius: 16px;
           display: inline-block;
-          margin-bottom: 20px;
+          margin-bottom: 14px;
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
         }
         .cnt-modal-qr-frame img {
-          width: 230px;
-          height: 230px;
+          width: 220px;
+          height: 220px;
           object-fit: contain;
           display: block;
+          border-radius: 6px;
+        }
+        .cnt-modal-id-box {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 8px 14px;
+          font-size: 13px;
+        }
+        .cnt-modal-id-label {
+          color: rgba(255, 255, 255, 0.6);
+        }
+        .cnt-modal-id-val {
+          font-weight: 700;
+          color: #07C160;
+          letter-spacing: 0.5px;
+        }
+        .cnt-modal-id-copy {
+          background: rgba(7, 193, 96, 0.18);
+          border: 1px solid rgba(7, 193, 96, 0.4);
+          color: #07C160;
+          font-size: 11.5px;
+          font-weight: 600;
+          border-radius: 6px;
+          padding: 3px 8px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .cnt-modal-id-copy:hover {
+          background: #07C160;
+          color: #ffffff;
+        }
+        @keyframes cntFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes cntScaleUp {
+          from { opacity: 0; transform: scale(0.92); }
+          to { opacity: 1; transform: scale(1); }
         }
 
         /* Responsive */

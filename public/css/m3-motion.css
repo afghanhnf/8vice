@@ -638,7 +638,6 @@ img[loading="lazy"].is-loaded,
    ============================================================ */
 .m3-page-transition {
   animation: m3PageFadeThrough var(--m3-duration-medium-3) var(--m3-easing-emphasized-decelerate) both;
-  will-change: opacity, transform;
 }
 
 @keyframes m3PageFadeThrough {

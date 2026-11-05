@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { usePage } from '@inertiajs/react';
 import Link from '@/Components/LocalizedLink';
 import { useTranslation } from '@/Contexts/TranslationContext';
@@ -14,7 +15,34 @@ export default function Header() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isWeChatModalOpen, setIsWeChatModalOpen] = useState(false);
+  const [copiedWechat, setCopiedWechat] = useState(false);
   const langDropdownRef = useRef(null);
+
+  // Lock body scroll and handle ESC key when WeChat modal is open
+  useEffect(() => {
+    if (!isWeChatModalOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsWeChatModalOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isWeChatModalOpen]);
+
+  const handleCopyWechatId = () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText('eightvice');
+      setCopiedWechat(true);
+      setTimeout(() => setCopiedWechat(false), 2000);
+    }
+  };
 
   const normalizedUrl = (url || '/').replace(/^\/(id|cn)(\/|$)/, '/') || '/';
   const isActive = (path) => normalizedUrl === path || normalizedUrl.startsWith(path + '/');
@@ -487,22 +515,31 @@ export default function Header() {
 
       <SearchModal isOpen={isSearchOpen} onOpen={() => setIsSearchOpen(true)} onClose={() => setIsSearchOpen(false)} lang={lang} />
 
-      {/* WeChat QR Code Modal */}
-      {isWeChatModalOpen && (
+      {/* WeChat QR Code Modal (Rendered via Portal to document.body) */}
+      {isWeChatModalOpen && typeof document !== 'undefined' && createPortal(
         <div
           role="dialog"
           aria-modal="true"
+          aria-label="WeChat Official QR Modal"
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 99999,
-            background: 'rgba(5, 6, 8, 0.85)',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            height: '100vh',
+            height: '100dvh',
+            zIndex: 999999,
+            background: 'rgba(5, 6, 8, 0.86)',
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '24px'
+            padding: '24px',
+            overflowY: 'auto'
           }}
           onClick={(e) => {
             if (e.target === e.currentTarget) setIsWeChatModalOpen(false);
@@ -516,16 +553,17 @@ export default function Header() {
               background: '#0D0E13',
               border: '1px solid rgba(255, 255, 255, 0.14)',
               borderRadius: '24px',
-              padding: '32px 28px',
+              padding: '34px 28px 28px',
               textAlign: 'center',
               boxShadow: '0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(7, 193, 96, 0.18)',
-              color: '#FFFFFF'
+              color: '#FFFFFF',
+              margin: 'auto'
             }}
           >
             <button
               type="button"
               onClick={() => setIsWeChatModalOpen(false)}
-              aria-label="Close"
+              aria-label={lang === 'cn' ? '关闭' : lang === 'id' ? 'Tutup' : 'Close'}
               style={{
                 position: 'absolute',
                 top: '16px',
@@ -539,7 +577,14 @@ export default function Header() {
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                transition: 'background 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
               }}
             >
               ✕
@@ -555,7 +600,7 @@ export default function Header() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '16px'
+                marginBottom: '14px'
               }}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '26px', height: '26px' }}>
@@ -566,19 +611,19 @@ export default function Header() {
             <h3 style={{ fontSize: '19px', fontWeight: 700, margin: '0 0 6px', color: '#FFFFFF' }}>
               {lang === 'cn' ? '8vice 官方微信咨询通道' : lang === 'id' ? 'Saluran Resmi WeChat 8vice' : '8vice Official WeChat Channel'}
             </h3>
-            <p style={{ fontSize: '13px', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', margin: '0 0 20px' }}>
+            <p style={{ fontSize: '13px', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.68)', margin: '0 0 18px' }}>
               {lang === 'cn'
-                ? '使用微信扫描下方二维码，直接与我们的印中双边战略顾问团队建立联系。'
+                ? '使用微信扫描下方官方二维码，或直接添加微信号与我们的印中双边战略顾问团队建立联系。'
                 : lang === 'id'
-                ? 'Pindai kode QR ini menggunakan aplikasi WeChat untuk terhubung langsung dengan tim perwakilan kami.'
-                : 'Scan this QR code with WeChat to connect directly with our bilateral advisory desk.'}
+                ? 'Pindai kode QR ini menggunakan aplikasi WeChat, atau salin WeChat ID kami untuk terhubung langsung.'
+                : 'Scan this QR code with WeChat or copy our WeChat ID to connect directly with our advisory desk.'}
             </p>
 
             <div
               style={{
                 width: '210px',
                 height: '210px',
-                margin: '0 auto 20px',
+                margin: '0 auto 16px',
                 padding: '10px',
                 background: '#FFFFFF',
                 borderRadius: '16px',
@@ -591,26 +636,64 @@ export default function Header() {
               <img
                 src="/images/wechat.webp"
                 alt="8vice WeChat QR"
-                loading="lazy"
-                decoding="async"
-                style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                loading="eager"
+                decoding="sync"
+                fetchPriority="high"
+                onError={(e) => {
+                  if (!e.currentTarget.dataset.fallback) {
+                    e.currentTarget.dataset.fallback = 'true';
+                    e.currentTarget.src = '/images/wechat.jpeg';
+                  }
+                }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', borderRadius: '6px' }}
               />
             </div>
 
             <div
               style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
                 padding: '10px 14px',
-                borderRadius: '10px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                fontSize: '12.5px',
+                borderRadius: '12px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                fontSize: '13px',
                 color: 'rgba(255, 255, 255, 0.8)'
               }}
             >
-              WeChat ID: <strong style={{ color: '#07C160' }}>eightvice</strong> · SOHO Pancoran Jakarta
+              <span>WeChat ID:</span>
+              <strong style={{ color: '#07C160', letterSpacing: '0.5px' }}>eightvice</strong>
+              <button
+                type="button"
+                onClick={handleCopyWechatId}
+                style={{
+                  background: 'rgba(7, 193, 96, 0.18)',
+                  border: '1px solid rgba(7, 193, 96, 0.4)',
+                  color: '#07C160',
+                  fontSize: '11.5px',
+                  fontWeight: 600,
+                  borderRadius: '6px',
+                  padding: '3px 8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#07C160';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(7, 193, 96, 0.18)';
+                  e.currentTarget.style.color = '#07C160';
+                }}
+              >
+                {copiedWechat ? (lang === 'cn' ? '已复制 ✓' : lang === 'id' ? 'Tersalin ✓' : 'Copied ✓') : (lang === 'cn' ? '复制' : lang === 'id' ? 'Salin' : 'Copy')}
+              </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
