@@ -6,7 +6,6 @@ import { useTranslation } from '@/Contexts/TranslationContext';
 import SeoHead from '@/Components/SeoHead';
 import VideoManifesto from '@/Components/VideoManifesto';
 import HomeArticles from '@/Components/HomeArticles';
-import HomeFaq from '@/Components/HomeFaq';
 import {
   PillarInsightIcon,
   PillarCultureIcon,
@@ -1674,11 +1673,6 @@ export default function Home2({
       </section>
 
       {/* ============================================================= */}
-      {/* 10. FAQ ACCORDION (FULL-WIDTH DARK BACKGROUND)               */}
-      {/* ============================================================= */}
-      <HomeFaq isId={isId} />
-
-      {/* ============================================================= */}
       {/* 11. INSIGHTS & ARTICLES (FULL-WIDTH DARK BACKGROUND)          */}
       {/* ============================================================= */}
       <HomeArticles isId={isId} insights={insights} />
@@ -1852,11 +1846,11 @@ export default function Home2({
 
               <div>
                 <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
-                  {c.inquiry.whatsapp_title}
+                  {isId ? 'Jam Layanan' : 'Service Hours'}
                 </div>
-                <a href={siteSettings?.whatsapp_url || 'https://wa.me/628118005110'} target="_blank" rel="noopener noreferrer" style={{ fontSize: '13px', color: '#ffffff', textDecoration: 'none', fontWeight: 600 }}>
-                  +62 811-8005-110
-                </a>
+                <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: 600 }}>
+                  {isId ? 'Hari Kerja (09.00 - 17.00)' : 'Weekdays (9 am-5 pm)'}
+                </div>
               </div>
             </div>
 

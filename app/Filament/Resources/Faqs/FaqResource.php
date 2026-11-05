@@ -23,6 +23,11 @@ class FaqResource extends Resource
     protected static ?string $navigationLabel = 'Bilateral FAQs';
     protected static ?int $navigationSort = 3;
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return FaqForm::configure($schema);

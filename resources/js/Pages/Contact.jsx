@@ -372,7 +372,7 @@ export default function Contact() {
                   className="cnt-channel-pill cnt-channel-pill--wa"
                 >
                   <span className="cnt-channel-pill__dot cnt-channel-pill__dot--green" />
-                  <span>WhatsApp: +62 811-8005-110</span>
+                  <span>{isId ? 'Konsultasi WhatsApp' : 'WhatsApp Consultation'}</span>
                 </a>
 
                 <button
@@ -514,12 +514,12 @@ export default function Contact() {
                         </div>
                         <div>
                           <div className="cnt-info-item__lbl">
-                            {isId ? 'Waktu Respons Eksekutif' : 'Executive Response Time'}
+                            {isId ? 'Jam Layanan & Respons' : 'Service Hours & Response'}
                           </div>
                           <div className="cnt-info-item__val">
                             {isId
-                              ? 'Maksimal 1–2 Hari Kerja (Senin – Jumat)'
-                              : 'Within 1–2 Business Days (Mon – Fri)'}
+                              ? 'Hari Kerja (09.00 - 17.00) · Respons 1–2 Hari Kerja'
+                              : 'Weekdays (9 am-5 pm) · Response within 1–2 Business Days'}
                           </div>
                         </div>
                       </div>
@@ -545,7 +545,7 @@ export default function Contact() {
                           </svg>
                           <div>
                             <strong>WhatsApp</strong>
-                            <span>+62 811-8005-110</span>
+                            <span>{isId ? 'Saluran Konsultasi Langsung' : 'Direct Consultation Channel'}</span>
                           </div>
                         </a>
 

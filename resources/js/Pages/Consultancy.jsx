@@ -4,7 +4,6 @@ import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
-import AccordionFAQ from '@/Components/AccordionFAQ';
 import { useTranslation } from '@/Contexts/TranslationContext';
 
 export default function Consultancy() {
@@ -63,29 +62,6 @@ export default function Consultancy() {
     { num: '2', title: t('consultancy_page.step2_title'), desc: t('consultancy_page.step2_desc') },
     { num: '3', title: t('consultancy_page.step3_title'), desc: t('consultancy_page.step3_desc') },
     { num: '4', title: t('consultancy_page.step4_title'), desc: t('consultancy_page.step4_desc') }
-  ];
-
-  const faqItems = [
-    {
-      question: t('consultancy_page.faq1_q'),
-      answer: t('consultancy_page.faq1_a')
-    },
-    {
-      question: t('consultancy_page.faq2_q'),
-      answer: t('consultancy_page.faq2_a')
-    },
-    {
-      question: t('consultancy_page.faq3_q'),
-      answer: t('consultancy_page.faq3_a')
-    },
-    {
-      question: t('consultancy_page.faq4_q'),
-      answer: t('consultancy_page.faq4_a')
-    },
-    {
-      question: t('consultancy_page.faq5_q'),
-      answer: t('consultancy_page.faq5_a')
-    }
   ];
 
   return (
@@ -209,29 +185,6 @@ export default function Consultancy() {
               ))}
             </Staggered>
           </div>
-        </div>
-      </section>
-
-      {/* ============================ FAQ / SCOPE ============================ */}
-      <section className="svc-section svc-section--light">
-        <div className="container">
-          <div className="lead-row" style={{ marginBottom: '40px' }}>
-            <ScrollReveal>
-              <div className="about-hero__eyebrow" style={{ justifyContent: 'flex-start', width: '100%' }}>
-                <span className="about-hero__dot"></span>
-                {t('consultancy_page.faq_eyebrow')}
-              </div>
-              <h2 className="t-h2">{t('consultancy_page.faq_title')}</h2>
-            </ScrollReveal>
-            <ScrollReveal delay={150}>
-              <div className="lead-row__body">
-                <p>{t('consultancy_page.faq_desc')}</p>
-              </div>
-            </ScrollReveal>
-          </div>
-          <ScrollReveal delay={200}>
-            <AccordionFAQ items={faqItems} />
-          </ScrollReveal>
         </div>
       </section>
 

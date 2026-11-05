@@ -8,7 +8,6 @@ import SeoHead from '@/Components/SeoHead';
 import HeroGateway from '@/Components/HeroGateway';
 import VideoManifesto from '@/Components/VideoManifesto';
 import HomeArticles from '@/Components/HomeArticles';
-import HomeFaq from '@/Components/HomeFaq';
 import {
   PillarInsightIcon,
   PillarCultureIcon,
@@ -374,7 +373,8 @@ export default function Home({
         office_title: "Office Location",
         office_addr: "SOHO Building, Jl. Letjen M.T. Haryono Kav. 2, Jakarta Selatan 12810, Indonesia",
         email_title: "Direct Email",
-        whatsapp_title: "Business WhatsApp Channel"
+        hours_title: "Service Hours",
+        hours_val: "Weekdays (9 am-5 pm)"
       }
     },
     id: {
@@ -665,7 +665,8 @@ export default function Home({
         office_title: "Lokasi Kantor",
         office_addr: "SOHO Building, Jl. Letjen M.T. Haryono Kav. 2, Jakarta Selatan 12810, Indonesia",
         email_title: "Email Resmi",
-        whatsapp_title: "Saluran WhatsApp Konsultasi Bisnis"
+        hours_title: "Jam Layanan",
+        hours_val: "Hari Kerja (09.00 - 17.00)"
       }
     }
   };
@@ -1268,6 +1269,27 @@ export default function Home({
             white-space: nowrap !important;
           }
         }
+
+        /* Section 4.5 Why 8 Vice Responsive Grid & Mobile Overlap Fix */
+        .why-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 36px;
+          align-items: flex-start;
+        }
+        .why-sticky-col {
+          position: static;
+        }
+        @media (min-width: 992px) {
+          .why-grid {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 56px;
+          }
+          .why-sticky-col {
+            position: sticky;
+            top: 100px;
+          }
+        }
       ` }} />
 
       {/* ========================================================================= */}
@@ -1739,10 +1761,10 @@ export default function Home({
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(440px, 1fr))', gap: '56px', alignItems: 'flex-start' }}>
+          <div className="why-grid">
 
             {/* Left Column: Narrative Headline & Strategic Context */}
-            <div style={{ position: 'sticky', top: '100px' }}>
+            <div className="why-sticky-col">
               <div style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -2352,11 +2374,6 @@ export default function Home({
       </section>
 
       {/* ========================================================================= */}
-      {/* 9. FREQUENTLY ASKED QUESTIONS (FAQ)                                       */}
-      {/* ========================================================================= */}
-      <HomeFaq isId={isId} />
-
-      {/* ========================================================================= */}
       {/* 10. DISCUSS YOUR BUSINESS (SMART INQUIRY FORM & DIRECT CONTACT)           */}
       {/* ========================================================================= */}
       <section
@@ -2631,16 +2648,14 @@ export default function Home({
                   </div>
                 </div>
 
-                {/* WhatsApp */}
+                {/* Service Hours */}
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                   <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: 'rgba(230, 57, 70, 0.12)', color: '#E63946', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                   </div>
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#E63946', marginBottom: '4px' }}>{c.inquiry.whatsapp_title}</div>
-                    <a href="https://wa.me/628118005110" target="_blank" rel="noopener noreferrer" style={{ fontSize: '14.5px', color: '#FFFFFF', textDecoration: 'none' }}>
-                      +62 811-8005-110
-                    </a>
+                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#E63946', marginBottom: '4px' }}>{c.inquiry.hours_title}</div>
+                    <div style={{ fontSize: '14.5px', color: 'rgba(255, 255, 255, 0.88)', lineHeight: 1.5 }}>{c.inquiry.hours_val}</div>
                   </div>
                 </div>
 
