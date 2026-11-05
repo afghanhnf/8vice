@@ -7,8 +7,17 @@ import { useTranslation } from '@/Contexts/TranslationContext';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
 
 export default function CaseStudy({ caseStudies = [] }) {
-  const { t, locale } = useTranslation();
-  const isId = locale === 'id';
+  const { t, locale, lang } = useTranslation();
+  const currentLang = lang || locale || 'en';
+  const isId = currentLang === 'id';
+  const isCn = currentLang === 'cn';
+
+  const getLocalized = (val) => {
+    if (!val) return '';
+    if (typeof val === 'string') return val;
+    return (isCn ? val.cn : isId ? val.id : val.en) || val.en || val.id || '';
+  };
+
   const featured = caseStudies.find(c => c.is_featured) || caseStudies[0] || null;
   const featuredUrl = featured ? `/case-study/${featured.slug || featured.id}` : '/case-study';
   const featuredCover = featured?.cover
@@ -19,11 +28,11 @@ export default function CaseStudy({ caseStudies = [] }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const tabs = ['All', ...new Set(caseStudies.map(c => c.tag).filter(Boolean))];
+  const tabs = ['All', ...new Set(caseStudies.map(c => getLocalized(c.tag)).filter(Boolean))];
 
   const filteredCases = activeTab === 'All' 
     ? caseStudies 
-    : caseStudies.filter(c => c.tag === activeTab);
+    : caseStudies.filter(c => getLocalized(c.tag) === activeTab);
 
   const totalPages = Math.ceil(filteredCases.length / itemsPerPage);
   const paginatedCases = filteredCases.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -42,24 +51,28 @@ export default function CaseStudy({ caseStudies = [] }) {
         <div className="container">
           <ScrollReveal>
             <div className="breadcrumb">
-              <Link href="/">Home</Link><span className="sep">/</span><span className="cur">Case Studies</span>
+              <Link href="/">{isCn ? '首页' : isId ? 'Beranda' : 'Home'}</Link>
+              <span className="sep">/</span>
+              <span className="cur">{isCn ? '案例研究' : isId ? 'Studi Kasus' : 'Case Studies'}</span>
             </div>
             
             {featured?.tag && (
-              <span className="tag" style={{ background: 'rgba(214,40,40,.15)', marginTop: '8px' }}>{featured.tag}</span>
+              <span className="tag" style={{ background: 'rgba(214,40,40,.15)', marginTop: '8px' }}>
+                {getLocalized(featured.tag)}
+              </span>
             )}
             
             <h1 className="t-display" style={{ fontSize: 'clamp(38px,4.4vw,56px)', marginTop: '18px', maxWidth: '800px', lineHeight: 1.15 }}>
-              {featured?.h || t('case_study_page.dir_hero_1') || 'A Chinese fintech, live in six months.'}
+              {getLocalized(featured?.h) || t('case_study_page.dir_hero_1') || (isCn ? '中国金融科技企业，6个月全面落地运营。' : 'A Chinese fintech, live in six months.')}
             </h1>
             
             <p className="page-hero__lead" style={{ marginTop: '20px' }}>
-              {featured?.p || t('case_study_page.dir_feat_brief')}
+              {getLocalized(featured?.p) || t('case_study_page.dir_feat_brief')}
             </p>
 
             <div style={{ marginTop: '28px', marginBottom: '40px' }}>
               <Link href={featuredUrl} className="btn btn--primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '12px 24px' }}>
-                {t('case_study_page.dir_feat_btn') || 'Read Featured Case Study'}
+                {isCn ? '阅读重点案例详情' : t('case_study_page.dir_feat_btn') || 'Read Featured Case Study'}
                 <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </Link>
             </div>
@@ -69,7 +82,7 @@ export default function CaseStudy({ caseStudies = [] }) {
                 {featuredMetrics.map((m, i) => (
                   <div key={i}>
                     <div className="n">{m.value}{m.unit ? <span className="unit">{m.unit}</span> : null}</div>
-                    <div className="l">{(isId ? m.label_id : m.label_en) || m.label_en || m.label_id}</div>
+                    <div className="l">{(isCn ? (m.label_cn || m.label_en) : isId ? m.label_id : m.label_en) || m.label_en || m.label_id}</div>
                   </div>
                 ))}
               </div>
@@ -83,7 +96,7 @@ export default function CaseStudy({ caseStudies = [] }) {
         <ScrollReveal delay={100} variant="up">
           <Link href={featuredUrl} style={{ display: 'block', textDecoration: 'none' }}>
             <div style={{ aspectRatio: '21/9', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', transition: 'transform 0.3s ease' }}>
-              <img width="800" height="600" src={featuredCover} alt={featured?.h || 'Featured Case Cover'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img width="800" height="600" src={featuredCover} alt={getLocalized(featured?.h) || 'Featured Case Cover'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </Link>
         </ScrollReveal>
@@ -101,7 +114,7 @@ export default function CaseStudy({ caseStudies = [] }) {
                   className={`client-filter ${activeTab === tab ? 'is-active' : ''}`}
                   style={{ padding: '8px 24px', fontSize: '14px', borderRadius: '30px', border: activeTab === tab ? 'none' : '1px solid rgba(0,0,0,0.1)', background: activeTab === tab ? 'var(--color-ink)' : 'transparent', color: activeTab === tab ? '#fff' : 'var(--color-ink)', cursor: 'pointer', transition: 'all 0.2s' }}
                 >
-                  {tab}
+                  {tab === 'All' ? (isCn ? '全部案例' : isId ? 'Semua' : 'All') : tab}
                 </button>
               ))}
             </div>
@@ -113,7 +126,7 @@ export default function CaseStudy({ caseStudies = [] }) {
                 <article key={caseItem.id || i} className="case-card" style={{ background: '#fff', border: '1px solid #ebebeb', borderRadius: '12px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                   <Link href={`/case-study/${caseItem.slug || caseItem.id}`} style={{ display: 'block', overflow: 'hidden', height: '240px' }}>
                     {caseItem.cover ? (
-                      <img width="800" height="600" src={caseItem.cover.startsWith('/') ? caseItem.cover : `/storage/${caseItem.cover}`} alt={caseItem.h} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} />
+                      <img width="800" height="600" src={caseItem.cover.startsWith('/') ? caseItem.cover : `/storage/${caseItem.cover}`} alt={getLocalized(caseItem.h)} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} />
                     ) : (
                       <div className="ph case-card__cover on-dark" style={{ height: '100%' }}>
                         <span className="ph__tag">CASE THUMBNAIL</span>
@@ -121,11 +134,11 @@ export default function CaseStudy({ caseStudies = [] }) {
                     )}
                   </Link>
                   <div className="case-card__body" style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                    <span className="tag" style={{ marginBottom: '10px', alignSelf: 'flex-start' }}>{caseItem.tag}</span>
-                    <h3 className="t-h3" style={{ fontSize: '19px', lineHeight: 1.3, marginBottom: '12px' }}>{caseItem.h}</h3>
-                    <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.55, marginBottom: '20px', flexGrow: 1 }}>{caseItem.p}</p>
+                    <span className="tag" style={{ marginBottom: '10px', alignSelf: 'flex-start' }}>{getLocalized(caseItem.tag)}</span>
+                    <h3 className="t-h3" style={{ fontSize: '19px', lineHeight: 1.3, marginBottom: '12px' }}>{getLocalized(caseItem.h)}</h3>
+                    <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.55, marginBottom: '20px', flexGrow: 1 }}>{getLocalized(caseItem.p)}</p>
                     <Link href={`/case-study/${caseItem.slug || caseItem.id}`} className="link-arrow" style={{ fontSize: '14px', fontWeight: 600 }}>
-                      Read case study
+                      {isCn ? '阅读案例详情' : isId ? 'Baca studi kasus' : 'Read case study'}
                       <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </Link>
                   </div>
@@ -134,7 +147,7 @@ export default function CaseStudy({ caseStudies = [] }) {
             </Staggered>
           ) : (
             <div style={{ textAlign: 'center', padding: '60px 0', color: '#666' }}>
-              No case studies found for this category.
+              {isCn ? '未找到该分类的案例研究。' : isId ? 'Tidak ada studi kasus untuk kategori ini.' : 'No case studies found for this category.'}
             </div>
           )}
 

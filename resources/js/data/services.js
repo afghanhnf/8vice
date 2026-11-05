@@ -597,6 +597,299 @@ export const services = {
       footnote:
         'Keputusan investasi, uji tuntas keuangan (financial due diligence), opini hukum, dan eksekusi transaksi tetap tunduk pada nasihat profesional independen dan persetujuan para pihak.'
     }
+  ],
+  cn: [
+    {
+      id: 'advisory',
+      num: '01',
+      title: '战略咨询与市场准入',
+      summary: '协助企业评估跨境商业机遇、洞察市场动态，并制定可执行、合规的市场准入路线图。',
+      headline: '以高度清晰的视野进入新市场。',
+      photo: '战略研讨会 / 市场分析工作坊',
+      heroImage: '/images/china_tech_hub.webp',
+      detailImage: '/images/consultation_advisory_bw.webp',
+      paragraphs: [
+        '进入新市场需要深刻理解当地的商业环境、客户需求、竞争格局以及运营条件。',
+        '8 Vice 协助企业全面评估跨境商业机遇，并结合企业战略目标与资源禀赋制定切实可行的市场准入战略。',
+        '我们的服务涵盖市场机会评估、商业生态分析、市场进入规划 (Go-To-Market)、合作伙伴筛选标准、品牌本土化考量以及可执行扩张路线图的制定。',
+        '无论您是首次探索印尼市场，还是希望深化在中国市场的业务布局，我们都能协助您理清关键商业问题、评估潜在机遇并确定务实的下一步行动。'
+      ],
+      deliverables: [
+        {
+          icon: 'assessment',
+          title: '初步市场机会评估 (Market Opportunity Assessment)',
+          desc: '全面评估目标印尼与中国细分行业的市场规模、监管可行性、竞争格局及消费者需求动态。'
+        },
+        {
+          icon: 'strategy',
+          title: '市场准入与扩张战略 (Market Entry Strategy)',
+          desc: '制定可落地的准入路径、风险缓释框架、外资实体架构设计 (PT PMA / 合资企业) 及高资本效率的启动阶段规划。'
+        },
+        {
+          icon: 'model',
+          title: '商业模式与市场进入规划 (Go-To-Market)',
+          desc: '设计本土化价值主张、营收结构、商业定价基准以及可扩展的销售与分销渠道体系。'
+        },
+        {
+          icon: 'positioning',
+          title: '市场定位与品牌本土化 (Brand Localization)',
+          desc: '调整品牌叙事、营销定位与企业传播策略，确保与当地受众及利益相关方产生深度共鸣。'
+        },
+        {
+          icon: 'partner',
+          title: '合作伙伴与分销策略 (Partner Strategy)',
+          desc: '为国家级总代理、渠道商与战略合作伙伴制定筛选标准、尽职调查参数及商业合作框架。'
+        },
+        {
+          icon: 'roadmap',
+          title: '战略扩张执行路线图 (Strategic Roadmap)',
+          desc: '交付分阶段、多维度的实施蓝图，明确监管审批里程碑、资源配置及核心运营绩效指标 (KPI)。'
+        }
+      ],
+      footnote: '研究与评估的具体范围将根据客户的战略目标及可获取的信息量身定制。'
+    },
+    {
+      id: 'gov-relations',
+      num: '02',
+      title: '政府关系与利益相关方事务',
+      summary: '通过合规透明的渠道，支持利益相关方梳理、机构对接及政企沟通协调。',
+      headline: '从容稳健地应对政企与利益相关方生态。',
+      photo: '正式机构会晤 / 代表团高层对话',
+      heroImage: '/images/china_city_network.webp',
+      detailImage: '/images/executive_profile_bw.webp',
+      paragraphs: [
+        '在跨境商业活动中，深入理解监管机构环境并与相关利益方建立良性互动，往往是推进项目落地与战略合作的关键。',
+        '8 Vice 协助企业全面梳理利益相关方生态，识别合规的机构沟通机会，并协调与相关部门的专业对话。',
+        '我们的方法强调充分准备、目标明确、透明沟通，并严格遵守当地法律法规与机构礼仪规范。',
+        '从引荐会晤、利益相关方图谱绘制，到结构化政策对话与公私合作项目 (PPP)，我们协助客户以高度的专业性与专注度开展政企互动。'
+      ],
+      deliverables: [
+        {
+          icon: 'mapping',
+          title: '利益相关方梳理与沟通规划 (Stakeholder Mapping)',
+          desc: '识别与您业务扩张密切相关的核心部委、地方政府、贸易促进机构及行业关键利益相关方。'
+        },
+        {
+          icon: 'liaison',
+          title: '政府机构与行业协会联络 (Institutional Liaison)',
+          desc: '与双边商会、政府主管机关及核心行业协会建立正式、顺畅的沟通桥梁。'
+        },
+        {
+          icon: 'meeting',
+          title: '高层会晤筹备与统筹协调',
+          desc: '制定高管会晤议程、背景简报备忘录、官方礼仪合规指引，并提供中英印多语种传译支持。'
+        },
+        {
+          icon: 'public_private',
+          title: '公私合作伙伴关系 (PPP) 推进',
+          desc: '围绕国家重点产业项目，促进企业高层与国有企业 (BUMN) 或监管机构之间的战略对话。'
+        },
+        {
+          icon: 'dialogue',
+          title: '战略政策对话与合作协调',
+          desc: '统筹正式圆桌会议、政策研讨会以及机构间战略合作协议的推进。'
+        },
+        {
+          icon: 'comms',
+          title: '利益相关方传播与合规政策建言支持',
+          desc: '撰写符合监管框架的行业白皮书、政策简报备忘录及透明规范的政企沟通文件。'
+        }
+      ],
+      footnote: '8 Vice 提供沟通协助与统筹协调服务。政府决策、监管审批及机构承诺仍由相关主管机关依法独立决定。'
+    },
+    {
+      id: 'business-matching',
+      num: '03',
+      title: '商业配对与战略合作伙伴关系',
+      summary: '根据明确的商业目标，精准连接经过筛选的潜在合作伙伴、分销商、投资方及行业生态伙伴。',
+      headline: '精准的资源连接，真实的商业机遇。',
+      photo: 'B2B 商业配对 / 商业论坛签约握手',
+      heroImage: '/images/hero_globe_china_indonesia.webp',
+      detailImage: '/images/executive_red_cards.webp',
+      paragraphs: [
+        '跨境业务的成功，很大程度上取决于能否找到能力互补、目标一致且期望契合的本土合作伙伴。',
+        '8 Vice 协助客户围绕明确的商业目标，挖掘潜在合作机遇并促成高质量的商业对接。',
+        '我们提供全流程支持：从厘清合作伙伴筛选标准、精准物色潜在对象，到准备商业引荐材料、安排高层会晤以及跟进后续商务洽谈。',
+        '我们的目标是让每一次商务对接更加聚焦、高效且富有成果。'
+      ],
+      deliverables: [
+        {
+          icon: 'partner_id',
+          title: '潜在合作伙伴与分销商寻源筛选',
+          desc: '寻源并严格筛查经过验证的本土龙头企业、一级总经销商及高信誉商业运营商。'
+        },
+        {
+          icon: 'b2b',
+          title: '定制化 B2B 专场商业配对会',
+          desc: '组织私密的一对一商务洽谈会，将您的核心能力与合格本土合作方的商业需求精准匹配。'
+        },
+        {
+          icon: 'delegation',
+          title: '贸易代表团与商务考察统筹',
+          desc: '全流程管理跨国高管贸易代表团、工业园区实地考察及印尼与中国双边商业路演。'
+        },
+        {
+          icon: 'intro',
+          title: '企业高层引荐与商务会晤安排',
+          desc: '促成高管层面的直接引荐，并构建目标明确、富有成效的初次商务会谈。'
+        },
+        {
+          icon: 'alliance',
+          title: '战略联盟与合资企业 (JV) 架构支持',
+          desc: '就股权架构、合资条款、运营权责划分及双边共同价值创造提供专业顾问建议。'
+        },
+        {
+          icon: 'mou',
+          title: '合作备忘录 (MOU) 协调与商务跟进',
+          desc: '支持初步谅解备忘录 (MOU) 的起草、核心条款磋商以及会后商业落地的持续跟进。'
+        }
+      ],
+      footnote: '所有商业引荐均取决于合作方档期、双方意愿、尽职调查结果及最终协议。商业引荐本身不构成对达成商业交易的保证。'
+    },
+    {
+      id: 'comms',
+      num: '04',
+      title: '战略传播与市场定位',
+      summary: '打造企业定位、品牌叙事与整合传播策略，建立本土市场相关性与利益相关方信任。',
+      headline: '以目标驱动传播，以定位引领增长。',
+      photo: '品牌战略看板 / 创意团队评审',
+      heroImage: '/images/city_orbiting_cards.webp',
+      detailImage: '/images/leader_speech_abstract.webp',
+      paragraphs: [
+        '进入新市场不仅需要卓越的产品或服务，企业还必须以能够引起当地受众、合作伙伴及利益相关方共鸣的方式传递自身价值。',
+        '凭借整合营销传播 (IMC) 与品牌战略专长，8 Vice 协助企业构建清晰的市场定位与契合跨境增长需求的传播策略。',
+        '我们将商业目标与品牌叙事、企业传播、公共关系及利益相关方沟通紧密结合，助力企业在目标市场建立深度的认知与信任。'
+      ],
+      deliverables: [
+        {
+          icon: 'positioning',
+          title: '企业与品牌市场定位 (Brand Positioning)',
+          desc: '提炼鲜明的差异化市场定位，在彰显企业核心竞争力的同时契合本土市场期望。'
+        },
+        {
+          icon: 'localization',
+          title: '市场本土化与核心信息架构 (Localization)',
+          desc: '调校品牌语调、专业术语与传播主张，确保在印尼与中国双边文化语境中引发真实共鸣。'
+        },
+        {
+          icon: 'strategy',
+          title: '战略传播总体规划 (Communications Master Plan)',
+          desc: '制定全方位、多渠道的整合传播路线图，全力支持市场准入发布与重大商业公告。'
+        },
+        {
+          icon: 'pr',
+          title: '公共关系 (PR) 与行业思想领导力构建',
+          desc: '策划企业官方公告、高管思想领导力专栏文章以及行业利益相关方互动传播活动。'
+        },
+        {
+          icon: 'imc',
+          title: '整合营销传播 (IMC)',
+          desc: '将数字社交媒体渠道、B2B 行业营销、峰会赞助与高管声誉打造融为一体。'
+        },
+        {
+          icon: 'cross_cultural',
+          title: '印中跨文化商业沟通体系',
+          desc: '通过兼具文化敏感度的企业传播框架，弥合跨国总部与本土运营团队之间的沟通温差。'
+        }
+      ],
+      footnote: '我们的传播策略均根据客户的目标受众、当地市场状况及商业优先级量身定制。'
+    },
+    {
+      id: 'media-relations',
+      num: '05',
+      title: '媒体关系与危机公关',
+      summary: '管理媒体合作、新闻发布会、高管专访，并通过审慎的跨境传播策略守护企业声誉。',
+      headline: '守护企业声誉，建立权威媒体公信力。',
+      photo: '新闻发布会 / 高管媒体专访',
+      heroImage: '/images/media_relations_press_hero.webp',
+      detailImage: '/images/video_manifesto_cover.webp',
+      paragraphs: [
+        '对于在印尼与中国之间拓展业务的企业而言，公众信任与主流媒体公信力至关重要。媒体如何报道一家企业，以及企业在面对突发议题时的回应方式，直接塑造了合作伙伴、监管机构与客户的认知。',
+        '8 Vice 协助企业在两国市场建立建设性的媒体关系，为高管提供媒体沟通培训，并统筹新闻发布会、深度专访及媒体吹风会。',
+        '我们还协助客户未雨绸缪：及早识别潜在声誉风险，建立危机公关响应机制，并在敏感问题出现时协调清晰、及时且符合当地文化规范的应对方案。'
+      ],
+      deliverables: [
+        {
+          icon: 'media_strategy',
+          title: '双边主流媒体关系战略',
+          desc: '为您连接印尼与大中华区的一线财经、商业及科技主流权威媒体。'
+        },
+        {
+          icon: 'press_conf',
+          title: '新闻发布会与媒体吹风会统筹',
+          desc: '端到端管理新闻发布会、品牌发布盛典、媒体圆桌会及国家级新闻通稿分发。'
+        },
+        {
+          icon: 'interview',
+          title: '高管媒体应对培训与专访筹备',
+          desc: '为决策层配备核心问答手册 (Q&A Playbook)、模拟记者专访演练及关键信息传递辅导。'
+        },
+        {
+          icon: 'crisis_plan',
+          title: '危机公关预案与响应机制 (Crisis Protocols)',
+          desc: '建立风险应对矩阵、危机升级汇报流程，并针对敏感场景预先准备官方声明口径。'
+        },
+        {
+          icon: 'monitoring',
+          title: '媒体舆情监测与情感倾向追踪',
+          desc: '实时追踪全国主流新闻媒体上的品牌认知、行业讨论及监管政策舆论动向。'
+        },
+        {
+          icon: 'reputation',
+          title: '跨文化企业声誉管理',
+          desc: '通过契合双边文化规范、透明诚信的沟通策略，全方位守护跨国企业的公信力与品牌声誉。'
+        }
+      ],
+      footnote: '媒体报道取决于新闻编辑独立性。8 Vice 提供专业筹备与沟通支持，但不对特定版面刊登或报道结果作出保证。'
+    },
+    {
+      id: 'investment',
+      num: '06',
+      title: '投资促进与业务拓展支持',
+      summary: '支持早期业务拓展，协助客户厘清项目目标并构建稳健的跨境商业合作架构。',
+      headline: '将战略投资意向转化为结构化的商业机遇。',
+      photo: '项目实地考察 / 投资洽谈',
+      heroImage: '/images/china_trade_port.webp',
+      detailImage: '/images/industry_infrastructure.webp',
+      paragraphs: [
+        '在跨境环境下推进投资或商业项目，需要清晰的价值主张、对市场机遇的透彻理解以及相关各方利益的高度协同。',
+        '8 Vice 支持早期业务拓展阶段，协助客户提炼项目核心目标、评估潜在合作路径，并协调与相关商业利益相关方的深入洽谈。',
+        '我们致力于以结构化的方式梳理商业机遇，为知情决策、务实规划及后续商业评估奠定坚实基础。'
+      ],
+      deliverables: [
+        {
+          icon: 'assessment',
+          title: '初步投资机会与项目可行性筛查',
+          desc: '对商业投资项目的可行性、市场吸引力、当地政府税收与园区激励政策及财务参数进行初步筛查。'
+        },
+        {
+          icon: 'proposal',
+          title: '商业计划书与投资项目概要 (Teaser) 编制',
+          desc: '撰写双语高管投资备忘录、项目投资亮点概要 (Teaser) 及结构化商业路演演示文稿 (Pitch Deck)。'
+        },
+        {
+          icon: 'co_investor',
+          title: '项目合作伙伴与联合投资方引荐',
+          desc: '为项目方精准对接本土战略联合投资人、国家级工业园区开发商及机构资本合作方。'
+        },
+        {
+          icon: 'structure',
+          title: '跨境商业合作模式设计',
+          desc: '评估合资经营 (JV) 框架、特许权使用费模式、建设-运营-移交 (BOT) 方案及技术授权结构。'
+        },
+        {
+          icon: 'site_visit',
+          title: '工业园区实地考察与项目协调',
+          desc: '统筹安排对重点工业园区、经济特区 (SEZ/KEK)、港口枢纽及制造基地的实地调研考察。'
+        },
+        {
+          icon: 'follow_up',
+          title: '商业跟进与交易推进支持',
+          desc: '在商务谈判、关键里程碑追踪及多方利益协调过程中保持高效推进势头，直至合作协议签署。'
+        }
+      ],
+      footnote: '最终投资决策、财务尽职调查、法律意见书及交易执行仍需依赖独立的专业机构意见并经相关各方正式批准。'
+    }
   ]
 };
 
@@ -615,10 +908,17 @@ export const processSteps = {
     { num: '03', name: 'Strategi (Strategize)', desc: 'Merumuskan positioning, kriteria mitra & peta jalan pelibatan.' },
     { num: '04', name: 'Koneksi (Connect)', desc: 'Memfasilitasi pengenalan terarah dan dialog B2B/institusional.' },
     { num: '05', name: 'Eksekusi (Follow-Through)', desc: 'Mendampingi negosiasi kemitraan, proposal & implementasi nyata.' }
+  ],
+  cn: [
+    { num: '01', name: '需求洞察 (Discovery)', desc: '深入了解客户战略目标、核心能力与目标市场优先级。' },
+    { num: '02', name: '市场评估 (Assessment)', desc: '全面评估目标市场环境、监管政策动态与商业可行性。' },
+    { num: '03', name: '战略制定 (Strategize)', desc: '制定市场定位、合作伙伴筛选标准与沟通执行路线图。' },
+    { num: '04', name: '资源对接 (Connect)', desc: '促成精准商业引荐与高规格 B2B 及政府机构对话。' },
+    { num: '05', name: '落地跟进 (Follow-Through)', desc: '全程支持合作洽谈、方案推进与项目落地协调。' }
   ]
 };
 
-const pick = (obj, lang) => obj[lang === 'id' ? 'id' : 'en'];
+const pick = (obj, lang) => obj[lang === 'cn' ? 'cn' : lang === 'id' ? 'id' : 'en'];
 export const getServices = (lang) => pick(services, lang);
 export const getService = (lang, slug) => getServices(lang).find((s) => s.id === slug);
 export const getProcessSteps = (lang) => pick(processSteps, lang);

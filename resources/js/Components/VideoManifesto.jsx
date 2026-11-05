@@ -1,7 +1,10 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from '@/Contexts/TranslationContext';
 
 export default function VideoManifesto({ isId = false, fullSection = false }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { lang } = useTranslation();
+  const isCn = lang === 'cn';
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -19,7 +22,7 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
     };
   }, [isOpen]);
 
-  const copy = isId
+  const copy = isCn ? { eyebrow: "我们的品牌宣言 · 02:48", quote_1: "市场情报", quote_2: "绝不仅仅是一项附加功能，", quote_3: "它正是我们交付的核心产品。", sub: "一部 3 分钟短片，讲述我们的运作理念以及如何打通印尼与中国之间的真实商业生态。", play: "观看品牌宣言视频" } : isId
     ? {
         eyebrow: "MANIFESTO KAMI · 02:48",
         quote_1: "Intelijen pasar",

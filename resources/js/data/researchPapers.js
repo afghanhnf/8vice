@@ -10,15 +10,19 @@ export const chinaResearchPapers = [
     slug: 'china-cross-border-industrial-blueprint-2026',
     badge: 'EXCLUSIVE RESEARCH REPORT · Q4 2026',
     badgeId: 'LAPORAN RISET EKSKLUSIF · KUARTAL IV 2026',
+    badgeCn: '独家深度研究报告 · 2026年第四季度',
     category: 'Industrial Relocation & Macro Strategy',
     categoryId: 'Relokasi Industri & Strategi Makro',
+    categoryCn: '产业转移与宏观战略',
     title: {
       en: 'China–Indonesia Industrial Relocation & Cross-Border Supply Chain Blueprint (2026–2030)',
-      id: 'Cetaktakbir Relokasi Industri & Rantai Pasok Lintas Batas Tiongkok–Indonesia (2026–2030)'
+      id: 'Cetaktakbir Relokasi Industri & Rantai Pasok Lintas Batas Tiongkok–Indonesia (2026–2030)',
+      cn: '中印尼产业转移与跨境供应链战略蓝图 (2026–2030)'
     },
     subtitle: {
       en: 'An empirical benchmark of 120+ Chinese enterprises establishing manufacturing hubs in Kendal, Batang, Cikarang, and Morowali.',
-      id: 'Kajian empiris terhadap 120+ korporasi manufaktur Tiongkok yang merelokasi fasilitas produksi ke Kendal, Batang, Cikarang, dan Morowali.'
+      id: 'Kajian empiris terhadap 120+ korporasi manufaktur Tiongkok yang merelokasi fasilitas produksi ke Kendal, Batang, Cikarang, dan Morowali.',
+      cn: '针对在肯德尔、巴塘、芝卡朗与莫罗瓦利建立制造基地的 120 余家中国企业的实证基准研究。'
     },
     cover: '/images/china_city_network.webp',
     paymentLink: 'https://8vice.id/checkout/china-cross-border-blueprint',
@@ -51,6 +55,12 @@ export const chinaResearchPapers = [
           'Slide Presentasi Eksekutif (24 Slide .pptx & .pdf)',
           'Akses Unduhan Instan Pengguna Tunggal & Penyimpanan Cloud Permanen',
           'Tabel Komparasi Biaya Regional & Formula Perhitungan TKDN 40%'
+        ],
+        cn: [
+          '完整未删减 58 页高清 PDF 深度研究报告',
+          '24 页高管汇报演示文稿 (.pptx 与 .pdf)',
+          '单用户即时下载链接与永久云端访问权限',
+          '完整的 40% TKDN 本土化率计算公式与区域成本对比表'
         ]
       },
       corporateFeatures: {
@@ -65,6 +75,12 @@ export const chinaResearchPapers = [
           'Dataset Mentah Model Finansial Biaya Lahan & Tenaga Kerja (.xlsx)',
           'Sesi Tanya-Jawab Strategis 30 Menit Bersama Direktur Riset 8 Vice',
           'Penerbitan Faktur Pajak Resmi & Kwitansi Korporat'
+        ],
+        cn: [
+          '企业内部共享授权许可（最多支持 25 个内部席位）',
+          '工业园区土地与劳动力成本原始财务测算模型 (.xlsx)',
+          '与 8 Vice 研究总监进行 30 分钟一对一战略答疑电话会议',
+          '包含正式企业税务发票 (Faktur Pajak)'
         ]
       }
     },
@@ -80,6 +96,12 @@ export const chinaResearchPapers = [
         { label: 'Jumlah Halaman', value: '58 Halaman' },
         { label: 'Kawasan Industri', value: '4 Koridor Utama' },
         { label: 'Format Dataset', value: 'PDF + XLSX' }
+      ],
+      cn: [
+        { label: '调研企业数量', value: '120+ 家' },
+        { label: '完整报告页数', value: '58 页' },
+        { label: '核心工业走廊', value: '4 大枢纽' },
+        { label: '数据集格式', value: 'PDF + XLSX' }
       ]
     },
     tocPreview: [
@@ -87,7 +109,8 @@ export const chinaResearchPapers = [
         num: '01',
         title: {
           en: 'Executive Summary: The Great Realignment of China–Indonesia Supply Chains',
-          id: 'Ringkasan Eksekutif: Realignment Rantai Pasok Tiongkok–Indonesia'
+          id: 'Ringkasan Eksekutif: Realignment Rantai Pasok Tiongkok–Indonesia',
+          cn: '执行摘要：中印尼跨境供应链的深度重构与演进'
         },
         pages: 'pp. 04–12',
         isLocked: false
@@ -96,7 +119,8 @@ export const chinaResearchPapers = [
         num: '02',
         title: {
           en: 'Comparative Siting Economics: Kendal, Batang, Subang vs. Morowali',
-          id: 'Analisis Komparatif Biaya Kawasan: Kendal, Batang, Subang vs. Morowali'
+          id: 'Analisis Komparatif Biaya Kawasan: Kendal, Batang, Subang vs. Morowali',
+          cn: '园区选址经济学对比：肯德尔、巴塘、苏邦与莫罗瓦利'
         },
         pages: 'pp. 13–24',
         isLocked: false
@@ -105,7 +129,8 @@ export const chinaResearchPapers = [
         num: '03',
         title: {
           en: 'Regulatory Compliance & 40% TKDN Formula Navigation for Foreign OEMs',
-          id: 'Kepatuhan Regulasi & Formula Perhitungan 40% TKDN bagi OEM Asing'
+          id: 'Kepatuhan Regulasi & Formula Perhitungan 40% TKDN bagi OEM Asing',
+          cn: '外资 OEM 监管合规与 40% TKDN 本土化率达标实操指南'
         },
         pages: 'pp. 25–36',
         isLocked: true
@@ -114,7 +139,8 @@ export const chinaResearchPapers = [
         num: '04',
         title: {
           en: 'Survey Findings: Supply Chain De-risking, Tariffs & RCEP Optimization',
-          id: 'Temuan Survei: Mitigasi Risiko Rantai Pasok, Tarif & Optimalisasi RCEP'
+          id: 'Temuan Survei: Mitigasi Risiko Rantai Pasok, Tarif & Optimalisasi RCEP',
+          cn: '调研发现：供应链去风险化、关税筹划与 RCEP 原产地规则优化'
         },
         pages: 'pp. 37–48',
         isLocked: true
@@ -123,7 +149,8 @@ export const chinaResearchPapers = [
         num: '05',
         title: {
           en: 'Joint Venture Playbooks: Risk Mitigation & Local Partner Structuring',
-          id: 'Struktur Usaha Patungan (JV): Mitigasi Risiko & Tata Kelola Mitra Lokal'
+          id: 'Struktur Usaha Patungan (JV): Mitigasi Risiko & Tata Kelola Mitra Lokal',
+          cn: '合资企业 (JV) 实战手册：风险缓释与本土合作伙伴治理架构'
         },
         pages: 'pp. 49–58',
         isLocked: true
@@ -131,7 +158,8 @@ export const chinaResearchPapers = [
     ],
     sampleExcerpt: {
       en: 'Based on quantitative and qualitative primary research across 120 Chinese manufacturing enterprises expanding into Indonesia from 2023 to 2026, this paper reveals that operational break-even velocity depends 62% on early supply chain tier-2 localization rather than initial tax holiday incentives. Enterprises adopting structured joint ventures with Indonesian logistics partners achieved operational readiness 7.4 months faster than wholly foreign-owned greenfield sites.',
-      id: 'Berdasarkan riset primer kuantitatif dan kualitatif terhadap 120 korporasi manufaktur Tiongkok yang berekspansi ke Indonesia sepanjang 2023 hingga 2026, laporan ini menemukan bahwa kecepatan mencapai break-even operasional ditentukan 62% oleh lokalisasi rantai pasok tier-2 sejak dini, bukan sekadar insentif tax holiday awal. Perusahaan yang menerapkan skema usaha patungan terstruktur dengan mitra logistik lokal mencapai kesiapan operasi 7,4 bulan lebih cepat dibanding skema investasi mandiri murni.'
+      id: 'Berdasarkan riset primer kuantitatif dan kualitatif terhadap 120 korporasi manufaktur Tiongkok yang berekspansi ke Indonesia sepanjang 2023 hingga 2026, laporan ini menemukan bahwa kecepatan mencapai break-even operasional ditentukan 62% oleh lokalisasi rantai pasok tier-2 sejak dini, bukan sekadar insentif tax holiday awal. Perusahaan yang menerapkan skema usaha patungan terstruktur dengan mitra logistik lokal mencapai kesiapan operasi 7,4 bulan lebih cepat dibanding skema investasi mandiri murni.',
+      cn: '基于对 2023 至 2026 年间拓展印尼市场的 120 家中国制造企业的定量与定性一手调研，本报告揭示：运营盈亏平衡的速度有 62% 取决于早期二级供应链本土化程度，而非单纯依赖初期税收减免 (Tax Holiday)。与印尼本土物流及产业伙伴建立结构化合资企业 (JV) 的项目，其实体投产就绪速度比纯外资绿地投资平均快 7.4 个月。'
     }
   },
   {
@@ -139,15 +167,19 @@ export const chinaResearchPapers = [
     slug: 'decoding-china-5-year-plan',
     badge: 'STRATEGIC MACRO BRIEFING · 2026',
     badgeId: 'BRIEFING MAKRO STRATEGIS · 2026',
+    badgeCn: '宏观战略简报 · 2026',
     category: 'Policy & Macro Corridor',
     categoryId: 'Kebijakan & Koridor Makro',
+    categoryCn: '政策与宏观经济走廊',
     title: {
       en: "Decoding China's 15th 5-Year Plan: Strategic Implications for Southeast Asian Corridors",
-      id: "Membedah Rencana 5 Tahun ke-15 Tiongkok: Implikasi Strategis bagi Koridor Asia Tenggara"
+      id: "Membedah Rencana 5 Tahun ke-15 Tiongkok: Implikasi Strategis bagi Koridor Asia Tenggara",
+      cn: '深度解读中国“十五五”规划：对东南亚商业走廊的战略影响'
     },
     subtitle: {
       en: 'An executive briefing on Beijing industrial restructuring policies, outbound green energy capital, and their intersection with Indonesia Vision 2045.',
-      id: 'Analisis eksekutif restrukturisasi industri Beijing, modal keluar energi hijau, dan titik temunya dengan Visi Indonesia Emas 2045.'
+      id: 'Analisis eksekutif restrukturisasi industri Beijing, modal keluar energi hijau, dan titik temunya dengan Visi Indonesia Emas 2045.',
+      cn: '关于中国产业结构升级政策、绿色能源出海资本及其与“2045 黄金印尼愿景”战略交汇点的高管简报。'
     },
     cover: '/images/insights/5_year_plan.webp',
     publishedDate: 'April 2026',
@@ -177,6 +209,11 @@ export const chinaResearchPapers = [
           'Laporan Kebijakan Makro Lengkap 36 Halaman (PDF)',
           'Panduan Komparasi Regulasi & Terjemahan Kebijakan Eksekutif',
           'Akses Unduhan Instan Pengguna Tunggal'
+        ],
+        cn: [
+          '完整 36 页宏观政策研究报告 (PDF)',
+          '高管政策解读与双边监管对比指南',
+          '单用户即时下载链接'
         ]
       },
       corporateFeatures: {
@@ -189,6 +226,11 @@ export const chinaResearchPapers = [
           'Distribusi Internal Korporat (Hingga 15 Anggota Tim)',
           'Diagram Alur Arus Modal Masuk & Peta Panas Sektoral',
           'Sesi Briefing Kebijakan 20 Menit Bersama Analis 8 Vice'
+        ],
+        cn: [
+          '企业内部共享授权（最多支持 15 个席位）',
+          '跨境资本流动全景图与重点行业热力图',
+          '与 8 Vice 政策分析师进行 20 分钟专场简报会'
         ]
       }
     },
@@ -204,6 +246,12 @@ export const chinaResearchPapers = [
         { label: 'Halaman Laporan', value: '36 Halaman' },
         { label: 'Fokus Koridor', value: 'ASEAN-China' },
         { label: 'Format Dokumen', value: 'PDF Eksekutif' }
+      ],
+      cn: [
+        { label: '政策框架', value: '十五五规划' },
+        { label: '报告页数', value: '36 页' },
+        { label: '聚焦走廊', value: '中国—东盟' },
+        { label: '文档格式', value: '高管版 PDF' }
       ]
     },
     tocPreview: [
@@ -211,7 +259,8 @@ export const chinaResearchPapers = [
         num: '01',
         title: {
           en: 'Core Tenets of the 15th Five-Year Plan: High-Quality Growth and Dual Circulation',
-          id: 'Pilar Utama Repelita ke-15: Pertumbuhan Berkualitas Tinggi & Sirkulasi Ganda'
+          id: 'Pilar Utama Repelita ke-15: Pertumbuhan Berkualitas Tinggi & Sirkulasi Ganda',
+          cn: '“十五五”规划核心要义：高质量发展与双循环新格局'
         },
         pages: 'pp. 03–10',
         isLocked: false
@@ -220,7 +269,8 @@ export const chinaResearchPapers = [
         num: '02',
         title: {
           en: 'Outbound Capital Trajectories: Renewable Energy & Advanced Materials',
-          id: 'Arah Arus Modal Keluar: Energi Terbarukan & Material Maju'
+          id: 'Arah Arus Modal Keluar: Energi Terbarukan & Material Maju',
+          cn: '出海资本流向：可再生能源与先进材料产业链'
         },
         pages: 'pp. 11–18',
         isLocked: false
@@ -229,7 +279,8 @@ export const chinaResearchPapers = [
         num: '03',
         title: {
           en: 'Intersection with Indonesia Vision 2045: Nickel, Solar, and Digital Hubs',
-          id: 'Titik Temu dengan Visi Indonesia 2045: Hilirisasi Nikel, Surya, dan Hub Digital'
+          id: 'Titik Temu dengan Visi Indonesia 2045: Hilirisasi Nikel, Surya, dan Hub Digital',
+          cn: '与印尼 2045 愿景的战略交汇：镍下游化、光伏与数字枢纽'
         },
         pages: 'pp. 19–28',
         isLocked: true
@@ -238,7 +289,8 @@ export const chinaResearchPapers = [
         num: '04',
         title: {
           en: 'Mitigating Geopolitical & Currency Exposure: Local Currency Settlement (LCS)',
-          id: 'Mitigasi Risiko Geopolitik & Fluktuasi Valuta: Penyelesaian Mata Uang Lokal (LCS)'
+          id: 'Mitigasi Risiko Geopolitik & Fluktuasi Valuta: Penyelesaian Mata Uang Lokal (LCS)',
+          cn: '应对地缘政治与汇率敞口：本币结算 (LCS) 机制应用'
         },
         pages: 'pp. 29–36',
         isLocked: true
@@ -246,7 +298,8 @@ export const chinaResearchPapers = [
     ],
     sampleExcerpt: {
       en: "China's 15th Five-Year Plan marks a definitive transition from capacity expansion toward outward technology transfer, green standard setting, and cross-border industrial integration across Southeast Asia.",
-      id: 'Rencana Lima Tahun ke-15 Tiongkok menandai transisi penting dari sekadar ekspansi kapasitas produksi menuju transfer teknologi ramah lingkungan, standarisasi hijau, dan integrasi rantai pasok industri lintas negara di Asia Tenggara.'
+      id: 'Rencana Lima Tahun ke-15 Tiongkok menandai transisi penting dari sekadar ekspansi kapasitas produksi menuju transfer teknologi ramah lingkungan, standarisasi hijau, dan integrasi rantai pasok industri lintas negara di Asia Tenggara.',
+      cn: '中国“十五五”规划标志着从单纯的产能扩张，向对外技术转移、绿色标准共建以及东南亚跨境产业链深度整合的决定性转变。'
     }
   }
 ];

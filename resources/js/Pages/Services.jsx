@@ -119,6 +119,7 @@ function ModernCityBg({ opacity = 0.26, flip = false }) {
 export default function Services() {
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
   const services = getServices(lang);
   const processSteps = getProcessSteps(lang);
 
@@ -145,7 +146,29 @@ export default function Services() {
     return () => observer.disconnect();
   }, [lang]);
 
-  const copy = isId
+  const copy = isCn
+    ? {
+        home: '首页',
+        breadcrumb: '我们的服务',
+        eyebrow: '核心能力 · 战略咨询',
+        heroTitleLine1: '赋能连接的战略。',
+        heroTitleLine2: '推动商业前行的伙伴关系。',
+        heroLead:
+          '我们提供综合性的战略咨询与跨境业务拓展服务，旨在协助企业进入新市场、建立战略关系，并挖掘印度尼西亚与中国的增长机遇。',
+        gridKicker: '01 · 6 大服务支柱',
+        gridTitle: '赋能跨境增长的整合能力',
+        gridLead: '选择一项服务以了解我们的方法论、支持范围与工作流程。',
+        learnMore: '查看服务详情',
+        processKicker: '02 · 我们的工作流程',
+        processTitle: '我们的跨境工作流程',
+        ctaEyebrow: '开启对话',
+        ctaTitle: '正在寻找量身定制的战略咨询合作？',
+        ctaDesc:
+          '每一个跨境项目均围绕您的特定市场优先级与商业目标量身构建。欢迎与我们的团队沟通，明确您的合作范围。',
+        ctaPrimary: '探讨您的商业目标',
+        ctaSecondary: '探索印中战略门户'
+      }
+    : isId
     ? {
         home: 'Beranda',
         breadcrumb: 'Layanan Kami',

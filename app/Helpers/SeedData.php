@@ -36,15 +36,18 @@ class SeedData
                 'num' => '01',
                 'title' => [
                     'en' => 'Strategic Advisory & Market Entry',
-                    'id' => 'Konsultasi Strategis & Ekspansi Pasar'
+                    'id' => 'Konsultasi Strategis & Ekspansi Pasar',
+                    'cn' => '战略咨询与市场准入'
                 ],
                 'summary' => [
                     'en' => 'Helping businesses evaluate cross-border opportunities, understand commercial dynamics, and formulate executable market entry roadmaps.',
-                    'id' => 'Membantu organisasi mengevaluasi peluang lintas negara, memahami dinamika komersial, dan menyusun peta jalan ekspansi yang terukur.'
+                    'id' => 'Membantu organisasi mengevaluasi peluang lintas negara, memahami dinamika komersial, dan menyusun peta jalan ekspansi yang terukur.',
+                    'cn' => '协助企业评估跨境商业机遇、洞察市场动态，并制定可执行、合规的市场准入路线图。'
                 ],
                 'headline' => [
                     'en' => 'Enter New Markets with Greater Clarity.',
-                    'id' => 'Masuki Pasar Baru dengan Kejelasan Strategis.'
+                    'id' => 'Masuki Pasar Baru dengan Kejelasan Strategis.',
+                    'cn' => '以高度清晰的视野进入新市场。'
                 ],
                 'hero_image' => '/images/china_tech_hub.webp',
                 'detail_image' => '/images/consultation_advisory_bw.webp',
@@ -65,15 +68,18 @@ class SeedData
                 'num' => '02',
                 'title' => [
                     'en' => 'Government Relations & Stakeholder Engagement',
-                    'id' => 'Hubungan Pemerintah & Pemangku Kepentingan'
+                    'id' => 'Hubungan Pemerintah & Pemangku Kepentingan',
+                    'cn' => '政府关系与利益相关方事务'
                 ],
                 'summary' => [
                     'en' => 'Supporting stakeholder mapping, institutional engagement, and public-private dialogue through appropriate and transparent channels.',
-                    'id' => 'Pemetaan pemangku kepentingan, pelibatan kelembagaan, dan dialog publik-swasta melalui jalur resmi dan transparan.'
+                    'id' => 'Pemetaan pemangku kepentingan, pelibatan kelembagaan, dan dialog publik-swasta melalui jalur resmi dan transparan.',
+                    'cn' => '通过合规透明的渠道，支持利益相关方梳理、机构对接及政企沟通协调。'
                 ],
                 'headline' => [
                     'en' => 'Building Trust with Institutions and Regulators.',
-                    'id' => 'Membangun Kepercayaan dengan Institusi dan Regulator.'
+                    'id' => 'Membangun Kepercayaan dengan Institusi dan Regulator.',
+                    'cn' => '从容稳健地应对政企与利益相关方生态。'
                 ],
                 'hero_image' => '/images/city_orbiting_cards.webp',
                 'detail_image' => '/images/executive_red_cards.webp',
@@ -94,15 +100,18 @@ class SeedData
                 'num' => '03',
                 'title' => [
                     'en' => 'Business Matching & Strategic Partnerships',
-                    'id' => 'Pencocokan Bisnis & Kemitraan Strategis'
+                    'id' => 'Pencocokan Bisnis & Kemitraan Strategis',
+                    'cn' => '商业配对与战略合作伙伴关系'
                 ],
                 'summary' => [
                     'en' => 'Connecting businesses with relevant commercial partners, distributors, investors, and industry stakeholders across Indonesia and China.',
-                    'id' => 'Menghubungkan korporasi dengan mitra komersial, distributor, investor, dan pelaku industri yang relevan.'
+                    'id' => 'Menghubungkan korporasi dengan mitra komersial, distributor, investor, dan pelaku industri yang relevan.',
+                    'cn' => '根据明确的商业目标，精准连接经过筛选的潜在合作伙伴、分销商、投资方及行业生态伙伴。'
                 ],
                 'headline' => [
                     'en' => 'Connect with the Right Partners at the Right Level.',
-                    'id' => 'Terhubung dengan Mitra yang Tepat pada Tingkat yang Tepat.'
+                    'id' => 'Terhubung dengan Mitra yang Tepat pada Tingkat yang Tepat.',
+                    'cn' => '精准的资源连接，真实的商业机遇。'
                 ],
                 'hero_image' => '/images/china_trade_port.webp',
                 'detail_image' => '/images/industry_trade.webp',
@@ -123,15 +132,18 @@ class SeedData
                 'num' => '04',
                 'title' => [
                     'en' => 'Strategic Communications & Market Positioning',
-                    'id' => 'Komunikasi Strategis & Positioning Pasar'
+                    'id' => 'Komunikasi Strategis & Positioning Pasar',
+                    'cn' => '战略传播与市场定位'
                 ],
                 'summary' => [
                     'en' => 'Positioning corporate brands, shaping narrative resonance, and delivering impactful communications strategies in local contexts.',
-                    'id' => 'Positioning korporat, narasi merek bernilai tinggi, dan strategi komunikasi yang mengakar pada konteks lokal.'
+                    'id' => 'Positioning korporat, narasi merek bernilai tinggi, dan strategi komunikasi yang mengakar pada konteks lokal.',
+                    'cn' => '打造企业定位、品牌叙事与整合传播策略，建立本土市场相关性与利益相关方信任。'
                 ],
                 'headline' => [
                     'en' => 'Communicate with Purpose, Cultural Context, and Impact.',
-                    'id' => 'Berkomunikasi dengan Tujuan, Konteks Budaya, dan Dampak.'
+                    'id' => 'Berkomunikasi dengan Tujuan, Konteks Budaya, dan Dampak.',
+                    'cn' => '以目标驱动传播，以定位引领增长。'
                 ],
                 'hero_image' => '/images/industry_creative.webp',
                 'detail_image' => '/images/consultation_advisory_bw.webp',
@@ -152,15 +164,18 @@ class SeedData
                 'num' => '05',
                 'title' => [
                     'en' => 'Media Relations & Crisis Communications',
-                    'id' => 'Hubungan Media & Komunikasi Krisis'
+                    'id' => 'Hubungan Media & Komunikasi Krisis',
+                    'cn' => '媒体关系与危机公关'
                 ],
                 'summary' => [
                     'en' => 'Building credible media relationships, managing press strategy, and safeguarding corporate reputation in critical moments.',
-                    'id' => 'Membangun relasi media kredibel, mengelola strategi pers, dan melindungi reputasi korporat di situasi krusial.'
+                    'id' => 'Membangun relasi media kredibel, mengelola strategi pers, dan melindungi reputasi korporat di situasi krusial.',
+                    'cn' => '管理媒体合作、新闻发布会、高管专访，并通过审慎的跨境传播策略守护企业声誉。'
                 ],
                 'headline' => [
                     'en' => 'Earned Media Credibility and Resilient Reputation Protection.',
-                    'id' => 'Kredibilitas Media dan Perlindungan Reputasi yang Tangguh.'
+                    'id' => 'Kredibilitas Media dan Perlindungan Reputasi yang Tangguh.',
+                    'cn' => '守护企业声誉，建立权威媒体公信力。'
                 ],
                 'hero_image' => '/images/media_relations_press_hero.webp',
                 'detail_image' => '/images/executive_red_cards.webp',
@@ -181,15 +196,18 @@ class SeedData
                 'num' => '06',
                 'title' => [
                     'en' => 'Investment & Business Development Facilitation',
-                    'id' => 'Fasilitasi Investasi & Pengembangan Bisnis'
+                    'id' => 'Fasilitasi Investasi & Pengembangan Bisnis',
+                    'cn' => '投资促进与业务拓展支持'
                 ],
                 'summary' => [
                     'en' => 'Supporting investment opportunity assessment, commercial proposal development, and project coordination from conception to execution.',
-                    'id' => 'Mendukung evaluasi peluang investasi, perumusan proposal komersial, dan koordinasi proyek dari inisiasi hingga eksekusi.'
+                    'id' => 'Mendukung evaluasi peluang investasi, perumusan proposal komersial, dan koordinasi proyek dari inisiasi hingga eksekusi.',
+                    'cn' => '支持早期业务拓展，协助客户厘清项目目标并构建稳健的跨境商业合作架构。'
                 ],
                 'headline' => [
                     'en' => 'Navigating Capital Deployment and Strategic Commercial Projects.',
-                    'id' => 'Memandu Penyaluran Modal dan Proyek Komersial Strategis.'
+                    'id' => 'Memandu Penyaluran Modal dan Proyek Komersial Strategis.',
+                    'cn' => '将战略投资意向转化为结构化的商业机遇。'
                 ],
                 'hero_image' => '/images/hero_globe_china_indonesia.webp',
                 'detail_image' => '/images/consultation_advisory_bw.webp',
@@ -208,21 +226,23 @@ class SeedData
     }
 
     /**
-     * 3. Leadership Team / People Behind 8Vice (Ibu Helda, Pak Gandhi, Ci Christine)
+     * 3. Leadership Team / People Behind 8Vice (Helda Chandra, Gandhi Priambodho, Christine Susanna Tjhin)
      */
     public static function getProfiles(): array
     {
         return [
             (object)[
-                'call_name' => 'Ibu Helda',
+                'call_name' => 'Helda Chandra',
                 'title' => 'Helda Chandra, S.E., M.Si.',
                 'role' => [
                     'en' => 'CEO & Co-Founder, 8 Vice · Managing Partner, Gentala Institute',
-                    'id' => 'CEO & Co-Founder, 8 Vice · Managing Partner, Gentala Institute'
+                    'id' => 'CEO & Co-Founder, 8 Vice · Managing Partner, Gentala Institute',
+                    'cn' => '8 Vice 首席执行官兼联合创始人 · 根塔拉研究所 (Gentala Institute) 执行合伙人'
                 ],
                 'short_bio' => [
                     'en' => 'Seasoned business strategist with over 20 years guiding multinational corporations, BUMN, and governments. Spearheads cross-border advisory for Alibaba Group, DingTalk, Alipay, DiDi, Coolita, and Skyworth. Serves as Expert Consultant to the Indonesian Ministry of Creative Economy and former PT MRT Jakarta Commissioner Committee.',
-                    'id' => 'Konsultan bisnis dan penasihat strategis dengan pengalaman 20+ tahun memandu korporasi multinasional, BUMN, dan pemerintah. Memimpin advisori lintas batas untuk Alibaba Group, DingTalk, Alipay, DiDi, Coolita, dan Skyworth. Menjabat Konsultan Ahli di Kementerian Ekonomi Kreatif RI dan purna Komite Dewan Komisaris PT MRT Jakarta.'
+                    'id' => 'Konsultan bisnis dan penasihat strategis dengan pengalaman 20+ tahun memandu korporasi multinasional, BUMN, dan pemerintah. Memimpin advisori lintas batas untuk Alibaba Group, DingTalk, Alipay, DiDi, Coolita, dan Skyworth. Menjabat Konsultan Ahli di Kementerian Ekonomi Kreatif RI dan purna Komite Dewan Komisaris PT MRT Jakarta.',
+                    'cn' => '拥有20余年跨国企业、印尼国有企业及政府战略咨询经验的资深商业战略家。主导阿里巴巴集团、钉钉、支付宝、滴滴出行、酷开及创维等知名企业的跨境咨询项目。现任印尼创意经济部专家顾问，曾任雅加达捷运公司 (PT MRT Jakarta) 监事会专业委员会委员。'
                 ],
                 'image' => '/images/profiles/helda_chandra.webp',
                 'focus_tags' => ['Indonesia–China Strategy', 'Government Relations', 'Brand Strategy', 'GRC & Advisory', 'Creative Economy'],
@@ -233,7 +253,8 @@ class SeedData
                 ],
                 'quote_title' => [
                     'en' => 'Bridging Governance, Enterprise Innovation, and Bilateral Growth',
-                    'id' => 'Menjembatani Tata Kelola, Inovasi Korporasi, dan Pertumbuhan Bilateral'
+                    'id' => 'Menjembatani Tata Kelola, Inovasi Korporasi, dan Pertumbuhan Bilateral',
+                    'cn' => '架设企业治理、前沿创新与双边增长的桥梁'
                 ],
                 'quote_message' => [
                     'en' => [
@@ -245,19 +266,26 @@ class SeedData
                         '“Dalam setiap inisiatif lintas negara antara Indonesia dan Tiongkok, keberhasilan jangka panjang tidak pernah ditentukan oleh kecepatan transaksi semata, melainkan oleh kedalaman kepercayaan institusional, kepatuhan regulasi, dan pemahaman budaya lokal yang matang.”',
                         '“Dengan lebih dari dua dekade pengalaman mendampingi BUMN, pemerintah, dan korporasi global—mulai dari infrastruktur publik di PT MRT Jakarta, strategi pemasaran di Kementerian Ekonomi Kreatif RI, hingga ekspansi Alibaba Group, DingTalk, dan DiDi—fokus kami di 8 Vice adalah membangun kemitraan bernilai jangka panjang.”',
                         '“Latar Belakang Pendidikan & Sertifikasi: Magister Ilmu Komunikasi & Sarjana Ekonomi Universitas Indonesia; Sastra & Budaya Mandarin di Beijing Language and Culture University; Certified Marketing Analyst (AAPM USA) & Certified Strategic Business Analyst (AAFM).”'
+                    ],
+                    'cn' => [
+                        '“在印尼与中国之间的所有跨境商业合作中，长远的成功从来不取决于单次交易的完成速度，而在于机构信任的深度、监管政策的合规把控以及对当地商业文化的深刻理解。”',
+                        '“凭借二十余年服务印尼国有企业、政府部门及全球跨国公司的丰富经验——从雅加达捷运 (MRT Jakarta) 公共基础设施、印尼创意经济部品牌战略，到阿里巴巴集团、钉钉、滴滴出行的市场准入，我们在 8 Vice 的核心使命是构建高信誉度的双边伙伴关系，创造持久的商业与社会价值。”',
+                        '“教育背景与专业资质：印尼大学传播学硕士（营销传播）与经济管理学学士；北京语言大学汉语言文学与文化进修；美国 AAPM 认证营销分析师与 AAFM 认证战略商业分析师。”'
                     ]
                 ]
             ],
             (object)[
-                'call_name' => 'Pak Gandhi',
+                'call_name' => 'Gandhi Priambodho',
                 'title' => 'Gandhi Priambodho',
                 'role' => [
                     'en' => 'Director of International Business · Partner, 8 Vice',
-                    'id' => 'Director of International Business · Partner, 8 Vice'
+                    'id' => 'Director of International Business · Partner, 8 Vice',
+                    'cn' => '8 Vice 国际业务总监 · 合伙人'
                 ],
                 'short_bio' => [
                     'en' => 'Spearheads the expansion of business, trade and investment networks in Indonesia and China. Based in Beijing since 2002, Gandhi has long fostered eclectic business development networks across trade, industrial cooperation, energy & minerals, media, creative industry, tourism, education, real estate, and healthcare.',
-                    'id' => 'Memimpin ekspansi jaringan bisnis, perdagangan, dan investasi di Indonesia dan Tiongkok. Berdomisili di Beijing sejak 2002, Gandhi telah lama membangun jejaring pengembangan bisnis lintas sektor: perdagangan, kerja sama industri, energi & mineral, media, industri kreatif & pariwisata, pendidikan, properti, dan layanan kesehatan.'
+                    'id' => 'Memimpin ekspansi jaringan bisnis, perdagangan, dan investasi di Indonesia dan Tiongkok. Berdomisili di Beijing sejak 2002, Gandhi telah lama membangun jejaring pengembangan bisnis lintas sektor: perdagangan, kerja sama industri, energi & mineral, media, industri kreatif & pariwisata, pendidikan, properti, dan layanan kesehatan.',
+                    'cn' => '主导印尼与中国商业、贸易及投资合作网络的开拓与深化。自2002年起常驻北京，甘地在双边经贸、工业产能合作、能源矿产、媒体与创意产业、旅游、教育、不动产及医疗健康等多元领域建立了深厚且广泛的商业拓展网络。'
                 ],
                 'image' => '/images/profiles/gandhi_priambodho.webp',
                 'focus_tags' => ['International Business', 'Trade & Investment', 'Energy & Minerals', 'Beijing Network', 'Media & Industry'],
@@ -268,7 +296,8 @@ class SeedData
                 ],
                 'quote_title' => [
                     'en' => 'Two Decades of Grounded Cross-Border Networks in Beijing & Jakarta',
-                    'id' => 'Dua Dekade Membangun Jejaring Lintas Batas di Beijing & Jakarta'
+                    'id' => 'Dua Dekade Membangun Jejaring Lintas Batas di Beijing & Jakarta',
+                    'cn' => '深耕北京与雅加达二十载的双边商业网络'
                 ],
                 'quote_message' => [
                     'en' => [
@@ -280,19 +309,26 @@ class SeedData
                         '“DIRECTOR OF INTERNATIONAL BUSINESS yang memimpin ekspansi jaringan bisnis, perdagangan, dan investasi di Indonesia dan Tiongkok. Menetap di Beijing sejak tahun 2002, Gandhi telah lama membina jejaring pengembangan bisnis di berbagai sektor strategis: perdagangan & kerja sama industri, energi dan mineral, media, industri kreatif & pariwisata, pendidikan, properti, hingga layanan kesehatan.”',
                         "Latar Belakang Pendidikan:\n• Renmin University of China - Program Pascasarjana (Contemporary China Studies)\n• American World University in California - Sarjana (Administrasi Bisnis)\n• Universitas Indonesia - Sarjana (Bahasa dan Sastra Mandarin)",
                         "Pengalaman Profesional:\n• Nanyang Bridge Media, co. Ltd\n• Red&White China\n• Beijing An Hua Property Consultant, China\n• CENTURY 21 Troop Real Estate, China\n• Indonesia Shangbao\n• PT Falah Jaya Agung, Indonesia\n• Lippo Group, Indonesia\n• Indonesia Air Show Foundation"
+                    ],
+                    'cn' => [
+                        '“国际业务总监，负责统筹开拓印尼与中国之间的商业、贸易及产业投资合作网络。自2002年起常驻北京，甘地在经贸与产能合作、能源矿产、传媒、文创与旅游、教育、不动产及医疗服务等关键领域培育了广泛扎实的商业拓展渠道。”',
+                        "教育背景：\n• 中国人民大学研究生课程（当代中国研究）\n• 美国加州世界大学学士（工商管理）\n• 印尼大学学士（汉语言文学）",
+                        "专业任职经历：\n• 南洋桥传媒有限公司 (Nanyang Bridge Media)\n• 红白中国 (Red&White China)\n• 北京安华房地产顾问有限公司\n• 世纪21不动产 (CENTURY 21 Troop Real Estate)\n• 《印尼商报》(Indonesia Shangbao)\n• 印尼 PT Falah Jaya Agung\n• 印尼力宝集团 (Lippo Group)\n• 印尼航展基金会 (Indonesia Air Show Foundation)"
                     ]
                 ]
             ],
             (object)[
-                'call_name' => 'Ci Christine',
+                'call_name' => 'Christine Susanna Tjhin',
                 'title' => 'Christine Susanna Tjhin',
                 'role' => [
                     'en' => 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute · Strategic Partner, 8 Vice',
-                    'id' => 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute · Strategic Partner, 8 Vice'
+                    'id' => 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute · Strategic Partner, 8 Vice',
+                    'cn' => '根塔拉研究所 (Gentala Institute) 联合创始人兼战略传播与研究总监 · 8 Vice 战略合伙人'
                 ],
                 'short_bio' => [
                     'en' => 'Co-Founder and Director of Strategic Communication and Research at Gentala Institute and Partner at 8 Vice. Serves as advisor on China affairs to the Deputy for Geopolitics at the Indonesian National Defense Council (DPN), Member of the Supervisory Body of Indonesia Council of Sinologists, Senior Expert at FPCI China Policy Group, and former CSIS Indonesia researcher.',
-                    'id' => 'Co-Founder dan Director of Strategic Communication and Research di Gentala Institute serta Partner di 8 Vice. Menjabat penasihat urusan Tiongkok untuk Deputi Bidang Geopolitik Dewan Pertahanan Nasional (DPN), Dewan Sinolog Indonesia, Senior Expert FPCI China Policy Group, serta peneliti senior di CSIS Indonesia (2003).'
+                    'id' => 'Co-Founder dan Director of Strategic Communication and Research di Gentala Institute serta Partner di 8 Vice. Menjabat penasihat urusan Tiongkok untuk Deputi Bidang Geopolitik Dewan Pertahanan Nasional (DPN), Dewan Sinolog Indonesia, Senior Expert FPCI China Policy Group, serta peneliti senior di CSIS Indonesia (2003).',
+                    'cn' => '根塔拉研究所联合创始人兼战略传播与研究总监，8 Vice 战略合伙人。现任印尼国家国防委员会 (DPN) 地缘政治副主任中国事务顾问、印尼汉学家理事会（世界汉学中心）监事会成员、印尼外交政策共同体 (FPCI) 中国政策组资深专家，前印尼战略与国际问题研究中心 (CSIS Indonesia) 资深研究员。'
                 ],
                 'image' => '/images/profiles/christine_tjhin.webp',
                 'focus_tags' => ['Geopolitics & Policy', 'Gentala Institute', 'Sinology & China Affairs', 'CSIS Indonesia', 'Strategic Communications'],
@@ -303,7 +339,8 @@ class SeedData
                 ],
                 'quote_title' => [
                     'en' => 'Rigorous Geopolitical Insight as the Bedrock of Resilient Bilateral Partnerships',
-                    'id' => 'Wawasan Geopolitik Teruji sebagai Landasan Kemitraan Bilateral yang Tangguh'
+                    'id' => 'Wawasan Geopolitik Teruji sebagai Landasan Kemitraan Bilateral yang Tangguh',
+                    'cn' => '严谨的地缘政治洞察是构建稳健双边伙伴关系的基石'
                 ],
                 'quote_message' => [
                     'en' => [
@@ -315,6 +352,11 @@ class SeedData
                         '“Christine Susanna Tjhin adalah Co-Founder dan Director of Strategic Communication and Research di Gentala Institute. Didirikan pada tahun 2020 untuk mendukung distribusi vaksin dan alat kesehatan antara Indonesia dan Tiongkok, Gentala Institute telah berkembang menjadi lembaga riset kebijakan dan konsultasi bisnis yang memajukan kemitraan berkelanjutan dan bertanggung jawab secara sosial.”',
                         '“Di luar Gentala Institute, Christine menjabat sebagai penasihat urusan Tiongkok untuk Deputi Bidang Geopolitik Dewan Pertahanan Nasional (DPN), Anggota Badan Pengawas Dewan Sinolog Indonesia (World Sinology Center), Pakar Senior China Policy Group di FPCI, dan Koordinator jejaring pengamat Tiongkok untuk Kementerian Luar Negeri RI.”',
                         '“Memulai karier think-tank pada tahun 2002 di Indonesian Pluralism Institute (IPI) dan tahun 2003 di Centre for Strategic and International Studies (CSIS Indonesia). Menempuh studi Ekonomi, Manajemen Strategis, Studi Asia Timur, dan Hubungan Internasional di Peking University, Beihang University, Fujian Normal University, Australian National University, dan Universitas Tarumanagara.”'
+                    ],
+                    'cn' => [
+                        '“Christine Susanna Tjhin 是根塔拉研究所 (Gentala Institute) 的联合创始人兼战略传播与研究总监。根塔拉研究所于2020年成立，起初旨在支持印尼与中国之间的疫苗与医疗物资协同分配，现已发展成为一家致力于推动可持续、智能化与具社会责任感双边伙伴关系的商业咨询与政策研究机构。”',
+                        '“除根塔拉研究所外，Christine 还担任印尼国家国防委员会 (DPN) 地缘政治副主任的中国事务顾问、印尼汉学家理事会监事会成员、印尼外交政策共同体 (FPCI) 中国政策组资深专家，并担任常年为印尼外交部提供咨询意见的中国观察家网络协调人。”',
+                        '“她于2002年在印尼多元主义研究所 (IPI) 开启智库研究生涯，并于2003年加入印尼战略与国际问题研究中心 (CSIS Indonesia)。她先后在北京大学、北京航空航天大学、福建师范大学、澳大利亚国立大学及印尼塔鲁玛迦大学研修经济学、战略管理、东亚研究及国际关系。”'
                     ]
                 ]
             ],
@@ -332,17 +374,20 @@ class SeedData
                 'num' => '01',
                 'title' => [
                     'en' => 'Infrastructure & Urban Development',
-                    'id' => 'Infrastruktur & Pengembangan Perkotaan'
+                    'id' => 'Infrastruktur & Pengembangan Perkotaan',
+                    'cn' => '基础设施与城市发展'
                 ],
                 'tagline' => [
                     'en' => 'Building connectivity for sustainable growth.',
-                    'id' => 'Membangun konektivitas untuk pertumbuhan berkelanjutan.'
+                    'id' => 'Membangun konektivitas untuk pertumbuhan berkelanjutan.',
+                    'cn' => '构建促进可持续增长的高效互联互通网络。'
                 ],
                 'tag' => 'High-Growth Infrastructure',
                 'image' => '/images/industry_infrastructure.webp',
                 'description' => [
                     'en' => 'We explore opportunities for collaboration across urban infrastructure, transportation, mobility, and city development, connecting relevant stakeholders to support project evaluation.',
-                    'id' => 'Mengevaluasi peluang kolaborasi infrastruktur perkotaan, sistem transportasi publik, utilitas terbarukan, dan pengembangan kawasan industri terintegrasi.'
+                    'id' => 'Mengevaluasi peluang kolaborasi infrastruktur perkotaan, sistem transportasi publik, utilitas terbarukan, dan pengembangan kawasan industri terintegrasi.',
+                    'cn' => '我们探索城市交通、公共出行、智慧城市与综合园区开发等领域的跨境合作机遇，连接政企核心资源以支持重大基础设施项目评估。'
                 ],
                 'highlights' => [
                     'Urban Transit, Rail & Smart Mobility Systems',
@@ -356,17 +401,20 @@ class SeedData
                 'num' => '02',
                 'title' => [
                     'en' => 'Technology & Digital Ecosystems',
-                    'id' => 'Teknologi & Ekosistem Digital'
+                    'id' => 'Teknologi & Ekosistem Digital',
+                    'cn' => '科技与数字化生态'
                 ],
                 'tagline' => [
                     'en' => 'Bringing technology and markets closer together.',
-                    'id' => 'Mendekatkan teknologi mutakhir dengan kebutuhan pasar nyata.'
+                    'id' => 'Mendekatkan teknologi mutakhir dengan kebutuhan pasar nyata.',
+                    'cn' => '让前沿技术与真实市场需求紧密相连。'
                 ],
                 'tag' => 'Digital Economy',
                 'image' => '/images/industry_technology.webp',
                 'description' => [
                     'en' => 'We help explore partnerships involving digital platforms, consumer technology, payment ecosystems, and technology-enabled services, focusing on localized commercial applications.',
-                    'id' => 'Mendukung kemitraan platform digital, teknologi konsumen, infrastruktur pembayaran lintas negara, serta integrasi AI dan SaaS korporasi.'
+                    'id' => 'Mendukung kemitraan platform digital, teknologi konsumen, infrastruktur pembayaran lintas negara, serta integrasi AI dan SaaS korporasi.',
+                    'cn' => '协助探索涵盖数字平台、消费电子、跨境支付生态及技术驱动型服务的战略合作，重点推进本土商业化应用与生态共建。'
                 ],
                 'highlights' => [
                     'Digital Platforms & Cross-Border Payment Ecosystems',
@@ -380,17 +428,20 @@ class SeedData
                 'num' => '03',
                 'title' => [
                     'en' => 'Tourism, Travel & Hospitality',
-                    'id' => 'Pariwisata, Perjalanan & Perhotelan'
+                    'id' => 'Pariwisata, Perjalanan & Perhotelan',
+                    'cn' => '文旅、出行与高端酒店业'
                 ],
                 'tagline' => [
                     'en' => 'Creating connections through travel and destination experiences.',
-                    'id' => 'Menciptakan jembatan pertukaran budaya dan pengalaman destinasi bernilai tinggi.'
+                    'id' => 'Menciptakan jembatan pertukaran budaya dan pengalaman destinasi bernilai tinggi.',
+                    'cn' => '以卓越的旅行体验与目的地交流搭建双边桥梁。'
                 ],
                 'tag' => 'Bilateral Tourism',
                 'image' => '/images/industry_tourism.webp',
                 'description' => [
                     'en' => 'We support tourism-related collaboration through destination promotion, travel industry partnerships, visitor engagement initiatives, and MICE development connecting Indonesia with Chinese markets.',
-                    'id' => 'Memfasilitasi promosi destinasi terpadu, kemitraan rantai perhotelan internasional, pengembangan MICE, dan pembukaan akses wisatawan Tiongkok ke destinasi Indonesia.'
+                    'id' => 'Memfasilitasi promosi destinasi terpadu, kemitraan rantai perhotelan internasional, pengembangan MICE, dan pembukaan akses wisatawan Tiongkok ke destinasi Indonesia.',
+                    'cn' => '通过目的地推广、国际酒店集团合作、定制旅行体验及大型会奖旅游 (MICE) 促进印尼与中国文旅产业的深度对接。'
                 ],
                 'highlights' => [
                     'Bilateral Destination Promotion & Marketing',
@@ -404,17 +455,20 @@ class SeedData
                 'num' => '04',
                 'title' => [
                     'en' => 'Creative Economy & Lifestyle',
-                    'id' => 'Ekonomi Kreatif & Gaya Hidup'
+                    'id' => 'Ekonomi Kreatif & Gaya Hidup',
+                    'cn' => '创意经济与现代生活方式'
                 ],
                 'tagline' => [
                     'en' => 'Connecting culture, creativity, and commercial opportunity.',
-                    'id' => 'Memadukan ekspresi budaya, kekayaan intelektual, dan peluang komersial.'
+                    'id' => 'Memadukan ekspresi budaya, kekayaan intelektual, dan peluang komersial.',
+                    'cn' => '融汇文化表达、创意IP与多元商业价值。'
                 ],
                 'tag' => 'Culture & Lifestyle',
                 'image' => '/images/industry_creative.webp',
                 'description' => [
                     'en' => 'We explore collaboration across fashion, crafts, culinary, film, music, games, applications, and creative IP, supporting market positioning and brand partnerships.',
-                    'id' => 'Mendorong kolaborasi lintas batas industri fesyen, kriya, kuliner, lisensi film & animasi, gaming, dan sindikasi kekayaan intelektual (IP).'
+                    'id' => 'Mendorong kolaborasi lintas batas industri fesyen, kriya, kuliner, lisensi film & animasi, gaming, dan sindikasi kekayaan intelektual (IP).',
+                    'cn' => '推动时尚设计、现代手工艺、特色餐饮、影视动漫、游戏娱乐及数字IP版权授权的跨国合作，赋能品牌市场定位。'
                 ],
                 'highlights' => [
                     'Film, Animation, Digital Media & IP Collaboration',
@@ -428,17 +482,20 @@ class SeedData
                 'num' => '05',
                 'title' => [
                     'en' => 'Trade & Consumer Goods',
-                    'id' => 'Perdagangan & Barang Konsumsi'
+                    'id' => 'Perdagangan & Barang Konsumsi',
+                    'cn' => '双边贸易与消费品供应链'
                 ],
                 'tagline' => [
                     'en' => 'Helping businesses find new commercial pathways.',
-                    'id' => 'Membuka jalur komersial dan rantai distribusi ritel yang berdaya saing.'
+                    'id' => 'Membuka jalur komersial dan rantai distribusi ritel yang berdaya saing.',
+                    'cn' => '为企业开拓高效、具竞争力的跨境商业渠道。'
                 ],
                 'tag' => 'Market Expansion',
                 'image' => '/images/industry_trade.webp',
                 'description' => [
                     'en' => 'We help businesses explore distribution partnerships, product localization, market positioning, and commercial channels for cross-border trade relationships.',
-                    'id' => 'Mendukung penetrasi produk konsumen, pemilihan distributor nasional, lokalisasi sertifikasi (BPOM/Halal), dan efisiensi logistik perdagangan bilateral.'
+                    'id' => 'Mendukung penetrasi produk konsumen, pemilihan distributor nasional, lokalisasi sertifikasi (BPOM/Halal), dan efisiensi logistik perdagangan bilateral.',
+                    'cn' => '协助企业拓展全国性分销网络、产品本土化准入（BPOM/清真认证）、品牌定位以及端到端双边供应链贸易支持。'
                 ],
                 'highlights' => [
                     'Strategic Distribution & Retail Channel Partnerships',
@@ -585,82 +642,82 @@ class SeedData
     {
         return [
             (object)[
-                'tag' => 'Fintech · Market Entry',
+                'tag' => ['en' => 'Fintech · Market Entry', 'id' => 'Fintech · Penetrasi Pasar', 'cn' => '金融科技 · 市场准入'],
                 'slug' => 'chinese-fintech-live-in-6-months',
                 'cover' => '/images/cases/fintech.webp',
-                'h' => 'A Chinese Fintech, Live in 6 Months.',
-                'p' => 'Market entry, licensing pathway, and a local operating team - from scoping to launch.',
+                'h' => ['en' => 'A Chinese Fintech, Live in 6 Months.', 'id' => 'Fintech Tiongkok, Beroperasi Penuh dalam 6 Bulan.', 'cn' => '中国金融科技企业，6个月全面落地运营。'],
+                'p' => ['en' => 'Market entry, licensing pathway, and a local operating team - from scoping to launch.', 'id' => 'Penetrasi pasar, perizinan berjenjang, dan tim operasional lokal — dari perencanaan hingga peluncuran.', 'cn' => '从前期调研到正式运营：合规牌照梳理、本土银行合作与核心运营团队构建。'],
                 'is_featured' => true,
                 'metrics' => [
-                    ['value' => '6', 'unit' => 'mo', 'label_en' => 'Scoping to launch', 'label_id' => 'Dari scoping hingga peluncuran'],
-                    ['value' => '3', 'unit' => '×', 'label_en' => 'Faster than prior attempts', 'label_id' => 'Lebih cepat dari upaya sebelumnya'],
-                    ['value' => '14', 'unit' => '', 'label_en' => 'Local hires onboarded', 'label_id' => 'Tim lokal berhasil direkrut'],
-                    ['value' => '1', 'unit' => '', 'label_en' => 'License correctly sequenced', 'label_id' => 'Izin usaha diurus dengan urutan tepat'],
+                    ['value' => '6', 'unit' => 'mo', 'label_en' => 'Scoping to launch', 'label_id' => 'Dari scoping hingga peluncuran', 'label_cn' => '从立项调研到商用上线'],
+                    ['value' => '3', 'unit' => '×', 'label_en' => 'Faster than prior attempts', 'label_id' => 'Lebih cepat dari upaya sebelumnya', 'label_cn' => '落地效率较以往提升3倍'],
+                    ['value' => '14', 'unit' => '', 'label_en' => 'Local hires onboarded', 'label_id' => 'Tim lokal berhasil direkrut', 'label_cn' => '本土核心运营团队入职'],
+                    ['value' => '1', 'unit' => '', 'label_en' => 'License correctly sequenced', 'label_id' => 'Izin usaha diurus dengan urutan tepat', 'label_cn' => '合规牌照精准按序落地'],
                 ],
-                'corridor' => ['en' => 'China & Global → Indonesia', 'id' => 'Tiongkok & Global → Indonesia'],
-                'capabilities' => ['en' => 'Market Entry, Regulatory Navigation, Team Building & Strategic Scaling', 'id' => 'Penetrasi Pasar, Navigasi Regulasi, Pembentukan Tim & Penskalaan Strategis'],
+                'corridor' => ['en' => 'China & Global → Indonesia', 'id' => 'Tiongkok & Global → Indonesia', 'cn' => '中国及全球 → 印度尼西亚'],
+                'capabilities' => ['en' => 'Market Entry, Regulatory Navigation, Team Building & Strategic Scaling', 'id' => 'Penetrasi Pasar, Navigasi Regulasi, Pembentukan Tim & Penskalaan Strategis', 'cn' => '市场准入策略、监管牌照导航、本土团队组建与战略性业务扩展'],
                 'body' => null,
             ],
             (object)[
-                'tag' => 'Consumer Tech · Retail',
+                'tag' => ['en' => 'Consumer Tech · Retail', 'id' => 'Teknologi Konsumen · Ritel', 'cn' => '消费电子 · 零售渠道'],
                 'slug' => 'shelf-to-scale-across-40-cities',
                 'cover' => '/images/cases/retail.webp',
-                'h' => 'Shelf to Scale Across 40 Indonesian Cities.',
-                'p' => 'Distribution strategy and channel partnerships built around Indonesian buying behaviour.',
+                'h' => ['en' => 'Shelf to Scale Across 40 Indonesian Cities.', 'id' => 'Ekspansi Distribusi Ritel ke 40 Kota di Indonesia.', 'cn' => '全渠道零售覆盖：进驻印尼40座城市商圈。'],
+                'p' => ['en' => 'Distribution strategy and channel partnerships built around Indonesian buying behaviour.', 'id' => 'Strategi distribusi menyeluruh dan kemitraan kanal yang disesuaikan dengan pola belanja konsumen Indonesia.', 'cn' => '深度契合印尼消费者购买习惯的全渠道分销策略与区域总代商业联盟。'],
                 'is_featured' => false,
                 'metrics' => [
-                    ['value' => '40+', 'unit' => 'cities', 'label_en' => 'Tier-1 to tier-3 coverage', 'label_id' => 'Cakupan kota tier-1 hingga tier-3'],
-                    ['value' => '180', 'unit' => 'days', 'label_en' => 'From signing to shelf presence', 'label_id' => 'Dari penandatanganan hingga ada di rak'],
-                    ['value' => '9', 'unit' => 'distributors', 'label_en' => 'Regional partners signed', 'label_id' => 'Mitra regional ditandatangani'],
+                    ['value' => '40+', 'unit' => 'cities', 'label_en' => 'Tier-1 to tier-3 coverage', 'label_id' => 'Cakupan kota tier-1 hingga tier-3', 'label_cn' => '覆盖一至三线核心城市'],
+                    ['value' => '180', 'unit' => 'days', 'label_en' => 'From signing to shelf presence', 'label_id' => 'Dari penandatanganan hingga ada di rak', 'label_cn' => '从协议签署到全面进驻货架用时'],
+                    ['value' => '9', 'unit' => 'distributors', 'label_en' => 'Regional partners signed', 'label_id' => 'Mitra regional ditandatangani', 'label_cn' => '签署省级一级总代协议'],
                 ],
-                'corridor' => ['en' => 'Shenzhen → Jakarta, Surabaya & Outer Islands', 'id' => 'Shenzhen → Jakarta, Surabaya & Luar Jawa'],
-                'capabilities' => ['en' => 'Distribution Strategy, Channel Partner Selection, Retail Localization', 'id' => 'Strategi Distribusi, Seleksi Mitra Kanal, Lokalisasi Ritel'],
+                'corridor' => ['en' => 'Shenzhen → Jakarta, Surabaya & Outer Islands', 'id' => 'Shenzhen → Jakarta, Surabaya & Luar Jawa', 'cn' => '深圳 → 雅加达、泗水及外岛核心城市'],
+                'capabilities' => ['en' => 'Distribution Strategy, Channel Partner Selection, Retail Localization', 'id' => 'Strategi Distribusi, Seleksi Mitra Kanal, Lokalisasi Ritel', 'cn' => '全渠道分销策略、渠道伙伴严格筛选、本土零售与售后网络布局'],
                 'body' => null,
             ],
             (object)[
-                'tag' => 'Manufacturing · Operations',
+                'tag' => ['en' => 'Manufacturing · Operations', 'id' => 'Manufaktur · Operasional', 'cn' => '高端制造 · 运营合规'],
                 'slug' => 'local-production-de-risked',
                 'cover' => '/images/cases/manufacturing.webp',
-                'h' => 'Local Production, De-Risked.',
-                'p' => 'Site selection, regulatory navigation, and a resilient supply chain for an industrial entrant.',
+                'h' => ['en' => 'Local Production, De-Risked.', 'id' => 'Manufaktur Lokal, Bebas Risiko.', 'cn' => '制造业本土化落地：全程风险缓释。'],
+                'p' => ['en' => 'Site selection, regulatory navigation, and a resilient supply chain for an industrial entrant.', 'id' => 'Pemilihan lokasi pabrik, kepatuhan regulasi TKDN, dan perancangan rantai pasok tangguh bagi industri manufaktur.', 'cn' => '工业园区选址评估、40% TKDN 国产化率达标与供应链韧性重构。'],
                 'is_featured' => false,
                 'metrics' => [
-                    ['value' => '40%', 'unit' => 'TKDN', 'label_en' => 'Target achieved in year 1', 'label_id' => 'Target tercapai pada tahun pertama'],
-                    ['value' => '3', 'unit' => 'zones', 'label_en' => 'Industrial parks evaluated', 'label_id' => 'Kawasan industri dievaluasi'],
-                    ['value' => '450+', 'unit' => 'jobs', 'label_en' => 'Local manufacturing roles created', 'label_id' => 'Lapangan kerja lokal tercipta'],
+                    ['value' => '40%', 'unit' => 'TKDN', 'label_en' => 'Target achieved in year 1', 'label_id' => 'Target tercapai pada tahun pertama', 'label_cn' => '首年达成国家认证国产化率指标'],
+                    ['value' => '3', 'unit' => 'zones', 'label_en' => 'Industrial parks evaluated', 'label_id' => 'Kawasan industri dievaluasi', 'label_cn' => '深入比对三处国家级特区工业园'],
+                    ['value' => '450+', 'unit' => 'jobs', 'label_en' => 'Local manufacturing roles created', 'label_id' => 'Lapangan kerja lokal tercipta', 'label_cn' => '创造本土高质量产业制造岗位'],
                 ],
-                'corridor' => ['en' => 'Jiangsu → Central Java Industrial Corridor', 'id' => 'Jiangsu → Koridor Industri Jawa Tengah'],
-                'capabilities' => ['en' => 'Site Selection, Supply Chain Localization, Labor Regulatory Advisory', 'id' => 'Pemilihan Lokasi Pabrik, Lokalisasi Rantai Pasok, Regulasi Ketenagakerjaan'],
+                'corridor' => ['en' => 'Jiangsu → Central Java Industrial Corridor', 'id' => 'Jiangsu → Koridor Industri Jawa Tengah', 'cn' => '江苏 → 中爪哇核心工业园区走廊'],
+                'capabilities' => ['en' => 'Site Selection, Supply Chain Localization, Labor Regulatory Advisory', 'id' => 'Pemilihan Lokasi Pabrik, Lokalisasi Rantai Pasok, Regulasi Ketenagakerjaan', 'cn' => '工业园区选址分析、本土供应链配套、劳工与环境合规咨询'],
                 'body' => null,
             ],
             (object)[
-                'tag' => 'Enterprise SaaS · Tech',
+                'tag' => ['en' => 'Enterprise SaaS · Tech', 'id' => 'SaaS Korporat · Teknologi', 'cn' => '企业级SaaS · 数字化'],
                 'slug' => 'enterprise-saas-cross-border-collaboration',
                 'cover' => '/images/challenges_insights.webp',
-                'h' => 'Enterprise SaaS Localization Without Data Friction.',
-                'p' => 'Data sovereignty compliance, enterprise sales playbook, and multinational team collaboration.',
+                'h' => ['en' => 'Enterprise SaaS Localization Without Data Friction.', 'id' => 'Lokalisasi SaaS Korporat Tanpa Hambatan Kedaulatan Data.', 'cn' => '企业级软件本土化：化解数据出境合规阻碍。'],
+                'p' => ['en' => 'Data sovereignty compliance, enterprise sales playbook, and multinational team collaboration.', 'id' => 'Kepatuhan UU PDP, strategi penjualan B2B korporasi, dan integrasi kolaborasi tim lintas batas.', 'cn' => '印尼个人数据保护法 (UU PDP) 严格合规、大型企业客群销售打法与双语技术协同。'],
                 'is_featured' => false,
                 'metrics' => [
-                    ['value' => '100%', 'unit' => 'compliant', 'label_en' => 'UU PDP and BI data residency', 'label_id' => 'Kepatuhan penuh UU PDP & BI'],
-                    ['value' => '12', 'unit' => 'pilots', 'label_en' => 'Enterprise POCs secured in 90 days', 'label_id' => 'POC korporat diraih dalam 90 hari'],
+                    ['value' => '100%', 'unit' => 'compliant', 'label_en' => 'UU PDP and BI data residency', 'label_id' => 'Kepatuhan penuh UU PDP & BI', 'label_cn' => '通过印尼个人数据保护法与央行审查'],
+                    ['value' => '12', 'unit' => 'pilots', 'label_en' => 'Enterprise POCs secured in 90 days', 'label_id' => 'POC korporat diraih dalam 90 hari', 'label_cn' => '90天内落地大型集团概念验证项目 (POC)'],
                 ],
-                'corridor' => ['en' => 'Hangzhou → Jakarta Financial Sector', 'id' => 'Hangzhou → Sektor Finansial Jakarta'],
-                'capabilities' => ['en' => 'Regulatory Compliance, Enterprise Go-to-Market, Data Sovereignty', 'id' => 'Kepatuhan Regulasi, Go-to-Market Korporat, Kedaulatan Data'],
+                'corridor' => ['en' => 'Hangzhou → Jakarta Financial Sector', 'id' => 'Hangzhou → Sektor Finansial Jakarta', 'cn' => '杭州 → 雅加达金融与企业核心圈'],
+                'capabilities' => ['en' => 'Regulatory Compliance, Enterprise Go-to-Market, Data Sovereignty', 'id' => 'Kepatuhan Regulasi, Go-to-Market Korporat, Kedaulatan Data', 'cn' => '数据合规监管审查、企业级 GTM 拓展战略、本土云服务混合架构设计'],
                 'body' => null,
             ],
             (object)[
-                'tag' => 'Creative IP · Media',
+                'tag' => ['en' => 'Creative IP · Media', 'id' => 'IP Kreatif · Media', 'cn' => '数字文化IP · 影视文娱'],
                 'slug' => 'digital-ip-and-entertainment-syndication',
                 'cover' => '/images/video_manifesto_cover.webp',
-                'h' => 'Syndicating Global Creative IP to Indonesian Audiences.',
-                'p' => 'Broadcast licensing, localized dubbing & cultural resonance, and multi-platform distribution.',
+                'h' => ['en' => 'Syndicating Global Creative IP to Indonesian Audiences.', 'id' => 'Sindikasi Konten Kreatif dan IP Global untuk Pemirsa Indonesia.', 'cn' => '全球文创数字IP发行：深度融入印尼大众受众。'],
+                'p' => ['en' => 'Broadcast licensing, localized dubbing & cultural resonance, and multi-platform distribution.', 'id' => 'Perizinan sensor siaran LSF, lokalisasi pengalihan suara & budaya, serta sindikasi multiplatform digital.', 'cn' => '印尼国家电影审查局 (LSF) 牌照合规、高水准印尼语配音与本土消费品衍生授权。'],
                 'is_featured' => false,
                 'metrics' => [
-                    ['value' => '15M+', 'unit' => 'views', 'label_en' => 'Total reach across broadcast & OTT', 'label_id' => 'Jangkauan tayang di TV & OTT'],
-                    ['value' => '4', 'unit' => 'networks', 'label_en' => 'Major broadcasting partners onboard', 'label_id' => 'Mitra stasiun TV nasional'],
+                    ['value' => '15M+', 'unit' => 'views', 'label_en' => 'Total reach across broadcast & OTT', 'label_id' => 'Jangkauan tayang di TV & OTT', 'label_cn' => '全国电视台与流媒体平台累计播放量'],
+                    ['value' => '4', 'unit' => 'networks', 'label_en' => 'Major broadcasting partners onboard', 'label_id' => 'Mitra stasiun TV nasional', 'label_cn' => '达成协议的印尼主流广播与流媒体平台'],
                 ],
-                'corridor' => ['en' => 'Changsha / Beijing → Indonesia Digital Entertainment', 'id' => 'Changsha / Beijing → Hiburan Digital Indonesia'],
-                'capabilities' => ['en' => 'Content Licensing, Media Relations, Cultural Adaptation', 'id' => 'Lisensi Konten, Relasi Media, Adaptasi Budaya'],
+                'corridor' => ['en' => 'Changsha / Beijing → Indonesia Digital Entertainment', 'id' => 'Changsha / Beijing → Hiburan Digital Indonesia', 'cn' => '长沙 / 北京 → 印尼全域数字娱乐生态'],
+                'capabilities' => ['en' => 'Content Licensing, Media Relations, Cultural Adaptation', 'id' => 'Lisensi Konten, Relasi Media, Adaptasi Budaya', 'cn' => '数字内容出海版权运营、主流传媒公关、跨文化本土化适配与衍生品商业化'],
                 'body' => null,
             ],
         ];
@@ -690,7 +747,8 @@ class SeedData
             'macro_stat_label' => 'Bilateral Indonesia–China cross-border tech, infrastructure & retail opportunity in 2026',
             'tagline' => [
                 'en' => "Your Strategic Gateway to Indonesia and China.",
-                'id' => "Gerbang Strategis Anda Menuju Indonesia dan Tiongkok."
+                'id' => "Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.",
+                'cn' => "连接印尼与中国的战略商业门户。"
             ]
         ];
     }
@@ -715,28 +773,100 @@ class SeedData
     {
         return [
             (object)[
-                'title' => 'Senior Cross-Border Strategic Advisor',
-                'dept' => 'Advisory Practice',
-                'type' => 'Full-time',
-                'location' => 'Jakarta, Indonesia (SOHO Pancoran)',
-                'reqs' => json_encode(['4+ years in management consulting or corporate expansion', 'Fluent in Mandarin, English, and Bahasa Indonesia', 'Strong familiarity with Indonesian investment licensing & PT PMA regulations']),
-                'description' => 'Lead market entry assessments, regulatory roadmaps, and high-level bilateral commercial matchmaking for Chinese multinational enterprises expanding into Indonesia.',
+                'title' => [
+                    'en' => 'Senior Cross-Border Strategic Advisor',
+                    'id' => 'Senior Cross-Border Strategic Advisor',
+                    'cn' => '高级跨境战略顾问'
+                ],
+                'dept' => [
+                    'en' => 'Advisory Practice',
+                    'id' => 'Praktik Konsultasi (Advisory)',
+                    'cn' => '战略咨询业务部'
+                ],
+                'type' => [
+                    'en' => 'Full-time',
+                    'id' => 'Purna Waktu (Full-time)',
+                    'cn' => '全职'
+                ],
+                'location' => [
+                    'en' => 'Jakarta, Indonesia (SOHO Pancoran)',
+                    'id' => 'Jakarta, Indonesia (SOHO Pancoran)',
+                    'cn' => '雅加达，印度尼西亚 (SOHO Pancoran)'
+                ],
+                'reqs' => [
+                    'en' => ['4+ years in management consulting or corporate expansion', 'Fluent in Mandarin, English, and Bahasa Indonesia', 'Strong familiarity with Indonesian investment licensing & PT PMA regulations'],
+                    'id' => ['4+ tahun pengalaman dalam konsultasi manajemen atau ekspansi korporat', 'Fasih berbahasa Mandarin, Inggris, dan Bahasa Indonesia', 'Memahami regulasi perizinan investasi Indonesia & pendirian PT PMA'],
+                    'cn' => ['4年以上管理咨询或企业出海扩张经验', '精通中文、英语及印尼语（听说读写）', '深入熟悉印尼投资审批流程与外资公司 (PT PMA) 设立法规']
+                ],
+                'description' => [
+                    'en' => 'Lead market entry assessments, regulatory roadmaps, and high-level bilateral commercial matchmaking for Chinese multinational enterprises expanding into Indonesia.',
+                    'id' => 'Memimpin evaluasi penetrasi pasar, peta jalan regulasi, dan pencocokan komersial bilateral tingkat tinggi bagi perusahaan multinasional Tiongkok yang berekspansi ke Indonesia.',
+                    'cn' => '主导中国跨国企业拓展印尼市场的准入评估、合规路线图制定及高层双边商业配对工作。'
+                ],
             ],
             (object)[
-                'title' => 'China Market & Macro Research Analyst',
-                'dept' => 'Strategic Research Desk',
-                'type' => 'Full-time',
-                'location' => 'Jakarta, Indonesia',
-                'reqs' => json_encode(['Mandarin fluency (written & spoken)', 'Experience in industrial policy and cross-border trade analysis', 'Strong qualitative & financial modeling capabilities']),
-                'description' => 'Produce authoritative market intelligence reports, industrial relocation blueprints, and executive briefs covering the Indonesia–China commercial corridor.',
+                'title' => [
+                    'en' => 'China Market & Macro Research Analyst',
+                    'id' => 'China Market & Macro Research Analyst',
+                    'cn' => '中国市场与宏观经济研究分析师'
+                ],
+                'dept' => [
+                    'en' => 'Strategic Research Desk',
+                    'id' => 'Meja Riset Strategis',
+                    'cn' => '战略研究部'
+                ],
+                'type' => [
+                    'en' => 'Full-time',
+                    'id' => 'Purna Waktu (Full-time)',
+                    'cn' => '全职'
+                ],
+                'location' => [
+                    'en' => 'Jakarta, Indonesia',
+                    'id' => 'Jakarta, Indonesia',
+                    'cn' => '雅加达，印度尼西亚'
+                ],
+                'reqs' => [
+                    'en' => ['Mandarin fluency (written & spoken)', 'Experience in industrial policy and cross-border trade analysis', 'Strong qualitative & financial modeling capabilities'],
+                    'id' => ['Fasih berbahasa Mandarin (lisan & tulisan)', 'Pengalaman dalam kebijakan industri dan analisis perdagangan lintas batas', 'Kemampuan pemodelan keuangan & kualitatif yang kuat'],
+                    'cn' => ['精通中文（听说读写）', '具有产业政策与跨境经贸分析经验', '具备扎实的定性研究与财务建模能力']
+                ],
+                'description' => [
+                    'en' => 'Produce authoritative market intelligence reports, industrial relocation blueprints, and executive briefs covering the Indonesia–China commercial corridor.',
+                    'id' => 'Menyusun laporan intelijen pasar otoritatif, cetak biru relokasi industri, dan ringkasan eksekutif koridor komersial Indonesia–Tiongkok.',
+                    'cn' => '撰写权威市场洞察报告、产业转移出海蓝图，以及覆盖印尼—中国商业走廊的高管决策简报。'
+                ],
             ],
             (object)[
-                'title' => 'Strategic Communications & PR Associate',
-                'dept' => 'Communications & Media',
-                'type' => 'Full-time',
-                'location' => 'Jakarta, Indonesia',
-                'reqs' => json_encode(['2+ years in corporate PR or media agency', 'Established relationships with Indonesian tier-1 business media', 'Experience in brand localization and executive reputation management']),
-                'description' => 'Execute high-impact press conferences, media roundtables, and localized brand positioning campaigns for international market entrants.',
+                'title' => [
+                    'en' => 'Strategic Communications & PR Associate',
+                    'id' => 'Strategic Communications & PR Associate',
+                    'cn' => '战略传播与公共关系专员'
+                ],
+                'dept' => [
+                    'en' => 'Communications & Media',
+                    'id' => 'Komunikasi & Media',
+                    'cn' => '传播与媒体事务部'
+                ],
+                'type' => [
+                    'en' => 'Full-time',
+                    'id' => 'Purna Waktu (Full-time)',
+                    'cn' => '全职'
+                ],
+                'location' => [
+                    'en' => 'Jakarta, Indonesia',
+                    'id' => 'Jakarta, Indonesia',
+                    'cn' => '雅加达，印度尼西亚'
+                ],
+                'reqs' => [
+                    'en' => ['2+ years in corporate PR or media agency', 'Established relationships with Indonesian tier-1 business media', 'Experience in brand localization and executive reputation management'],
+                    'id' => ['2+ tahun di PR korporat atau agensi media', 'Memiliki relasi kuat dengan media bisnis tier-1 Indonesia', 'Pengalaman dalam lokalisasi brand dan manajemen reputasi eksekutif'],
+                    'cn' => ['2年以上企业公关或传媒机构经验', '与印尼一线主流财经商业媒体建立良好合作关系', '具备品牌本土化传播与企业高管声誉管理经验']
+                ],
+                'description' => [
+                    'en' => 'Execute high-impact press conferences, media roundtables, and localized brand positioning campaigns for international market entrants.',
+                    'id' => 'Mengeksekusi konferensi pers berdampak tinggi, temu media, dan kampanye positioning merek lokal bagi pendatang pasar internasional.',
+                    'cn' => '为进入印尼市场的跨国企业统筹高影响力新闻发布会、媒体圆桌会及本土化品牌定位传播活动。'
+                ],
             ],
         ];
     }

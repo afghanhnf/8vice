@@ -25,41 +25,48 @@ export default function SeoHead({
   const currentUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
 
   // Determine language based on pathname
-  const isIndonesian = pathname.startsWith('/id');
-  const locale = isIndonesian ? 'id_ID' : 'en_US';
-  const alternateLocale = isIndonesian ? 'en_US' : 'id_ID';
+  const isIndonesian = pathname === '/id' || pathname.startsWith('/id/');
+  const isChinese = pathname === '/cn' || pathname.startsWith('/cn/');
+  const langKey = isChinese ? 'cn' : isIndonesian ? 'id' : 'en';
+  const locale = isChinese ? 'zh_CN' : isIndonesian ? 'id_ID' : 'en_US';
+  const alternateLocale = isChinese ? 'en_US' : isIndonesian ? 'en_US' : 'zh_CN';
 
   // Hreflang alternate URLs
-  const cleanPath = pathname.replace(/^\/id/, '') || '/';
+  const cleanPath = pathname.replace(/^\/(id|cn)(\/|$)/, '/') || '/';
   const enUrl = `${origin}${cleanPath === '/' ? '' : cleanPath}`;
   const idUrl = `${origin}/id${cleanPath === '/' ? '' : cleanPath}`;
+  const cnUrl = `${origin}/cn${cleanPath === '/' ? '' : cleanPath}`;
+
+  const pickLang = (field) => {
+    if (!field) return '';
+    if (typeof field === 'string') return field;
+    return field[langKey] || field.en || field.id || field.cn || '';
+  };
 
   // 1. Resolve Title
   let resolvedTitle = '';
   if (article?.t) {
-    resolvedTitle = typeof article.t === 'string' ? article.t : (article.t[isIndonesian ? 'id' : 'en'] || article.t.en || article.t.id || '');
+    resolvedTitle = pickLang(article.t);
     if (resolvedTitle && !resolvedTitle.includes('8vice')) {
       resolvedTitle = `${resolvedTitle} | 8vice`;
     }
   } else if (caseStudy?.h) {
-    resolvedTitle = typeof caseStudy.h === 'string' ? caseStudy.h : (caseStudy.h[isIndonesian ? 'id' : 'en'] || caseStudy.h.en || caseStudy.h.id || '');
+    resolvedTitle = pickLang(caseStudy.h);
     if (resolvedTitle && !resolvedTitle.includes('8vice')) {
       resolvedTitle = `${resolvedTitle} | 8vice Case Study`;
     }
   } else if (title) {
     resolvedTitle = title.includes('8vice') || title.includes('|') ? title : `${title} | 8vice`;
   } else if (cmsSeo?.meta_title) {
-    resolvedTitle = typeof cmsSeo.meta_title === 'string'
-      ? cmsSeo.meta_title
-      : (cmsSeo.meta_title[isIndonesian ? 'id' : 'en'] || cmsSeo.meta_title.en || cmsSeo.meta_title.id || '');
+    resolvedTitle = pickLang(cmsSeo.meta_title);
   } else if (siteSettings?.default_meta_title) {
-    resolvedTitle = typeof siteSettings.default_meta_title === 'string'
-      ? siteSettings.default_meta_title
-      : (siteSettings.default_meta_title[isIndonesian ? 'id' : 'en'] || siteSettings.default_meta_title.en || siteSettings.default_meta_title.id || '');
+    resolvedTitle = pickLang(siteSettings.default_meta_title);
   }
 
   if (!resolvedTitle) {
-    resolvedTitle = isIndonesian
+    resolvedTitle = isChinese
+      ? '8vice | 您的印尼与中国战略商业门户与跨境咨询伙伴'
+      : isIndonesian
       ? '8vice | Solusi Strategis & Konsultasi Bisnis Global di Indonesia'
       : '8vice | Indonesia, Decoded for Chinese Businesses & Global Enterprises';
   }
@@ -68,7 +75,7 @@ export default function SeoHead({
   let resolvedDescription = '';
   if (article) {
     if (article.excerpt) {
-      resolvedDescription = article.excerpt;
+      resolvedDescription = pickLang(article.excerpt);
     } else if (typeof article.body === 'string') {
       resolvedDescription = article.body.replace(/<[^>]*>?/gm, '').slice(0, 160) + '...';
     } else if (Array.isArray(article.body)) {
@@ -77,23 +84,19 @@ export default function SeoHead({
       resolvedDescription = `Read ${resolvedTitle} on 8vice Insights. High-level analysis and strategic intelligence for Indonesia.`;
     }
   } else if (caseStudy?.p) {
-    resolvedDescription = typeof caseStudy.p === 'string'
-      ? caseStudy.p
-      : (caseStudy.p[isIndonesian ? 'id' : 'en'] || caseStudy.p.en || caseStudy.p.id || '');
+    resolvedDescription = pickLang(caseStudy.p);
   } else if (description) {
     resolvedDescription = description;
   } else if (cmsSeo?.meta_description) {
-    resolvedDescription = typeof cmsSeo.meta_description === 'string'
-      ? cmsSeo.meta_description
-      : (cmsSeo.meta_description[isIndonesian ? 'id' : 'en'] || cmsSeo.meta_description.en || cmsSeo.meta_description.id || '');
+    resolvedDescription = pickLang(cmsSeo.meta_description);
   } else if (siteSettings?.default_meta_description) {
-    resolvedDescription = typeof siteSettings.default_meta_description === 'string'
-      ? siteSettings.default_meta_description
-      : (siteSettings.default_meta_description[isIndonesian ? 'id' : 'en'] || siteSettings.default_meta_description.en || siteSettings.default_meta_description.id || '');
+    resolvedDescription = pickLang(siteSettings.default_meta_description);
   }
 
   if (!resolvedDescription) {
-    resolvedDescription = isIndonesian
+    resolvedDescription = isChinese
+      ? '8vice 助力中国与跨国企业无缝进入印尼市场，提供战略咨询、市场准入、政府关系、商业配对与品牌本土化落地服务。'
+      : isIndonesian
       ? '8vice membantu bisnis global dan Tiongkok berekspansi di Indonesia dengan strategi masuk pasar, perizinan, struktur bisnis, dan riset mendalam.'
       : '8vice empowers Chinese & global businesses to seamlessly enter, structure, and scale in Indonesia with senior advisors who have operated on the ground.';
   }
@@ -129,15 +132,13 @@ export default function SeoHead({
   // 4. Resolve Keywords
   let resolvedKeywords = keywords;
   if (!resolvedKeywords && cmsSeo?.meta_keywords) {
-    resolvedKeywords = typeof cmsSeo.meta_keywords === 'string'
-      ? cmsSeo.meta_keywords
-      : (cmsSeo.meta_keywords[isIndonesian ? 'id' : 'en'] || cmsSeo.meta_keywords.en || cmsSeo.meta_keywords.id || '');
+    resolvedKeywords = pickLang(cmsSeo.meta_keywords);
   }
   if (!resolvedKeywords && siteSettings?.site_keywords) {
-    resolvedKeywords = siteSettings.site_keywords;
+    resolvedKeywords = pickLang(siteSettings.site_keywords);
   }
   if (!resolvedKeywords) {
-    resolvedKeywords = 'indonesia market entry, chinese business indonesia, corporate advisory jakarta, business consultancy, business intelligence';
+    resolvedKeywords = 'indonesia market entry, chinese business indonesia, corporate advisory jakarta, business consultancy, business intelligence, 印尼市场准入, 中资企业出海印尼';
   }
 
   // 5. OpenGraph Type & Robots
@@ -230,6 +231,7 @@ export default function SeoHead({
       <link rel="canonical" href={resolvedCanonical} />
       <link rel="alternate" hrefLang="en" href={enUrl} />
       <link rel="alternate" hrefLang="id" href={idUrl} />
+      <link rel="alternate" hrefLang="zh-CN" href={cnUrl} />
       <link rel="alternate" hrefLang="x-default" href={enUrl} />
 
       {/* Open Graph / Facebook / LinkedIn / WhatsApp */}

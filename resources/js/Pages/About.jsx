@@ -121,6 +121,7 @@ function ModernCityBg({ opacity = 0.28, flip = false }) {
 export default function About({ profiles = [] }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [mounted, setMounted] = useState(false);
 
@@ -174,7 +175,311 @@ export default function About({ profiles = [] }) {
     };
   }, [lang]);
 
-  const copy = isId
+  const copy = isCn
+    ? {
+        breadcrumbHome: '首页',
+        breadcrumbCurrent: '关于我们',
+        eyebrow: '关于 8 VICE · 双边高管级战略咨询',
+        heroTitleLine1: '始于深度洞察。',
+        heroTitleLine2: '成于战略连接。',
+        heroSubtitle:
+          '横跨印尼与中国的战略咨询、跨境合作伙伴构建与本土市场深耕。',
+        heroBannerBadge: '我们的创立使命 · 印尼—中国战略商业走廊',
+        heroBannerQuote:
+          '8 Vice 的创立旨在协助企业从容应对跨境扩张中的商业机遇与复杂挑战，重点深耕印尼与中国两大核心市场。',
+        heroBannerSub:
+          '在亚洲最具活力的两大经济体之间，融汇深刻的本土市场理解、可信赖的政商利益相关方网络与务实的落地执行。',
+
+        overviewEyebrow: '01 · 公司概况',
+        overviewTitle: '架起从商业雄心通往本土市场脉络的桥梁。',
+        overviewLead:
+          '8 Vice 是寻求在印尼与中国之间建立市场存在、强化战略网络并开拓新增长路径的企业与机构的长期战略顾问伙伴。',
+        overviewP1:
+          '我们的工作将战略咨询、业务拓展、利益相关方沟通与品牌传播紧密结合，协助组织跨越初步市场探索阶段，迈向结构化的真实商业机遇。',
+        overviewP2:
+          '凭借对企业商业目标与本土市场语境的双重深刻理解，我们协助客户清晰应对监管合规细节、商业文化差异与本土产业生态。',
+        overviewQuote:
+          '当双边市场实现更深度的连接，商业机遇便触手可及，合作伙伴关系也将更具长期价值。',
+        overviewPhotoBadge: '高管战略咨询走廊',
+        overviewPhotoTitle: '连接商业战略、关键利益相关方与本土市场执行',
+        foundationsHeader: '跨境商业成功的三大核心基石',
+        foundationsSub:
+          '我们深信，成功的国际与跨境市场扩张建立在以下三大相辅相成的核心基石之上：',
+        foundations: [
+          {
+            num: '01',
+            tag: '第一大基石',
+            title: '清晰透彻的市场洞察',
+            desc: '客观解构印尼与中国的市场动态、真实商业环境与监管合规要求，为科学决策提供坚实依据。'
+          },
+          {
+            num: '02',
+            tag: '第二大基石',
+            title: '高价值的利益相关方关系',
+            desc: '与本土龙头企业、政府主管部门、核心行业协会及关键决策者建立高公信力的良性互动。'
+          },
+          {
+            num: '03',
+            tag: '第三大基石',
+            title: '将战略转化为落地行动',
+            desc: '将市场增长愿景转化为结构化的商业合作机会、高度协同的合资伙伴关系与务实的本土执行。'
+          }
+        ],
+
+        vmEyebrow: '02 · 愿景与使命',
+        vmHeading: '我们的战略方向与长期承诺。',
+        vmSubheading:
+          '为印尼与中国之间的企业及机构搭建值得信赖、可持续发展的跨境商业与制度合作桥梁。',
+        visionBadge: '我们的愿景',
+        visionTitle: '连接印尼与中国的首选可信赖战略商业门户',
+        visionText:
+          '成为连接印尼与中国的首选可信赖战略门户，赋能两国企业与机构通过深度跨境协作创造可持续的长期价值。',
+        missionBadge: '我们的使命 · 五大战略支柱',
+        missions: [
+          {
+            code: '01',
+            title: '连接双边市场',
+            enTitle: 'Connect Markets',
+            desc: '通过深度市场洞察与高管战略指引，协助企业理解并把握横跨印尼与中国的商业机遇。'
+          },
+          {
+            code: '02',
+            title: '构建战略伙伴',
+            enTitle: 'Build Partnerships',
+            desc: '促成企业、政府机构与行业利益相关方之间富有成效的商业关系与深度协作。'
+          },
+          {
+            code: '03',
+            title: '赋能市场扩张',
+            enTitle: 'Enable Market Expansion',
+            desc: '支持组织制定务实可行的市场进入策略，稳步扩大其本土商业版图与影响力。'
+          },
+          {
+            code: '04',
+            title: '弥合商业文化',
+            enTitle: 'Bridge Business Cultures',
+            desc: '通过跨文化沟通与高层互动，增进印尼与中国商界之间的深度互信与协同。'
+          },
+          {
+            code: '05',
+            title: '创造可持续价值',
+            enTitle: 'Create Sustainable Value',
+            desc: '倡导互利共赢的合作伙伴关系，为双边经济与企业的长远发展贡献持久动力。'
+          }
+        ],
+
+        leadEyebrow: '03 · 领导团队与跨学科专业背景',
+        leadTitle: '兼具跨境视野的高管领导力。',
+        leadSubtitle:
+          '融汇商业敏锐度、制度洞察力与跨文化智慧，全方位释放印中双边增长潜力。',
+        leadP1:
+          '8 Vice 由经验丰富的资深专业人士领衔，团队背景横跨商业战略、品牌塑造、整合营销传播、政企利益相关方事务及印中双边业务拓展。',
+        leadP2:
+          '我们的领导层视角将严谨的商业逻辑与对制度环境、市场定位以及战略人脉网络在业务增长中核心作用的理解深度融合。',
+        leadP3:
+          '依托在私营跨国企业、国有企业、专业智库网络及政府机构项目中的丰富履历，我们的领导团队以跨学科方法论识别机遇并构建高价值伙伴关系。',
+        leadQuote:
+          '我们坚信，卓越的跨境商业领导力需要清晰的战略定力、跨文化商业智慧、职业诚信，以及为所有参与方创造真实价值的坚定承诺。',
+        leadDomainsTitle: '六大核心领导力与咨询领域',
+        leadDomains: [
+          {
+            code: '01',
+            title: '商业战略与企业高管咨询',
+            desc: '制定市场扩张路线图、评估商业模式可行性，并提供董事会与高管级战略顾问支持。'
+          },
+          {
+            code: '02',
+            title: '品牌塑造与整合营销传播',
+            desc: '构建契合跨境受众认知的企业叙事、差异化品牌定位与本土化传播架构。'
+          },
+          {
+            code: '03',
+            title: '政府机构与利益相关方事务',
+            desc: '促进企业与政府部委、公共机构及核心行业协会之间的建设性对话与合作。'
+          },
+          {
+            code: '04',
+            title: '印尼—中国双边业务拓展',
+            desc: '策划高规格 B2B 商业配对、寻源本土战略合作伙伴并推进双边商业合作落地。'
+          },
+          {
+            code: '05',
+            title: '城市交通、基础设施与文旅产业',
+            desc: '在城市公共出行、现代基础设施开发及双边旅游目的地推广领域拥有深厚实战经验。'
+          },
+          {
+            code: '06',
+            title: '媒体关系与声誉管理',
+            desc: '建立公众公信力、拓展权威媒体合作伙伴关系、筹备新闻发布及危机公关预案。'
+          }
+        ],
+
+        peopleEyebrow: '04 · 8 VICE 核心领导团队',
+        peopleTitle: '8 Vice 背后的领军人物。',
+        peopleLead:
+          '认识推动我们在印尼与中国开展战略咨询、政商网络对接与跨境落地执行的跨学科领导团队。点击任意高管卡片，阅读来自我们团队的战略寄语与详细履历。',
+        peopleClickHint: '点击阅读高管寄语与完整履历',
+        peopleModalClose: '关闭简介',
+        peopleModalLabel: '来自 8 VICE 领导团队的战略寄语',
+        people: [
+          {
+            id: 'helda',
+            callName: 'Ibu Helda',
+            fullName: 'Helda Chandra, S.E., M.Si.',
+            nameNote: '首席执行官兼管理合伙人 (CEO & Managing Partner)',
+            subtitle: '8 Vice 首席执行官兼联合创始人 · Gentala Institute 管理合伙人',
+            shortBio:
+              '拥有 20 余年指导跨国集团、印尼国有企业 (BUMN) 及政府机构的资深商业战略顾问经验。主导阿里巴巴集团、钉钉 (DingTalk)、支付宝 (Alipay)、滴滴出行 (DiDi)、酷开 (Coolita) 与创维 (Skyworth) 的印尼跨境战略咨询。现任印尼创意经济部专家顾问，曾任雅加达地铁 (PT MRT Jakarta) 监事会委员会成员。',
+            photo: '/images/profiles/helda_chandra.webp',
+            focusTags: ['印中跨境战略', '政府与公共事务', '品牌与营销战略', '公司治理与风控', '创意经济'],
+            socials: {
+              linkedin: 'https://www.linkedin.com/in/helda-chandra-a0b27b1b/',
+              instagram: 'https://www.instagram.com/heldachandra',
+              email: 'mailto:Heldachandra@gmail.com'
+            },
+            quoteTitle: '架起公司治理、企业创新与双边增长的战略桥梁',
+            message: [
+              '“在印尼与中国之间的每一项跨境合作倡议中，持久的成功绝不仅取决于交易速度，更取决于制度互信的深度、监管合规的严谨度以及对本土商业文化的深刻体察。”',
+              '“凭借二十余年服务国有企业、政府部委及全球科技领军企业的顾问经验——从雅加达地铁 (PT MRT Jakarta) 的公共基础设施治理、印尼创意经济部的国家营销战略，到阿里巴巴集团、钉钉与滴滴出行的印尼市场准入——我们在 8 Vice 的核心使命是构建高互信、可持续创造商业与社会价值的合作伙伴关系。”',
+              '“教育背景与专业资质：\n• 印度尼西亚大学 (Universitas Indonesia) - 传播学硕士（营销传播方向）\n• 印度尼西亚大学 (Universitas Indonesia) - 经济学学士（管理与市场营销）\n• 北京语言大学 - 中国文学与文化大专文凭\n• 美国认证营销分析师 (CMA, AAPM USA)\n• 认证战略商业分析师 (CSBA, AAFM)”'
+            ]
+          },
+          {
+            id: 'gandhi',
+            callName: 'Pak Gandhi',
+            fullName: 'Gandhi Priambodho',
+            nameNote: '国际业务总监 (Director of International Business)',
+            subtitle: '8 Vice 国际业务总监 · 合伙人',
+            shortBio:
+              '全面负责拓展印尼与中国的商业、贸易与投资合作网络。自 2002 年起常驻北京，长期深耕跨行业业务拓展生态，涵盖双边贸易与产业合作、能源与矿产、传媒、文化创意与旅游、教育、房地产及医疗健康等核心领域。',
+            photo: '/images/profiles/gandhi_priambodho.webp',
+            focusTags: ['国际业务拓展', '跨境贸易与投资', '能源与矿产资源', '北京政商网络', '传媒与文旅产业'],
+            socials: {
+              linkedin: 'https://www.linkedin.com/company/8-vice/',
+              instagram: 'https://www.instagram.com/8viceofficial',
+              email: 'mailto:hello@8vice.com'
+            },
+            quoteTitle: '深耕北京与雅加达二十载，构建扎实的跨境政商网络',
+            message: [
+              '“作为国际业务总监，Gandhi 全面领衔印尼与中国之间的商业、贸易及投资网络扩张。自 2002 年常驻北京以来，他长期在多个核心战略领域构建深厚的业务拓展网络，涵盖贸易与产业合作、能源与矿产、媒体传播、创意产业与旅游、高等教育、房地产顾问以及医疗健康服务。”',
+              "教育背景：\n• 中国人民大学 (Renmin University of China) - 研究生项目（当代中国研究）\n• 美国加州世界大学 - 工商管理学士\n• 印度尼西亚大学 (Universitas Indonesia) - 汉语言文学学士",
+              "主要职业履历：\n• 南洋桥传媒有限公司 (Nanyang Bridge Media, Co. Ltd)\n• Red&White China\n• 北京安华房产顾问 (Beijing An Hua Property Consultant)\n• 21世纪不动产 (CENTURY 21 Troop Real Estate, China)\n• 印尼商报 (Indonesia Shangbao)\n• PT Falah Jaya Agung, Indonesia\n• 力宝集团 (Lippo Group, Indonesia)\n• 印尼航展基金会 (Indonesia Air Show Foundation)"
+            ]
+          },
+          {
+            id: 'christine',
+            callName: 'Ci Christine',
+            fullName: 'Christine Susanna Tjhin',
+            nameNote: '战略传播与研究总监 (Director of Strategic Communication & Research)',
+            subtitle: 'Gentala Institute 联合创始人兼战略传播与研究总监 · 8 Vice 战略合伙人',
+            shortBio:
+              'Gentala Institute 联合创始人兼战略传播与研究总监、8 Vice 战略合伙人。现任印尼国家国防委员会 (DPN) 地缘政治副部长中国事务顾问、印尼汉学家理事会监事会成员、印尼外交政策协会 (FPCI) 中国政策组资深专家，曾任印尼战略与国际研究中心 (CSIS Indonesia) 资深研究员。',
+            photo: '/images/profiles/christine_tjhin.webp',
+            focusTags: ['地缘政治与公共政策', 'Gentala Institute', '汉学与中国事务', 'CSIS 智库研究', '战略传播'],
+            socials: {
+              linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
+              instagram: 'https://www.instagram.com/8viceofficial',
+              email: 'mailto:hello@8vice.com'
+            },
+            quoteTitle: '以严谨的地缘政治与公共政策洞察筑牢双边伙伴关系基石',
+            message: [
+              '“Christine Susanna Tjhin 是 Gentala Institute 联合创始人兼战略传播与研究总监。Gentala Institute 成立于 2020 年，最初致力于支持中印尼之间的疫苗与医疗物资合作，现已发展成为推动可持续、智慧且具社会责任感的双边伙伴关系的知名商业咨询与公共政策研究机构。”',
+              '“除领导 Gentala Institute 外，Christine 还担任印尼国家国防委员会 (DPN) 地缘政治副部长中国事务顾问、印尼汉学家理事会（世界汉学中心）监事会成员、印尼外交政策协会 (FPCI) 中国政策组资深专家，以及印尼外交部中国观察家网络协调员。”',
+              '“她于 2002 年在印尼多元主义研究所 (IPI) 开启智库研究生涯，并于 2003 年加入印尼战略与国际研究中心 (CSIS Indonesia)。她曾先后在印尼亚齐塔鲁玛迦大学、北京大学、北京航空航天大学、福建师范大学及澳大利亚国立大学深造经济学、战略管理、东亚研究与国际关系。”'
+            ]
+          }
+        ],
+
+        approachEyebrow: '05 · 我们的战略方法论',
+        approachTitle: '从深度市场理解到可落地的商业成果。',
+        approachLead:
+          '每一项跨境商业机遇都伴随着独特的挑战。我们的五阶段方法论旨在协助客户清晰厘定自身目标、战略优先级与务实的下一步行动。',
+        steps: [
+          {
+            num: '01',
+            title: 'Understand',
+            sub: '洞察需求与背景',
+            desc: '我们首先深入了解客户的业务现状、跨境扩张目标、目标细分市场及面临的具体商业痛点。'
+          },
+          {
+            num: '02',
+            title: 'Assess',
+            sub: '评估市场与生态',
+            desc: '我们全面评估相关市场环境、利益相关方格局、潜在商业机遇以及可能的市场准入壁垒。'
+          },
+          {
+            num: '03',
+            title: 'Strategize',
+            sub: '定制战略路线图',
+            desc: '我们量身制定涵盖市场定位、合作伙伴筛选标准、政企沟通策略与实操行动步骤的方案。'
+          },
+          {
+            num: '04',
+            title: 'Connect',
+            sub: '精准引荐与对接',
+            desc: '在适当时机，我们促成客户与目标市场相关企业、政府机构及潜在战略合作伙伴的高层引荐与互动。'
+          },
+          {
+            num: '05',
+            title: 'Develop',
+            sub: '持续推进与落地',
+            desc: '我们根据约定的工作范围，持续支持会后跟进协调、合作条款洽谈以及项目的深入推进。'
+          }
+        ],
+        approachNote:
+          '我们的方法论均根据每位客户的具体需求量身定制。项目范围、交付成果及实施权责均在每次合作启动前由双方明确商定。',
+
+        valuesEyebrow: '06 · 核心价值观',
+        valuesTitle: '指引每一次合作的核心准则。',
+        valuesLead:
+          '定义 8 Vice 如何为客户提供咨询、构建信任关系并创造持久跨境价值的六大基本原则。',
+        values: [
+          {
+            num: '01',
+            title: 'Trust & Integrity',
+            sub: '信任与诚信',
+            desc: '我们在每一次合作中坚守透明原则、职业操守与负责任的商业行为准则。'
+          },
+          {
+            num: '02',
+            title: 'Cultural Intelligence',
+            sub: '跨文化智慧',
+            desc: '我们深刻理解并尊重不同市场在商业惯例、沟通方式与制度期望上的细微差异。'
+          },
+          {
+            num: '03',
+            title: 'Strategic Thinking',
+            sub: '战略全局思维',
+            desc: '我们超越短期交易视角，从宏观脉络、长期战略目标与深远影响出发审视每一个商业机遇。'
+          },
+          {
+            num: '04',
+            title: 'Collaboration',
+            sub: '协同共创',
+            desc: '我们深信，有意义的商业进展源于将最契合的人才、专业能力与多元视角汇聚一堂。'
+          },
+          {
+            num: '05',
+            title: 'Mutual Value',
+            sub: '互利共赢价值',
+            desc: '我们致力于构建能够为客户及其本土合作伙伴同时创造真实商业回报的合作关系。'
+          },
+          {
+            num: '06',
+            title: 'Long-Term Perspective',
+            sub: '长期主义视角',
+            desc: '我们优先构建能够支撑企业跨越周期、实现可持续商业发展的战略与伙伴关系。'
+          }
+        ],
+
+        ctaEyebrow: '开启您的跨境增长之旅',
+        ctaTitle: '准备好与 8 Vice 一起探索印中跨境商业机遇了吗？',
+        ctaDesc:
+          '立即联系我们的高管顾问团队，洽谈您的市场准入优先级、战略合作伙伴寻源或双边商业合作计划。',
+        ctaPrimary: '开启战略咨询对话',
+        ctaSecondary: '探索我们的核心服务'
+      }
+    : isId
     ? {
         breadcrumbHome: 'Beranda',
         breadcrumbCurrent: 'Tentang Kami',
@@ -786,12 +1091,12 @@ export default function About({ profiles = [] }) {
   const peopleList = useMemo(() => {
     if (profiles && profiles.length > 0) {
       return profiles.map((p, idx) => {
-        const role = typeof p.role === 'object' ? (p.role?.[lang] || p.role?.en || '') : (p.role || '');
-        const bio = typeof p.short_bio === 'object' ? (p.short_bio?.[lang] || p.short_bio?.en || '') : (p.short_bio || '');
-        const qTitle = typeof p.quote_title === 'object' ? (p.quote_title?.[lang] || p.quote_title?.en || '') : (p.quote_title || '');
-        const qMsg = typeof p.quote_message === 'object' ? (p.quote_message?.[lang] || p.quote_message?.en || '') : (p.quote_message || '');
-        const msgArray = Array.isArray(qMsg) ? qMsg : (typeof qMsg === 'string' ? qMsg.split('\n\n').filter(Boolean) : []);
         const fallback = copy.people[idx] || copy.people[0];
+        const role = typeof p.role === 'object' ? (p.role?.[lang] || fallback?.subtitle || p.role?.en || '') : (p.role || '');
+        const bio = typeof p.short_bio === 'object' ? (p.short_bio?.[lang] || fallback?.shortBio || p.short_bio?.en || '') : (p.short_bio || '');
+        const qTitle = typeof p.quote_title === 'object' ? (p.quote_title?.[lang] || fallback?.quoteTitle || p.quote_title?.en || '') : (p.quote_title || '');
+        const qMsg = typeof p.quote_message === 'object' ? (p.quote_message?.[lang] || fallback?.message || p.quote_message?.en || '') : (p.quote_message || '');
+        const msgArray = Array.isArray(qMsg) ? qMsg : (typeof qMsg === 'string' ? qMsg.split('\n\n').filter(Boolean) : []);
 
         return {
           id: p.call_name ? p.call_name.toLowerCase().replace(/[^a-z0-9]/g, '') : (fallback?.id || `person-${idx}`),
@@ -801,7 +1106,7 @@ export default function About({ profiles = [] }) {
           subtitle: role || fallback?.subtitle || '',
           shortBio: bio || fallback?.shortBio || '',
           photo: p.image ? (p.image.startsWith('/') ? p.image : `/storage/${p.image}`) : (fallback?.photo || ''),
-          focusTags: Array.isArray(p.focus_tags) ? p.focus_tags : (fallback?.focusTags || []),
+          focusTags: (lang === 'cn' && fallback?.focusTags) ? fallback.focusTags : (Array.isArray(p.focus_tags) ? p.focus_tags : (fallback?.focusTags || [])),
           socials: p.socials || fallback?.socials || { linkedin: '', instagram: '', email: '' },
           quoteTitle: qTitle || fallback?.quoteTitle || '',
           message: msgArray.length > 0 ? msgArray : (fallback?.message || [])

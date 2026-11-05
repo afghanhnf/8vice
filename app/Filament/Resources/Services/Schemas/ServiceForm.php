@@ -49,6 +49,10 @@ class ServiceForm
                                     TextInput::make('title.en')->label('[EN] Service Title')->maxLength(255),
                                     TextInput::make('headline.en')->label('[EN] Headline / Subtitle')->placeholder('e.g. Enter New Markets with Greater Clarity.')->maxLength(255),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('title.cn')->label('[CN] Service Title')->maxLength(255),
+                                    TextInput::make('headline.cn')->label('[CN] Headline / Subtitle')->placeholder('e.g. 以更清晰的视野开拓新市场')->maxLength(255),
+                                ]),
                             ]),
                         Tabs::make('Description')
                             ->columnSpanFull()
@@ -58,6 +62,9 @@ class ServiceForm
                                 ]),
                                 Tabs\Tab::make('EN')->schema([
                                     Textarea::make('description.en')->label('[EN] Service Overview / Summary')->rows(3)->maxLength(1000),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    Textarea::make('description.cn')->label('[CN] Service Overview / Summary')->rows(3)->maxLength(1000),
                                 ]),
                             ]),
                     ]),
@@ -99,6 +106,20 @@ class ServiceForm
                                 Tabs\Tab::make('ID')->schema([
                                     Repeater::make('deliverables.id')
                                         ->label('Deliverable Modules (ID)')
+                                        ->schema([
+                                            TextInput::make('title')->label('Deliverable Title')->required(),
+                                            TextInput::make('icon')->label('Icon key')->placeholder('assessment, strategy, model, etc.'),
+                                            Textarea::make('desc')->label('Description')->rows(2)->required(),
+                                        ])
+                                        ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
+                                        ->addActionLabel('Add Deliverable')
+                                        ->reorderableWithButtons()
+                                        ->collapsible()
+                                        ->defaultItems(0),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    Repeater::make('deliverables.cn')
+                                        ->label('Deliverable Modules (CN)')
                                         ->schema([
                                             TextInput::make('title')->label('Deliverable Title')->required(),
                                             TextInput::make('icon')->label('Icon key')->placeholder('assessment, strategy, model, etc.'),

@@ -13,15 +13,26 @@ Route::get('/api/search', [SearchController::class, 'index']);
 
 Route::middleware('throttle:5,1')->group(function () {
     Route::post('/subscribe', [FormController::class, 'subscribe']);
+    Route::post('/id/subscribe', [FormController::class, 'subscribe']);
+    Route::post('/cn/subscribe', [FormController::class, 'subscribe']);
     Route::post('/contact-submit', [FormController::class, 'contact']);
     Route::post('/id/contact-submit', [FormController::class, 'contact']);
+    Route::post('/cn/contact-submit', [FormController::class, 'contact']);
     Route::post('/career-apply', [FormController::class, 'apply']);
     Route::post('/id/career-apply', [FormController::class, 'apply']);
+    Route::post('/cn/career-apply', [FormController::class, 'apply']);
     Route::post('/training-request', [FormController::class, 'trainingRequest']);
     Route::post('/id/training-request', [FormController::class, 'trainingRequest']);
+    Route::post('/cn/training-request', [FormController::class, 'trainingRequest']);
 });
 
-$pageRoutes = function() {
+$resolveLangPrefix = function () {
+    if (request()->is('id/*') || request()->is('id')) return '/id';
+    if (request()->is('cn/*') || request()->is('cn')) return '/cn';
+    return '';
+};
+
+$pageRoutes = function() use ($resolveLangPrefix) {
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/home-2', [HomeController::class, 'home2']);
     
@@ -46,9 +57,8 @@ $pageRoutes = function() {
         return Inertia::render('Industries');
     });
     
-    Route::get('/consultancy', function () {
-        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
-        return redirect($prefix . '/services/advisory');
+    Route::get('/consultancy', function () use ($resolveLangPrefix) {
+        return redirect($resolveLangPrefix() . '/services/advisory');
     });
     Route::get('/training', function () { 
         $courses = \App\Models\Course::all();
@@ -94,24 +104,20 @@ $pageRoutes = function() {
 
     Route::get('/insights', $renderInsightsIndex);
     Route::get('/insights-partnerships', $renderInsightsIndex);
-    Route::get('/insight', function () {
-        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
-        return redirect($prefix . '/insights');
+    Route::get('/insight', function () use ($resolveLangPrefix) {
+        return redirect($resolveLangPrefix() . '/insights');
     });
-    Route::get('/article', function () {
-        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
-        return redirect($prefix . '/insights');
+    Route::get('/article', function () use ($resolveLangPrefix) {
+        return redirect($resolveLangPrefix() . '/insights');
     });
-    Route::get('/market-intelligence', function () {
-        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
-        return redirect($prefix . '/insights');
+    Route::get('/market-intelligence', function () use ($resolveLangPrefix) {
+        return redirect($resolveLangPrefix() . '/insights');
     });
     
     Route::get('/insights/{slug}', $renderInsightDetail);
     Route::get('/insights-partnerships/{slug}', $renderInsightDetail);
-    Route::get('/article/{slug}', function ($slug) {
-        $prefix = request()->is('id/*') || request()->is('id') ? '/id' : '';
-        return redirect($prefix . "/insights/{$slug}");
+    Route::get('/article/{slug}', function ($slug) use ($resolveLangPrefix) {
+        return redirect($resolveLangPrefix() . "/insights/{$slug}");
     });
     
     Route::get('/client', function () { 
@@ -162,6 +168,9 @@ Route::middleware('setLocale:en')->group($pageRoutes);
 
 // Indonesian Routes
 Route::prefix('id')->middleware('setLocale:id')->group($pageRoutes);
+
+// Mandarin Chinese Routes
+Route::prefix('cn')->middleware('setLocale:cn')->group($pageRoutes);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

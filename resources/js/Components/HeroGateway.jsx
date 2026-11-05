@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from '@/Contexts/TranslationContext';
 
 /* -------------------------------------------------------------------------- */
 /*  SVG shape helpers                                                          */
@@ -152,6 +153,8 @@ const EMBERS = Array.from({ length: 16 }, (_, i) => ({
 
 export default function HeroGateway({ isId = false }) {
   const heroRef = useRef(null);
+  const { lang } = useTranslation();
+  const isCn = lang === 'cn';
 
   // Layered parallax: pointer position (desktop) + scroll offset, eased with rAF
   useEffect(() => {
@@ -209,7 +212,15 @@ export default function HeroGateway({ isId = false }) {
     };
   }, []);
 
-  const copy = isId
+  const copy = isCn
+    ? {
+        title: ['通往印尼与中国的', '战略商业门户', '赋能跨境增长'],
+        kicker: '连接双边市场 · 驱动实质增长',
+        sub: '专为往来于印尼与中国之间的企业提供高管级战略咨询与落地支持。',
+        cta: '探索核心服务',
+        link: '洽谈您的业务需求',
+      }
+    : isId
     ? {
         title: ['Gerbang Strategis', 'Bisnis Anda Menuju', 'Indonesia & Tiongkok'],
         kicker: 'Menghubungkan Pasar. Membuka Pertumbuhan.',

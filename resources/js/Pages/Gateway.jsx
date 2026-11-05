@@ -118,6 +118,7 @@ function ModernCityBg({ opacity = 0.26, flip = false }) {
 export default function Gateway() {
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
 
   // Google Material Design 3 (M3) Scroll Transition Observer
   useEffect(() => {
@@ -142,7 +143,144 @@ export default function Gateway() {
     return () => observer.disconnect();
   }, [lang]);
 
-  const copy = isId
+  const copy = isCn
+    ? {
+        home: '首页',
+        breadcrumb: '印中战略门户',
+        eyebrow: '双边走廊 · 战略门户',
+        heroTitleLine1: '两大市场。',
+        heroTitleLine2: '一个战略门户。',
+        heroLead:
+          '印度尼西亚与中国为寻求开拓新市场、建立战略合作伙伴关系、开展技术合作及实现长期增长的企业提供了广阔机遇。',
+        introEyebrow: '01 · 战略门户简介',
+        introTitle: '以战略业务拓展弥合市场差异。',
+        introP1:
+          '印度尼西亚与中国为寻求开拓新市场、建立战略合作伙伴关系、开展技术合作及实现长期增长的企业提供了广阔机遇。',
+        introP2:
+          '然而，进入一个新市场不仅需要商业雄心，更需要对当地商业惯例、市场动态、利益相关方期望及文化差异的深刻理解。',
+        introP3:
+          '8 Vice 将深刻的市场洞察与战略业务拓展相结合，协助企业跨越这些差异。',
+        introP4:
+          '无论您是正在探索印尼市场的中国企业，还是寻求中国市场机遇的印尼企业，我们都为您评估市场机会、发展合作伙伴关系及规划下一步行动提供结构化的战略起点。',
+        introQuote: '您的商业抱负。我们的跨境视野。通往增长的共同路径。',
+        cnIdBadge: '通道 01 · 中国进入印尼',
+        cnIdTitle: '中国至印尼 (China to Indonesia)',
+        cnIdSubtitle: '您探索印度尼西亚市场的战略合作伙伴。',
+        cnIdHeadline: '探索印尼。建立本土合作。稳健实现增长。',
+        cnIdParagraphs: [
+          '在庞大的国内消费市场、快速普及的数字化应用以及对新产品、新服务与商业解决方案的强劲需求推动下，印度尼西亚在众多行业展现出巨大商机。',
+          '对于中国企业而言，进入印尼市场需要深入了解当地的市场环境、客户期望、商业惯例以及更广泛的利益相关方生态。',
+          '8 Vice 通过市场准入咨询、本土合作伙伴识别、利益相关方对接、战略传播及业务拓展促成，全方位支持中国企业探索印尼机遇。',
+          '我们的角色是协助您更全面地理解当地商业格局、锁定相关商业机会，并为建立富有成效的本土合作奠定坚实基础。'
+        ],
+        cnIdSupportTitle: '我们如何支持您在印尼的业务拓展',
+        cnIdSupports: [
+          {
+            title: '市场探索 (Market Exploration)',
+            desc: '深入理解印尼营商环境，识别具有潜在商业价值的重点领域。'
+          },
+          {
+            title: '本土合作伙伴拓展 (Local Partnership Development)',
+            desc: '发掘并对接潜在的分销商、商业合作伙伴及行业协作方。'
+          },
+          {
+            title: '利益相关方沟通 (Stakeholder Engagement)',
+            desc: '协调与相关商业及机构利益相关方的精准引荐与专业互动。'
+          },
+          {
+            title: '市场定位 (Market Positioning)',
+            desc: '调整商业价值主张与传播策略，使其高度契合印尼本土受众。'
+          },
+          {
+            title: '业务拓展 (Business Development)',
+            desc: '支持合作洽谈、商业提案制定及后续跟进协调。'
+          },
+          {
+            title: '项目推进与促成 (Project Facilitation)',
+            desc: '协助与相关合作伙伴共同协调特定商业项目的落地与发展。'
+          }
+        ],
+        cnIdClosing:
+          '从初步市场探索到合作伙伴关系拓展，8 Vice 为您的印尼拓展之旅提供战略起点。让我们携手共拓印尼市场。',
+        cnIdCta: '探讨您的印尼市场准入计划',
+        idCnBadge: '通道 02 · 印尼进入中国',
+        idCnTitle: '印尼至中国 (Indonesia to China)',
+        idCnSubtitle: '连接中国市场的广阔商业机遇。',
+        idCnHeadline: '让您的业务跨越国界。',
+        idCnParagraphs: [
+          '中国拥有多元且充满活力的商业环境，为寻求新商业伙伴、分销渠道、技术协作及市场扩张的企业提供了丰富机遇。',
+          '然而，在中国市场取得成功需要周密的准备、对当地市场动态的深刻理解、精准的商业定位，以及与相关合作伙伴建立信任关系的能力。',
+          '8 Vice 通过战略咨询、初步市场评估、合作伙伴识别、跨文化传播及业务拓展促成，协助印尼企业探索中国市场。',
+          '我们协助您做好市场洽谈准备、清晰阐述价值主张，并探索与中国企业开展务实合作的有效路径。'
+        ],
+        idCnSupportTitle: '我们如何支持您的中国市场拓展',
+        idCnSupports: [
+          {
+            title: '市场机会评估 (Market Opportunity Assessment)',
+            desc: '识别相关的细分市场与潜在的商业合作领域。'
+          },
+          {
+            title: '合作伙伴识别 (Partner Identification)',
+            desc: '发掘合适的商业合作伙伴、分销商及行业利益相关方。'
+          },
+          {
+            title: '商业配对 (Business Matching)',
+            desc: '促成精准的高层引荐与结构化的商务洽谈。'
+          },
+          {
+            title: '市场定位 (Market Positioning)',
+            desc: '制定契合中国市场生态的商业叙事与传播策略。'
+          },
+          {
+            title: '贸易与商务考察团 (Trade & Business Missions)',
+            desc: '协调精选商务考察、企业代表团互访及合作伙伴会晤。'
+          },
+          {
+            title: '商业化拓展 (Commercial Development)',
+            desc: '支持商业提案、后续谈判及合作伙伴关系的统筹协调。'
+          }
+        ],
+        idCnClosing:
+          '无论您是消费品牌、创意企业、科技公司、旅游运营商还是成熟集团，8 Vice 都能协助您系统化地开启中国市场机遇的探索。让我们携手共拓中国市场。',
+        idCnCta: '探讨您的中国市场准入计划',
+        processEyebrow: '04 · 我们的跨境流程',
+        processTitle: '结构化的跨境商业拓展方法。',
+        steps: [
+          {
+            num: '01',
+            title: '需求洞察 (Discovery)',
+            desc: '我们从您的商业目标、扩张优先级以及对目标市场的期望出发。'
+          },
+          {
+            num: '02',
+            title: '机会评估 (Opportunity Assessment)',
+            desc: '我们梳理关键的市场考量因素、潜在合作领域，以及做出明智决策所需的核心信息。'
+          },
+          {
+            num: '03',
+            title: '战略规划 (Strategic Planning)',
+            desc: '我们制定涵盖市场重点、合作伙伴标准、品牌定位与沟通策略的务实方案。'
+          },
+          {
+            num: '04',
+            title: '伙伴拓展 (Partnership Development)',
+            desc: '在适当时机，我们促成精准引荐，并协调与潜在商业合作伙伴的深入洽谈。'
+          },
+          {
+            num: '05',
+            title: '跟进落地 (Follow-Through)',
+            desc: '我们支持商定的后续行动，协助推进迈向商业合作的下一步举措。'
+          }
+        ],
+        processNote:
+          '每一项合作均根据客户的具体需求量身定制，服务范围与预期交付成果均在项目启动前共同商定。',
+        ctaEyebrow: '开启双边合作',
+        ctaTitle: '准备好解锁印尼与中国之间的跨境商业机遇了吗？',
+        ctaDesc: '告诉我们您的拓展方向，我们的团队将协助您构建清晰、聚焦的战略起点。',
+        ctaPrimary: '开启对话',
+        ctaSecondary: '查看我们的服务'
+      }
+    : isId
     ? {
         home: 'Beranda',
         breadcrumb: 'Gerbang Indonesia–China',
@@ -430,7 +568,7 @@ export default function Gateway() {
       closing: copy.cnIdClosing,
       cta: copy.cnIdCta,
       image: '/images/china_city_network.webp',
-      photo: isId ? 'Delegasi bisnis Tiongkok di Jakarta' : 'Chinese business delegation in Jakarta'
+      photo: isCn ? '位于雅加达的中国商务代表团' : isId ? 'Delegasi bisnis Tiongkok di Jakarta' : 'Chinese business delegation in Jakarta'
     },
     {
       id: 'indonesia-to-china',
@@ -445,7 +583,7 @@ export default function Gateway() {
       closing: copy.idCnClosing,
       cta: copy.idCnCta,
       image: '/images/china_trade_port.webp',
-      photo: isId ? 'Misi dagang Indonesia di Shanghai / Guangzhou' : 'Indonesian trade mission in Shanghai / Guangzhou'
+      photo: isCn ? '位于上海 / 广州的印尼贸易代表团' : isId ? 'Misi dagang Indonesia di Shanghai / Guangzhou' : 'Indonesian trade mission in Shanghai / Guangzhou'
     }
   ];
 
@@ -959,7 +1097,7 @@ export default function Gateway() {
                       }}
                     >
                       <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#E63946' }} />
-                      {isId ? 'DUA PASAR · SATU JEMBATAN' : 'TWO MARKETS · ONE BRIDGE'}
+                      {isCn ? '两大市场 · 一座桥梁' : isId ? 'DUA PASAR · SATU JEMBATAN' : 'TWO MARKETS · ONE BRIDGE'}
                     </span>
                   </div>
 
@@ -986,7 +1124,7 @@ export default function Gateway() {
                         marginBottom: '6px'
                       }}
                     >
-                      {isId ? 'JAKARTA – SHANGHAI, DUA PASAR' : 'JAKARTA – SHANGHAI, TWO MARKETS'}
+                      {isCn ? '雅加达 – 上海，两大市场' : isId ? 'JAKARTA – SHANGHAI, DUA PASAR' : 'JAKARTA – SHANGHAI, TWO MARKETS'}
                     </div>
                     <div style={{ fontSize: '18px', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.35 }}>
                       {copy.introTitle}

@@ -59,6 +59,14 @@ class PageSeoForm
                                                     ->helperText('Recommended: 50–60 characters. Used as browser tab title and Google SERP headline.')
                                                     ->maxLength(255),
                                             ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                TextInput::make('meta_title.cn')
+                                                    ->label('[CN] Meta Title')
+                                                    ->placeholder('e.g., 8vice | 印尼与中国跨境战略咨询门户')
+                                                    ->helperText('Recommended: 50–60 characters. Used as browser tab title and Google SERP headline.')
+                                                    ->maxLength(255),
+                                            ]),
                                     ])->columnSpanFull(),
 
                                 Tabs::make('Meta Description')
@@ -79,6 +87,14 @@ class PageSeoForm
                                                     ->placeholder('Summary of the page content for Google search snippets...')
                                                     ->helperText('Recommended: 150–160 characters. Direct impact on Google click-through rate.'),
                                             ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                Textarea::make('meta_description.cn')
+                                                    ->label('[CN] Meta Description')
+                                                    ->rows(3)
+                                                    ->placeholder('网页在搜索引擎中的简要描述...')
+                                                    ->helperText('Recommended: 150–160 characters. Direct impact on Google click-through rate.'),
+                                            ]),
                                     ])->columnSpanFull(),
 
                                 Tabs::make('Keywords')
@@ -95,6 +111,13 @@ class PageSeoForm
                                                 TextInput::make('meta_keywords.en')
                                                     ->label('[EN] Meta Keywords (Comma Separated)')
                                                     ->placeholder('market entry indonesia, business consulting jakarta, corporate strategy')
+                                                    ->maxLength(500),
+                                            ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                TextInput::make('meta_keywords.cn')
+                                                    ->label('[CN] Meta Keywords (Comma Separated)')
+                                                    ->placeholder('印尼市场准入, 印尼商业咨询, 跨境出海战略, 雅加达投资咨询')
                                                     ->maxLength(500),
                                             ]),
                                     ])->columnSpanFull(),

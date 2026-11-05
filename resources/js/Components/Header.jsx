@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { usePage } from '@inertiajs/react';
 import Link from '@/Components/LocalizedLink';
 import { useTranslation } from '@/Contexts/TranslationContext';
@@ -12,29 +12,33 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const [isWeChatModalOpen, setIsWeChatModalOpen] = useState(false);
+  const langDropdownRef = useRef(null);
 
-
-  const isActive = (path) => url === path || url.startsWith(path + '/');
+  const normalizedUrl = (url || '/').replace(/^\/(id|cn)(\/|$)/, '/') || '/';
+  const isActive = (path) => normalizedUrl === path || normalizedUrl.startsWith(path + '/');
 
   const getLangUrl = (targetLang) => {
     let currentUrl = typeof window !== 'undefined' ? window.location.pathname : url;
-
     if (!currentUrl.startsWith('/')) currentUrl = '/' + currentUrl;
 
-    let finalUrl = currentUrl;
+    const cleanPath = currentUrl.replace(/^\/(id|cn)(\/|$)/, '/') || '/';
     if (targetLang === 'id') {
-      if (!currentUrl.startsWith('/id/') && currentUrl !== '/id') {
-        finalUrl = '/id' + (currentUrl === '/' ? '' : currentUrl);
-      }
-    } else {
-      if (currentUrl.startsWith('/id/') || currentUrl === '/id') {
-        finalUrl = currentUrl.replace(/^\/id/, '') || '/';
-      }
+      return '/id' + (cleanPath === '/' ? '' : cleanPath);
     }
-
-    return finalUrl;
+    if (targetLang === 'cn') {
+      return '/cn' + (cleanPath === '/' ? '' : cleanPath);
+    }
+    return cleanPath;
   };
+
+  const langOptions = [
+    { code: 'en', short: 'EN', label: 'English', native: 'English' },
+    { code: 'id', short: 'ID', label: 'Indonesia', native: 'Bahasa Indonesia' },
+    { code: 'cn', short: 'CN', label: 'Mandarin', native: '中文 (简体)' },
+  ];
+  const currentLangOption = langOptions.find((o) => o.code === lang) || langOptions[0];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,23 +51,36 @@ export default function Header() {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
         if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+        if (isLangOpen) setIsLangOpen(false);
+      }
+    };
+    const handleClickOutside = (e) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(e.target)) {
+        setIsLangOpen(false);
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('keydown', handleEscape);
+    document.addEventListener('mousedown', handleClickOutside);
     handleScroll();
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isMobileMenuOpen, isSearchOpen]);
+  }, [isMobileMenuOpen, isSearchOpen, isLangOpen]);
 
   const rawEmail = siteSettings?.email || 'hello@8vice.com';
   const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
   const emailHref = `mailto:${cleanEmail}`;
+  const defaultTagline = lang === 'cn'
+    ? '通往印尼与中国的战略商业门户'
+    : lang === 'id'
+    ? 'Gerbang Strategis Anda Menuju Indonesia dan Tiongkok'
+    : 'Indonesia, Decoded for Chinese Businesses';
   const displayTagline = typeof siteSettings?.tagline === 'object'
-    ? (siteSettings?.tagline?.[lang] || siteSettings?.tagline?.en || 'Indonesia, Decoded for Chinese Businesses')
-    : (siteSettings?.tagline || 'Indonesia, Decoded for Chinese Businesses');
+    ? (siteSettings?.tagline?.[lang] || siteSettings?.tagline?.en || defaultTagline)
+    : (siteSettings?.tagline || defaultTagline);
 
   return (
     <>
@@ -155,6 +172,94 @@ export default function Header() {
         .nav__contact-pill.is-current {
           background: rgba(255, 255, 255, 0.22);
           border-color: rgba(255, 255, 255, 0.4);
+          color: #FFFFFF;
+        }
+        .lang-dropdown {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+        }
+        .lang-dropdown__trigger {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          color: #FFFFFF;
+          font-size: 12.5px;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .lang-dropdown__trigger:hover,
+        .lang-dropdown.is-open .lang-dropdown__trigger {
+          background: rgba(255, 255, 255, 0.14);
+          border-color: rgba(230, 57, 70, 0.45);
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        }
+        .lang-dropdown__caret {
+          width: 13px;
+          height: 13px;
+          transition: transform 0.2s ease;
+          opacity: 0.75;
+        }
+        .lang-dropdown.is-open .lang-dropdown__caret {
+          transform: rotate(180deg);
+        }
+        .lang-dropdown__menu {
+          position: absolute;
+          top: calc(100% + 8px);
+          right: 0;
+          min-width: 176px;
+          background: rgba(13, 15, 20, 0.98);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 14px;
+          padding: 6px;
+          box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65), 0 0 24px rgba(230, 57, 70, 0.12);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          z-index: 1000;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .lang-dropdown__item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          padding: 8px 12px;
+          border-radius: 10px;
+          color: rgba(255, 255, 255, 0.82);
+          text-decoration: none;
+          font-size: 13px;
+          font-weight: 500;
+          transition: all 0.18s ease;
+        }
+        .lang-dropdown__item:hover {
+          background: rgba(255, 255, 255, 0.08);
+          color: #FFFFFF;
+        }
+        .lang-dropdown__item.is-active {
+          background: rgba(230, 57, 70, 0.15);
+          border: 1px solid rgba(230, 57, 70, 0.35);
+          color: #FFFFFF;
+          font-weight: 600;
+        }
+        .lang-dropdown__code {
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          padding: 2px 6px;
+          border-radius: 6px;
+          background: rgba(255, 255, 255, 0.08);
+          color: #FF8A8A;
+        }
+        .lang-dropdown__item.is-active .lang-dropdown__code {
+          background: #E63946;
           color: #FFFFFF;
         }
       ` }} />
@@ -272,9 +377,47 @@ export default function Header() {
             </div>
 
             <div className="nav__utils">
-              <div className="lang-toggle" role="group" aria-label="Language">
-                <a href={getLangUrl('en')} className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`}>EN</a>
-                <a href={getLangUrl('id')} className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`}>ID</a>
+              <div
+                ref={langDropdownRef}
+                className={`lang-dropdown ${isLangOpen ? 'is-open' : ''}`}
+                onMouseEnter={() => setIsLangOpen(true)}
+                onMouseLeave={() => setIsLangOpen(false)}
+              >
+                <button
+                  type="button"
+                  className="lang-dropdown__trigger"
+                  aria-haspopup="true"
+                  aria-expanded={isLangOpen}
+                  aria-label="Select Language"
+                  onClick={() => setIsLangOpen((prev) => !prev)}
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.85 }}>
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  <span>{currentLangOption.short}</span>
+                  <svg className="lang-dropdown__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+
+                {isLangOpen && (
+                  <div className="lang-dropdown__menu" role="menu" aria-label="Language options">
+                    {langOptions.map((opt) => (
+                      <a
+                        key={opt.code}
+                        href={getLangUrl(opt.code)}
+                        role="menuitem"
+                        className={`lang-dropdown__item ${lang === opt.code ? 'is-active' : ''}`}
+                        onClick={() => setIsLangOpen(false)}
+                      >
+                        <span>{opt.native}</span>
+                        <span className="lang-dropdown__code">{opt.short}</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Search */}
@@ -330,10 +473,11 @@ export default function Header() {
           </Link>
         </div>
         <div className="drawer__utils">
-          <span className="drawer__util-lbl">Language</span>
+          <span className="drawer__util-lbl">{lang === 'cn' ? '语言选择' : lang === 'id' ? 'Bahasa' : 'Language'}</span>
           <div className="lang-toggle" role="group" aria-label="Language">
             <a href={getLangUrl('en')} className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`}>EN</a>
             <a href={getLangUrl('id')} className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`}>ID</a>
+            <a href={getLangUrl('cn')} className={`lang-btn ${lang === 'cn' ? 'is-active' : ''}`}>CN</a>
           </div>
           <button onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }} className="drawer__login" aria-label="Search" style={{ width: '100%', justifyContent: 'center' }}>
             <svg className="ico ico-20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -420,10 +564,12 @@ export default function Header() {
             </div>
 
             <h3 style={{ fontSize: '19px', fontWeight: 700, margin: '0 0 6px', color: '#FFFFFF' }}>
-              {lang === 'id' ? 'Saluran Resmi WeChat 8vice' : '8vice Official WeChat Channel'}
+              {lang === 'cn' ? '8vice 官方微信咨询通道' : lang === 'id' ? 'Saluran Resmi WeChat 8vice' : '8vice Official WeChat Channel'}
             </h3>
             <p style={{ fontSize: '13px', lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.65)', margin: '0 0 20px' }}>
-              {lang === 'id'
+              {lang === 'cn'
+                ? '使用微信扫描下方二维码，直接与我们的印中双边战略顾问团队建立联系。'
+                : lang === 'id'
                 ? 'Pindai kode QR ini menggunakan aplikasi WeChat untuk terhubung langsung dengan tim perwakilan kami.'
                 : 'Scan this QR code with WeChat to connect directly with our bilateral advisory desk.'}
             </p>

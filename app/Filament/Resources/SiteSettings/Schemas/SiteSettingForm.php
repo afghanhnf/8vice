@@ -40,6 +40,9 @@ class SiteSettingForm
                                 Tabs\Tab::make('ID')->schema([
                                     TextInput::make('tagline.id')->label('[ID] Company Tagline')->placeholder('Penasihat Strategis & Eksekusi Lintas Batas')->maxLength(255),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('tagline.cn')->label('[CN] Company Tagline')->placeholder('跨境战略咨询与落地执行')->maxLength(255),
+                                ]),
                             ]),
                     ]),
 
@@ -113,6 +116,13 @@ class SiteSettingForm
                                             ->placeholder('8vice | Solusi Strategis & Konsultasi Bisnis Global di Indonesia')
                                             ->maxLength(255),
                                     ]),
+                                Tabs\Tab::make('CN')
+                                    ->schema([
+                                        TextInput::make('default_meta_title.cn')
+                                            ->label('[CN] Default Site Title')
+                                            ->placeholder('8vice | 印尼与中国跨境战略商业咨询门户')
+                                            ->maxLength(255),
+                                    ]),
                             ])->columnSpanFull(),
 
                         Tabs::make('Default Meta Description')
@@ -131,6 +141,14 @@ class SiteSettingForm
                                             ->label('[ID] Default Meta Description')
                                             ->rows(3)
                                             ->placeholder('Ringkasan default untuk pencarian Google...')
+                                            ->maxLength(500),
+                                    ]),
+                                Tabs\Tab::make('CN')
+                                    ->schema([
+                                        Textarea::make('default_meta_description.cn')
+                                            ->label('[CN] Default Meta Description')
+                                            ->rows(3)
+                                            ->placeholder('网站全局默认搜索引擎描述...')
                                             ->maxLength(500),
                                     ]),
                             ])->columnSpanFull(),
@@ -166,6 +184,9 @@ class SiteSettingForm
                                 Tabs\Tab::make('ID')->schema([
                                     RichEditor::make('privacy_policy.id')->label('[ID] Kebijakan Privasi'),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    RichEditor::make('privacy_policy.cn')->label('[CN] 隐私保护政策'),
+                                ]),
                             ]),
                         Tabs::make('Terms of Service')
                             ->tabs([
@@ -174,6 +195,9 @@ class SiteSettingForm
                                 ]),
                                 Tabs\Tab::make('ID')->schema([
                                     RichEditor::make('terms_of_service.id')->label('[ID] Syarat & Ketentuan Layanan'),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    RichEditor::make('terms_of_service.cn')->label('[CN] 服务条款'),
                                 ]),
                             ]),
                     ]),

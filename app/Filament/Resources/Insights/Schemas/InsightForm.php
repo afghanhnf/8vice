@@ -45,6 +45,12 @@ class InsightForm
                                                     ->label('[EN] Title')
                                                     ->maxLength(255),
                                             ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                TextInput::make('t.cn')
+                                                    ->label('[CN] Title')
+                                                    ->maxLength(255),
+                                            ]),
                                     ])->columnSpanFull(),
                                 TextInput::make('slug')
                                     ->label('Slug (URL)')
@@ -147,6 +153,19 @@ class InsightForm
                                                     ])
                                                     ->columnSpanFull(),
                                             ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                RichEditor::make('body.cn')
+                                                    ->label('[CN] Article Body')
+                                                    ->toolbarButtons([
+                                                        'bold', 'italic', 'underline', 'strike',
+                                                        'h2', 'h3',
+                                                        'bulletList', 'orderedList',
+                                                        'blockquote', 'link',
+                                                        'redo', 'undo',
+                                                    ])
+                                                    ->columnSpanFull(),
+                                            ]),
                                     ])->columnSpanFull(),
                             ]),
                         Section::make('Excerpt / Summary')
@@ -170,6 +189,13 @@ class InsightForm
                                                     ->rows(3)
                                                     ->maxLength(500),
                                             ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                Textarea::make('excerpt.cn')
+                                                    ->label('[CN] Excerpt')
+                                                    ->rows(3)
+                                                    ->maxLength(500),
+                                            ]),
                                     ])->columnSpanFull(),
                             ]),
                         Section::make('Topics / Tags')
@@ -186,6 +212,10 @@ class InsightForm
                                         Tabs\Tab::make('EN')
                                             ->schema([
                                                 TagsInput::make('tags.en')->label('[EN] Tags')->placeholder('Add tag'),
+                                            ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                TagsInput::make('tags.cn')->label('[CN] Tags')->placeholder('Add tag'),
                                             ]),
                                     ])->columnSpanFull(),
                             ]),
@@ -215,6 +245,20 @@ class InsightForm
                                             ->schema([
                                                 Repeater::make('faqs.en')
                                                     ->label('[EN] FAQ')
+                                                    ->schema([
+                                                        TextInput::make('q')->label('Question')->required()->maxLength(500),
+                                                        Textarea::make('a')->label('Answer')->required()->rows(3),
+                                                    ])
+                                                    ->itemLabel(fn (array $state): ?string => $state['q'] ?? null)
+                                                    ->addActionLabel('Add question')
+                                                    ->reorderableWithButtons()
+                                                    ->collapsible()
+                                                    ->defaultItems(0),
+                                            ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                Repeater::make('faqs.cn')
+                                                    ->label('[CN] FAQ')
                                                     ->schema([
                                                         TextInput::make('q')->label('Question')->required()->maxLength(500),
                                                         Textarea::make('a')->label('Answer')->required()->rows(3),

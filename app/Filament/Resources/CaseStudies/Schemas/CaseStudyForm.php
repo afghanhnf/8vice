@@ -28,24 +28,28 @@ class CaseStudyForm
                             ->tabs([
                                 Tabs\Tab::make('ID')->schema([TextInput::make('tag.id')->label('Tag / Category')->maxLength(255)]),
                                 Tabs\Tab::make('EN')->schema([TextInput::make('tag.en')->label('Tag / Category')->maxLength(255)]),
+                                Tabs\Tab::make('CN')->schema([TextInput::make('tag.cn')->label('Tag / Category')->maxLength(255)]),
                             ]),
                         Tabs::make('Heading')
                             ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('ID')->schema([TextInput::make('h.id')->label('Heading')->required()->maxLength(255)]),
                                 Tabs\Tab::make('EN')->schema([TextInput::make('h.en')->label('Heading')->maxLength(255)]),
+                                Tabs\Tab::make('CN')->schema([TextInput::make('h.cn')->label('Heading')->maxLength(255)]),
                             ]),
                         Tabs::make('Paragraph')
                             ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('ID')->schema([TextInput::make('p.id')->label('Short Description')->required()->maxLength(1000)]),
                                 Tabs\Tab::make('EN')->schema([TextInput::make('p.en')->label('Short Description')->maxLength(1000)]),
+                                Tabs\Tab::make('CN')->schema([TextInput::make('p.cn')->label('Short Description')->maxLength(1000)]),
                             ]),
                         Tabs::make('Body')
                             ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('ID')->schema([RichEditor::make('body.id')->label('Full Body Content')->required()]),
                                 Tabs\Tab::make('EN')->schema([RichEditor::make('body.en')->label('Full Body Content')]),
+                                Tabs\Tab::make('CN')->schema([RichEditor::make('body.cn')->label('Full Body Content')]),
                             ]),
                     ]),
                 Section::make('Featured & Highlights')
@@ -62,8 +66,9 @@ class CaseStudyForm
                                 TextInput::make('unit')->label('Unit (e.g. mo, ×, %)')->maxLength(20),
                                 TextInput::make('label_id')->label('[ID] Label')->maxLength(120),
                                 TextInput::make('label_en')->label('[EN] Label')->required()->maxLength(120),
+                                TextInput::make('label_cn')->label('[CN] Label')->maxLength(120),
                             ])
-                            ->columns(4)
+                            ->columns(5)
                             ->maxItems(4)
                             ->itemLabel(fn (array $state): ?string => isset($state['value']) ? trim(($state['value'] ?? '') . ' ' . ($state['unit'] ?? '') . ' — ' . ($state['label_en'] ?? '')) : null)
                             ->addActionLabel('Add metric')
@@ -80,12 +85,14 @@ class CaseStudyForm
                             ->tabs([
                                 Tabs\Tab::make('ID')->schema([TextInput::make('corridor.id')->label('[ID] Geographic Corridor')->maxLength(255)]),
                                 Tabs\Tab::make('EN')->schema([TextInput::make('corridor.en')->label('[EN] Geographic Corridor')->maxLength(255)]),
+                                Tabs\Tab::make('CN')->schema([TextInput::make('corridor.cn')->label('[CN] Geographic Corridor')->maxLength(255)]),
                             ]),
                         Tabs::make('Capabilities')
                             ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('ID')->schema([Textarea::make('capabilities.id')->label('[ID] Advisory Capabilities')->rows(2)->maxLength(500)]),
                                 Tabs\Tab::make('EN')->schema([Textarea::make('capabilities.en')->label('[EN] Advisory Capabilities')->rows(2)->maxLength(500)]),
+                                Tabs\Tab::make('CN')->schema([Textarea::make('capabilities.cn')->label('[CN] Advisory Capabilities')->rows(2)->maxLength(500)]),
                             ]),
                     ]),
             ]);

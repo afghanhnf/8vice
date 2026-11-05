@@ -1,45 +1,61 @@
 import React from 'react';
 import Link from '@/Components/LocalizedLink';
+import { useTranslation } from '@/Contexts/TranslationContext';
 
 export default function HomeArticles({ isId = false, insights = [] }) {
+  const { lang } = useTranslation();
+  const isCn = lang === 'cn';
+
   // Use passed insights or provide verified defaults
   const articlesList = (insights && insights.length > 0)
     ? insights.slice(0, 3)
     : [
         {
-          cat: isId ? "Regulasi & Kepatuhan" : "Regulatory & Technology",
-          rt: "8 min read",
-          date: "August 2026",
-          t: isId 
+          cat: isCn ? "监管与科技合规" : isId ? "Regulasi & Kepatuhan" : "Regulatory & Technology",
+          rt: isCn ? "8 分钟阅读" : "8 min read",
+          date: isCn ? "2026年8月" : "August 2026",
+          t: isCn
+            ? "印尼跨境数据合规指南：深度解读《个人数据保护法》(UU PDP)"
+            : isId 
             ? "Panduan Kepatuhan UU Perlindungan Data Pribadi (UU PDP) untuk Penyedia SaaS Lintas Negara"
             : "Cross-Border Data Compliance in Indonesia: Deciphering the Personal Data Protection Law (UU PDP)",
-          excerpt: isId
+          excerpt: isCn
+            ? "针对印尼第 27/2022 号法令 (UU PDP) 的实用合规指南：本地数据存储要求、强制性数据保护官 (DPO) 任命及双边数据传输协议。"
+            : isId
             ? "Panduan praktis kepatuhan UU PDP: kewajiban lokalisasi data, penunjukan Data Protection Officer (DPO), dan protokol transfer data bilateral."
             : "A pragmatic compliance guide to Law No. 27/2022 (UU PDP): local data residency mandates, mandatory DPO appointments, and bilateral data transfer protocols.",
           cover: "/images/project_analysis.webp",
           slug: "indonesia-pdp-data-protection-compliance-guide"
         },
         {
-          cat: isId ? "Rantai Pasok & Manufaktur" : "Operations & Supply Chain",
-          rt: "11 min read",
-          date: "July 2026",
-          t: isId 
+          cat: isCn ? "供应链与制造业" : isId ? "Rantai Pasok & Manufaktur" : "Operations & Supply Chain",
+          rt: isCn ? "11 分钟阅读" : "11 min read",
+          date: isCn ? "2026年7月" : "July 2026",
+          t: isCn
+            ? "爪哇岛与外岛工业园区选址对比：劳动力生产力与港口物流评估"
+            : isId 
             ? "Pemilihan Kawasan Industri di Jawa vs Luar Jawa: Produktivitas Tenaga Kerja & Akses Pelabuhan"
             : "Industrial Estate Site Selection in Java vs. Outer Islands: Labor Productivity and Port Access",
-          excerpt: isId
+          excerpt: isCn
+            ? "全面对比中爪哇（肯德尔、巴塘）、西爪哇（苏邦）及苏拉威西工业园区，为制造业产能转移与物流效率提供决策基准。"
+            : isId
             ? "Analisis komparatif kawasan industri Kendal, Batang, dan Subang Smartpolitan untuk relokasi fasilitas manufaktur dan efisiensi logistik."
             : "A comparative benchmark of Central Java (Kendal, Batang), West Java (Subang), and Sulawesi for manufacturing relocations and logistics efficiency.",
           cover: "/images/video_manifesto_cover.webp",
           slug: "indonesia-industrial-park-site-selection-java-kendal-batang"
         },
         {
-          cat: isId ? "Keuangan & FinTech" : "Finance & Tech",
-          rt: "7 min read",
-          date: "May 2026",
-          t: isId 
+          cat: isCn ? "金融与科技" : isId ? "Keuangan & FinTech" : "Finance & Tech",
+          rt: isCn ? "7 分钟阅读" : "7 min read",
+          date: isCn ? "2026年5月" : "May 2026",
+          t: isCn
+            ? "跨境支付新纪元：印尼与中国 QRIS 互联互通及本币结算 (LCS) 未来展望"
+            : isId 
             ? "Pembayaran Lintas Batas: Masa Depan Interoperabilitas QRIS Indonesia–China & LCS"
             : "Cross-Border Payments: The Future of Indonesia-China QRIS Interoperability & Local Currency Settlement",
-          excerpt: isId
+          excerpt: isCn
+            ? "印尼央行与中国人民银行双边二维码互联互通及本币结算 (LCS) 框架如何消除跨境贸易、电商与旅游的外汇摩擦。"
+            : isId
             ? "Bagaimana kerangka kerja sama Bank Indonesia dan PBOC mengeliminasi friksi valuta asing untuk pariwisata, e-commerce, dan penyelesaian perdagangan."
             : "How Bank Indonesia and PBOC's bilateral QR code interoperability and Local Currency Settlement (LCS) framework eliminate FX friction for cross-border trade.",
           cover: "/images/challenges_insights.webp",
@@ -47,7 +63,15 @@ export default function HomeArticles({ isId = false, insights = [] }) {
         }
       ];
 
-  const copy = isId
+  const copy = isCn
+    ? {
+        eyebrow: "市场情报与深度洞察",
+        title: "双边商业走廊最新战略洞察",
+        subtitle: "深度行业研究报告、监管合规简报与商业情报，为您的跨境投资与扩张路线图保驾护航。",
+        cta_all: "查看全部洞察与报告",
+        read_more: "阅读深度分析"
+      }
+    : isId
     ? {
         eyebrow: "INTELIJEN PASAR & WAWASAN",
         title: "Wawasan Strategis Terkini dari Koridor Bilateral",
@@ -199,16 +223,16 @@ export default function HomeArticles({ isId = false, insights = [] }) {
                     className="home-article-thumb-img"
                   />
                   <div className="home-article-cat-badge">
-                    {art.cat || (isId ? 'Wawasan' : 'Insights')}
+                    {art.cat || (isCn ? '深度洞察' : isId ? 'Wawasan' : 'Insights')}
                   </div>
                 </div>
 
                 <div style={{ padding: '28px', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)', marginBottom: '12px' }}>
-                      <span>{art.date || (isId ? 'Terkini' : 'Recent')}</span>
+                      <span>{art.date || (isCn ? '最新' : isId ? 'Terkini' : 'Recent')}</span>
                       <span>•</span>
-                      <span>{art.rt || '8 min read'}</span>
+                      <span>{art.rt || (isCn ? '8 分钟阅读' : '8 min read')}</span>
                     </div>
 
                     <h3 style={{ fontSize: '19px', fontWeight: 600, color: '#FFFFFF', lineHeight: 1.4, marginBottom: '12px' }}>

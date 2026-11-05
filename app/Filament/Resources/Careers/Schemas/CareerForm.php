@@ -31,6 +31,11 @@ class CareerForm
                                         ->label('[EN] Job Title')
                                         ->maxLength(255),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('title.cn')
+                                        ->label('[CN] Job Title')
+                                        ->maxLength(255),
+                                ]),
                             ]),
 
                         Tabs::make('Department')
@@ -45,6 +50,11 @@ class CareerForm
                                 Tabs\Tab::make('EN')->schema([
                                     TextInput::make('dept.en')
                                         ->label('[EN] Department')
+                                        ->maxLength(255),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('dept.cn')
+                                        ->label('[CN] Department')
                                         ->maxLength(255),
                                 ]),
                             ]),
@@ -63,6 +73,11 @@ class CareerForm
                                         ->label('[EN] Job Type')
                                         ->maxLength(255),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('type.cn')
+                                        ->label('[CN] Job Type')
+                                        ->maxLength(255),
+                                ]),
                             ]),
 
                         Tabs::make('Location')
@@ -77,6 +92,11 @@ class CareerForm
                                 Tabs\Tab::make('EN')->schema([
                                     TextInput::make('location.en')
                                         ->label('[EN] Location')
+                                        ->maxLength(255),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('location.cn')
+                                        ->label('[CN] Location')
                                         ->maxLength(255),
                                 ]),
                             ]),
@@ -96,6 +116,12 @@ class CareerForm
                                         ->helperText('Enter requirements and qualifications (1 item per line).')
                                         ->rows(5),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    Textarea::make('reqs.cn')
+                                        ->label('[CN] Requirements (1 item per line)')
+                                        ->helperText('任职要求与资格（每行一条）。')
+                                        ->rows(5),
+                                ]),
                             ]),
 
                         Tabs::make('Description')
@@ -109,6 +135,11 @@ class CareerForm
                                 Tabs\Tab::make('EN')->schema([
                                     Textarea::make('description.en')
                                         ->label('[EN] Job Description / Responsibilities')
+                                        ->rows(5),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    Textarea::make('description.cn')
+                                        ->label('[CN] Job Description / Responsibilities')
                                         ->rows(5),
                                 ]),
                             ]),

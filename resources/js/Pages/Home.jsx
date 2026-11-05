@@ -36,6 +36,7 @@ export default function Home({
 }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
 
   // Form State for "Discuss Your Business"
   const [businessDirection, setBusinessDirection] = useState('China to Indonesia');
@@ -60,7 +61,7 @@ export default function Home({
   const handleSubmitInquiry = (e) => {
     e.preventDefault();
     setForm({
-      name: companyName || (isId ? 'Calon Klien' : 'Prospective Client'),
+      name: companyName || (isCn ? '潜在客户' : isId ? 'Calon Klien' : 'Prospective Client'),
       email: emailInput,
       company: companyName,
       direction: businessDirection,
@@ -70,7 +71,7 @@ export default function Home({
       website_url: ''
     });
 
-    postForm(isId ? '/id/contact-submit' : '/contact-submit', {
+    postForm(isCn ? '/cn/contact-submit' : isId ? '/id/contact-submit' : '/contact-submit', {
       preserveScroll: true,
       onSuccess: () => {
         setSubmitted(true);
@@ -668,10 +669,300 @@ export default function Home({
         hours_title: "Jam Layanan",
         hours_val: "Hari Kerja (09.00 - 17.00)"
       }
+    },
+    cn: {
+      hero: {
+        eyebrow: "战略咨询 · 印尼—中国 · 跨境商业增长",
+        title_start: "通往印尼与中国的 ",
+        title_accent: "战略商业门户",
+        title_end: "",
+        subtitle: "连接双边市场 · 驱动实质增长",
+        desc: "8 Vice 是一家连接印尼与中国企业、机构及战略合作伙伴的高管级战略咨询公司。我们协助组织深入开拓新市场、挖掘商业机遇、构建高价值合作伙伴关系，并制定可持续的跨境增长战略。",
+        cta_primary: "探索核心服务",
+        cta_c2i: "中国至印尼",
+        cta_i2c: "印尼至中国",
+        tag_corridor: "印中双边战略走廊",
+        tag_status: "政企与商业生态网络",
+        stats: [
+          { num: "25+", label: "年高管复合经验", desc: "深耕跨境战略咨询" },
+          { num: "30+", label: "项跨境合作落地", desc: "覆盖印尼与中国市场" }
+        ]
+      },
+      overview: {
+        eyebrow: "战略咨询核心定位",
+        title: "认识 8Vice",
+        lead: "8 Vice 是一家连接印尼与中国企业、政府机构及战略合作伙伴的跨境战略咨询公司。",
+        p1: "我们协助企业稳健开拓新市场、识别高价值商业机遇、建立深度合作伙伴关系，并制定可持续的跨境商业增长战略。",
+        p2: "融合深厚的本土市场洞察、战略传播、利益相关方沟通与跨境业务拓展能力，我们为企业架起从商业机遇通往落地执行的坚实桥梁。",
+        p3: "从首次市场准入到长期战略合资合作，8 Vice 助力企业在印尼与中国两大充满活力的经济体之间将商业愿景转化为切实可行的增长成果。",
+        tagline: "两大市场 · 一个战略门户",
+        subtext: "探索我们如何助力您的业务在印尼与中国市场稳健增长。",
+        btn_profile: "查看公司与领导层简介",
+        photo_badge: "双边战略咨询",
+        photo_caption: "高管领导团队与顾问委员会"
+      },
+      who: {
+        eyebrow: "关于我们 · 战略定位",
+        title: [
+          "连接双边市场。",
+          "构建战略合作。",
+          "创造商业机遇。"
+        ],
+        lead: "8 Vice 是一家专注于印尼—中国走廊的战略咨询与业务拓展机构，致力于协助企业以更清晰的视野、更笃定的信心与更精准的战略方向把握跨境商业机遇。",
+        desc: "我们深耕于商业战略、市场情报、利益相关方事务、品牌传播与合作伙伴开发的交汇点。成功的国际化扩张不仅在于获得市场准入，更依赖于深度的本土洞察、跨文化商业智慧、可信赖的本土网络与务实的落地执行。",
+        pillars: [
+          {
+            title: "本土市场深度洞察",
+            desc: "深刻理解印尼与中国的监管政策框架、本土消费者偏好及真实商业运营环境。"
+          },
+          {
+            title: "跨文化商业智慧",
+            desc: "弥合双边商业惯例、谈判风格与机构期望差异，消除跨境沟通与合作中的摩擦。"
+          },
+          {
+            title: "可信赖的政商网络",
+            desc: "直达相关产业生态圈、核心行业协会及经过严格筛查的本土商业利益相关方。"
+          },
+          {
+            title: "可落地的执行战略",
+            desc: "将高管层的战略目标转化为具体的市场进入计划、合作伙伴架构与可衡量的商业成果。"
+          }
+        ]
+      },
+      services: {
+        eyebrow: "核心能力 · 六大服务支柱",
+        title: [
+          "紧密连接的战略，",
+          "推动业务前行的伙伴关系。"
+        ],
+        subtitle: "我们提供整合式战略咨询与跨境业务拓展服务，助力企业顺利进入新市场、建立高层战略关系并释放长远增长潜力。",
+        items: [
+          {
+            id: "advisory",
+            num: "01",
+            title: "战略咨询与市场准入",
+            desc: "协助企业全面评估跨境商业机遇、洞察市场规律，并制定可执行的市场准入路线图。",
+            points: [
+              "初步市场机会评估与可行性研究",
+              "商业模式设计与市场进入 (Go-To-Market) 规划",
+              "市场定位与产品/品牌本土化策略",
+              "合作伙伴、分销商与商业渠道体系规划"
+            ]
+          },
+          {
+            id: "gov-relations",
+            num: "02",
+            title: "政府关系与利益相关方事务",
+            desc: "通过合规透明的渠道，支持利益相关方梳理、机构对接及政企沟通协调。",
+            points: [
+              "利益相关方图谱梳理与沟通规划",
+              "政府主管部门与行业协会联络对接",
+              "高层会晤统筹与战略政策对话促进",
+              "公私合作伙伴关系 (PPP) 项目推进支持"
+            ]
+          },
+          {
+            id: "business-matching",
+            num: "03",
+            title: "商业配对与战略合作伙伴关系",
+            desc: "根据明确的商业目标，连接经过筛选的潜在合作伙伴、分销商、投资方及行业领袖。",
+            points: [
+              "优质本土商业伙伴与分销商寻源筛选",
+              "定制化 B2B 专场配对与高层引荐会晤",
+              "商务考察团与双边贸易代表团统筹协调",
+              "战略合作伙伴洽谈与合作备忘录 (MOU) 跟进"
+            ]
+          },
+          {
+            id: "comms",
+            num: "04",
+            title: "战略传播与市场定位",
+            desc: "打造企业定位、品牌叙事与整合传播策略，建立本土市场相关性与利益相关方信任。",
+            points: [
+              "海外市场企业形象与品牌叙事本土化",
+              "整合营销传播 (IMC) 与核心战略信息架构",
+              "公共关系 (PR) 与跨文化主流媒体互动",
+              "利益相关方沟通与高管思想领导力打造"
+            ]
+          },
+          {
+            id: "digital",
+            num: "05",
+            title: "媒体关系与危机公关",
+            desc: "管理媒体合作、新闻发布会、高管专访，并通过审慎的跨境传播策略守护企业声誉。",
+            points: [
+              "双边主流财经与行业权威媒体关系构建",
+              "新闻发布会、媒体吹风会与高管专访统筹",
+              "危机公关预案制定与突发舆情响应机制",
+              "跨文化企业声誉管理与舆情监测"
+            ]
+          },
+          {
+            id: "investment",
+            num: "06",
+            title: "投资促进与业务拓展支持",
+            desc: "支持早期业务拓展，协助客户厘清项目目标并构建稳健的跨境商业合作架构。",
+            points: [
+              "初步投资机会评估与项目可行性审查",
+              "商业计划书编制与合资/合作模式设计",
+              "本土联合投资方与工业园区项目伙伴引荐",
+              "跨境投资落地跟进与多方协调支持"
+            ]
+          }
+        ]
+      },
+      why: {
+        eyebrow: "为何选择 8 VICE · 核心战略优势",
+        title: [
+          "深耕本土洞察，",
+          "兼具跨境视野。"
+        ],
+        lead: "进入新市场远不止于发现需求。企业必须透彻理解当地监管与商业环境、驾驭不同的商业文化、识别关键利益相关方，并建立能够支撑长期目标的合作伙伴关系。",
+        intro: "8 Vice 汇聚五大核心战略优势：",
+        quote: "在两大充满活力的经济引擎之间，架起从商业雄心通往本土验证落地的战略桥梁。",
+        points: [
+          {
+            num: "01",
+            title: "印尼—中国双边市场视角",
+            desc: "兼顾两国商业环境、产业优先级与文化动态的跨境方法论。"
+          },
+          {
+            num: "02",
+            title: "高价值战略连接力",
+            desc: "以结构化方式识别关键商业关系，促成能够转化为实质性合作的深度对话。"
+          },
+          {
+            num: "03",
+            title: "多方利益相关方协同",
+            desc: "深刻理解政府机构关系、行业协会网络与多方利益协调在跨境项目中的核心价值。"
+          },
+          {
+            num: "04",
+            title: "整合式商业思维",
+            desc: "将市场战略、品牌传播、伙伴配对与业务拓展紧密融合，而非孤立地看待单一环节。"
+          },
+          {
+            num: "05",
+            title: "长期伙伴关系导向",
+            desc: "围绕共同目标、互利价值与可持续的商业成果构建稳固的合作关系。"
+          }
+        ]
+      },
+      gateway: {
+        eyebrow: "两大市场 · 一个战略门户",
+        title: "两大市场，一个战略门户。",
+        subtitle: "专为在印尼与中国之间拓展业务的企业打造的一站式平台。",
+        desc: "印尼与中国为寻求新市场、战略合作与长期增长的企业提供了广阔机遇。8 Vice 将深刻的本土市场理解与战略业务拓展相结合，助力企业跨越市场壁垒。",
+        c2i_title: "中国至印尼 (China to Indonesia)",
+        c2i_sub: "面向进入或深化印尼市场的中国企业与投资机构。",
+        c2i_points: [
+          "印尼营商环境、监管合规与市场机会深度评估",
+          "本土战略合作伙伴、全国总分销商与产业协作方寻源",
+          "相关政府主管部门、工业园区与行业协会沟通对接",
+          "品牌叙事、市场定位与印尼本土化传播策略",
+          "业务拓展推进、商业方案协调与项目落地跟进"
+        ],
+        c2i_btn: "洽谈您的印尼市场准入计划",
+        i2c_title: "印尼至中国 (Indonesia to China)",
+        i2c_sub: "面向探索中国市场与供应链合作的印尼企业。",
+        i2c_points: [
+          "中国市场情报研究、细分赛道识别与机会图谱绘制",
+          "中国核心商业枢纽的分销商与战略合作伙伴匹配",
+          "定制化 B2B 商业配对、贸易代表团与双边商务考察",
+          "契合中国数字与商业生态的产品定位与品牌传播",
+          "跨境商业合作架构设计与长期伙伴关系协调"
+        ],
+        i2c_btn: "洽谈您的中国市场拓展计划",
+        methodology_title: "我们的跨境服务五步流程",
+        steps: [
+          { num: "01", name: "需求洞察 (Discovery)", desc: "深入了解客户战略目标、核心能力与目标市场优先级。" },
+          { num: "02", name: "市场评估 (Assessment)", desc: "全面评估目标市场环境、监管政策动态与商业可行性。" },
+          { num: "03", name: "战略制定 (Strategize)", desc: "制定市场定位、合作伙伴筛选标准与沟通执行路线图。" },
+          { num: "04", name: "资源对接 (Connect)", desc: "促成精准商业引荐与高规格 B2B 及政府机构对话。" },
+          { num: "05", name: "落地跟进 (Follow-Through)", desc: "全程支持合作洽谈、方案推进与项目落地协调。" }
+        ]
+      },
+      industries: {
+        eyebrow: "市场与机遇的交汇点",
+        title: "连接跨行业战略商业机遇。",
+        subtitle: "8 Vice 深耕印中双边合作最具商业协同效应与增长潜力的五大核心行业。",
+        items: [
+          {
+            id: "infrastructure",
+            title: "基础设施与城市发展",
+            tag: "高增长基础设施",
+            desc: "轨道交通系统、城市智慧出行、智慧城市解决方案以及面向未来的政企基建合作。"
+          },
+          {
+            id: "technology",
+            title: "科技与数字生态",
+            tag: "数字经济",
+            desc: "数字平台、消费科技、跨境支付系统、金融科技整合及软硬件技术提供商合作。"
+          },
+          {
+            id: "tourism",
+            title: "旅游、出行与酒店业",
+            tag: "双边文旅合作",
+            desc: "旅游目的地推广、航司与旅行社联盟、会展旅游 (MICE) 开发及中国出境游市场对接。"
+          },
+          {
+            id: "creative",
+            title: "创意经济与生活方式",
+            tag: "文化与消费",
+            desc: "时尚、工艺设计、餐饮连锁、影视娱乐、音乐、游戏及跨文化生活方式品牌联名合作。"
+          },
+          {
+            id: "trade",
+            title: "贸易与快速消费品 (FMCG)",
+            tag: "市场与渠道扩张",
+            desc: "商业分销网络建设、零售渠道本土化、产品定位及跨境供应链体系开发。"
+          }
+        ]
+      },
+      credibility: {
+        eyebrow: "专业资历与过往业绩",
+        title: "以实战经验赋能战略决策。",
+        desc: "我们的方法论源于团队在商业咨询、整合营销传播、政府与机构事务、城市交通、文化旅游及印中跨境业务拓展领域的深厚实战积累。",
+        subdesc: "我们汇聚契合的行业视角、专业能力与核心利益相关方，协助客户确立清晰方向、构建高价值网络并走通切实可行的商业路径。",
+        notice: "*部分精选项目、客户案例与合作伙伴关系均严格遵循客户保密协议 (NDA) 予以展示。*"
+      },
+      insights: {
+        eyebrow: "知识库与市场情报",
+        title: "洞察市场脉搏，把握先发机遇。",
+        subtitle: "成功的跨境扩张离不开精准的决策依据与清晰的市场视野。欢迎浏览我们最新的深度研究报告与实操指南。",
+        cta: "查看全部洞察文章与报告",
+        categories: [
+          "市场情报与宏观经济分析",
+          "跨境业务与市场准入实操指南",
+          "重点行业视角与监管合规动态",
+          "双边代表团动态与商业论坛资讯",
+          "战略合作伙伴与标杆案例研究"
+        ]
+      },
+      inquiry: {
+        eyebrow: "开启战略对话",
+        title: "洽谈您的业务需求",
+        subtitle: "请告诉我们您的跨境扩张计划。我们的顾问团队将审阅您的需求，并为您规划最合适的下一步方案。",
+        dir_lbl: "业务拓展方向",
+        dir_opts: ["中国至印尼 (China to Indonesia)", "印尼至中国 (Indonesia to China)", "双边合作 / 其他"],
+        svc_lbl: "所需服务类型",
+        ind_lbl: "所属行业领域",
+        company_lbl: "公司名称（选填）",
+        email_lbl: "您的企业邮箱",
+        notes_lbl: "简要描述您的商业目标或项目需求",
+        notes_ph: "目标市场、项目范围、合作伙伴要求或预计扩张时间表...",
+        submit_btn: "提交业务咨询需求",
+        success_msg: "感谢您的垂询！我们已收到您的业务咨询需求，8 Vice 顾问团队将尽快与您联系。",
+        office_title: "办公地址",
+        office_addr: "SOHO Building, Jl. Letjen M.T. Haryono Kav. 2, Jakarta Selatan 12810, Indonesia",
+        email_title: "官方邮箱",
+        hours_title: "服务时间",
+        hours_val: "工作日 (09:00 - 17:00)"
+      }
     }
   };
 
-  const c = content[isId ? 'id' : 'en'];
+  const c = content[isCn ? 'cn' : isId ? 'id' : 'en'];
 
   // Google Material Design 3 (M3) Motion Observer: Temporarily disabled for screenshots
   useEffect(() => {
@@ -1449,7 +1740,7 @@ export default function Home({
                       {c.overview.photo_caption}
                     </div>
                     <div style={{ fontSize: '18px', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.3, marginBottom: '18px' }}>
-                      {isId ? 'Navigasi Pasar & Kemitraan Strategis' : 'Bilateral Market Navigation & Strategic Growth'}
+                      {isCn ? '双边市场导航与战略增长' : isId ? 'Navigasi Pasar & Kemitraan Strategis' : 'Bilateral Market Navigation & Strategic Growth'}
                     </div>
 
                     {/* Direct to Profile Button */}
@@ -1712,7 +2003,7 @@ export default function Home({
                       }}
                       className="home-svc-explore-link"
                     >
-                      <span>{isId ? 'Lihat Detail Layanan' : 'Explore Service'}</span>
+                      <span>{isCn ? '查看服务详情' : isId ? 'Lihat Detail Layanan' : 'Explore Service'}</span>
                       <span style={{ color: '#E63946', fontSize: '14px' }}>→</span>
                     </Link>
 
@@ -1729,7 +2020,7 @@ export default function Home({
                         textDecoration: 'none'
                       }}
                     >
-                      <span>{isId ? 'Konsultasi' : 'Inquire'}</span>
+                      <span>{isCn ? '立即咨询' : isId ? 'Konsultasi' : 'Inquire'}</span>
                     </a>
                   </div>
                 </div>
@@ -1861,7 +2152,7 @@ export default function Home({
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase'
                   }}>
-                    {isId ? 'Jembatan Strategis Bilateral' : 'Bilateral Strategic Bridge'}
+                    {isCn ? '双边战略桥梁' : isId ? 'Jembatan Strategis Bilateral' : 'Bilateral Strategic Bridge'}
                   </span>
                 </div>
                 <div style={{ position: 'absolute', bottom: '16px', left: '20px', right: '20px' }}>
@@ -2199,7 +2490,7 @@ export default function Home({
                             onClick={(e) => e.stopPropagation()}
                             className="industry-card-btn"
                           >
-                            <span>{isId ? 'Eksplorasi Sektor Ini' : 'Explore Sector Opportunities'}</span>
+                            <span>{isCn ? '探索该行业机遇' : isId ? 'Eksplorasi Sektor Ini' : 'Explore Sector Opportunities'}</span>
                             <span className="industry-card-btn-arrow">→</span>
                           </Link>
                         </div>
@@ -2208,7 +2499,7 @@ export default function Home({
                       {/* Interactive Cue in Default State */}
                       <div className="industry-card-hint">
                         <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#E63946', display: 'inline-block' }} />
-                        <span>{isId ? 'Hover untuk detail' : 'Hover to explore'}</span>
+                        <span>{isCn ? '悬停查看详情' : isId ? 'Hover untuk detail' : 'Hover to explore'}</span>
                         <span style={{ fontSize: '13px', marginLeft: 'auto', color: '#E63946' }}>→</span>
                       </div>
                     </div>
@@ -2261,7 +2552,7 @@ export default function Home({
             }}>
               <ShieldNdaIcon size={16} color="#E63946" />
               <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', color: '#FF8A8A', textTransform: 'uppercase' }}>
-                {isId ? 'Kerahasiaan Ketat & Perjanjian NDA Bilateral' : 'Strict Discretion & Enforceable Bilateral NDAs'}
+                {isCn ? '严格保密原则与具有法律效力的双边 NDA' : isId ? 'Kerahasiaan Ketat & Perjanjian NDA Bilateral' : 'Strict Discretion & Enforceable Bilateral NDAs'}
               </span>
             </div>
 
@@ -2307,7 +2598,7 @@ export default function Home({
           {clients && clients.length > 0 && (
             <div className="m3-child" style={{ paddingTop: '42px', borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
               <div style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '28px' }}>
-                {isId ? 'Kolaborasi Proyek & Inisiatif Terpercaya' : 'Selected Project Collaborations & Engagements'}
+                {isCn ? '精选项目合作与服务客户' : isId ? 'Kolaborasi Proyek & Inisiatif Terpercaya' : 'Selected Project Collaborations & Engagements'}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
                 {[clients.slice(0, 5), clients.slice(5)].map((rowClients, rowIdx) => (
@@ -2480,7 +2771,7 @@ export default function Home({
                         </option>
                       ))}
                       <option value="Other / Bilateral Consultation" style={{ background: '#14161C', color: '#fff' }}>
-                        {isId ? 'Lainnya / Konsultasi Bilateral' : 'Other / Bilateral Consultation'}
+                        {isCn ? '其他 / 双边战略咨询' : isId ? 'Lainnya / Konsultasi Bilateral' : 'Other / Bilateral Consultation'}
                       </option>
                     </select>
                   </div>
@@ -2510,7 +2801,7 @@ export default function Home({
                         </option>
                       ))}
                       <option value="Other Industry" style={{ background: '#14161C', color: '#fff' }}>
-                        {isId ? 'Sektor Lainnya' : 'Other Industry'}
+                        {isCn ? '其他行业领域' : isId ? 'Sektor Lainnya' : 'Other Industry'}
                       </option>
                     </select>
                   </div>
@@ -2604,7 +2895,7 @@ export default function Home({
                       marginTop: '8px'
                     }}
                   >
-                    {isSubmitting ? (isId ? 'Mengirimkan...' : 'Submitting...') : c.inquiry.submit_btn}
+                    {isSubmitting ? (isCn ? '正在提交...' : isId ? 'Mengirimkan...' : 'Submitting...') : c.inquiry.submit_btn}
                   </button>
                 </form>
               )}
@@ -2615,10 +2906,12 @@ export default function Home({
             <div className="m3-card" style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}>
               <div>
                 <h4 style={{ fontSize: '24px', fontWeight: 700, color: '#FFFFFF', marginBottom: '14px' }}>
-                  {isId ? 'Konsultasi Langsung dengan Tim 8 Vice' : 'Direct Strategic Advisory Consultation'}
+                  {isCn ? '与 8 Vice 顾问团队直接沟通' : isId ? 'Konsultasi Langsung dengan Tim 8 Vice' : 'Direct Strategic Advisory Consultation'}
                 </h4>
                 <p style={{ fontSize: '15px', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.68)', margin: 0 }}>
-                  {isId
+                  {isCn
+                    ? '我们欢迎探索印尼市场的中国企业、寻求拓展中国业务的印尼企业以及致力于推动双边合作的各类机构垂询洽谈。'
+                    : isId
                     ? 'Kami siap membantu menyusun rencana penetrasi pasar, pendampingan dialog institusional, dan matchmaking kemitraan bilateral Indonesia–China secara terarah dan terpercaya.'
                     : 'We welcome inquiries from Chinese companies exploring Indonesia, Indonesian enterprises seeking expansion in China, and organizations pursuing bilateral cooperation.'}
                 </p>
@@ -2701,12 +2994,12 @@ export default function Home({
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase'
                   }}>
-                    {isId ? 'Tatap Muka & Daring' : 'In-Person & Virtual'}
+                    {isCn ? '线下会晤与线上会议' : isId ? 'Tatap Muka & Daring' : 'In-Person & Virtual'}
                   </span>
                 </div>
                 <div style={{ position: 'absolute', bottom: '16px', left: '20px', right: '20px' }}>
                   <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#E63946', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>
-                    {isId ? 'Ruang Rapat Penasihat Strategis' : 'Executive Advisory Boardroom'}
+                    {isCn ? '高管战略咨询会议室' : isId ? 'Ruang Rapat Penasihat Strategis' : 'Executive Advisory Boardroom'}
                   </div>
                   <div style={{ fontSize: '13.5px', color: 'rgba(255, 255, 255, 0.9)', fontWeight: 500 }}>
                     Menara Prima, Mega Kuningan · Jakarta Financial District

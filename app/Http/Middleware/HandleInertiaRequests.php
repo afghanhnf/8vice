@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware
                 $contentId = null;
                 $pageName = null;
 
-                if (str_starts_with($path, '/article/') || str_starts_with($path, '/id/article/')) {
+                if (str_starts_with($path, '/article/') || str_starts_with($path, '/id/article/') || str_starts_with($path, '/cn/article/') || str_starts_with($path, '/insights/') || str_starts_with($path, '/id/insights/') || str_starts_with($path, '/cn/insights/')) {
                     $slug = basename($path);
                     $insight = \App\Models\Insight::where('slug', $slug)->orWhere('id', $slug)->first();
                     if ($insight) {
@@ -46,7 +46,7 @@ class HandleInertiaRequests extends Middleware
                         $pageName = 'Article: ' . ($pageTitle ?: $slug);
                         $insight->increment('views_count');
                     }
-                } elseif (str_starts_with($path, '/case-study/') || str_starts_with($path, '/id/case-study/')) {
+                } elseif (str_starts_with($path, '/case-study/') || str_starts_with($path, '/id/case-study/') || str_starts_with($path, '/cn/case-study/')) {
                     $slug = basename($path);
                     $case = \App\Models\CaseStudy::where('slug', $slug)->orWhere('id', $slug)->first();
                     if ($case) {

@@ -144,6 +144,7 @@ function PillarIcon({ num }) {
 export default function Article({ insights = [] }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
 
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -215,7 +216,7 @@ export default function Article({ insights = [] }) {
   const getLocalized = (val) => {
     if (!val) return '';
     if (typeof val === 'string') return val;
-    return (isId ? val.id : val.en) || val.en || val.id || '';
+    return (isCn ? val.cn : isId ? val.id : val.en) || val.en || val.id || '';
   };
 
   const filteredArticles = useMemo(() => {
@@ -231,7 +232,7 @@ export default function Article({ insights = [] }) {
         (a.cat || '').toLowerCase().includes(q);
       return matchCategory && matchSearch;
     });
-  }, [insights, activeCategory, searchQuery, isId]);
+  }, [insights, activeCategory, searchQuery, isId, isCn]);
 
   const featuredArticle = filteredArticles[0];
   const listArticles = filteredArticles.slice(1);
@@ -270,7 +271,125 @@ export default function Article({ insights = [] }) {
     }
   };
 
-  const copy = isId
+  const copy = isCn
+    ? {
+        breadcrumbHome: '首页',
+        breadcrumb: '洞察与合作伙伴',
+        eyebrow: '市场情报与协同生态系统',
+        heroTitle: '互联商业世界的战略洞察。',
+        heroSubtitle: '读懂市场。洞见机遇。',
+        heroLead:
+          '跨境扩张需要明智的决策、对不断变化的市场环境的深刻理解，以及对前方机遇与挑战的清晰洞察。',
+        ctaRegisterPartner: '申请加入合作伙伴',
+        ctaExploreInsights: '浏览市场洞察',
+        dualHubLabel1: '核心模块 01 · 市场情报与研究',
+        dualHubTitle1: '高管简报与监管落地指南',
+        dualHubDesc1: '深度解析市场准入、TKDN 本地化率合规、个人数据保护法（UU PDP）及印中走廊最新趋势。',
+        dualHubLabel2: '核心模块 02 · 协同生态系统',
+        dualHubTitle2: '8 Vice 战略合作伙伴计划',
+        dualHubDesc2: '作为商业企业、行业协会、技术提供商或机构利益相关方与我们携手合作。',
+        dualHubBtn2: '申请成为合作伙伴 →',
+        introParagraphs: [
+          '通过我们的市场洞察与行业前瞻，8 Vice 深入剖析印度尼西亚与中国之间的商业动态、行业趋势、市场准入考量及新兴合作领域。',
+          '我们的目标是协助企业与决策者建立对跨境机遇更全面、更深入的视角，从而做出更充分的战略决策。',
+          '探索我们关于市场开拓、商业合作伙伴关系、数字生态系统、旅游业、创意产业及印中经贸合作的最新观点。'
+        ],
+        pillarsEyebrow: '01 · 六大洞察与知识支柱',
+        pillarsTitle: '我们的研究与情报覆盖范围。',
+        pillars: [
+          {
+            num: '01',
+            title: '市场情报 (Market Intelligence)',
+            idTitle: '市场情报 (Market Intelligence)',
+            desc: '关于市场动态、商业机会以及探索印尼与中国市场的企业所需关注的核心考量。'
+          },
+          {
+            num: '02',
+            title: '跨境商业指南 (Cross-Border Business Guides)',
+            idTitle: '跨境商业指南 (Cross-Border Business Guides)',
+            desc: '涵盖市场筹备、合作伙伴甄选、品牌本土化及跨市场业务拓展的务实指南。'
+          },
+          {
+            num: '03',
+            title: '行业视角 (Industry Perspectives)',
+            idTitle: '行业视角 (Industry Perspectives)',
+            desc: '针对旅游、科技、基础设施、创意经济、消费市场及其他相关重点行业的深度评论。'
+          },
+          {
+            num: '04',
+            title: '印中经贸关系 (Indonesia–China Relations)',
+            idTitle: '印中经贸关系 (Indonesia–China Relations)',
+            desc: '以商业视角剖析双边合作、机构互动及不断涌现的新兴合作领域。'
+          },
+          {
+            num: '05',
+            title: '新闻与生态动态 (News & Activities)',
+            idTitle: '新闻与生态动态 (News & Activities)',
+            desc: '关于精选商业论坛、商务考察团、高层会晤、行业盛会及 8 Vice 合作倡议的最新动态。'
+          },
+          {
+            num: '06',
+            title: '案例研究 (Case Studies)',
+            idTitle: '案例研究 (Case Studies)',
+            desc: '展示我们核心能力的精选项目、方法论与成果案例（须遵守客户保密协议与授权许可）。'
+          }
+        ],
+        chinaResearchEyebrow: '02 · 中国深度研究报告与白皮书',
+        chinaResearchTitle: '中印尼跨境战略研究与产业情报白皮书',
+        chinaResearchSubtitle:
+          '8 Vice 基于对 120+ 家制造企业的运营审计、40% TKDN 合规矩阵以及双边工业园区成本模型撰写的深度实证研究报告。',
+        chinaResearchBadge: '独家研究报告 · 2026',
+        chinaResearchLockedPill: '🔒 锁定文档 · 付费专享',
+        chinaResearchPriceLabel: '完整高管授权价格：',
+        chinaResearchPriceNote:
+          '包含完整 58 页 PDF 研究报告、24 页高管演示文稿（PPT）以及原始财务模型数据表（.xlsx）。',
+        chinaResearchCtaPrimary: '阅读文章并获取研究报告',
+        chinaResearchCtaLocked: '解锁完整报告 ($99 / Rp 1.49M)',
+        chinaResearchOtherTitle: '其他中国跨境战略与政策研究报告',
+        streamEyebrow: '03 · 精选观点与深度文章',
+        streamTitle: '最新高管简报与市场洞察。',
+        filterAll: '全部分类',
+        searchPh: '按标题、政策法规或战略主题搜索洞察...',
+        readBtn: '阅读全文',
+        emptyText: '没有找到符合当前筛选条件的文章。',
+        resetBtn: '重置筛选',
+        partnerEyebrow: '04 · 生态系统合作伙伴与入驻登记',
+        partnerTitle: '协同合作创造更广阔的商业可能。',
+        partnerParagraphs: [
+          '我们深信，具有深远意义的商业增长绝非孤立可成，而是建立在企业、机构、行业组织、技术提供商及其他相关利益相关方紧密协作的基础之上。',
+          '8 Vice 致力于构建一个支持印度尼西亚与中国跨境业务拓展的协同生态系统。',
+          '根据每项合作的具体目标，协作可涵盖商业伙伴关系、行业联合倡议、机构对话、科技生态系统、旅游推广及联合市场开发。',
+          '我们珍视建立在共同目标、互补能力、专业诚信与互利共赢基础之上的合作伙伴关系。'
+        ],
+        partnerTracksTitle: '8 Vice 生态系统合作方向',
+        partnerTracks: [
+          {
+            code: '01',
+            name: '商业与分销合作伙伴',
+            desc: '为跨境品牌打通市场准入与分销渠道的企业集团与国家级分销网络。'
+          },
+          {
+            code: '02',
+            name: '行业协会与商会组织',
+            desc: '联合举办行业代表团考察与双边对话的贸易委员会、商业协会及双边商会。'
+          },
+          {
+            code: '03',
+            name: '技术与生态系统提供商',
+            desc: '数字平台、金融科技/跨境支付网关、云计算/AI 提供商及企业级解决方案伙伴。'
+          },
+          {
+            code: '04',
+            name: '工业园区、专业咨询与研究机构',
+            desc: '工业园区运营商、政策智库、法务税务专家及双边峰会联合主办方。'
+          }
+        ],
+        partnerBoxTitle: '生态系统合作伙伴入驻登记',
+        partnerBoxDesc:
+          '登记您的机构信息，与 8 Vice 合作事务团队共同探索印度尼西亚与中国之间的结构化合作机遇。',
+        partnerCta: '提交合作伙伴申请'
+      }
+    : isId
     ? {
         breadcrumbHome: 'Beranda',
         breadcrumb: 'Wawasan & Kemitraan',
@@ -514,12 +633,16 @@ export default function Article({ insights = [] }) {
         <div className="ins-partner-success">
           <div className="ins-partner-success__icon">✓</div>
           <h4>
-            {isId
+            {isCn
+              ? '已收到您的合作伙伴申请'
+              : isId
               ? 'Pendaftaran Kemitraan Berhasil Diterima'
               : 'Partnership Registration Received'}
           </h4>
           <p>
-            {isId
+            {isCn
+              ? '感谢您登记机构信息。8 Vice 生态系统合作事务部将审阅您的资料，并与您联系安排初步对接会议。'
+              : isId
               ? 'Terima kasih atas ketertarikan organisasi Anda. Tim Kemitraan Ekosistem 8 Vice akan meninjau profil Anda dan menghubungi Anda untuk sesi penjajakan awal.'
               : 'Thank you for registering your organization. The 8 Vice Ecosystem Partnership Desk will review your profile and reach out to schedule an initial alignment call.'}
           </p>
@@ -529,7 +652,7 @@ export default function Article({ insights = [] }) {
               className="ins-btn ins-btn--secondary"
               onClick={() => setPartnerSuccess(false)}
             >
-              {isId ? 'Kirim Pendaftaran Lain' : 'Submit Another Inquiry'}
+              {isCn ? '提交另一份申请' : isId ? 'Kirim Pendaftaran Lain' : 'Submit Another Inquiry'}
             </button>
             {inModal && (
               <button
@@ -537,7 +660,7 @@ export default function Article({ insights = [] }) {
                 className="ins-btn ins-btn--primary"
                 onClick={() => setIsPartnerModalOpen(false)}
               >
-                {isId ? 'Tutup' : 'Close'}
+                {isCn ? '关闭' : isId ? 'Tutup' : 'Close'}
               </button>
             )}
           </div>
@@ -549,35 +672,35 @@ export default function Article({ insights = [] }) {
       <form onSubmit={handlePartnerSubmit} className="ins-partner-form">
         <div className="ins-form-row">
           <div className="ins-form-field">
-            <label>{isId ? 'Nama Organisasi / Perusahaan *' : 'Organization / Company Name *'}</label>
+            <label>{isCn ? '机构 / 公司名称 *' : isId ? 'Nama Organisasi / Perusahaan *' : 'Organization / Company Name *'}</label>
             <input
               type="text"
               required
-              placeholder={isId ? 'Contoh: PT Nusantara Global / Shenzhen Tech Co.' : 'e.g. PT Nusantara Global / Shenzhen Tech Co.'}
+              placeholder={isCn ? '例如：深圳某某科技有限公司 / PT Nusantara Global' : isId ? 'Contoh: PT Nusantara Global / Shenzhen Tech Co.' : 'e.g. PT Nusantara Global / Shenzhen Tech Co.'}
               value={partnerForm.organization}
               onChange={(e) => setPartnerForm({ ...partnerForm, organization: e.target.value })}
             />
           </div>
           <div className="ins-form-field">
-            <label>{isId ? 'Kategori Kemitraan *' : 'Partnership Track *'}</label>
+            <label>{isCn ? '合作类别 *' : isId ? 'Kategori Kemitraan *' : 'Partnership Track *'}</label>
             <select
               value={partnerForm.track}
               onChange={(e) => setPartnerForm({ ...partnerForm, track: e.target.value })}
             >
               <option value="Commercial & Distribution Partnership">
-                {isId ? 'Mitra Komersial & Distribusi' : 'Commercial & Distribution Partner'}
+                {isCn ? '商业与分销合作伙伴' : isId ? 'Mitra Komersial & Distribusi' : 'Commercial & Distribution Partner'}
               </option>
               <option value="Industry Association & Chamber">
-                {isId ? 'Asosiasi Industri & Kamar Dagang' : 'Industry Association & Chamber'}
+                {isCn ? '行业协会与商会组织' : isId ? 'Asosiasi Industri & Kamar Dagang' : 'Industry Association & Chamber'}
               </option>
               <option value="Technology & Digital Ecosystem">
-                {isId ? 'Penyedia Teknologi & Ekosistem Digital' : 'Technology & Digital Ecosystem'}
+                {isCn ? '技术与数字生态系统' : isId ? 'Penyedia Teknologi & Ekosistem Digital' : 'Technology & Digital Ecosystem'}
               </option>
               <option value="Industrial Park & Institutional Partner">
-                {isId ? 'Kawasan Industri & Mitra Institusional' : 'Industrial Park & Institutional Partner'}
+                {isCn ? '工业园区与机构合作伙伴' : isId ? 'Kawasan Industri & Mitra Institusional' : 'Industrial Park & Institutional Partner'}
               </option>
               <option value="Media, Event & Delegation Co-Host">
-                {isId ? 'Mitra Media, Forum & Delegasi' : 'Media, Event & Delegation Co-Host'}
+                {isCn ? '媒体、论坛与代表团联合主办方' : isId ? 'Mitra Media, Forum & Delegasi' : 'Media, Event & Delegation Co-Host'}
               </option>
             </select>
           </div>
@@ -585,20 +708,20 @@ export default function Article({ insights = [] }) {
 
         <div className="ins-form-row">
           <div className="ins-form-field">
-            <label>{isId ? 'Nama Lengkap PIC *' : 'Contact Person Name *'}</label>
+            <label>{isCn ? '联系人姓名 *' : isId ? 'Nama Lengkap PIC *' : 'Contact Person Name *'}</label>
             <input
               type="text"
               required
-              placeholder={isId ? 'Nama lengkap Anda' : 'Your full name'}
+              placeholder={isCn ? '您的姓名' : isId ? 'Nama lengkap Anda' : 'Your full name'}
               value={partnerForm.name}
               onChange={(e) => setPartnerForm({ ...partnerForm, name: e.target.value })}
             />
           </div>
           <div className="ins-form-field">
-            <label>{isId ? 'Jabatan / Peran' : 'Title / Role'}</label>
+            <label>{isCn ? '职位 / 头衔' : isId ? 'Jabatan / Peran' : 'Title / Role'}</label>
             <input
               type="text"
-              placeholder={isId ? 'Contoh: Head of Strategic Partnerships' : 'e.g. Head of Strategic Partnerships'}
+              placeholder={isCn ? '例如：战略合作总监' : isId ? 'Contoh: Head of Strategic Partnerships' : 'e.g. Head of Strategic Partnerships'}
               value={partnerForm.role}
               onChange={(e) => setPartnerForm({ ...partnerForm, role: e.target.value })}
             />
@@ -607,7 +730,7 @@ export default function Article({ insights = [] }) {
 
         <div className="ins-form-row">
           <div className="ins-form-field">
-            <label>{isId ? 'Email Korporat *' : 'Corporate Email *'}</label>
+            <label>{isCn ? '企业邮箱 *' : isId ? 'Email Korporat *' : 'Corporate Email *'}</label>
             <input
               type="email"
               required
@@ -617,7 +740,7 @@ export default function Article({ insights = [] }) {
             />
           </div>
           <div className="ins-form-field">
-            <label>{isId ? 'WhatsApp / WeChat ID *' : 'WhatsApp / WeChat ID *'}</label>
+            <label>{isCn ? 'WhatsApp / 微信号 (WeChat ID) *' : isId ? 'WhatsApp / WeChat ID *' : 'WhatsApp / WeChat ID *'}</label>
             <input
               type="text"
               required
@@ -629,7 +752,7 @@ export default function Article({ insights = [] }) {
         </div>
 
         <div className="ins-form-field">
-          <label>{isId ? 'Fokus Koridor Kolaborasi' : 'Corridor Focus'}</label>
+          <label>{isCn ? '合作走廊重点' : isId ? 'Fokus Koridor Kolaborasi' : 'Corridor Focus'}</label>
           <div className="ins-corridor-chips">
             {[
               'Bilateral (Indonesia ⇄ China)',
@@ -649,12 +772,14 @@ export default function Article({ insights = [] }) {
         </div>
 
         <div className="ins-form-field">
-          <label>{isId ? 'Sasaran Kolaborasi & Sinergi yang Diharapkan *' : 'Collaboration Objectives & Proposed Synergy *'}</label>
+          <label>{isCn ? '合作目标与期望协同方向 *' : isId ? 'Sasaran Kolaborasi & Sinergi yang Diharapkan *' : 'Collaboration Objectives & Proposed Synergy *'}</label>
           <textarea
             rows={3}
             required
             placeholder={
-              isId
+              isCn
+                ? '请简要介绍贵机构的核心能力以及希望与 8 Vice 探索的合作方向...'
+                : isId
                 ? 'Ceritakan secara singkat kapabilitas organisasi Anda dan bentuk kolaborasi yang ingin dijajaki bersama 8 Vice...'
                 : 'Briefly describe your organization’s capabilities and the partnership initiatives you wish to explore with 8 Vice...'
             }
@@ -666,7 +791,9 @@ export default function Article({ insights = [] }) {
         <button type="submit" disabled={partnerSubmitting} className="ins-btn ins-btn--primary ins-btn--full">
           <span>
             {partnerSubmitting
-              ? isId
+              ? isCn
+                ? '正在提交申请...'
+                : isId
                 ? 'Mengirim Pendaftaran...'
                 : 'Submitting Application...'
               : copy.partnerCta}
@@ -760,7 +887,7 @@ export default function Article({ insights = [] }) {
                     </button>
                   )}
                   <a href="#insights-stream" className="ins-hero__search-go">
-                    {isId ? 'Cari' : 'Find'}
+                    {isCn ? '搜索' : isId ? 'Cari' : 'Find'}
                   </a>
                 </div>
               </div>
@@ -781,7 +908,7 @@ export default function Article({ insights = [] }) {
                     <div className="ins-hub-card__top">
                       <span className="ins-hub-card__tag">{copy.dualHubLabel1}</span>
                       <span className="ins-hub-card__count">
-                        {insights.length} {isId ? 'Publikasi' : 'Briefings'}
+                        {insights.length} {isCn ? '篇简报' : isId ? 'Publikasi' : 'Briefings'}
                       </span>
                     </div>
                     <div className="ins-hub-card__bottom">
@@ -821,7 +948,7 @@ export default function Article({ insights = [] }) {
                           {copy.dualHubBtn2}
                         </button>
                         <a href="#partnership-register" className="ins-hub-card__link">
-                          {isId ? 'Lihat Jalur Kemitraan' : 'View Partnership Tracks'}
+                          {isCn ? '查看合作方向' : isId ? 'Lihat Jalur Kemitraan' : 'View Partnership Tracks'}
                         </a>
                       </div>
                     </div>
@@ -902,7 +1029,7 @@ export default function Article({ insights = [] }) {
                 <div className="ins-research-flagship__media">
                   <img
                     src={flagshipPaper.cover}
-                    alt={isId ? flagshipPaper.title.id : flagshipPaper.title.en}
+                    alt={isCn ? flagshipPaper.title.cn : isId ? flagshipPaper.title.id : flagshipPaper.title.en}
                     className="ins-research-flagship__img"
                     loading="lazy"
                     decoding="async"
@@ -913,14 +1040,14 @@ export default function Article({ insights = [] }) {
                   <div className="ins-research-flagship__badges-top">
                     <span className="ins-research-badge-pill">
                       <span className="ins-research-badge-dot" />
-                      {isId ? flagshipPaper.badgeId : flagshipPaper.badge}
+                      {isCn ? flagshipPaper.badgeCn : isId ? flagshipPaper.badgeId : flagshipPaper.badge}
                     </span>
                     <span className="ins-research-locked-badge">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '5px' }}>
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                       </svg>
-                      {isId ? 'DOKUMEN TERKUNCI' : 'LOCKED PAPER'}
+                      {isCn ? '锁定报告' : isId ? 'DOKUMEN TERKUNCI' : 'LOCKED PAPER'}
                     </span>
                   </div>
 
@@ -940,7 +1067,7 @@ export default function Article({ insights = [] }) {
                 <div className="ins-research-flagship__body">
                   <div className="ins-research-flagship__meta">
                     <span className="ins-research-cat-tag">
-                      {isId ? flagshipPaper.categoryId : flagshipPaper.category}
+                      {isCn ? flagshipPaper.categoryCn : isId ? flagshipPaper.categoryId : flagshipPaper.category}
                     </span>
                     <span className="ins-meta-sep">·</span>
                     <span className="ins-research-time-tag">
@@ -950,17 +1077,17 @@ export default function Article({ insights = [] }) {
 
                   <h3 className="ins-research-flagship__title">
                     <Link href={`/insights/${flagshipPaper.slug}`}>
-                      {isId ? flagshipPaper.title.id : flagshipPaper.title.en}
+                      {isCn ? flagshipPaper.title.cn : isId ? flagshipPaper.title.id : flagshipPaper.title.en}
                     </Link>
                   </h3>
 
                   <p className="ins-research-flagship__excerpt">
-                    {isId ? flagshipPaper.subtitle.id : flagshipPaper.subtitle.en}
+                    {isCn ? flagshipPaper.subtitle.cn : isId ? flagshipPaper.subtitle.id : flagshipPaper.subtitle.en}
                   </p>
 
                   {/* Highlights Grid */}
                   <div className="ins-research-highlights-grid">
-                    {(isId ? flagshipPaper.highlights.id : flagshipPaper.highlights.en).map((hl, hIdx) => (
+                    {(isCn ? flagshipPaper.highlights.cn : isId ? flagshipPaper.highlights.id : flagshipPaper.highlights.en).map((hl, hIdx) => (
                       <div key={hIdx} className="ins-research-highlight-box">
                         <div className="ins-research-highlight-val">{hl.value}</div>
                         <div className="ins-research-highlight-lbl">{hl.label}</div>
@@ -985,7 +1112,7 @@ export default function Article({ insights = [] }) {
                         </div>
                       </div>
                       <span className="ins-research-locked-pill">
-                        🔒 {isId ? 'Default Terkunci' : 'Default Locked'}
+                        🔒 {isCn ? '默认锁定' : isId ? 'Default Terkunci' : 'Default Locked'}
                       </span>
                     </div>
                     <p className="ins-research-pricing-note">
@@ -1034,17 +1161,17 @@ export default function Article({ insights = [] }) {
                     <div key={paper.id} className="ins-research-secondary-card">
                       <div className="ins-research-secondary-card__top">
                         <span className="ins-research-mini-badge">
-                          {isId ? paper.badgeId : paper.badge}
+                          {isCn ? paper.badgeCn : isId ? paper.badgeId : paper.badge}
                         </span>
                         <span className="ins-research-mini-locked">🔒 {paper.pagesCount}p PDF</span>
                       </div>
                       <h4 className="ins-research-secondary-card__title">
                         <Link href={`/insights/${paper.slug}`}>
-                          {isId ? paper.title.id : paper.title.en}
+                          {isCn ? paper.title.cn : isId ? paper.title.id : paper.title.en}
                         </Link>
                       </h4>
                       <p className="ins-research-secondary-card__desc">
-                        {isId ? paper.subtitle.id : paper.subtitle.en}
+                        {isCn ? paper.subtitle.cn : isId ? paper.subtitle.id : paper.subtitle.en}
                       </p>
                       <div className="ins-research-secondary-card__foot">
                         <span className="ins-research-secondary-card__price">
@@ -1054,7 +1181,7 @@ export default function Article({ insights = [] }) {
                           href={`/insights/${paper.slug}#article-research-paper`}
                           className="ins-research-secondary-card__link"
                         >
-                          {isId ? 'Buka Paper →' : 'Unlock Paper →'}
+                          {isCn ? '解锁报告 →' : isId ? 'Buka Paper →' : 'Unlock Paper →'}
                         </Link>
                       </div>
                     </div>
@@ -1127,7 +1254,7 @@ export default function Article({ insights = [] }) {
                   <div className="ins-featured-card__shade" />
                   <span className="ins-featured-card__badge">
                     <span className="ins-eyebrow-dot" />
-                    {isId ? 'SOROTAN UTAMA' : 'FEATURED BRIEFING'}
+                    {isCn ? '重点焦点简报' : isId ? 'SOROTAN UTAMA' : 'FEATURED BRIEFING'}
                   </span>
                 </Link>
 
@@ -1171,7 +1298,7 @@ export default function Article({ insights = [] }) {
                           {featuredArticle.author_name || '8 Vice Research Desk'}
                         </div>
                         <div className="ins-author-mini__role">
-                          {featuredArticle.author_role || (isId ? 'Intelijen Koridor' : 'Corridor Intelligence')}
+                          {featuredArticle.author_role || (isCn ? '双边走廊情报组' : isId ? 'Intelijen Koridor' : 'Corridor Intelligence')}
                         </div>
                       </div>
                     </div>
@@ -1315,7 +1442,7 @@ export default function Article({ insights = [] }) {
                     <div className="ins-register-card__banner-content">
                       <span className="ins-eyebrow-pill" style={{ marginBottom: '8px' }}>
                         <span className="ins-eyebrow-dot" />
-                        {isId ? 'KOLABORASI BILATERAL' : 'BILATERAL COLLABORATION'}
+                        {isCn ? '双边战略协作' : isId ? 'KOLABORASI BILATERAL' : 'BILATERAL COLLABORATION'}
                       </span>
                       <h3>{copy.partnerBoxTitle}</h3>
                       <p>{copy.partnerBoxDesc}</p>
@@ -1347,7 +1474,7 @@ export default function Article({ insights = [] }) {
                 <div>
                   <span className="ins-eyebrow-pill" style={{ marginBottom: '6px' }}>
                     <span className="ins-eyebrow-dot" />
-                    {isId ? 'PROGRAM KEMITRAAN EKOSISTEM 8 VICE' : '8 VICE ECOSYSTEM PARTNERSHIP PROGRAM'}
+                    {isCn ? '8 VICE 生态系统合作伙伴计划' : isId ? 'PROGRAM KEMITRAAN EKOSISTEM 8 VICE' : '8 VICE ECOSYSTEM PARTNERSHIP PROGRAM'}
                   </span>
                   <h3>{copy.partnerBoxTitle}</h3>
                 </div>

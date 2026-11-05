@@ -8,6 +8,7 @@ export default function Footer() {
   const { siteSettings } = usePage().props;
   const { lang, t } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
   const [activeLegalModal, setActiveLegalModal] = useState(null); // 'privacy' | 'terms' | null
 
   // Escape key listener for legal modal
@@ -27,12 +28,15 @@ export default function Footer() {
     };
   }, [activeLegalModal]);
 
+  const defaultTagline = isCn
+    ? '通往印尼与中国的战略商业门户。'
+    : isId
+    ? 'Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.'
+    : 'Your Strategic Gateway to Indonesia and China.';
+
   const displayTagline = typeof siteSettings?.tagline === 'object'
-    ? (siteSettings?.tagline?.[lang] || siteSettings?.tagline?.en)
-    : (siteSettings?.tagline || (isId
-        ? 'Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.'
-        : 'Your Strategic Gateway to Indonesia and China.'
-      ));
+    ? (siteSettings?.tagline?.[lang] || siteSettings?.tagline?.en || defaultTagline)
+    : (siteSettings?.tagline || defaultTagline);
 
   const rawEmail = siteSettings?.email || 'hello@8vice.com';
   const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
@@ -53,7 +57,7 @@ export default function Footer() {
               <p className="footer__tag">{displayTagline}</p>
               
               <Link href="/contact" className="footer__cta-pill">
-                <span>{isId ? 'Konsultasi Gratis' : 'Book a Consultation'}</span>
+                <span>{isCn ? '预约免费咨询' : isId ? 'Konsultasi Gratis' : 'Book a Consultation'}</span>
                 <svg className="ico ico-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
@@ -63,23 +67,23 @@ export default function Footer() {
 
             {/* Column 2: Explore */}
             <div className="footer__col">
-              <h3>{isId ? 'Eksplorasi' : 'Explore'}</h3>
+              <h3>{isCn ? '网站导航' : isId ? 'Eksplorasi' : 'Explore'}</h3>
               <div className="footer__nav-list">
-                <Link href="/about">{isId ? 'Tentang Kami' : 'About Us'}</Link>
-                <Link href="/services">{isId ? 'Layanan Kami' : 'Our Services'}</Link>
-                <Link href="/gateway">{isId ? 'Gerbang Indonesia–China' : 'Indonesia–China Gateway'}</Link>
-                <Link href="/industries">{isId ? 'Industri & Peluang' : 'Industries & Opportunities'}</Link>
-                <Link href="/insights">{isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships'}</Link>
-                <Link href="/client">{isId ? 'Klien & Portofolio Mitra' : 'Clients & Brand Portfolio'}</Link>
-                <Link href="/case-study">{isId ? 'Studi Kasus Ekspansi' : 'Client Case Studies'}</Link>
-                <Link href="/career">{isId ? 'Karier di 8vice' : 'Careers & Opportunities'}</Link>
-                <Link href="/contact">{isId ? 'Hubungi Kami' : 'Contact Us'}</Link>
+                <Link href="/about">{isCn ? '关于我们' : isId ? 'Tentang Kami' : 'About Us'}</Link>
+                <Link href="/services">{isCn ? '核心服务' : isId ? 'Layanan Kami' : 'Our Services'}</Link>
+                <Link href="/gateway">{isCn ? '印中战略门户' : isId ? 'Gerbang Indonesia–China' : 'Indonesia–China Gateway'}</Link>
+                <Link href="/industries">{isCn ? '重点行业与机遇' : isId ? 'Industri & Peluang' : 'Industries & Opportunities'}</Link>
+                <Link href="/insights">{isCn ? '商业洞察与合作' : isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships'}</Link>
+                <Link href="/client">{isCn ? '客户与合作伙伴' : isId ? 'Klien & Portofolio Mitra' : 'Clients & Brand Portfolio'}</Link>
+                <Link href="/case-study">{isCn ? '成功案例分析' : isId ? 'Studi Kasus Ekspansi' : 'Client Case Studies'}</Link>
+                <Link href="/career">{isCn ? '招贤纳士' : isId ? 'Karier di 8vice' : 'Careers & Opportunities'}</Link>
+                <Link href="/contact">{isCn ? '联系我们' : isId ? 'Hubungi Kami' : 'Contact Us'}</Link>
               </div>
             </div>
 
             {/* Column 3: 6 Services */}
             <div className="footer__col">
-              <h3>{isId ? 'Layanan Kami' : 'Our Services'}</h3>
+              <h3>{isCn ? '核心服务' : isId ? 'Layanan Kami' : 'Our Services'}</h3>
               <div className="footer__nav-list">
                 <Link href="/services/advisory">{t('nav.svc_strategic_advisory') || 'Strategic Advisory & Market Entry'}</Link>
                 <Link href="/services/gov-relations">{t('nav.svc_gov_relations') || 'Government Relations'}</Link>
@@ -100,17 +104,17 @@ export default function Footer() {
                   }}
                 >
                   <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#E63946' }}></span>
-                  <span>{isId ? 'Dampak Sosial & ESG' : 'Social Impact & ESG'}</span>
+                  <span>{isCn ? '社会影响与 ESG' : isId ? 'Dampak Sosial & ESG' : 'Social Impact & ESG'}</span>
                 </Link>
               </div>
             </div>
 
             {/* Column 4: Contact */}
             <div className="footer__col footer__contact">
-              <h3>{isId ? 'Kontak & Kantor' : 'Contact'}</h3>
+              <h3>{isCn ? '联系方式与办公地址' : isId ? 'Kontak & Kantor' : 'Contact'}</h3>
               <div className="footer__contact-items">
                 <div className="footer__contact-item">
-                  <span className="lbl">Email</span>
+                  <span className="lbl">{isCn ? '电子邮箱' : 'Email'}</span>
                   <a href={emailHref} className="val" aria-label={`Email ${cleanEmail}`}>
                     <svg className="ico ico-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     <span>{cleanEmail}</span>
@@ -118,17 +122,17 @@ export default function Footer() {
                 </div>
 
                 <div className="footer__contact-item">
-                  <span className="lbl">{isId ? 'Kantor Jakarta' : 'Office'}</span>
+                  <span className="lbl">{isCn ? '雅加达总部' : isId ? 'Kantor Jakarta' : 'Office'}</span>
                   <span className="val" style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.72)' }}>
                     {siteSettings?.address || 'SOHO Building, Jl. Letjen M.T. Haryono No.Kav. 2, RT.1/RW.6, Tebet Bar., Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12810'}
                   </span>
                 </div>
                 
                 <div className="footer__contact-item">
-                  <span className="lbl">{isId ? 'Jam Layanan' : 'Service Hours'}</span>
+                  <span className="lbl">{isCn ? '服务时间' : isId ? 'Jam Layanan' : 'Service Hours'}</span>
                   <span className="val" style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.72)' }}>
                     <svg className="ico ico-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span>{isId ? 'Hari Kerja (09.00 - 17.00)' : 'Weekdays (9 am-5 pm)'}</span>
+                    <span>{isCn ? '工作日 (09:00 - 17:00)' : isId ? 'Hari Kerja (09.00 - 17.00)' : 'Weekdays (9 am-5 pm)'}</span>
                   </span>
                 </div>
               </div>
@@ -152,7 +156,7 @@ export default function Footer() {
             
             <div className="footer__bottom-badge">
               <span className="footer__bottom-pulse"></span>
-              <span>{isId ? 'Indonesia, Terdekode untuk Bisnis Global' : 'Indonesia, Decoded for Chinese & Global Businesses'}</span>
+              <span>{isCn ? '为中资与全球企业深度解码印尼市场' : isId ? 'Indonesia, Terdekode untuk Bisnis Global' : 'Indonesia, Decoded for Chinese & Global Businesses'}</span>
             </div>
 
             <div className="footer__bottom-links">
@@ -161,7 +165,7 @@ export default function Footer() {
                 onClick={() => setActiveLegalModal('privacy')}
                 style={{ background: 'transparent', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0 }}
               >
-                {isId ? 'Kebijakan Privasi' : 'Privacy Policy'}
+                {isCn ? '隐私与数据保护政策' : isId ? 'Kebijakan Privasi' : 'Privacy Policy'}
               </button>
               <span style={{ opacity: 0.3 }}>·</span>
               <button
@@ -169,7 +173,7 @@ export default function Footer() {
                 onClick={() => setActiveLegalModal('terms')}
                 style={{ background: 'transparent', border: 'none', color: 'inherit', font: 'inherit', cursor: 'pointer', padding: 0 }}
               >
-                {isId ? 'Syarat & Ketentuan' : 'Terms of Engagement'}
+                {isCn ? '咨询服务条款' : isId ? 'Syarat & Ketentuan' : 'Terms of Engagement'}
               </button>
             </div>
           </div>
@@ -247,8 +251,8 @@ export default function Footer() {
                 <div>
                   <h3 id="legal-modal-title" style={{ fontSize: '17px', fontWeight: 700, margin: 0, color: '#FFFFFF' }}>
                     {activeLegalModal === 'privacy'
-                      ? (isId ? 'Kebijakan Privasi & Perlindungan Data' : 'Privacy & Data Protection Policy')
-                      : (isId ? 'Syarat & Ketentuan Penugasan' : 'Terms of Advisory & Client Engagement')}
+                      ? (isCn ? '隐私与个人数据保护政策' : isId ? 'Kebijakan Privasi & Perlindungan Data' : 'Privacy & Data Protection Policy')
+                      : (isCn ? '战略咨询与客户合作条款' : isId ? 'Syarat & Ketentuan Penugasan' : 'Terms of Advisory & Client Engagement')}
                   </h3>
                   <span style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.5)' }}>
                     PT Delapan Solusi Penasihat (8vice) · Jakarta, Indonesia
@@ -292,7 +296,22 @@ export default function Footer() {
               }}
             >
               {activeLegalModal === 'privacy' ? (
-                isId ? (
+                isCn ? (
+                  <>
+                    <p>
+                      <strong>1. 保密承诺与印尼《个人数据保护法》合规</strong><br />
+                      8vice 严格遵守印度尼西亚共和国《个人数据保护法》（UU PDP No. 27/2022）及国际合规治理标准，全力保障企业客户商业机密、研究文档及个人联络信息的安全与完整。
+                    </p>
+                    <p>
+                      <strong>2. 信息收集与使用目的</strong><br />
+                      通过本网站提交的所有市场需求、商务资料及联系方式，仅用于战略咨询评估、印中双边商务配对对接，或履行付费研究报告的授权交付。
+                    </p>
+                    <p>
+                      <strong>3. 第三方数据保护与保密协议（NDA）</strong><br />
+                      未经客户书面授权或签署保密协议（NDA），8vice 绝不向任何第三方出售、出租或转让客户商业信息。
+                    </p>
+                  </>
+                ) : isId ? (
                   <>
                     <p>
                       <strong>1. Komitmen Kerahasiaan & PDP Indonesia</strong><br />
@@ -324,7 +343,22 @@ export default function Footer() {
                   </>
                 )
               ) : (
-                isId ? (
+                isCn ? (
+                  <>
+                    <p>
+                      <strong>1. 战略咨询服务范围</strong><br />
+                      8vice 发布的市场研究报告、行业简报及战略路线图均基于独立专业的调研方法论编制，旨在为跨境扩张与投资决策提供高价值战略参考。
+                    </p>
+                    <p>
+                      <strong>2. 知识产权与研究报告许可</strong><br />
+                      所有研究出版物、量化数据模型及印中产业蓝图文档均受 8vice 知识产权保护。高管版与企业版许可严格按照约定的授权席位范围使用。
+                    </p>
+                    <p>
+                      <strong>3. 政企沟通与合规透明度</strong><br />
+                      所有政府关系对接与公私部门对话均通过合法、透明的官方渠道开展，严格遵守反腐败准则及双边投资法规。
+                    </p>
+                  </>
+                ) : isId ? (
                   <>
                     <p>
                       <strong>1. Ruang Lingkup Penugasan Konsultasi</strong><br />
@@ -384,7 +418,7 @@ export default function Footer() {
                     cursor: 'pointer'
                   }}
                 >
-                  {isId ? 'Privasi' : 'Privacy'}
+                  {isCn ? '隐私政策' : isId ? 'Privasi' : 'Privacy'}
                 </button>
                 <button
                   type="button"
@@ -400,7 +434,7 @@ export default function Footer() {
                     cursor: 'pointer'
                   }}
                 >
-                  {isId ? 'Ketentuan' : 'Terms'}
+                  {isCn ? '服务条款' : isId ? 'Ketentuan' : 'Terms'}
                 </button>
               </div>
 
@@ -418,7 +452,7 @@ export default function Footer() {
                   cursor: 'pointer'
                 }}
               >
-                {isId ? 'Tutup' : 'Understood'}
+                {isCn ? '我知道了' : isId ? 'Tutup' : 'Understood'}
               </button>
             </div>
           </div>

@@ -86,6 +86,7 @@ function ModernCityBg({ variant = 'default' }) {
 export default function Contact() {
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
   const { siteSettings } = usePage().props;
 
   const rawEmail = siteSettings?.email || 'hello@8vice.com';
@@ -126,7 +127,28 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [key]: val }));
   };
 
-  const directions = isId
+  const directions = isCn
+    ? [
+        {
+          value: 'China to Indonesia',
+          tag: 'CN → ID',
+          label: '中国至印度尼西亚',
+          sub: '进入与拓展印尼市场'
+        },
+        {
+          value: 'Indonesia to China',
+          tag: 'ID → CN',
+          label: '印度尼西亚至中国',
+          sub: '中国市场准入与合作伙伴对接'
+        },
+        {
+          value: 'Bilateral Partnership',
+          tag: 'ID ⇄ CN',
+          label: '双边战略合作',
+          sub: '联合倡议与产业生态协同'
+        }
+      ]
+    : isId
     ? [
         {
           value: 'China to Indonesia',
@@ -168,7 +190,16 @@ export default function Contact() {
         }
       ];
 
-  const industries = isId
+  const industries = isCn
+    ? [
+        '基础设施与城市发展',
+        '科技与数字生态',
+        '文旅出行与酒店商业',
+        '创意经济与生活方式',
+        '国际贸易与消费品',
+        '其他行业领域'
+      ]
+    : isId
     ? [
         'Infrastruktur & Pembangunan Perkotaan',
         'Teknologi & Ekosistem Digital',
@@ -193,7 +224,9 @@ export default function Contact() {
   const presetTier = urlParams ? urlParams.get('tier') : null;
 
   const isResearchPaperPreset = presetSlug === 'research-paper';
-  const paperServiceTitle = isId
+  const paperServiceTitle = isCn
+    ? '中国跨境研究报告授权许可'
+    : isId
     ? 'Lisensi Akses Research Paper China'
     : 'China Research Paper Access License';
 
@@ -207,7 +240,9 @@ export default function Contact() {
     : getServices(lang).find((svc) => svc.id === presetSlug)?.title;
 
   const defaultDescription = isResearchPaperPreset
-    ? (isId
+    ? (isCn
+        ? `申请研究报告发票及访问许可: "${presetPaper || '中国跨境出海蓝皮书 2026'}" (许可方案: ${presetTier === 'corp' ? '企业版 - $499 USD' : '高管版 - $99 USD'})。请提供官方发票与付款详情。`
+        : isId
         ? `Permohonan Faktur & Lisensi Dokumen Riset: "${presetPaper || 'China Cross-Border Blueprint 2026'}" (Paket Lisensi: ${presetTier === 'corp' ? 'Korporat - Rp 7.490.000' : 'Eksekutif - Rp 1.490.000'}). Mohon kirimkan instruksi pembayaran dan faktur pajak perusahaan.`
         : `Request for Invoice & Paper License Access: "${presetPaper || 'China Cross-Border Blueprint 2026'}" (License Tier: ${presetTier === 'corp' ? 'Corporate - $499 USD' : 'Executive - $99 USD'}). Please provide official invoice and payment details.`)
     : '';
@@ -243,8 +278,10 @@ export default function Contact() {
       formData.description
     ].join('\n');
 
+    const submitUrl = isCn ? '/cn/contact-submit' : (isId ? '/id/contact-submit' : '/contact-submit');
+
     router.post(
-      '/contact-submit',
+      submitUrl,
       {
         name: formData.name,
         company: formData.company,
@@ -281,7 +318,25 @@ export default function Contact() {
     );
   };
 
-  const steps = isId
+  const steps = isCn
+    ? [
+        {
+          num: '01',
+          title: '项目背景与目标评估',
+          desc: '我们的咨询团队评估您的项目简报、出海走廊及行业特定需求。'
+        },
+        {
+          num: '02',
+          title: '高管保密沟通会',
+          desc: '进行初步高管保密探讨，评估项目可行性、利益相关方和合作路径。'
+        },
+        {
+          num: '03',
+          title: '结构化行动方案',
+          desc: '制定定制化的市场准入、政企关系协同或商业伙伴对接方案。'
+        }
+      ]
+    : isId
     ? [
         {
           num: '01',
@@ -319,7 +374,7 @@ export default function Contact() {
 
   return (
     <MainLayout>
-      <SeoHead pageCode="contact" title={isId ? 'Hubungi Kami' : 'Contact Us'} />
+      <SeoHead pageCode="contact" title={isCn ? '联系我们' : (isId ? 'Hubungi Kami' : 'Contact Us')} />
 
       <div className="cnt-page">
         {/* ================================================================
@@ -331,22 +386,28 @@ export default function Contact() {
           <div className="container cnt-hero__container">
             <div className="cnt-hero__header m3-reveal">
               <nav className="cnt-breadcrumb" aria-label="Breadcrumb">
-                <Link href="/">{isId ? 'Beranda' : 'Home'}</Link>
+                <Link href="/">{isCn ? '首页' : isId ? 'Beranda' : 'Home'}</Link>
                 <span className="cnt-breadcrumb__sep">/</span>
                 <span className="cnt-breadcrumb__current">
-                  {isId ? 'Hubungi Kami' : 'Contact Us'}
+                  {isCn ? '联系我们' : isId ? 'Hubungi Kami' : 'Contact Us'}
                 </span>
               </nav>
 
               <div className="cnt-eyebrow-pill">
                 <span className="cnt-eyebrow-dot" />
-                {isId
+                {isCn
+                  ? '开启战略对话 · 商业咨询'
+                  : isId
                   ? 'MULAI PERCAKAPAN · KONSULTASI STRATEGIS'
                   : 'START A CONVERSATION · STRATEGIC INQUIRY'}
               </div>
 
               <h1 className="cnt-hero__title">
-                {isId ? (
+                {isCn ? (
+                  <>
+                    开启 <span className="cnt-text-red">战略对话。</span>
+                  </>
+                ) : isId ? (
                   <>
                     Mari Mulai <span className="cnt-text-red">Percakapan Strategis.</span>
                   </>
@@ -358,7 +419,9 @@ export default function Contact() {
               </h1>
 
               <p className="cnt-hero__subtitle">
-                {isId
+                {isCn
+                  ? '每一次成功的跨境合作，都始于对市场机遇的深刻洞察。'
+                  : isId
                   ? 'Setiap kemitraan yang sukses dimulai dari pemahaman yang tepat terhadap peluang.'
                   : 'Every successful partnership starts with understanding the opportunity.'}
               </p>
@@ -372,7 +435,7 @@ export default function Contact() {
                   className="cnt-channel-pill cnt-channel-pill--wa"
                 >
                   <span className="cnt-channel-pill__dot cnt-channel-pill__dot--green" />
-                  <span>{isId ? 'Konsultasi WhatsApp' : 'WhatsApp Consultation'}</span>
+                  <span>{isCn ? 'WhatsApp 咨询' : isId ? 'Konsultasi WhatsApp' : 'WhatsApp Consultation'}</span>
                 </a>
 
                 <button
@@ -381,7 +444,7 @@ export default function Contact() {
                   className="cnt-channel-pill cnt-channel-pill--wc"
                 >
                   <span className="cnt-channel-pill__dot cnt-channel-pill__dot--wechat" />
-                  <span>{isId ? 'WeChat Official QR Code' : 'WeChat Official QR'}</span>
+                  <span>{isCn ? '微信公众号 / 企业微信' : isId ? 'WeChat Official QR Code' : 'WeChat Official QR'}</span>
                 </button>
 
                 <a href={emailHref} className="cnt-channel-pill">
@@ -396,7 +459,7 @@ export default function Contact() {
               <div className="cnt-hero__image-frame">
                 <img
                   src="/images/consultation_advisory_bw.webp"
-                  alt={isId ? 'Konsultasi Strategis 8 Vice' : '8 Vice Strategic Consultation'}
+                  alt={isCn ? '8 Vice 战略咨询' : isId ? 'Konsultasi Strategis 8 Vice' : '8 Vice Strategic Consultation'}
                   className="cnt-hero__image"
                   loading="lazy"
                   decoding="async"
@@ -408,7 +471,9 @@ export default function Contact() {
                 <div className="cnt-hero__status-tag">
                   <span className="cnt-eyebrow-dot" />
                   <span>
-                    {isId
+                    {isCn
+                      ? '雅加达总部 · 印尼–中国战略咨询台'
+                      : isId
                       ? 'MEJA KONSULTASI JAKARTA ⇄ TIONGKOK'
                       : 'JAKARTA HQ · INDONESIA–CHINA ADVISORY DESK'}
                   </span>
@@ -417,7 +482,9 @@ export default function Contact() {
                 <div className="cnt-hero__quote-box">
                   <div className="cnt-hero__quote-bar" />
                   <p className="cnt-hero__quote-text">
-                    {isId
+                    {isCn
+                      ? '“无论您是计划进军新市场的中国企业、寻求在华拓展的印尼企业，还是推动双边合作的机构组织，8 Vice 均热忱期待理解您的战略目标。”'
+                      : isId
                       ? '“Baik Anda sedang merencanakan ekspansi ke pasar baru, mencari mitra bisnis strategis, menjajaki kolaborasi institusional, maupun mengembangkan proyek lintas batas, 8 Vice menyambut baik kesempatan untuk memahami tujuan Anda.”'
                       : '“Whether you are planning to enter a new market, seeking a strategic business partner, exploring institutional collaboration, or developing a cross-border project, 8 Vice welcomes the opportunity to understand your objectives.”'}
                   </p>
@@ -453,7 +520,11 @@ export default function Contact() {
                     <div className="cnt-office-card__banner-body">
                       <span className="cnt-eyebrow-pill" style={{ marginBottom: '6px' }}>
                         <span className="cnt-eyebrow-dot" />
-                        {isId ? 'KANTOR & SALURAN KOMUNIKASI' : 'OFFICE & DIRECT CHANNELS'}
+                        {isCn
+                          ? '办事处与直通联络'
+                          : isId
+                          ? 'KANTOR & SALURAN KOMUNIKASI'
+                          : 'OFFICE & DIRECT CHANNELS'}
                       </span>
                       <h2>8 Vice Strategic Advisory</h2>
                     </div>
@@ -461,7 +532,9 @@ export default function Contact() {
 
                   <div className="cnt-office-card__body">
                     <p className="cnt-office-card__intro">
-                      {isId
+                      {isCn
+                        ? '我们的咨询团队将评估您的具体需求，并确定最切实的后续策略，全力支持您的跨境战略与海外落地。'
+                        : isId
                         ? 'Tim kami akan meninjau kebutuhan Anda dan menentukan langkah tindak lanjut yang paling tepat untuk mendukung ekspansi lintas batas Anda.'
                         : 'Our team will review your inquiry and determine the most appropriate next steps to support your cross-border objectives.'}
                     </p>
@@ -477,7 +550,7 @@ export default function Contact() {
                         </div>
                         <div>
                           <div className="cnt-info-item__lbl">
-                            {isId ? 'Kantor Pusat Jakarta' : 'Jakarta Headquarters'}
+                            {isCn ? '雅加达总部' : isId ? 'Kantor Pusat Jakarta' : 'Jakarta Headquarters'}
                           </div>
                           <div className="cnt-info-item__val">
                             {siteSettings?.address ||
@@ -496,7 +569,7 @@ export default function Contact() {
                         </div>
                         <div>
                           <div className="cnt-info-item__lbl">
-                            {isId ? 'Email Resmi' : 'Official Email'}
+                            {isCn ? '官方邮箱' : isId ? 'Email Resmi' : 'Official Email'}
                           </div>
                           <a href={emailHref} className="cnt-info-item__link">
                             {cleanEmail}
@@ -514,10 +587,12 @@ export default function Contact() {
                         </div>
                         <div>
                           <div className="cnt-info-item__lbl">
-                            {isId ? 'Jam Layanan & Respons' : 'Service Hours & Response'}
+                            {isCn ? '服务时间与响应' : isId ? 'Jam Layanan & Respons' : 'Service Hours & Response'}
                           </div>
                           <div className="cnt-info-item__val">
-                            {isId
+                            {isCn
+                              ? '工作日 (09:00 - 17:00) · 1–2 个工作日内回复'
+                              : isId
                               ? 'Hari Kerja (09.00 - 17.00) · Respons 1–2 Hari Kerja'
                               : 'Weekdays (9 am-5 pm) · Response within 1–2 Business Days'}
                           </div>
@@ -528,7 +603,9 @@ export default function Contact() {
                     {/* Direct Instant Channels Box */}
                     <div className="cnt-direct-box">
                       <div className="cnt-direct-box__lbl">
-                        {isId
+                        {isCn
+                          ? '即时沟通通道 (WHATSAPP & 微信)'
+                          : isId
                           ? 'HUBUNGI LANGSUNG VIA WHATSAPP ATAU WECHAT'
                           : 'INSTANT MESSAGING DESK (WHATSAPP & WECHAT)'}
                       </div>
@@ -545,7 +622,7 @@ export default function Contact() {
                           </svg>
                           <div>
                             <strong>WhatsApp</strong>
-                            <span>{isId ? 'Saluran Konsultasi Langsung' : 'Direct Consultation Channel'}</span>
+                            <span>{isCn ? '官方直接咨询通道' : isId ? 'Saluran Konsultasi Langsung' : 'Direct Consultation Channel'}</span>
                           </div>
                         </a>
 
@@ -562,7 +639,7 @@ export default function Contact() {
                           </svg>
                           <div>
                             <strong>WeChat Official</strong>
-                            <span>{isId ? 'Lihat QR Code' : 'View QR Code'}</span>
+                            <span>{isCn ? '扫码查看官方二维码' : isId ? 'Lihat QR Code' : 'View QR Code'}</span>
                           </div>
                         </button>
                       </div>
@@ -573,7 +650,7 @@ export default function Contact() {
                 {/* 2. 3-Step Consultation Process Card */}
                 <div className="cnt-steps-card m3-reveal m3-reveal--left" style={{ transitionDelay: '90ms' }}>
                   <div className="cnt-kicker">
-                    {isId ? 'TAHAPAN TINDAK LANJUT' : 'WHAT HAPPENS NEXT'}
+                    {isCn ? '后续服务流程' : isId ? 'TAHAPAN TINDAK LANJUT' : 'WHAT HAPPENS NEXT'}
                   </div>
                   <div className="cnt-steps-list">
                     {steps.map((st) => (
@@ -601,7 +678,7 @@ export default function Contact() {
                       rel="noopener noreferrer"
                       className="cnt-map-card__ext"
                     >
-                      {isId ? 'Buka Google Maps ↗' : 'Open in Maps ↗'}
+                      {isCn ? '在谷歌地图中打开 ↗' : isId ? 'Buka Google Maps ↗' : 'Open in Maps ↗'}
                     </a>
                   </div>
                   <div className="cnt-map-card__frame">
@@ -640,10 +717,12 @@ export default function Contact() {
                         </svg>
                       </div>
                       <h3>
-                        {isId ? 'Permintaan Konsultasi Terkirim' : 'Strategic Inquiry Received'}
+                        {isCn ? '战略咨询需求已提交' : isId ? 'Permintaan Konsultasi Terkirim' : 'Strategic Inquiry Received'}
                       </h3>
                       <p>
-                        {isId
+                        {isCn
+                          ? '感谢您联络 8 Vice。我们的咨询团队将评估您的项目概况与业务需求，并在 2 个工作日内与您取得联系。'
+                          : isId
                           ? 'Terima kasih telah menghubungi 8 Vice. Tim penasihat kami akan meninjau profil dan kebutuhan bisnis Anda serta menghubungi Anda dalam waktu maksimal 2 hari kerja.'
                           : 'Thank you for reaching out to 8 Vice. Our advisory team will review your project profile and respond within two business days.'}
                       </p>
@@ -652,26 +731,30 @@ export default function Contact() {
                         onClick={() => setSubmitted(false)}
                         className="cnt-btn cnt-btn--secondary"
                       >
-                        {isId ? 'Kirim Pesan Lainnya' : 'Submit Another Inquiry'}
+                        {isCn ? '提交其他需求' : isId ? 'Kirim Pesan Lainnya' : 'Submit Another Inquiry'}
                       </button>
                     </div>
                   ) : (
                     <div className="cnt-form-card__inner">
                       <div className="cnt-kicker">
-                        {isId ? 'FORMULIR EKSPLORASI BISNIS' : 'PROJECT & PARTNERSHIP INQUIRY'}
+                        {isCn ? '项目与合作咨询表格' : isId ? 'FORMULIR EKSPLORASI BISNIS' : 'PROJECT & PARTNERSHIP INQUIRY'}
                       </div>
 
                       <h2 className="cnt-form-card__title">
-                        {isId ? 'Ceritakan Tentang Bisnis Anda' : 'Tell Us About Your Business'}
+                        {isCn ? '介绍您的业务需求' : isId ? 'Ceritakan Tentang Bisnis Anda' : 'Tell Us About Your Business'}
                       </h2>
 
                       <p className="cnt-form-card__lead">
-                        {isId
+                        {isCn
+                          ? '请分享关于贵公司、目标市场及业务目标的简要信息。这将帮助我们更好地了解您的需求并做好针对性的沟通准备。'
+                          : isId
                           ? 'Silakan bagikan beberapa detail mengenai perusahaan, target pasar, dan sasaran bisnis Anda. Informasi ini membantu kami memahami kebutuhan Anda dan mempersiapkan diskusi awal yang terarah.'
                           : 'Please share a few details about your company, target market, and business objectives. This will help us understand your requirements and prepare for an initial discussion.'}
                       </p>
                       <p className="cnt-form-card__sub">
-                        {isId
+                        {isCn
+                          ? '我们热忱欢迎开拓印尼市场的中国企业、寻求在华合作机遇的印尼企业，以及致力于双边合作的机构咨询洽谈。'
+                          : isId
                           ? 'Kami menyambut pertanyaan dari perusahaan Tiongkok yang menjajaki Indonesia, bisnis Indonesia yang mencari peluang di Tiongkok, serta organisasi yang ingin mengembangkan kemitraan bilateral.'
                           : 'We welcome inquiries from Chinese companies exploring Indonesia, Indonesian businesses seeking opportunities in China, and organizations interested in developing bilateral partnerships.'}
                       </p>
@@ -679,7 +762,9 @@ export default function Contact() {
                       {Object.keys(errors).length > 0 && (
                         <div className="cnt-error-box">
                           <strong>
-                            {isId
+                            {isCn
+                              ? '请检查以下表单填写项：'
+                              : isId
                               ? 'Harap periksa kembali isian formulir:'
                               : 'Please check the form inputs:'}
                           </strong>
@@ -707,23 +792,23 @@ export default function Contact() {
                         {/* Row 1: Name & Company */}
                         <div className="cnt-form-row">
                           <label className="cnt-field">
-                            <span>{isId ? 'Nama Lengkap *' : 'Name *'}</span>
+                            <span>{isCn ? '姓名 *' : isId ? 'Nama Lengkap *' : 'Name *'}</span>
                             <input
                               type="text"
                               required
-                              placeholder={isId ? 'Nama lengkap Anda' : 'Your full name'}
+                              placeholder={isCn ? '您的全名' : isId ? 'Nama lengkap Anda' : 'Your full name'}
                               value={formData.name}
                               onChange={(e) => updateField('name', e.target.value)}
                             />
                           </label>
 
                           <label className="cnt-field">
-                            <span>{isId ? 'Perusahaan / Institusi *' : 'Company / Institution *'}</span>
+                            <span>{isCn ? '公司 / 机构名称 *' : isId ? 'Perusahaan / Institusi *' : 'Company / Institution *'}</span>
                             <input
                               type="text"
                               required
                               placeholder={
-                                isId ? 'Nama organisasi Anda' : 'Your company or organization'
+                                isCn ? '贵机构或企业名称' : isId ? 'Nama organisasi Anda' : 'Your company or organization'
                               }
                               value={formData.company}
                               onChange={(e) => updateField('company', e.target.value)}
@@ -734,11 +819,11 @@ export default function Contact() {
                         {/* Row 2: Position & Country */}
                         <div className="cnt-form-row">
                           <label className="cnt-field">
-                            <span>{isId ? 'Jabatan / Posisi' : 'Position / Title'}</span>
+                            <span>{isCn ? '职务 / 头衔' : isId ? 'Jabatan / Posisi' : 'Position / Title'}</span>
                             <input
                               type="text"
                               placeholder={
-                                isId ? 'Contoh: Direktur, VP Ekspansi' : 'e.g. Director, VP of Strategy'
+                                isCn ? '例如：总监、战略拓展副总裁' : isId ? 'Contoh: Direktur, VP Ekspansi' : 'e.g. Director, VP of Strategy'
                               }
                               value={formData.position}
                               onChange={(e) => updateField('position', e.target.value)}
@@ -746,11 +831,13 @@ export default function Contact() {
                           </label>
 
                           <label className="cnt-field">
-                            <span>{isId ? 'Negara Asal' : 'Country'}</span>
+                            <span>{isCn ? '所在国家 / 地区' : isId ? 'Negara Asal' : 'Country'}</span>
                             <input
                               type="text"
                               placeholder={
-                                isId
+                                isCn
+                                  ? '例如：中国、印尼、新加坡'
+                                  : isId
                                   ? 'Contoh: Indonesia, Tiongkok, Singapura'
                                   : 'e.g. China, Indonesia, Singapore'
                               }
@@ -763,7 +850,7 @@ export default function Contact() {
                         {/* Row 3: Email & Phone */}
                         <div className="cnt-form-row">
                           <label className="cnt-field">
-                            <span>{isId ? 'Email Bisnis *' : 'Work Email *'}</span>
+                            <span>{isCn ? '工作邮箱 *' : isId ? 'Email Bisnis *' : 'Work Email *'}</span>
                             <input
                               type="email"
                               required
@@ -775,11 +862,11 @@ export default function Contact() {
 
                           <label className="cnt-field">
                             <span>
-                              {isId ? 'WhatsApp / WeChat / Telepon' : 'Phone / WhatsApp / WeChat ID'}
+                              {isCn ? '电话 / WhatsApp / 微信号' : isId ? 'WhatsApp / WeChat / Telepon' : 'Phone / WhatsApp / WeChat ID'}
                             </span>
                             <input
                               type="text"
-                              placeholder="+62 / +86 / WeChat ID"
+                              placeholder="+86 / +62 / WeChat ID"
                               value={formData.phone}
                               onChange={(e) => updateField('phone', e.target.value)}
                             />
@@ -789,7 +876,9 @@ export default function Contact() {
                         {/* Row 4: Interactive Corridor Direction Selector */}
                         <div className="cnt-field">
                           <span>
-                            {isId
+                            {isCn
+                              ? '出海与合作方向 *'
+                              : isId
                               ? 'Arah Ekspansi / Kolaborasi Bisnis *'
                               : 'Business Direction *'}
                           </span>
@@ -815,7 +904,7 @@ export default function Contact() {
                         {/* Row 5: Industry & Service Required */}
                         <div className="cnt-form-row">
                           <label className="cnt-field">
-                            <span>{isId ? 'Sektor Industri *' : 'Industry *'}</span>
+                            <span>{isCn ? '所属行业 *' : isId ? 'Sektor Industri *' : 'Industry *'}</span>
                             <select
                               value={formData.industry}
                               onChange={(e) => updateField('industry', e.target.value)}
@@ -829,7 +918,7 @@ export default function Contact() {
                           </label>
 
                           <label className="cnt-field">
-                            <span>{isId ? 'Layanan yang Dibutuhkan *' : 'Service Required *'}</span>
+                            <span>{isCn ? '所需咨询服务 *' : isId ? 'Layanan yang Dibutuhkan *' : 'Service Required *'}</span>
                             <select
                               value={formData.service}
                               onChange={(e) => updateField('service', e.target.value)}
@@ -846,7 +935,9 @@ export default function Contact() {
                         {/* Row 6: Project Brief */}
                         <label className="cnt-field">
                           <span>
-                            {isId
+                            {isCn
+                              ? '项目或需求简要描述 *'
+                              : isId
                               ? 'Deskripsi Singkat Proyek atau Kebutuhan Anda *'
                               : 'Brief Description of Your Project *'}
                           </span>
@@ -854,7 +945,9 @@ export default function Contact() {
                             rows="4"
                             required
                             placeholder={
-                              isId
+                              isCn
+                                ? '请简述您的目标市场、合作目标或具体战略咨询需求...'
+                                : isId
                                 ? 'Ceritakan tujuan pasar, rencana kemitraan, atau dukungan strategis yang Anda perlukan...'
                                 : 'Tell us about your target market, partnership goals, or specific strategic advisory needs...'
                             }
@@ -870,10 +963,14 @@ export default function Contact() {
                         >
                           <span>
                             {processing
-                              ? isId
+                              ? isCn
+                                ? '正在提交...'
+                                : isId
                                 ? 'Mengirim...'
                                 : 'Submitting...'
-                              : isId
+                              : isCn
+                                ? '提交战略咨询需求'
+                                : isId
                                 ? 'Kirim Permintaan Konsultasi Strategis'
                                 : 'Submit Strategic Inquiry'}
                           </span>
@@ -903,9 +1000,11 @@ export default function Contact() {
                 <span className="cnt-eyebrow-dot" />
                 <span>WECHAT OFFICIAL</span>
               </div>
-              <h3>{isId ? 'Hubungi Kami via WeChat' : 'Connect on WeChat'}</h3>
+              <h3>{isCn ? '通过微信与我们联系' : isId ? 'Hubungi Kami via WeChat' : 'Connect on WeChat'}</h3>
               <p>
-                {isId
+                {isCn
+                  ? '请使用微信扫描下方官方二维码与我们取得联系。'
+                  : isId
                   ? 'Pindai QR Code resmi di bawah ini menggunakan aplikasi WeChat Anda.'
                   : 'Scan the official QR code below using your WeChat app.'}
               </p>
@@ -923,7 +1022,7 @@ export default function Contact() {
                 className="cnt-btn cnt-btn--secondary"
                 style={{ width: '100%' }}
               >
-                {isId ? 'Tutup' : 'Close'}
+                {isCn ? '关闭' : isId ? 'Tutup' : 'Close'}
               </button>
             </div>
           </div>

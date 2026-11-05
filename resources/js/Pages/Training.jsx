@@ -25,7 +25,18 @@ const defaultCovers = {
 
 export default function Training({ courses = [] }) {
   const [format, setFormat] = useState('onsite');
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
+  const isId = lang === 'id';
+  const isCn = lang === 'cn';
+
+  // Helper to extract clean localized string from object, array, or string
+  const getVal = (field) => {
+    if (!field) return '';
+    if (typeof field === 'object') {
+      return field[lang] || field.en || field.id || Object.values(field)[0] || '';
+    }
+    return String(field);
+  };
 
   const capabilitiesList = [
     {
@@ -85,7 +96,8 @@ export default function Training({ courses = [] }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    post('/training-request', {
+    const submitUrl = isCn ? '/cn/training-request' : isId ? '/id/training-request' : '/training-request';
+    post(submitUrl, {
       preserveScroll: true,
       onSuccess: () => reset(),
     });
@@ -208,7 +220,7 @@ export default function Training({ courses = [] }) {
                     className="course-card"
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
-                      setData('learn', `${course.title} (${course.cat || ''})`);
+                      setData('learn', `${getVal(course.title)} (${getVal(course.cat) || ''})`);
                       const el = document.getElementById('request');
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }}
@@ -219,13 +231,13 @@ export default function Training({ courses = [] }) {
                           width="600" 
                           height="338" 
                           src={coverSrc} 
-                          alt={course.title} 
+                          alt={getVal(course.title)} 
                           style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                         />
                       ) : (
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '20px', textAlign: 'center' }}>
                           <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em' }}>
-                            {course.cover || course.cat}
+                            {course.cover || getVal(course.cat)}
                           </span>
                         </div>
                       )}
@@ -237,13 +249,13 @@ export default function Training({ courses = [] }) {
                         </span>
                       </div>
                       <span className={`course-card__price${isFree ? ' is-free' : ''}`}>
-                        {isFree ? (t('nav.about') === 'Tentang Kami' || t('nav.about') === 'Tentang' ? 'Gratis' : 'Free') : course.price}
+                        {isFree ? (isCn ? '免费' : (isId ? 'Gratis' : 'Free')) : course.price}
                       </span>
                     </div>
                     <div className="course-card__body">
-                      <div className="c-cat">{course.cat}</div>
-                      <h3>{course.title}</h3>
-                      <p>{course.desc}</p>
+                      <div className="c-cat">{getVal(course.cat)}</div>
+                      <h3>{getVal(course.title)}</h3>
+                      <p>{getVal(course.desc)}</p>
                       <div className="course-card__meta">
                         {course.dur && (
                           <span>
@@ -329,16 +341,23 @@ export default function Training({ courses = [] }) {
                     <div className="req-field req-field--inline">
                       <span>{t('training_page.form_format')}</span>
                       <div className="req-pills" role="group" aria-label="Preferred format">
-                        {['onsite', 'hybrid', 'online'].map(f => (
-                          <button key={f} type="button" className={`req-pill${data.format === f ? ' is-active' : ''}`} onClick={() => setData('format', f)}>
-                            {f.charAt(0).toUpperCase() + f.slice(1)}
-                          </button>
-                        ))}
+                        {['onsite', 'hybrid', 'online'].map(f => {
+                          const label = f === 'onsite'
+                            ? (isCn ? '现场培训' : isId ? 'Tatap Muka' : 'Onsite')
+                            : f === 'hybrid'
+                            ? (isCn ? '线上线下结合' : isId ? 'Hibrida' : 'Hybrid')
+                            : (isCn ? '远程线上' : isId ? 'Daring' : 'Online');
+                          return (
+                            <button key={f} type="button" className={`req-pill${data.format === f ? ' is-active' : ''}`} onClick={() => setData('format', f)}>
+                              {label}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                     {errors.format && <span className="field-err">{errors.format}</span>}
                     <button type="submit" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center' }} disabled={processing}>
-                      {processing ? 'Submitting...' : t('training_page.form_submit')}
+                      {processing ? (isCn ? '正在提交...' : isId ? 'Mengirim...' : 'Submitting...') : t('training_page.form_submit')}
                       {!processing && <svg className="ico ico-16" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>}
                     </button>
                   </form>

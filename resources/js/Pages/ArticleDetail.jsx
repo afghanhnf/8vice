@@ -9,29 +9,35 @@ import { getResearchPaperBySlug } from '@/data/researchPapers';
 /* ============================================================================
    Helper: Curated Contextual Gallery Images & Backlink Graph by Category/Slug
    ============================================================================ */
-function getContextualMediaAndBacklinks(insight, isId) {
+function getContextualMediaAndBacklinks(insight, isId, isCn) {
   const cat = (insight?.cat || '').toLowerCase();
   const slug = (insight?.slug || '').toLowerCase();
 
   let gallery = [
     {
       src: '/images/china_city_network.webp',
-      tag: isId ? 'KORIDOR BILATERAL' : 'BILATERAL CORRIDOR',
-      caption: isId
+      tag: isCn ? '双边经济走廊' : isId ? 'KORIDOR BILATERAL' : 'BILATERAL CORRIDOR',
+      caption: isCn
+        ? '连接中国与印度尼西亚主要经济枢纽的战略商业生态与投资网络。'
+        : isId
         ? 'Konektivitas ekosistem bisnis dan investasi strategis antara pusat ekonomi Tiongkok dan Indonesia.'
         : 'Strategic business ecosystem and investment connectivity linking major Chinese and Indonesian economic hubs.'
     },
     {
       src: '/images/industry_infrastructure.webp',
-      tag: isId ? 'INFRASTRUKTUR & INDUSTRI' : 'INFRASTRUCTURE & INDUSTRY',
-      caption: isId
+      tag: isCn ? '基础设施与产业园区' : isId ? 'INFRASTRUKTUR & INDUSTRI' : 'INFRASTRUCTURE & INDUSTRY',
+      caption: isCn
+        ? '横跨爪哇岛及外岛经济走廊的综合工业园区开发、港口物流与下游供应链体系。'
+        : isId
         ? 'Pengembangan kawasan industri terpadu, logistik pelabuhan, dan rantai pasok hilirisasi di koridor Jawa dan luar Jawa.'
         : 'Integrated industrial estate development, port logistics, and downstream supply chains across Java and outer islands.'
     },
     {
       src: '/images/china_tech_hub.webp',
-      tag: isId ? 'EKOSISTEM DIGITAL & REGULASI' : 'DIGITAL ECOSYSTEM & POLICY',
-      caption: isId
+      tag: isCn ? '数字生态与监管合规' : isId ? 'EKOSISTEM DIGITAL & REGULASI' : 'DIGITAL ECOSYSTEM & POLICY',
+      caption: isCn
+        ? '数字基础设施转型、跨境数据合规管理及企业级技术应用落地。'
+        : isId
         ? 'Transformasi infrastruktur digital, kepatuhan data lintas batas, dan adopsi teknologi enterprise.'
         : 'Digital infrastructure transformation, cross-border data compliance, and enterprise technology adoption.'
     }
@@ -41,22 +47,28 @@ function getContextualMediaAndBacklinks(insight, isId) {
     gallery = [
       {
         src: '/images/industry_technology.webp',
-        tag: isId ? 'TEKNOLOGI & PEMBAYARAN' : 'FINTECH & DIGITAL ECOSYSTEM',
-        caption: isId
+        tag: isCn ? '金融科技与数字生态' : isId ? 'TEKNOLOGI & PEMBAYARAN' : 'FINTECH & DIGITAL ECOSYSTEM',
+        caption: isCn
+          ? '跨境支付互联互通、本地化云架构及印中数字平台生态系统。'
+          : isId
           ? 'Integrasi pembayaran lintas batas, arsitektur cloud lokal, dan ekosistem platform digital Indonesia–Tiongkok.'
           : 'Cross-border payment integration, localized cloud architecture, and Indonesia–China digital platform ecosystems.'
       },
       {
         src: '/images/china_tech_hub.webp',
-        tag: isId ? 'KEPATUHAN & TATA KELOLA DATA' : 'DATA GOVERNANCE & COMPLIANCE',
-        caption: isId
+        tag: isCn ? '数据治理与合规' : isId ? 'KEPATUHAN & TATA KELOLA DATA' : 'DATA GOVERNANCE & COMPLIANCE',
+        caption: isCn
+          ? '个人数据保护法（UU PDP）合规落地与企业级系统本土化部署。'
+          : isId
           ? 'Implementasi kepatuhan regulasi perlindungan data (UU PDP) dan lokalisasi sistem enterprise.'
           : 'Implementation of Personal Data Protection (UU PDP) compliance and enterprise system localization.'
       },
       {
         src: '/images/city_orbiting_cards.webp',
-        tag: isId ? 'TRANSFORMASI KOMERSIAL' : 'COMMERCIAL TRANSFORMATION',
-        caption: isId
+        tag: isCn ? '商业数字化转型' : isId ? 'TRANSFORMASI KOMERSIAL' : 'COMMERCIAL TRANSFORMATION',
+        caption: isCn
+          ? '中国科技创新企业与印尼银行、零售及消费网络的深度协同。'
+          : isId
           ? 'Sinergi antara inovator teknologi Tiongkok dengan jaringan perbankan, ritel, dan konsumen Indonesia.'
           : 'Synergy between Chinese technology innovators and Indonesian banking, retail, and consumer networks.'
       }
@@ -65,22 +77,28 @@ function getContextualMediaAndBacklinks(insight, isId) {
     gallery = [
       {
         src: '/images/industry_trade.webp',
-        tag: isId ? 'DISTRIBUSI & RITEL MODERN' : 'DISTRIBUTION & MODERN RETAIL',
-        caption: isId
+        tag: isCn ? '分销与现代零售渠道' : isId ? 'DISTRIBUSI & RITEL MODERN' : 'DISTRIBUTION & MODERN RETAIL',
+        caption: isCn
+          ? '印尼市场的多级分销网络以及现代与传统零售渠道的深度适配。'
+          : isId
           ? 'Jaringan distribusi multi-tier dan adaptasi saluran ritel modern maupun tradisional di pasar Indonesia.'
           : 'Multi-tier distribution networks and adaptation across modern and traditional retail channels in Indonesia.'
       },
       {
         src: '/images/industry_creative.webp',
-        tag: isId ? 'LOKALISASI MEREK & LIVE COMMERCE' : 'BRAND LOCALIZATION & LIVE COMMERCE',
-        caption: isId
+        tag: isCn ? '品牌本土化与直播电商' : isId ? 'LOKALISASI MEREK & LIVE COMMERCE' : 'BRAND LOCALIZATION & LIVE COMMERCE',
+        caption: isCn
+          ? '赋能消费市场渗透的品牌传播策略、直播电商基地与本土达人合作。'
+          : isId
           ? 'Strategi komunikasi merek, studio live-commerce, dan kemitraan kreator lokal untuk penetrasi konsumen.'
           : 'Brand communication strategy, live-commerce studios, and local creator partnerships for consumer penetration.'
       },
       {
         src: '/images/china_trade_port.webp',
-        tag: isId ? 'RANTAI PASOK LINTAS BATAS' : 'CROSS-BORDER SUPPLY CHAIN',
-        caption: isId
+        tag: isCn ? '跨境供应链体系' : isId ? 'RANTAI PASOK LINTAS BATAS' : 'CROSS-BORDER SUPPLY CHAIN',
+        caption: isCn
+          ? '通过印尼本土外资企业（PT PMA）、保税仓及产品合规认证实现的合规进口便利化。'
+          : isId
           ? 'Fasilitasi impor resmi melalui entitas PT PMA lokal, gudang berikat, dan sertifikasi produk.'
           : 'Compliant import facilitation through local PT PMA entities, bonded warehousing, and product certification.'
       }
@@ -90,58 +108,70 @@ function getContextualMediaAndBacklinks(insight, isId) {
   /* Connected Knowledge Graph Backlinks (Services, Industries, Gateway) */
   const ecosystemBacklinks = [
     {
-      type: isId ? 'Layanan Terkait' : 'Core Service Backlink',
-      title: isId ? 'Strategic Advisory & Market Entry' : 'Strategic Advisory & Market Entry',
-      desc: isId
+      type: isCn ? '相关核心服务' : isId ? 'Layanan Terkait' : 'Core Service Backlink',
+      title: isCn ? '战略咨询与市场准入' : 'Strategic Advisory & Market Entry',
+      desc: isCn
+        ? '商业可行性研究、监管路线图及印中市场准入架构设计。'
+        : isId
         ? 'Studi kelayakan komersial, peta jalan regulasi, dan struktur masuk pasar Indonesia–Tiongkok.'
         : 'Commercial feasibility, regulatory roadmaps, and Indonesia–China market entry structuring.',
       href: '/services/advisory',
-      anchor: isId ? 'Konsultasi Masuk Pasar' : 'Market Entry Advisory'
+      anchor: isCn ? '市场准入咨询' : isId ? 'Konsultasi Masuk Pasar' : 'Market Entry Advisory'
     },
     {
-      type: isId ? 'Layanan Terkait' : 'Core Service Backlink',
-      title: isId ? 'Government Relations & Stakeholder Engagement' : 'Government Relations & Stakeholder Engagement',
-      desc: isId
+      type: isCn ? '相关核心服务' : isId ? 'Layanan Terkait' : 'Core Service Backlink',
+      title: isCn ? '政府关系与利益相关方沟通' : 'Government Relations & Stakeholder Engagement',
+      desc: isCn
+        ? '机构联络、利益相关方图谱梳理及公私部门政策协同。'
+        : isId
         ? 'Pelibatan kelembagaan, pemetaan pemangku kepentingan, dan penyelarasan kebijakan publik-swasta.'
         : 'Institutional liaison, stakeholder mapping, and public-private policy alignment.',
       href: '/services/gov-relations',
-      anchor: isId ? 'Hubungan Kelembagaan & Regulasi' : 'Institutional & Regulatory Liaison'
+      anchor: isCn ? '机构与监管联络' : isId ? 'Hubungan Kelembagaan & Regulasi' : 'Institutional & Regulatory Liaison'
     },
     {
-      type: isId ? 'Layanan Terkait' : 'Core Service Backlink',
-      title: isId ? 'Business Matching & Strategic Partnerships' : 'Business Matching & Strategic Partnerships',
-      desc: isId
+      type: isCn ? '相关核心服务' : isId ? 'Layanan Terkait' : 'Core Service Backlink',
+      title: isCn ? '商业配对与战略合作伙伴关系' : 'Business Matching & Strategic Partnerships',
+      desc: isCn
+        ? '与分销合作伙伴、工业园区及本土投资者的精准 B2B 商业配对。'
+        : isId
         ? 'Pencocokan B2B terkurasi dengan mitra distribusi, pemilik kawasan industri, dan investor lokal.'
         : 'Curated B2B matchmaking with distribution partners, industrial estates, and local investors.',
       href: '/services/business-matching',
-      anchor: isId ? 'Pencocokan Mitra B2B' : 'B2B Partner Matchmaking'
+      anchor: isCn ? 'B2B 合作伙伴配对' : isId ? 'Pencocokan Mitra B2B' : 'B2B Partner Matchmaking'
     },
     {
-      type: isId ? 'Koridor Bilateral' : 'Corridor Hub Backlink',
-      title: isId ? 'Gerbang Ekspansi Indonesia ⇄ Tiongkok' : 'Indonesia ⇄ China Expansion Gateway',
-      desc: isId
+      type: isCn ? '双边走廊枢纽' : isId ? 'Koridor Bilateral' : 'Corridor Hub Backlink',
+      title: isCn ? '印尼 ⇄ 中国双向拓展门户' : isId ? 'Gerbang Ekspansi Indonesia ⇄ Tiongkok' : 'Indonesia ⇄ China Expansion Gateway',
+      desc: isCn
+        ? '面向进入印尼的中国企业与开拓中国市场的印尼企业的双向战略门户指南。'
+        : isId
         ? 'Panduan strategis dua arah untuk perusahaan Tiongkok ke Indonesia dan perusahaan Indonesia ke Tiongkok.'
         : 'Bi-directional strategic gateway for Chinese enterprises entering Indonesia and Indonesian firms exploring China.',
       href: '/gateway',
-      anchor: isId ? 'Gerbang Indonesia–Tiongkok' : 'Indonesia–China Gateway'
+      anchor: isCn ? '印中战略门户' : isId ? 'Gerbang Indonesia–Tiongkok' : 'Indonesia–China Gateway'
     },
     {
-      type: isId ? 'Fokus Sektoral' : 'Industry Sector Backlink',
-      title: isId ? '5 Sektor Prioritas & Peluang Industri' : '5 Priority Sectors & Industry Opportunities',
-      desc: isId
+      type: isCn ? '重点行业聚焦' : isId ? 'Fokus Sektoral' : 'Industry Sector Backlink',
+      title: isCn ? '5 大优先行业与产业机遇' : isId ? '5 Sektor Prioritas & Peluang Industri' : '5 Priority Sectors & Industry Opportunities',
+      desc: isCn
+        ? '探索基础设施、科技、旅游、创意经济与消费品贸易领域的双边商机。'
+        : isId
         ? 'Eksplorasi peluang di sektor Infrastruktur, Teknologi, Pariwisata, Ekonomi Kreatif, dan FMCG.'
         : 'Explore bilateral opportunities across Infrastructure, Technology, Tourism, Creative Economy, and Trade.',
       href: '/industries',
-      anchor: isId ? 'Ekosistem 5 Industri Prioritas' : '5 Priority Industry Ecosystems'
+      anchor: isCn ? '5 大优先行业生态' : isId ? 'Ekosistem 5 Industri Prioritas' : '5 Priority Industry Ecosystems'
     },
     {
-      type: isId ? 'Kolaborasi Ekosistem' : 'Partnership Hub Backlink',
-      title: isId ? 'Program Kemitraan Ekosistem 8 Vice' : '8 Vice Ecosystem Partnership Program',
-      desc: isId
+      type: isCn ? '生态系统协作' : isId ? 'Kolaborasi Ekosistem' : 'Partnership Hub Backlink',
+      title: isCn ? '8 Vice 生态系统合作伙伴计划' : isId ? 'Program Kemitraan Ekosistem 8 Vice' : '8 Vice Ecosystem Partnership Program',
+      desc: isCn
+        ? '登记您的企业或行业协会，成为 8 Vice 跨境生态系统中的战略合作伙伴。'
+        : isId
         ? 'Daftarkan perusahaan atau asosiasi Anda sebagai mitra strategis dalam ekosistem lintas batas 8 Vice.'
         : 'Register your enterprise or association as a strategic partner within the 8 Vice cross-border ecosystem.',
       href: '/insights#partnership-register',
-      anchor: isId ? 'Daftar Partnership 8 Vice' : 'Register for Partnership'
+      anchor: isCn ? '申请加入合作伙伴' : isId ? 'Daftar Partnership 8 Vice' : 'Register for Partnership'
     }
   ];
 
@@ -153,6 +183,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
 
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
   const contentRef = useRef(null);
 
   const [tocItems, setTocItems] = useState([]);
@@ -194,7 +225,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
   const getLocalized = (val) => {
     if (!val) return '';
     if (typeof val === 'string') return val;
-    return (isId ? val.id : val.en) || val.en || val.id || '';
+    return (isCn ? val.cn : isId ? val.id : val.en) || val.en || val.id || '';
   };
 
   const titleText = getLocalized(insight.t || insight.title);
@@ -206,8 +237,8 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
   const hasReferences = extras.references.length > 0;
 
   const { gallery, ecosystemBacklinks } = useMemo(
-    () => getContextualMediaAndBacklinks(insight, isId),
-    [insight, isId]
+    () => getContextualMediaAndBacklinks(insight, isId, isCn),
+    [insight, isId, isCn]
   );
 
   const coverUrl = insight.cover
@@ -271,27 +302,27 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
     if (researchPaper) {
       scanned.push({
         id: 'article-research-paper',
-        text: isId ? 'Dokumen Riset & Paywall Akses' : 'Research Paper & Document Access',
+        text: isCn ? '研究报告与付费解锁权限' : isId ? 'Dokumen Riset & Paywall Akses' : 'Research Paper & Document Access',
         level: 'h2'
       });
     }
 
     scanned.push({
       id: 'article-gallery',
-      text: isId ? 'Visualisasi & Dokumentasi Sektor' : 'Sector Visuals & Figures',
+      text: isCn ? '行业视觉与现场纪实' : isId ? 'Visualisasi & Dokumentasi Sektor' : 'Sector Visuals & Figures',
       level: 'h2'
     });
 
     scanned.push({
       id: 'article-backlinks',
-      text: isId ? 'Model Backlink & Peta Rujukan' : 'Backlink Model & Knowledge Graph',
+      text: isCn ? '反向链接与知识图谱' : isId ? 'Model Backlink & Peta Rujukan' : 'Backlink Model & Knowledge Graph',
       level: 'h2'
     });
 
     if (hasFaqs) {
       scanned.push({
         id: 'article-faq',
-        text: isId ? 'Pertanyaan Umum (FAQ)' : 'Frequently Asked Questions (FAQ)',
+        text: isCn ? '常见问题解答 (FAQ)' : isId ? 'Pertanyaan Umum (FAQ)' : 'Frequently Asked Questions (FAQ)',
         level: 'h2'
       });
     }
@@ -299,7 +330,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
     if (hasReferences) {
       scanned.push({
         id: 'article-references',
-        text: isId ? 'Rujukan Regulasi & Sitasi' : 'Regulatory References & Citations',
+        text: isCn ? '政策法规参考与文献引用' : isId ? 'Rujukan Regulasi & Sitasi' : 'Regulatory References & Citations',
         level: 'h2'
       });
     }
@@ -308,7 +339,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
     if (scanned.length > 0) {
       setActiveId(scanned[0].id);
     }
-  }, [bodyHtml, lang, hasFaqs, hasReferences, isId]);
+  }, [bodyHtml, lang, hasFaqs, hasReferences, isId, isCn]);
 
   /* Scroll-spy for TOC + Reading Progress Bar */
   useEffect(() => {
@@ -357,7 +388,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
 
   const canonicalUrl =
     typeof window !== 'undefined'
-      ? window.location.origin + (isId ? '/id' : '') + `/insights/${insight.slug}`
+      ? window.location.origin + (isCn ? '/cn' : isId ? '/id' : '') + `/insights/${insight.slug}`
       : `https://8vice.com/insights/${insight.slug}`;
 
   const handleCopy = (type, text) => {
@@ -400,16 +431,16 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
           <div className="container ad-hero__container">
             <div className="ad-hero__top-bar">
               <nav className="ad-breadcrumb" aria-label="Breadcrumb">
-                <Link href="/">{isId ? 'Beranda' : 'Home'}</Link>
+                <Link href="/">{isCn ? '首页' : isId ? 'Beranda' : 'Home'}</Link>
                 <span>/</span>
-                <Link href="/insights">{isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships'}</Link>
+                <Link href="/insights">{isCn ? '洞察与合作伙伴' : isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships'}</Link>
                 <span>/</span>
                 <span className="ad-breadcrumb__current">{insight.cat || 'Briefing'}</span>
               </nav>
 
               <Link href="/insights" className="ad-back-pill">
                 <span>←</span>
-                <span>{isId ? 'Kembali ke Semua Wawasan' : 'Back to All Insights'}</span>
+                <span>{isCn ? '返回全部洞察' : isId ? 'Kembali ke Semua Wawasan' : 'Back to All Insights'}</span>
               </Link>
             </div>
 
@@ -421,7 +452,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
               <span className="ad-meta-chip">{insight.rt || '8 min read'}</span>
               <span className="ad-meta-chip">{insight.date || '2026'}</span>
               <span className="ad-meta-chip ad-meta-chip--verified">
-                ✓ {isId ? 'Kajian Terverifikasi 8 Vice' : '8 Vice Verified Briefing'}
+                ✓ {isCn ? '8 Vice 认证研究简报' : isId ? 'Kajian Terverifikasi 8 Vice' : '8 Vice Verified Briefing'}
               </span>
             </div>
 
@@ -444,7 +475,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                     {insight.author_name || '8 Vice Strategic Advisory'}
                   </div>
                   <div className="ad-author__role">
-                    {insight.author_role || (isId ? 'Intelijen Koridor Lintas Batas' : 'Cross-Border Corridor Intelligence')}
+                    {insight.author_role || (isCn ? '跨境走廊战略情报组' : isId ? 'Intelijen Koridor Lintas Batas' : 'Cross-Border Corridor Intelligence')}
                   </div>
                 </div>
               </div>
@@ -461,10 +492,14 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                   </svg>
                   <span>
                     {copiedType === 'url'
-                      ? isId
+                      ? isCn
+                        ? '链接已复制！'
+                        : isId
                         ? 'Tautan Disalin!'
                         : 'Link Copied!'
-                      : isId
+                      : isCn
+                        ? '复制链接'
+                        : isId
                         ? 'Salin Tautan'
                         : 'Copy Link'}
                   </span>
@@ -476,7 +511,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                   className="ad-tool-btn"
                 >
                   <span>🔗</span>
-                  <span>{isId ? 'Backlink & Sitasi' : 'Backlinks & Cite'}</span>
+                  <span>{isCn ? '引用与链接' : isId ? 'Backlink & Sitasi' : 'Backlinks & Cite'}</span>
                 </a>
 
                 {hasFaqs && (
@@ -496,7 +531,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                   className="ad-tool-btn"
                 >
                   <span>🖨️</span>
-                  <span>{isId ? 'Cetak / PDF' : 'Print Brief'}</span>
+                  <span>{isCn ? '打印 / PDF' : isId ? 'Cetak / PDF' : 'Print Brief'}</span>
                 </button>
               </div>
             </div>
@@ -533,12 +568,12 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                       decoding="async"
                     />
                     <span className="ad-cover-figure__zoom">
-                      🔍 {isId ? 'Perbesar Gambar' : 'Click to Enlarge'}
+                      🔍 {isCn ? '点击放大图片' : isId ? 'Perbesar Gambar' : 'Click to Enlarge'}
                     </span>
                   </div>
                   <figcaption className="ad-cover-figure__caption">
                     <span className="ad-cover-figure__caption-tag">
-                      {isId ? 'GAMBAR UTAMA' : 'FIGURE 01'}
+                      {isCn ? '主视觉图 01' : isId ? 'GAMBAR UTAMA' : 'FIGURE 01'}
                     </span>
                     <span>{excerptText}</span>
                   </figcaption>
@@ -555,7 +590,9 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                       <div className="ad-inline-toc__toggle-left">
                         <span className="ad-dot" />
                         <span>
-                          {isId
+                          {isCn
+                            ? `文章目录 (${tocItems.length} 个章节)`
+                            : isId
                             ? `Daftar Isi Artikel (${tocItems.length} Bagian)`
                             : `Table of Contents (${tocItems.length} Sections)`}
                         </span>
@@ -600,7 +637,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                         <div className="ad-paper-badges-row">
                           <span className="ad-paper-badge-pill">
                             <span className="ad-paper-badge-dot" />
-                            {isId ? researchPaper.badgeId : researchPaper.badge}
+                            {isCn ? researchPaper.badgeCn : isId ? researchPaper.badgeId : researchPaper.badge}
                           </span>
                           <span className={`ad-paper-status-pill ${isPaperUnlocked ? 'is-unlocked' : 'is-locked'}`}>
                             {isPaperUnlocked ? (
@@ -609,7 +646,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                                   <path d="M7 11V7a5 5 0 0 1 9.9-1" />
                                 </svg>
-                                {isId ? 'DOKUMEN DIBUKA · LISENSI AKTIF' : 'UNLOCKED · ACTIVE LICENSE'}
+                                {isCn ? '已解锁 · 授权生效中' : isId ? 'DOKUMEN DIBUKA · LISENSI AKTIF' : 'UNLOCKED · ACTIVE LICENSE'}
                               </>
                             ) : (
                               <>
@@ -617,36 +654,36 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                 </svg>
-                                {isId ? 'DEFAULT TERKUNCI · AKSES BERBAYAR' : 'DEFAULT LOCKED · PAYWALL PROTECTED'}
+                                {isCn ? '默认锁定 · 付费专享保护' : isId ? 'DEFAULT TERKUNCI · AKSES BERBAYAR' : 'DEFAULT LOCKED · PAYWALL PROTECTED'}
                               </>
                             )}
                           </span>
                         </div>
 
                         <h2 className="ad-paper-title">
-                          {isId ? researchPaper.title.id : researchPaper.title.en}
+                          {isCn ? researchPaper.title.cn : isId ? researchPaper.title.id : researchPaper.title.en}
                         </h2>
 
                         <p className="ad-paper-subtitle">
-                          {isId ? researchPaper.subtitle.id : researchPaper.subtitle.en}
+                          {isCn ? researchPaper.subtitle.cn : isId ? researchPaper.subtitle.id : researchPaper.subtitle.en}
                         </p>
 
                         {/* Technical Specifications Strip */}
                         <div className="ad-paper-specs-strip">
                           <div className="ad-paper-spec-item">
-                            <span className="ad-paper-spec-lbl">{isId ? 'VOLUME DOKUMEN' : 'TOTAL VOLUME'}</span>
+                            <span className="ad-paper-spec-lbl">{isCn ? '报告总篇幅' : isId ? 'VOLUME DOKUMEN' : 'TOTAL VOLUME'}</span>
                             <span className="ad-paper-spec-val">58 Pages Unabridged</span>
                           </div>
                           <div className="ad-paper-spec-item">
-                            <span className="ad-paper-spec-lbl">{isId ? 'FORMAT BERKAS' : 'FILE FORMAT'}</span>
+                            <span className="ad-paper-spec-lbl">{isCn ? '文件格式' : isId ? 'FORMAT BERKAS' : 'FILE FORMAT'}</span>
                             <span className="ad-paper-spec-val">PDF A4 (300 DPI) + XLSX</span>
                           </div>
                           <div className="ad-paper-spec-item">
-                            <span className="ad-paper-spec-lbl">{isId ? 'TANGGAL RILIS' : 'RELEASE DATE'}</span>
+                            <span className="ad-paper-spec-lbl">{isCn ? '发布日期' : isId ? 'TANGGAL RILIS' : 'RELEASE DATE'}</span>
                             <span className="ad-paper-spec-val">October 2026 (Quarterly)</span>
                           </div>
                           <div className="ad-paper-spec-item">
-                            <span className="ad-paper-spec-lbl">{isId ? 'TIM RISET' : 'RESEARCH DESK'}</span>
+                            <span className="ad-paper-spec-lbl">{isCn ? '研究机构' : isId ? 'TIM RISET' : 'RESEARCH DESK'}</span>
                             <span className="ad-paper-spec-val">8 Vice Macro & Industrial Desk</span>
                           </div>
                         </div>
@@ -656,10 +693,10 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                       <div className="ad-paper-toc-wrap">
                         <div className="ad-paper-toc-head">
                           <h3 style={{ margin: 0, fontSize: '16.5px', fontWeight: 700, color: '#FFFFFF' }}>
-                            {isId ? 'Daftar Bab Riset & Status Akses Dokumen' : 'Research Chapter Breakdown & Access Matrix'}
+                            {isCn ? '研究报告章节目录与访问权限矩阵' : isId ? 'Daftar Bab Riset & Status Akses Dokumen' : 'Research Chapter Breakdown & Access Matrix'}
                           </h3>
                           <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>
-                            {isId ? 'Bab 1–2 terbuka gratis · Bab 3–5 & Lampiran terkunci' : 'Ch. 1–2 free preview · Ch. 3–5 & Datasets locked'}
+                            {isCn ? '第 1–2 章免费预览 · 第 3–5 章与数据模型已锁定' : isId ? 'Bab 1–2 terbuka gratis · Bab 3–5 & Lampiran terkunci' : 'Ch. 1–2 free preview · Ch. 3–5 & Datasets locked'}
                           </span>
                         </div>
 
@@ -674,16 +711,16 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                 <div className="ad-paper-chapter-info">
                                   <span className="ad-paper-chapter-num">CH. {ch.num}</span>
                                   <span className="ad-paper-chapter-title">
-                                    {isId ? ch.title.id : ch.title.en}
+                                    {isCn ? ch.title.cn : isId ? ch.title.id : ch.title.en}
                                   </span>
                                 </div>
                                 <div className="ad-paper-chapter-meta">
                                   <span className="ad-paper-chapter-pages">{ch.pages}</span>
                                   <span className={`ad-paper-chapter-pill ${isChUnlocked ? 'pill-free' : 'pill-locked'}`}>
                                     {isChUnlocked ? (
-                                      <span>✓ {isId ? 'Pratinjau Terbuka' : 'Preview Available'}</span>
+                                      <span>✓ {isCn ? '开放预览' : isId ? 'Pratinjau Terbuka' : 'Preview Available'}</span>
                                     ) : (
-                                      <span>🔒 {isId ? 'Terkunci' : 'Locked'}</span>
+                                      <span>🔒 {isCn ? '已锁定' : isId ? 'Terkunci' : 'Locked'}</span>
                                     )}
                                   </span>
                                 </div>
@@ -705,7 +742,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                           </div>
                           <div className="ad-paper-toolbar-center">
                             <span className="ad-paper-page-counter">
-                              {isId ? `Halaman ${readerActivePage} dari 58` : `Page ${readerActivePage} of 58`}
+                              {isCn ? `第 ${readerActivePage} / 58 页` : isId ? `Halaman ${readerActivePage} dari 58` : `Page ${readerActivePage} of 58`}
                             </span>
                           </div>
                           <div className="ad-paper-toolbar-right">
@@ -720,7 +757,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                               }}
                               title={isPaperUnlocked ? 'Download PDF' : 'Document Locked'}
                             >
-                              {isPaperUnlocked ? '⬇ Unduh' : '🔒 Unduh'}
+                              {isPaperUnlocked ? (isCn ? '⬇ 下载' : '⬇ Unduh') : (isCn ? '🔒 下载' : '🔒 Unduh')}
                             </button>
                           </div>
                         </div>
@@ -736,10 +773,10 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
 
                             <div className="ad-paper-page-hero">
                               <div className="ad-paper-hero-kicker">
-                                {isId ? 'CETAKTAKBIR EKSEKUSI INDUSTRI 2026–2030' : 'INDUSTRIAL EXECUTION BLUEPRINT 2026–2030'}
+                                {isCn ? '2026–2030 产业落地执行蓝图' : isId ? 'CETAKTAKBIR EKSEKUSI INDUSTRI 2026–2030' : 'INDUSTRIAL EXECUTION BLUEPRINT 2026–2030'}
                               </div>
                               <h1 className="ad-paper-page-title">
-                                {isId ? researchPaper.title.id : researchPaper.title.en}
+                                {isCn ? researchPaper.title.cn : isId ? researchPaper.title.id : researchPaper.title.en}
                               </h1>
                               <p className="ad-paper-page-meta-line">
                                 By {researchPaper.author.name} · {researchPaper.publishedDate} · Jakarta / Shanghai
@@ -748,10 +785,10 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
 
                             <div className="ad-paper-page-abstract-box">
                               <h4 style={{ margin: '0 0 10px', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#FF7B7B' }}>
-                                {isId ? 'RINGKASAN EKSEKUTIF (EXECUTIVE ABSTRACT)' : 'EXECUTIVE SUMMARY & ABSTRACT'}
+                                {isCn ? '执行摘要 (EXECUTIVE ABSTRACT)' : isId ? 'RINGKASAN EKSEKUTIF (EXECUTIVE ABSTRACT)' : 'EXECUTIVE SUMMARY & ABSTRACT'}
                               </h4>
                               <p style={{ margin: 0, fontSize: '14.5px', lineHeight: 1.7, color: 'rgba(255,255,255,0.88)' }}>
-                                &ldquo;{isId ? researchPaper.sampleExcerpt.id : researchPaper.sampleExcerpt.en}&rdquo;
+                                &ldquo;{isCn ? researchPaper.sampleExcerpt.cn : isId ? researchPaper.sampleExcerpt.id : researchPaper.sampleExcerpt.en}&rdquo;
                               </p>
                             </div>
 
@@ -834,17 +871,21 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                 </div>
 
                                 <div className="ad-paywall-badge">
-                                  {isId ? 'DOKUMEN RISET PROPRIETARY TERKUNCI' : 'RESTRICTED ACCESS · PROPRIETARY RESEARCH PAPER'}
+                                  {isCn ? '受限访问 · 专有研究报告' : isId ? 'DOKUMEN RISET PROPRIETARY TERKUNCI' : 'RESTRICTED ACCESS · PROPRIETARY RESEARCH PAPER'}
                                 </div>
 
                                 <h3 className="ad-paywall-title">
-                                  {isId
+                                  {isCn
+                                    ? '解锁完整 58 页研究报告与原始 Excel 财务模型'
+                                    : isId
                                     ? 'Buka Akses Laporan Riset 58 Halaman & Model Finansial Excel'
                                     : 'Unlock the Full 58-Page Research Paper & Raw Excel Financial Models'}
                                 </h3>
 
                                 <p className="ad-paywall-desc">
-                                  {isId
+                                  {isCn
+                                    ? '完整版 58 页 PDF 报告、24 页高管演示文稿以及原始财务模型数据表（.xlsx）仅向认证授权持有者开放。'
+                                    : isId
                                     ? 'Laporan lengkap menyajikan matriks formula 40% TKDN, komparasi biaya operasional kawasan industri di 4 koridor, survei empiris 120 korporasi Tiongkok, serta template model finansial Excel mentah.'
                                     : 'The unabridged 58-page PDF report, 24-slide executive presentation deck, and raw financial model spreadsheets (.xlsx) are restricted to verified license holders.'}
                                 </p>
@@ -860,8 +901,8 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                         <span className={`ad-radio-dot ${selectedLicense === 'individual' ? 'is-active' : ''}`} />
                                       </div>
                                       <div>
-                                        <div className="ad-tier-name">{isId ? 'Lisensi Eksekutif' : 'Executive License'}</div>
-                                        <div className="ad-tier-scope">{isId ? 'Pengguna Tunggal' : 'Single User Access'}</div>
+                                        <div className="ad-tier-name">{isCn ? '高管个人授权' : isId ? 'Lisensi Eksekutif' : 'Executive License'}</div>
+                                        <div className="ad-tier-scope">{isCn ? '单用户访问权限' : isId ? 'Pengguna Tunggal' : 'Single User Access'}</div>
                                       </div>
                                     </div>
                                     <div className="ad-tier-price">
@@ -870,9 +911,9 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                       <span className="ad-tier-usd">($99 USD)</span>
                                     </div>
                                     <ul className="ad-tier-features">
-                                      <li>✓ {isId ? 'Laporan PDF Lengkap 58 Halaman' : 'Full 58-Page PDF Report'}</li>
-                                      <li>✓ {isId ? 'Slide Presentasi Eksekutif (24 Slide)' : 'Executive 24-Slide Deck'}</li>
-                                      <li>✓ {isId ? 'Tautan Unduhan Instan & Cloud Permanen' : 'Instant Download & Cloud Access'}</li>
+                                      <li>✓ {isCn ? '完整 58 页 PDF 深度研究报告' : isId ? 'Laporan PDF Lengkap 58 Halaman' : 'Full 58-Page PDF Report'}</li>
+                                      <li>✓ {isCn ? '24 页高管简报演示文稿 (PPT)' : isId ? 'Slide Presentasi Eksekutif (24 Slide)' : 'Executive 24-Slide Deck'}</li>
+                                      <li>✓ {isCn ? '即时下载与永久云端访问' : isId ? 'Tautan Unduhan Instan & Cloud Permanen' : 'Instant Download & Cloud Access'}</li>
                                     </ul>
                                   </div>
 
@@ -880,14 +921,14 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                     className={`ad-paywall-tier-card ${selectedLicense === 'corporate' ? 'is-selected' : ''}`}
                                     onClick={() => setSelectedLicense('corporate')}
                                   >
-                                    <div className="ad-tier-ribbon">{isId ? 'REKOMENDASI KORPORAT' : 'CORPORATE CHOICE'}</div>
+                                    <div className="ad-tier-ribbon">{isCn ? '企业首选推荐' : isId ? 'REKOMENDASI KORPORAT' : 'CORPORATE CHOICE'}</div>
                                     <div className="ad-tier-header">
                                       <div className="ad-tier-radio">
                                         <span className={`ad-radio-dot ${selectedLicense === 'corporate' ? 'is-active' : ''}`} />
                                       </div>
                                       <div>
-                                        <div className="ad-tier-name">{isId ? 'Lisensi Korporat & Konsultasi' : 'Corporate & Advisory License'}</div>
-                                        <div className="ad-tier-scope">{isId ? 'Hingga 25 Anggota Tim' : 'Up to 25 Team Seats'}</div>
+                                        <div className="ad-tier-name">{isCn ? '企业团队与咨询授权' : isId ? 'Lisensi Korporat & Konsultasi' : 'Corporate & Advisory License'}</div>
+                                        <div className="ad-tier-scope">{isCn ? '最多支持 25 名团队成员' : isId ? 'Hingga 25 Anggota Tim' : 'Up to 25 Team Seats'}</div>
                                       </div>
                                     </div>
                                     <div className="ad-tier-price">
@@ -896,10 +937,10 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                       <span className="ad-tier-usd">($499 USD)</span>
                                     </div>
                                     <ul className="ad-tier-features">
-                                      <li>✓ {isId ? 'Lisensi Distribusi Internal 25 User' : 'Enterprise 25-Seat Distribution'}</li>
-                                      <li>✓ {isId ? 'Dataset Mentah Model Finansial Excel (.xlsx)' : 'Raw Excel Financial Models (.xlsx)'}</li>
-                                      <li>✓ {isId ? 'Sesi Tanya-Jawab 30 Menit Bersama Direktur Riset' : '30-Min Q&A Call with Research Directors'}</li>
-                                      <li>✓ {isId ? 'Penerbitan Faktur Pajak Resmi' : 'Official Corporate Tax Invoice'}</li>
+                                      <li>✓ {isCn ? '企业内部 25 人团队分发授权' : isId ? 'Lisensi Distribusi Internal 25 User' : 'Enterprise 25-Seat Distribution'}</li>
+                                      <li>✓ {isCn ? '原始 Excel 财务模型数据表 (.xlsx)' : isId ? 'Dataset Mentah Model Finansial Excel (.xlsx)' : 'Raw Excel Financial Models (.xlsx)'}</li>
+                                      <li>✓ {isCn ? '与研究总监进行 30 分钟一对一答疑' : isId ? 'Sesi Tanya-Jawab 30 Menit Bersama Direktur Riset' : '30-Min Q&A Call with Research Directors'}</li>
+                                      <li>✓ {isCn ? '提供正式企业税务发票' : isId ? 'Penerbitan Faktur Pajak Resmi' : 'Official Corporate Tax Invoice'}</li>
                                     </ul>
                                   </div>
                                 </div>
@@ -913,8 +954,8 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                   >
                                     <span>
                                       {selectedLicense === 'individual'
-                                        ? (isId ? 'Beli & Buka Akses Paper (Rp 1.490.000 / $99)' : 'Unlock Full Paper ($99 / Rp 1.49M)')
-                                        : (isId ? 'Beli Lisensi Korporat (Rp 7.490.000 / $499)' : 'Purchase Corporate License ($499 / Rp 7.49M)')}
+                                        ? (isCn ? '立即购买并解锁报告 ($99 / Rp 1.49M)' : isId ? 'Beli & Buka Akses Paper (Rp 1.490.000 / $99)' : 'Unlock Full Paper ($99 / Rp 1.49M)')
+                                        : (isCn ? '购买企业团队授权 ($499 / Rp 7.49M)' : isId ? 'Beli Lisensi Korporat (Rp 7.490.000 / $499)' : 'Purchase Corporate License ($499 / Rp 7.49M)')}
                                     </span>
                                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                       <line x1="5" y1="12" x2="19" y2="12" />
@@ -926,7 +967,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                     href={`/contact?service=research-paper&paper=${researchPaper.slug}&tier=${selectedLicense}`}
                                     className="ad-paywall-btn ad-paywall-btn--secondary"
                                   >
-                                    <span>{isId ? 'Pesan via Faktur Perusahaan / PO →' : 'Inquire via Corporate Purchase Order →'}</span>
+                                    <span>{isCn ? '通过企业采购订单 (PO) 订购 →' : isId ? 'Pesan via Faktur Perusahaan / PO →' : 'Inquire via Corporate Purchase Order →'}</span>
                                   </Link>
                                 </div>
 
@@ -1044,10 +1085,12 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                 <section id="article-gallery" className="ad-block-section">
                   <div className="ad-block-head">
                     <div className="ad-kicker">
-                      {isId ? 'DOKUMENTASI & VISUALISASI SEKTOR' : 'SECTOR VISUALS & FIELD DOCUMENTATION'}
+                      {isCn ? '行业视觉与现场纪实' : isId ? 'DOKUMENTASI & VISUALISASI SEKTOR' : 'SECTOR VISUALS & FIELD DOCUMENTATION'}
                     </div>
                     <h2 className="ad-block-title">
-                      {isId
+                      {isCn
+                        ? '视觉图集与走廊生态背景'
+                        : isId
                         ? 'Ilustrasi Visual & Konteks Ekosistem'
                         : 'Visual Context & Corridor Gallery'}
                     </h2>
@@ -1079,17 +1122,23 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                 <section id="article-backlinks" className="ad-block-section ad-backlink-section">
                   <div className="ad-block-head">
                     <div className="ad-kicker">
-                      {isId
+                      {isCn
+                        ? '反向链接模型与互联知识图谱'
+                        : isId
                         ? 'MODEL BACKLINK & EKOSISTEM PENGETAHUAN'
                         : 'BACKLINK MODEL & CONNECTED KNOWLEDGE GRAPH'}
                     </div>
                     <h2 className="ad-block-title">
-                      {isId
+                      {isCn
+                        ? '跨走廊交叉引用、核心服务与文章引用模型'
+                        : isId
                         ? 'Jaringan Rujukan Silang, Layanan & Sitasi Artikel'
                         : 'Cross-Corridor Backlinks, Services & Citation Model'}
                     </h2>
                     <p className="ad-block-desc">
-                      {isId
+                      {isCn
+                        ? '探索将本篇简报与 8 Vice 咨询服务能力、优先重点行业相连接的结构化内部链接，以及供媒体与研究伙伴使用的一键引用工具。'
+                        : isId
                         ? 'Eksplorasi tautan rujukan strategis yang menghubungkan kajian ini dengan kapabilitas layanan 8 Vice, fokus industri, serta perangkat kutipan backlink untuk media dan institusi riset.'
                         : 'Explore structured internal backlinks connecting this briefing with 8 Vice advisory capabilities, priority sectors, and one-click backlink citation tools for media and research partners.'}
                     </p>
@@ -1117,7 +1166,9 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                   {relatedInsights && relatedInsights.length > 0 && (
                     <div className="ad-cluster-box">
                       <div className="ad-cluster-box__label">
-                        {isId
+                        {isCn
+                          ? '同一主题集群中的关联简报 (TOPIC CLUSTER BACKLINKS)'
+                          : isId
                           ? 'TAUTAN ARTIKEL DALAM KLASTER TOPIK YANG SAMA (TOPIC CLUSTER BACKLINKS)'
                           : 'CONNECTED BRIEFINGS IN THIS TOPIC CLUSTER'}
                       </div>
@@ -1145,12 +1196,16 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                     <div className="ad-cite-box__head">
                       <div>
                         <h4>
-                          {isId
+                          {isCn
+                            ? '官方反向链接与引用生成器（供媒体、合作伙伴与研究机构使用）'
+                            : isId
                             ? 'Generator Backlink & Kutipan Resmi (Untuk Media / Mitra / Riset)'
                             : 'Official Backlink & Citation Generator (For Media, Partners & Research)'}
                         </h4>
                         <p>
-                          {isId
+                          {isCn
+                            ? '在外部出版物或合作伙伴网站上引用本篇 8 Vice 简报时，请使用下方的永久链接或 HTML 锚文本代码。'
+                            : isId
                             ? 'Gunakan tautan permanen atau kode HTML backlink di bawah ini saat merujuk kajian 8 Vice pada publikasi atau situs web Anda.'
                             : 'Use the permalink or HTML anchor snippet below when referencing this 8 Vice briefing on external publications or partner websites.'}
                         </p>
@@ -1166,7 +1221,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                           onClick={() => handleCopy('permalink', canonicalUrl)}
                           className="ad-cite-row__btn"
                         >
-                          {copiedType === 'permalink' ? (isId ? 'Tersalin!' : 'Copied!') : isId ? 'Salin URL' : 'Copy URL'}
+                          {copiedType === 'permalink' ? (isCn ? '已复制！' : isId ? 'Tersalin!' : 'Copied!') : isCn ? '复制链接' : isId ? 'Salin URL' : 'Copy URL'}
                         </button>
                       </div>
 
@@ -1178,19 +1233,19 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                           onClick={() => handleCopy('html', htmlBacklinkSnippet)}
                           className="ad-cite-row__btn"
                         >
-                          {copiedType === 'html' ? (isId ? 'Tersalin!' : 'Copied!') : isId ? 'Salin HTML' : 'Copy HTML'}
+                          {copiedType === 'html' ? (isCn ? '已复制！' : isId ? 'Tersalin!' : 'Copied!') : isCn ? '复制 HTML' : isId ? 'Salin HTML' : 'Copy HTML'}
                         </button>
                       </div>
 
                       <div className="ad-cite-row">
-                        <span className="ad-cite-row__lbl">{isId ? 'Format Sitasi' : 'Executive Citation'}</span>
+                        <span className="ad-cite-row__lbl">{isCn ? '学术/商业引用' : isId ? 'Format Sitasi' : 'Executive Citation'}</span>
                         <code className="ad-cite-row__code">{citationSnippet}</code>
                         <button
                           type="button"
                           onClick={() => handleCopy('cite', citationSnippet)}
                           className="ad-cite-row__btn"
                         >
-                          {copiedType === 'cite' ? (isId ? 'Tersalin!' : 'Copied!') : isId ? 'Salin Sitasi' : 'Copy Citation'}
+                          {copiedType === 'cite' ? (isCn ? '已复制！' : isId ? 'Tersalin!' : 'Copied!') : isCn ? '复制引用' : isId ? 'Salin Sitasi' : 'Copy Citation'}
                         </button>
                       </div>
                     </div>
@@ -1202,7 +1257,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                     ========================================================== */}
                 <div className="ad-tags-bar">
                   <div className="ad-tags-bar__left">
-                    <span className="ad-tags-bar__lbl">{isId ? 'Kategori:' : 'Category:'}</span>
+                    <span className="ad-tags-bar__lbl">{isCn ? '分类：' : isId ? 'Kategori:' : 'Category:'}</span>
                     <Link href="/insights" className="ad-tags-bar__cat">
                       {insight.cat}
                     </Link>
@@ -1227,10 +1282,12 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                     <div className="ad-faq-header">
                       <div>
                         <div className="ad-kicker">
-                          {isId ? 'TANYA JAWAB EKSEKUTIF (FAQ)' : 'EXECUTIVE CLARIFICATIONS (FAQ)'}
+                          {isCn ? '高管常见问题解答 (FAQ)' : isId ? 'TANYA JAWAB EKSEKUTIF (FAQ)' : 'EXECUTIVE CLARIFICATIONS (FAQ)'}
                         </div>
                         <h2 className="ad-block-title" style={{ margin: 0 }}>
-                          {isId
+                          {isCn
+                            ? '常见问题与政策释疑'
+                            : isId
                             ? 'Pertanyaan yang Sering Diajukan'
                             : 'Frequently Asked Questions'}
                         </h2>
@@ -1242,10 +1299,14 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                         className="ad-faq-expand-btn"
                       >
                         {expandAllFaqs
-                          ? isId
+                          ? isCn
+                            ? '收起全部'
+                            : isId
                             ? 'Tutup Semua'
                             : 'Collapse All'
-                          : isId
+                          : isCn
+                            ? '展开全部回答'
+                            : isId
                             ? 'Buka Semua Jawaban'
                             : 'Expand All Answers'}
                       </button>
@@ -1291,10 +1352,12 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                   <section id="article-references" className="ad-block-section">
                     <div className="ad-block-head">
                       <div className="ad-kicker">
-                        {isId ? 'SUMBER HUKUM & RUJUKAN PASAR' : 'AUTHORITATIVE SOURCES & POLICY CITATIONS'}
+                        {isCn ? '权威法律与政策文献来源' : isId ? 'SUMBER HUKUM & RUJUKAN PASAR' : 'AUTHORITATIVE SOURCES & POLICY CITATIONS'}
                       </div>
                       <h2 className="ad-block-title">
-                        {isId
+                        {isCn
+                          ? '监管法规参考与官方文献引用'
+                          : isId
                           ? 'Rujukan Regulasi & Dokumen Kebijakan'
                           : 'Regulatory References & Official Citations'}
                       </h2>
@@ -1329,14 +1392,16 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                 <div className="ad-side-card">
                   <div className="ad-side-card__kicker">
                     <span>🔍</span>
-                    <span>{isId ? 'CARI WAWASAN & KAJIAN' : 'SEARCH INSIGHTS HUB'}</span>
+                    <span>{isCn ? '搜索市场洞察中心' : isId ? 'CARI WAWASAN & KAJIAN' : 'SEARCH INSIGHTS HUB'}</span>
                   </div>
 
                   <div className="ad-side-search">
                     <input
                       type="search"
                       placeholder={
-                        isId
+                        isCn
+                          ? '搜索主题、TKDN、UU PDP、QRIS...'
+                          : isId
                           ? 'Cari topik, TKDN, UU PDP, QRIS...'
                           : 'Search TKDN, UU PDP, QRIS, Java...'
                       }
@@ -1357,10 +1422,14 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                   <div className="ad-side-search__results">
                     <div className="ad-side-search__sub">
                       {sidebarSearch
-                        ? isId
+                        ? isCn
+                          ? `搜索结果 (${searchResults.length})`
+                          : isId
                           ? `Hasil Pencarian (${searchResults.length})`
                           : `Matching Briefings (${searchResults.length})`
-                        : isId
+                        : isCn
+                          ? '其他热门简报'
+                          : isId
                           ? 'Kajian Populer Lainnya'
                           : 'Quick Briefing Switcher'}
                     </div>
@@ -1378,7 +1447,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                       </ul>
                     ) : (
                       <div className="ad-side-search__empty">
-                        {isId ? 'Tidak ditemukan artikel yang cocok.' : 'No matching briefings found.'}
+                        {isCn ? '未找到匹配的研究简报。' : isId ? 'Tidak ditemukan artikel yang cocok.' : 'No matching briefings found.'}
                       </div>
                     )}
                   </div>
@@ -1389,7 +1458,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                   <div className="ad-side-card ad-side-card--toc">
                     <div className="ad-side-card__toc-head">
                       <span className="ad-side-card__kicker" style={{ margin: 0 }}>
-                        {isId ? 'DAFTAR ISI ARTIKEL' : 'TABLE OF CONTENTS'}
+                        {isCn ? '文章目录' : isId ? 'DAFTAR ISI ARTIKEL' : 'TABLE OF CONTENTS'}
                       </span>
                       <span className="ad-side-card__pct">{Math.round(readingProgress)}%</span>
                     </div>
@@ -1420,24 +1489,28 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                 {/* 3. Partnership & Strategic Advisory CTA Card */}
                 <div className="ad-side-card ad-side-card--cta">
                   <div className="ad-side-card__kicker" style={{ color: '#ff8a93' }}>
-                    {isId ? 'DISKUSI & KEMITRAAN' : 'ADVISORY & PARTNERSHIP'}
+                    {isCn ? '战略咨询与合作' : isId ? 'DISKUSI & KEMITRAAN' : 'ADVISORY & PARTNERSHIP'}
                   </div>
                   <h4>
-                    {isId
+                    {isCn
+                      ? '将此项市场情报应用于您的业务'
+                      : isId
                       ? 'Terapkan Strategi Ini pada Bisnis Anda'
                       : 'Apply This Intelligence to Your Business'}
                   </h4>
                   <p>
-                    {isId
+                    {isCn
+                      ? '与我们的印中战略顾问团队沟通，规划您的市场准入、监管合规或生态系统合作机会。'
+                      : isId
                       ? 'Diskusikan rencana masuk pasar, kepatuhan regulasi, atau kemitraan ekosistem Anda bersama penasihat lintas batas 8 Vice.'
                       : 'Speak with our Indonesia–China advisory team to map out your market entry, regulatory compliance, or partnership opportunity.'}
                   </p>
                   <div className="ad-side-card__cta-btns">
                     <Link href="/contact" className="ad-btn ad-btn--primary">
-                      {isId ? 'Jadwalkan Konsultasi' : 'Book a Consultation'}
+                      {isCn ? '预约战略咨询' : isId ? 'Jadwalkan Konsultasi' : 'Book a Consultation'}
                     </Link>
                     <Link href="/insights#partnership-register" className="ad-btn ad-btn--secondary">
-                      {isId ? 'Daftar Partnership' : 'Register as a Partner'}
+                      {isCn ? '申请加入合作伙伴' : isId ? 'Daftar Partnership' : 'Register as a Partner'}
                     </Link>
                   </div>
                 </div>
@@ -1455,16 +1528,18 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
               <div className="ad-related-head">
                 <div>
                   <div className="ad-kicker">
-                    {isId ? 'WAWASAN TERKAIT' : 'CONTINUE EXPLORING'}
+                    {isCn ? '继续阅读' : isId ? 'WAWASAN TERKAIT' : 'CONTINUE EXPLORING'}
                   </div>
                   <h2 className="ad-block-title" style={{ margin: 0 }}>
-                    {isId
+                    {isCn
+                      ? '相关洞察与走廊观点'
+                      : isId
                       ? 'Wawasan & Perspektif Koridor Lainnya'
                       : 'Related Insights & Perspectives'}
                   </h2>
                 </div>
                 <Link href="/insights" className="ad-btn ad-btn--secondary">
-                  {isId ? 'Lihat Semua Wawasan →' : 'View All Insights →'}
+                  {isCn ? '查看全部洞察 →' : isId ? 'Lihat Semua Wawasan →' : 'View All Insights →'}
                 </Link>
               </div>
 
@@ -1495,7 +1570,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                         </h3>
                         <p>{relExcerpt}</p>
                         <Link href={`/insights/${rel.slug}`} className="ad-rel-card__more">
-                          <span>{isId ? 'Baca Selengkapnya' : 'Read Perspective'}</span>
+                          <span>{isCn ? '阅读全文' : isId ? 'Baca Selengkapnya' : 'Read Perspective'}</span>
                           <span>→</span>
                         </Link>
                       </div>

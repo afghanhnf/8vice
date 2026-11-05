@@ -6,6 +6,7 @@ export default function ChatFloatingWidget() {
   const { siteSettings } = usePage().props;
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
 
   const [isOpen, setIsOpen] = useState(false);
   const [showWechatModal, setShowWechatModal] = useState(false);
@@ -80,7 +81,7 @@ export default function ChatFloatingWidget() {
                 padding: '4px 8px 6px'
               }}
             >
-              {isId ? 'Pilih Saluran Konsultasi' : 'Direct Channels'}
+              {isCn ? '直接咨询通道' : isId ? 'Pilih Saluran Konsultasi' : 'Direct Channels'}
             </div>
 
             {/* Option 1: WhatsApp */}
@@ -134,7 +135,7 @@ export default function ChatFloatingWidget() {
               <div>
                 <div style={{ fontSize: '14.5px', fontWeight: 600, color: '#FFFFFF', lineHeight: 1.2 }}>WhatsApp</div>
                 <div style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '2px' }}>
-                  {isId ? 'Chat langsung' : 'Chat directly'}
+                  {isCn ? '即时在线沟通' : isId ? 'Chat langsung' : 'Chat directly'}
                 </div>
               </div>
             </a>
@@ -192,7 +193,7 @@ export default function ChatFloatingWidget() {
               <div>
                 <div style={{ fontSize: '14.5px', fontWeight: 600, color: '#FFFFFF', lineHeight: 1.2 }}>WeChat</div>
                 <div style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '2px' }}>
-                  {isId ? 'Pindai QR Code' : 'Scan QR Code'}
+                  {isCn ? '扫描二维码' : isId ? 'Pindai QR Code' : 'Scan QR Code'}
                 </div>
               </div>
             </button>
@@ -204,7 +205,7 @@ export default function ChatFloatingWidget() {
           type="button"
           className={`chat-fab-btn ${isOpen ? 'is-open' : ''}`}
           onClick={() => setIsOpen((prev) => !prev)}
-          aria-label={isOpen ? 'Tutup menu chat' : 'Buka opsi konsultasi (WhatsApp & WeChat)'}
+          aria-label={isOpen ? (isCn ? '关闭聊天菜单' : 'Tutup menu chat') : (isCn ? '打开咨询选项 (WhatsApp & WeChat)' : 'Buka opsi konsultasi (WhatsApp & WeChat)')}
         >
           {isOpen ? (
             /* Close X Icon */
@@ -327,7 +328,7 @@ export default function ChatFloatingWidget() {
                 letterSpacing: '-0.01em'
               }}
             >
-              {isId ? 'Hubungi Kami via WeChat' : 'Connect on WeChat'}
+              {isCn ? '通过微信联系我们' : isId ? 'Hubungi Kami via WeChat' : 'Connect on WeChat'}
             </h3>
 
             {/* Description */}
@@ -340,7 +341,9 @@ export default function ChatFloatingWidget() {
                 padding: '0 4px'
               }}
             >
-              {isId
+              {isCn
+                ? '使用微信扫描下方二维码，直接与 8Vice 战略咨询团队取得联系。'
+                : isId
                 ? 'Pindai kode QR di bawah ini dengan aplikasi WeChat Anda untuk terhubung langsung dengan tim penasihat 8Vice.'
                 : 'Scan the QR code below using your WeChat scanner to connect directly with 8Vice advisory team.'}
             </p>
@@ -379,7 +382,7 @@ export default function ChatFloatingWidget() {
                 letterSpacing: '0.02em'
               }}
             >
-              {isId ? 'Konsultasi Strategis Lintas Batas' : 'Cross-Border Strategic Advisory'} · Indonesia &amp; China
+              {isCn ? '跨境战略咨询' : isId ? 'Konsultasi Strategis Lintas Batas' : 'Cross-Border Strategic Advisory'} · Indonesia &amp; China
             </div>
           </div>
         </div>

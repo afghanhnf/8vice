@@ -48,6 +48,10 @@ class IndustryCoverageForm
                                     TextInput::make('title.id')->label('[ID] Sector Title')->required()->maxLength(255),
                                     TextInput::make('tagline.id')->label('[ID] Tagline')->placeholder('e.g. Menghubungkan kapabilitas untuk kota masa depan.')->maxLength(255),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('title.cn')->label('[CN] Sector Title')->maxLength(255),
+                                    TextInput::make('tagline.cn')->label('[CN] Tagline')->placeholder('e.g. 连接前沿能力，赋能未来城市。')->maxLength(255),
+                                ]),
                             ]),
                         Tabs::make('Description')
                             ->columnSpanFull()
@@ -57,6 +61,9 @@ class IndustryCoverageForm
                                 ]),
                                 Tabs\Tab::make('ID')->schema([
                                     Textarea::make('description.id')->label('[ID] Sector Overview')->rows(4)->maxLength(1500),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    Textarea::make('description.cn')->label('[CN] Sector Overview')->rows(4)->maxLength(1500),
                                 ]),
                             ]),
                         TagsInput::make('highlights')

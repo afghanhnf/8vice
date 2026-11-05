@@ -376,6 +376,7 @@ function DeliverableVectorIcon({ icon, size = 22 }) {
 export default function ServiceDetail({ slug }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
   const allServices = getServices(lang);
   const svc = getService(lang, slug) || allServices[0];
   const others = allServices.filter((s) => s.id !== svc.id);
@@ -404,7 +405,26 @@ export default function ServiceDetail({ slug }) {
     return () => observer.disconnect();
   }, [slug, lang]);
 
-  const copy = isId
+  const copy = isCn
+    ? {
+        home: '首页',
+        services: '服务',
+        eyebrow: `服务 ${svc.num} · 印尼–中国`,
+        overviewKicker: '01 · 我们的方法论',
+        supportKicker: '02 · 支持范围',
+        supportTitle: '我们的支持范围包括',
+        processKicker: '03 · 我们的工作流程',
+        processTitle: '我们的跨境工作流程',
+        noteLabel: '注',
+        othersKicker: '04 · 其他服务',
+        othersTitle: '探索我们的其他核心能力',
+        ctaEyebrow: '开启对话',
+        ctaTitle: '与我们探讨您的业务需求',
+        ctaDesc: '告诉我们您的商业目标与目标市场。我们的团队将进行评估并确定最合适的下一步方案。',
+        ctaPrimary: '咨询此项服务',
+        ctaSecondary: '全部服务'
+      }
+    : isId
     ? {
         home: 'Beranda',
         services: 'Layanan',
@@ -1123,7 +1143,7 @@ export default function ServiceDetail({ slug }) {
                           color: '#FF7B7B'
                         }}
                       >
-                        {isId ? 'RUANG LINGKUP DUKUNGAN' : 'DELIVERABLE SCOPE'}
+                        {isCn ? '交付与支持范围' : isId ? 'RUANG LINGKUP DUKUNGAN' : 'DELIVERABLE SCOPE'}
                       </span>
                       <span
                         style={{

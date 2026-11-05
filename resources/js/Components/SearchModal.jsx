@@ -5,15 +5,16 @@ import { getServices } from '@/data/services';
 
 const getTypeClass = (type = '') => {
   const t = type.toLowerCase();
-  if (t.includes('article') || t.includes('artikel') || t.includes('insight') || t.includes('wawasan')) return 'article';
-  if (t.includes('case') || t.includes('kasus')) return 'case';
-  if (t.includes('service') || t.includes('layanan')) return 'service';
+  if (t.includes('article') || t.includes('artikel') || t.includes('insight') || t.includes('wawasan') || t.includes('洞察') || t.includes('文章')) return 'article';
+  if (t.includes('case') || t.includes('kasus') || t.includes('案例')) return 'case';
+  if (t.includes('service') || t.includes('layanan') || t.includes('服务')) return 'service';
   return 'page';
 };
 
 // Search dialog: Ctrl/Cmd+K to open, arrow keys + Enter to navigate, Esc to close.
 export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
   const [query, setQuery] = useState('');
   const [data, setData] = useState({ results: [], recommended_services: [] });
   const [loading, setLoading] = useState(false);
@@ -21,17 +22,19 @@ export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
 
-  const prefix = isId ? '/id' : '';
+  const prefix = isCn ? '/cn' : isId ? '/id' : '';
   const quickLinks = [
-    ...getServices(lang).map((s) => ({ type: isId ? 'Layanan' : 'Service', title: s.title, url: `/services/${s.id}` })),
-    { type: isId ? 'Halaman' : 'Page', title: isId ? 'Gerbang Indonesia–China' : 'Indonesia–China Gateway', url: '/gateway' },
-    { type: isId ? 'Halaman' : 'Page', title: isId ? 'Industri & Peluang' : 'Industries & Opportunities', url: '/industries' },
-    { type: isId ? 'Halaman' : 'Page', title: isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships', url: '/insights' },
-    { type: isId ? 'Halaman' : 'Page', title: isId ? 'Hubungi Kami' : 'Contact Us', url: '/contact' }
+    ...getServices(lang).map((s) => ({ type: isCn ? '核心服务' : isId ? 'Layanan' : 'Service', title: s.title, url: `/services/${s.id}` })),
+    { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '印中双边门户' : isId ? 'Gerbang Indonesia–China' : 'Indonesia–China Gateway', url: '/gateway' },
+    { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '重点行业与机遇' : isId ? 'Industri & Peluang' : 'Industries & Opportunities', url: '/industries' },
+    { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '商业洞察与合作' : isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships', url: '/insights' },
+    { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '联系我们' : isId ? 'Hubungi Kami' : 'Contact Us', url: '/contact' }
   ];
-  const popular = isId
-    ? ['Ekspansi Pasar', 'Hubungan Media', 'Kemitraan', 'Pariwisata', 'Teknologi']
-    : ['Market Entry', 'Media Relations', 'Partnership', 'Tourism', 'Technology'];
+  const popular = isCn
+    ? ['市场准入', '媒体关系', '战略合作', '旅游与文化', '科技与制造']
+    : isId
+      ? ['Ekspansi Pasar', 'Hubungan Media', 'Kemitraan', 'Pariwisata', 'Teknologi']
+      : ['Market Entry', 'Media Relations', 'Partnership', 'Tourism', 'Technology'];
 
   const hasQuery = query.trim().length > 1;
   const items = hasQuery
@@ -101,17 +104,17 @@ export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
   // Group by type, keeping a flat index for keyboard highlight
   const groups = [];
   items.forEach((it, idx) => {
-    const key = it.badge || it.type || (isId ? 'Halaman' : 'Page');
+    const key = it.badge || it.type || (isCn ? '页面' : isId ? 'Halaman' : 'Page');
     let g = groups.find((x) => x.key === key);
     if (!g) groups.push((g = { key, items: [] }));
     g.items.push({ ...it, idx });
   });
 
   const heading = !hasQuery
-    ? (isId ? 'Akses Cepat' : 'Quick Links')
+    ? (isCn ? '快捷访问' : isId ? 'Akses Cepat' : 'Quick Links')
     : data.results.length
-      ? (isId ? `${data.results.length} Hasil Ditemukan` : `${data.results.length} Results Found`)
-      : (isId ? `Tidak ada hasil untuk "${query}". Rekomendasi layanan:` : `No matches for "${query}". Recommended services:`);
+      ? (isCn ? `找到 ${data.results.length} 条结果` : isId ? `${data.results.length} Hasil Ditemukan` : `${data.results.length} Results Found`)
+      : (isCn ? `未找到与 "${query}" 匹配的结果。推荐服务：` : isId ? `Tidak ada hasil untuk "${query}". Rekomendasi layanan:` : `No matches for "${query}". Recommended services:`);
 
   return (
     <div className="smartsearch-modal" onKeyDown={onKeyDown}>
@@ -149,13 +152,13 @@ export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
         }
       `}</style>
       <div className="smartsearch-backdrop" onClick={close}></div>
-      <div className="smartsearch-dialog" ref={dialogRef} role="dialog" aria-modal="true" aria-label={isId ? 'Pencarian situs' : 'Site search'}>
+      <div className="smartsearch-dialog" ref={dialogRef} role="dialog" aria-modal="true" aria-label={isCn ? '全站搜索' : isId ? 'Pencarian situs' : 'Site search'}>
         <div className="smartsearch-header">
           <svg style={{ marginLeft: '24px', color: 'rgba(255,255,255,0.4)', width: '20px', height: '20px', flexShrink: 0 }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <input
             ref={inputRef}
             type="text"
-            placeholder={isId ? 'Cari layanan, industri, artikel, atau halaman...' : 'Search services, industries, insights, or pages...'}
+            placeholder={isCn ? '搜索核心服务、重点行业、洞察报告或页面...' : isId ? 'Cari layanan, industri, artikel, atau halaman...' : 'Search services, industries, insights, or pages...'}
             className="smartsearch-input"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -165,11 +168,11 @@ export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
             aria-activedescendant={items[active] ? `ss-opt-${active}` : undefined}
           />
           {query && (
-            <button onClick={() => { setQuery(''); inputRef.current?.focus(); }} aria-label={isId ? 'Hapus pencarian' : 'Clear search'} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.5)', padding: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+            <button onClick={() => { setQuery(''); inputRef.current?.focus(); }} aria-label={isCn ? '清除搜索' : isId ? 'Hapus pencarian' : 'Clear search'} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.5)', padding: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
           )}
-          <button onClick={close} className="smartsearch-close" aria-label={isId ? 'Tutup pencarian' : 'Close search'}>
+          <button onClick={close} className="smartsearch-close" aria-label={isCn ? '关闭搜索' : isId ? 'Tutup pencarian' : 'Close search'}>
             <span>ESC</span>
           </button>
         </div>
@@ -177,7 +180,7 @@ export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
         <div className="smartsearch-body">
           {!hasQuery && (
             <div className="smartsearch-suggestions" style={{ marginBottom: '22px' }}>
-              <span style={{ fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{isId ? 'Populer:' : 'Popular:'}</span>
+              <span style={{ fontSize: '12px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{isCn ? '热门搜索：' : isId ? 'Populer:' : 'Popular:'}</span>
               {popular.map((p) => (
                 <button key={p} type="button" onClick={() => setQuery(p)} className="lang-btn" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.85)', padding: '7px 14px', borderRadius: '999px', fontSize: '13px' }}>
                   {p}
@@ -189,7 +192,7 @@ export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
           {loading ? (
             <div className="smartsearch-empty" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }} aria-live="polite">
               <svg className="ico ico-20" viewBox="0 0 24 24" style={{ animation: 'spin 1s linear infinite' }}><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" strokeWidth="3" fill="none"></circle><path d="M12 2 A 10 10 0 0 1 22 12" stroke="var(--color-red)" strokeWidth="3" fill="none"></path></svg>
-              <span>{isId ? 'Mencari...' : 'Searching...'}</span>
+              <span>{isCn ? '正在搜索...' : isId ? 'Mencari...' : 'Searching...'}</span>
             </div>
           ) : (
             <div className="smartsearch-results" id="smartsearch-listbox" role="listbox">
@@ -226,8 +229,8 @@ export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
           )}
 
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'flex-end', fontSize: '11.5px', color: 'rgba(255,255,255,0.35)', marginTop: '8px' }}>
-            <span>↑ ↓ {isId ? 'navigasi' : 'navigate'}</span>
-            <span>↵ {isId ? 'buka' : 'open'}</span>
+            <span>↑ ↓ {isCn ? '上下切换' : isId ? 'navigasi' : 'navigate'}</span>
+            <span>↵ {isCn ? '打开' : isId ? 'buka' : 'open'}</span>
             <span>Ctrl K</span>
           </div>
         </div>

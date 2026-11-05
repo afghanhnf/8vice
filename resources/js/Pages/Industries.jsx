@@ -275,7 +275,7 @@ function SectorSvgIllustration({ sectorId }) {
 /* ============================================================================
    Opportunity Convergence SVG Diagram (For Section 01 Overview)
    ============================================================================ */
-function OpportunityConvergenceSvg({ isId }) {
+function OpportunityConvergenceSvg({ isId, isCn }) {
   return (
     <svg viewBox="0 0 520 300" fill="none" className="ind-convergence-svg" aria-hidden="true">
       <defs>
@@ -316,7 +316,7 @@ function OpportunityConvergenceSvg({ isId }) {
         <rect x="0" y="0" width="154" height="36" rx="18" fill="rgba(12,15,22,0.9)" stroke="rgba(255,255,255,0.18)" />
         <circle cx="18" cy="18" r="4" fill="#E63946" />
         <text x="30" y="22" fill="#fff" fontSize="10" fontWeight="700" letterSpacing="0.06em">
-          {isId ? 'PERMINTAAN PASAR' : 'MARKET DEMAND'}
+          {isCn ? '市场需求' : isId ? 'PERMINTAAN PASAR' : 'MARKET DEMAND'}
         </text>
       </g>
 
@@ -325,7 +325,7 @@ function OpportunityConvergenceSvg({ isId }) {
         <rect x="0" y="0" width="166" height="36" rx="18" fill="rgba(12,15,22,0.9)" stroke="rgba(255,255,255,0.18)" />
         <circle cx="18" cy="18" r="4" fill="#E63946" />
         <text x="30" y="22" fill="#fff" fontSize="10" fontWeight="700" letterSpacing="0.06em">
-          {isId ? 'KAPABILITAS INDUSTRI' : 'CAPABILITIES'}
+          {isCn ? '产业能力' : isId ? 'KAPABILITAS INDUSTRI' : 'CAPABILITIES'}
         </text>
       </g>
 
@@ -334,7 +334,7 @@ function OpportunityConvergenceSvg({ isId }) {
         <rect x="0" y="0" width="190" height="36" rx="18" fill="rgba(230,57,70,0.18)" stroke="#E63946" />
         <circle cx="20" cy="18" r="4" fill="#fff" />
         <text x="34" y="22" fill="#fff" fontSize="10" fontWeight="800" letterSpacing="0.06em">
-          {isId ? 'KEMITRAAN STRATEGIS' : 'STRATEGIC PARTNERSHIPS'}
+          {isCn ? '战略合作伙伴关系' : isId ? 'KEMITRAAN STRATEGIS' : 'STRATEGIC PARTNERSHIPS'}
         </text>
       </g>
     </svg>
@@ -344,6 +344,7 @@ function OpportunityConvergenceSvg({ isId }) {
 export default function Industries() {
   const { lang } = useTranslation();
   const isId = lang === 'id';
+  const isCn = lang === 'cn';
 
   /* IntersectionObserver for Google M3 scroll-reveal animations */
   useEffect(() => {
@@ -369,7 +370,110 @@ export default function Industries() {
     return () => observer.disconnect();
   }, [lang]);
 
-  const copy = isId
+  const copy = isCn
+    ? {
+        breadcrumbHome: '首页',
+        breadcrumb: '重点行业与机遇',
+        eyebrow: '行业聚焦 · 双边机遇',
+        heroTitle: '市场与机遇交汇之地。',
+        heroLead:
+          '当印度尼西亚与中国的市场需求、产业能力与战略合作伙伴关系深度交汇时，跨境商业机遇便应运而生。',
+        overviewEyebrow: '01 · 机会导向型的行业策略',
+        overviewTitle: '连接高潜力行业的跨境商业机遇。',
+        overviewParagraphs: [
+          '当市场需求、产业能力与战略合作伙伴关系深度交汇时，跨境商业机遇便应运而生。',
+          '8 Vice 专注于特定重点行业——在这些领域中，印中双边协作能够有力支持业务扩张、技术应用、市场开拓以及专业能力的互通。',
+          '我们的行业策略以“机会”为导向（opportunity-driven）。我们不采用千篇一律的模板，而是综合考量每个项目的特定目标、市场背景、潜在合作伙伴及商业可行性。',
+          '通过战略咨询与业务拓展促成，我们协助客户探索能够创造切实商业价值的合作领域。'
+        ],
+        sectorEyebrow: '02 · 五大优先重点行业',
+        sectorTitle: '我们在双边走廊所服务的行业生态。',
+        sectors: [
+          {
+            num: '01',
+            id: 'infrastructure',
+            title: '基础设施与城市发展',
+            idTitle: '基础设施与城市发展',
+            tagline: '汇聚核心能力，赋能面向未来的城市。',
+            image: '/images/industry_infrastructure.webp',
+            desc: '我们探索城市基础设施、公共交通（地铁/轻轨）、智慧出行及城市开发领域的合作机遇，连接相关利益相关方，支持潜在项目评估与合作伙伴关系建立。',
+            highlights: [
+              '城市轨道交通与智慧出行系统',
+              '面向未来的智慧城市与基础设施协作',
+              '公私合营对话与多方利益相关者协同',
+              '商业与工业园区综合开发'
+            ]
+          },
+          {
+            num: '02',
+            id: 'technology',
+            title: '科技与数字生态系统',
+            idTitle: '科技与数字生态系统',
+            tagline: '让前沿技术与广阔市场更紧密相连。',
+            image: '/images/industry_technology.webp',
+            desc: '我们协助探索涉及数字平台、消费科技、跨境支付生态及技术赋能服务的合作伙伴关系，重点识别潜在的商业化应用场景与本土合作机会。',
+            highlights: [
+              '数字平台与跨境支付生态系统',
+              '消费电子与智能互联设备',
+              '企业级软件、人工智能与教育科技',
+              '技术商业化落地与本土合作伙伴配对'
+            ]
+          },
+          {
+            num: '03',
+            id: 'tourism',
+            title: '旅游、出行与酒店业',
+            idTitle: '旅游、出行与酒店业',
+            tagline: '通过旅行与目的地体验架起文化与商业桥梁。',
+            image: '/images/industry_tourism.webp',
+            desc: '我们通过目的地推广、旅游业合作伙伴关系、游客互动倡议、会奖旅游（MICE）开发，以及连接印尼旅游目的地与中国旅游客源市场的商业机会，全面支持旅游业合作。',
+            highlights: [
+              '双边旅游目的地推广与联合营销',
+              '高端酒店、度假村与旅游渠道合作',
+              'MICE 会奖旅游、入境旅游论坛与考察团',
+              '游客体验升级与数字化旅游服务生态'
+            ]
+          },
+          {
+            num: '04',
+            id: 'creative',
+            title: '创意经济与生活方式',
+            idTitle: '创意经济与生活方式',
+            tagline: '连接多元文化、创意灵感与商业机遇。',
+            image: '/images/industry_creative.webp',
+            desc: '我们探索时尚、手工艺、餐饮美食、影视、动漫、音乐、游戏、应用软件及其他创意领域的合作，为市场定位、品牌联名合作及跨境行业交流提供支持。',
+            highlights: [
+              '影视、动漫、数字媒体与知识产权（IP）合作',
+              '时尚、手工艺、餐饮美食与当代生活方式品牌',
+              '互动娱乐、电子游戏与移动应用出海',
+              '跨境品牌合作与文化创意展览交流'
+            ]
+          },
+          {
+            num: '05',
+            id: 'trade',
+            title: '贸易与消费品',
+            idTitle: '贸易与消费品',
+            tagline: '协助企业开辟全新的商业流通渠道。',
+            image: '/images/industry_trade.webp',
+            desc: '我们协助企业探索分销合作伙伴关系、产品本土化、市场定位及潜在商业渠道，助力进入新市场并发展稳固的跨境贸易关系。',
+            highlights: [
+              '战略分销与现代零售渠道合作伙伴关系',
+              '品牌本土化与消费市场精准定位',
+              '跨境供应链协同与贸易便利化促成',
+              '消费品与商业品牌的 B2B 精准配对'
+            ]
+          }
+        ],
+        ctaEyebrow: '03 · 商机垂询',
+        ctaTitle: '您有正在筹划的项目或合作构想吗？',
+        ctaP1: '每一个卓越的市场机遇，都始于一次专注而深入的对话。',
+        ctaP2:
+          '无论您是在探索新行业、寻找战略合作伙伴，还是评估跨境投资项目，8 Vice 都能协助您锁定最佳切入点。告诉我们您的目标，让我们共同探索无限可能。',
+        ctaBtn: '探讨您的项目',
+        secondaryBtn: '印中战略门户'
+      }
+    : isId
     ? {
         breadcrumbHome: 'Beranda',
         breadcrumb: 'Industri & Peluang',
@@ -657,7 +761,7 @@ export default function Industries() {
                 {/* Top Status Tag */}
                 <div className="ind-hero__status-tag">
                   <span className="ind-hero__status-dot" />
-                  <span>{isId ? '5 SEKTOR PRIORITAS · INDONESIA ⇄ TIONGKOK' : '5 PRIORITY SECTORS · INDONESIA ⇄ CHINA'}</span>
+                  <span>{isCn ? '5 大优先重点行业 · 印度尼西亚 ⇄ 中国' : isId ? '5 SEKTOR PRIORITAS · INDONESIA ⇄ TIONGKOK' : '5 PRIORITY SECTORS · INDONESIA ⇄ CHINA'}</span>
                 </div>
 
                 {/* Statement Inside Image */}
@@ -707,13 +811,13 @@ export default function Industries() {
                     <div className="ind-overview-card__photo-tint" />
                     <div className="ind-overview-card__badge">
                       <span className="ind-overview-card__badge-dot" />
-                      <span>{isId ? 'MODEL EKOSISTEM PELUANG' : 'OPPORTUNITY NEXUS MODEL'}</span>
+                      <span>{isCn ? '机遇枢纽生态模型' : isId ? 'MODEL EKOSISTEM PELUANG' : 'OPPORTUNITY NEXUS MODEL'}</span>
                     </div>
                   </div>
 
                   {/* SVG Architectural Convergence Diagram */}
                   <div className="ind-overview-card__diagram">
-                    <OpportunityConvergenceSvg isId={isId} />
+                    <OpportunityConvergenceSvg isId={isId} isCn={isCn} />
                   </div>
                 </div>
               </div>
@@ -791,7 +895,7 @@ export default function Industries() {
                             <div className="ind-sector-card__svg-header">
                               <span className="ind-sector-card__svg-dot" />
                               <span>
-                                {isId ? `VISUALISASI SEKTOR · ${s.num}` : `SECTOR BLUEPRINT · ${s.num}`}
+                                {isCn ? `行业蓝图 · ${s.num}` : isId ? `VISUALISASI SEKTOR · ${s.num}` : `SECTOR BLUEPRINT · ${s.num}`}
                               </span>
                             </div>
                             <SectorSvgIllustration sectorId={s.id} />
@@ -806,7 +910,7 @@ export default function Industries() {
                             <Icon size={26} color="#E63946" />
                           </div>
                           <span className="ind-sector-card__kicker">
-                            {isId ? `SEKTOR PRIORITAS ${s.num}` : `PRIORITY SECTOR ${s.num}`}
+                            {isCn ? `重点行业 ${s.num}` : isId ? `SEKTOR PRIORITAS ${s.num}` : `PRIORITY SECTOR ${s.num}`}
                           </span>
                         </div>
 
@@ -817,7 +921,7 @@ export default function Industries() {
                         {/* Opportunity Areas 2x2 Grid */}
                         <div className="ind-sector-card__highlights-wrap">
                           <div className="ind-sector-card__highlights-label">
-                            {isId ? 'AREA PELUANG UTAMA' : 'OPPORTUNITY AREAS'}
+                            {isCn ? '核心机遇领域' : isId ? 'AREA PELUANG UTAMA' : 'OPPORTUNITY AREAS'}
                           </div>
 
                           <div className="ind-sector-card__highlights-grid">
@@ -836,7 +940,9 @@ export default function Industries() {
                         <div className="ind-sector-card__footer">
                           <Link href="/contact" className="ind-sector-card__cta">
                             <span>
-                              {isId
+                              {isCn
+                                ? '探讨该行业的合作机遇'
+                                : isId
                                 ? 'Diskusikan Peluang di Sektor Ini'
                                 : 'Discuss Opportunities in This Sector'}
                             </span>

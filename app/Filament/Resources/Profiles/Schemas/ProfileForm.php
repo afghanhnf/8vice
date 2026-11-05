@@ -46,6 +46,9 @@ class ProfileForm
                                 Tabs\Tab::make('ID')->schema([
                                     TextInput::make('role.id')->label('[ID] Role / Designation')->placeholder('e.g. Co-Founder & Strategic Advisor')->maxLength(255),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('role.cn')->label('[CN] Role / Designation')->placeholder('e.g. 联合创始人兼执行合伙人')->maxLength(255),
+                                ]),
                             ]),
                         Tabs::make('Bio')
                             ->columnSpanFull()
@@ -55,6 +58,9 @@ class ProfileForm
                                 ]),
                                 Tabs\Tab::make('ID')->schema([
                                     Textarea::make('short_bio.id')->label('[ID] Professional Bio')->rows(3)->maxLength(1000),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    Textarea::make('short_bio.cn')->label('[CN] Professional Bio')->rows(3)->maxLength(1000),
                                 ]),
                             ]),
                         TagsInput::make('focus_tags')
@@ -84,6 +90,10 @@ class ProfileForm
                                 Tabs\Tab::make('ID')->schema([
                                     TextInput::make('quote_title.id')->label('[ID] Modal Quote Title')->placeholder('Pesan Strategis dari...')->maxLength(255),
                                     Textarea::make('quote_message.id')->label('[ID] Strategic Message')->rows(5)->maxLength(5000),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('quote_title.cn')->label('[CN] Modal Quote Title')->placeholder('高管寄语与战略展望')->maxLength(255),
+                                    Textarea::make('quote_message.cn')->label('[CN] Strategic Message')->rows(5)->maxLength(5000),
                                 ]),
                             ]),
                     ]),
