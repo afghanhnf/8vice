@@ -101,6 +101,12 @@ return new class extends Migration
 
         // 5. Site Settings: WeChat ID, QR Code, Tagline, Privacy Policy & Terms of Service
         Schema::table('site_settings', function (Blueprint $table) {
+            if (!Schema::hasColumn('site_settings', 'google_map_embed')) {
+                $table->text('google_map_embed')->nullable();
+            }
+            if (!Schema::hasColumn('site_settings', 'primary_color')) {
+                $table->string('primary_color')->nullable();
+            }
             if (!Schema::hasColumn('site_settings', 'wechat_id')) {
                 $table->string('wechat_id')->default('eightvice')->after('whatsapp_url');
             }
