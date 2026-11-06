@@ -31,6 +31,8 @@ export default function Home({
   clients = [],
   caseStudies = [],
   insights = [],
+  services = [],
+  industryCoverages = [],
   siteSettings,
   statistics = []
 }) {
@@ -962,7 +964,57 @@ export default function Home({
     }
   };
 
-  const c = content[isCn ? 'cn' : isId ? 'id' : 'en'];
+  const baseContent = content[isCn ? 'cn' : isId ? 'id' : 'en'];
+  const pickLoc = (val, fallback = '') => {
+    if (!val) return fallback;
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      return val[lang] || val.en || val.id || val.cn || fallback;
+    }
+    return fallback;
+  };
+
+  const cmsServices = Array.isArray(services) && services.length > 0
+    ? services.map((s, idx) => {
+        const fb = baseContent.services.items[idx] || {};
+        return {
+          id: s.slug || s.id || fb.id || 'advisory',
+          num: s.num || String(idx + 1).padStart(2, '0'),
+          title: pickLoc(s.title_i18n || s.title, fb.title),
+          desc: pickLoc(s.description_i18n || s.description || s.summary, fb.desc),
+          points: fb.points || [],
+        };
+      })
+    : baseContent.services.items;
+
+  const cmsIndustries = Array.isArray(industryCoverages) && industryCoverages.length > 0
+    ? industryCoverages.map((ind, idx) => {
+        const fb = baseContent.industries.items[idx] || {};
+        return {
+          id: ind.slug || ind.id || fb.id || 'infrastructure',
+          title: pickLoc(ind.title_i18n || ind.title, fb.title),
+          tag: pickLoc(ind.tag, fb.tag),
+          desc: pickLoc(ind.description_i18n || ind.description, fb.desc),
+          image: ind.image || null,
+        };
+      })
+    : baseContent.industries.items;
+
+  const c = {
+    ...baseContent,
+    services: {
+      ...baseContent.services,
+      items: cmsServices,
+    },
+    industries: {
+      ...baseContent.industries,
+      items: cmsIndustries,
+    },
+    inquiry: {
+      ...baseContent.inquiry,
+      office_addr: siteSettings?.address || baseContent.inquiry.office_addr,
+    },
+  };
 
   // Google Material Design 3 (M3) Motion Observer: Temporarily disabled for screenshots
   useEffect(() => {
@@ -1688,6 +1740,8 @@ export default function Home({
                   <img
                     src="/images/executive_profile_bw.webp"
                     alt="8 Vice Executive Strategic Advisory"
+                    width="600"
+                    height="500"
                     loading="lazy"
                     decoding="async"
                     style={{
@@ -2126,6 +2180,8 @@ export default function Home({
                 <img
                   src="/images/why_choose_us_thumbnail.webp"
                   alt="8 Vice Cross-Border Strategic Advisory"
+                  width="540"
+                  height="240"
                   loading="lazy"
                   decoding="async"
                   style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }}
@@ -2448,8 +2504,10 @@ export default function Home({
                 >
                   {/* Background Photo */}
                   <img
-                    src={industryImages[idx % industryImages.length]}
+                    src={ind.image || industryImages[idx % industryImages.length]}
                     alt={ind.title}
+                    width="480"
+                    height="360"
                     className="industry-card-img"
                     loading="lazy"
                     decoding="async"
@@ -2638,6 +2696,8 @@ export default function Home({
                             <img
                               src={imgSrc.startsWith('/') ? imgSrc : `/${imgSrc}`}
                               alt={client.name || 'Partner'}
+                              width="140"
+                              height="48"
                               loading="lazy"
                               decoding="async"
                               style={{
@@ -2937,7 +2997,9 @@ export default function Home({
                   </div>
                   <div>
                     <div style={{ fontSize: '13px', fontWeight: 600, color: '#E63946', marginBottom: '4px' }}>{c.inquiry.email_title}</div>
-                    <a href="mailto:hello@8vice.com" style={{ fontSize: '14.5px', color: '#FFFFFF', textDecoration: 'none' }}>hello@8vice.com</a>
+                    <a href={`mailto:${(siteSettings?.email || 'hello@8vice.com').replace(/^mailto:/i, '')}`} style={{ fontSize: '14.5px', color: '#FFFFFF', textDecoration: 'none' }}>
+                      {(siteSettings?.email || 'hello@8vice.com').replace(/^mailto:/i, '')}
+                    </a>
                   </div>
                 </div>
 
@@ -2969,6 +3031,8 @@ export default function Home({
                 <img
                   src="/images/consultation_advisory_bw.webp"
                   alt="8 Vice Bilateral Strategic Advisory Consultation Jakarta"
+                  width="600"
+                  height="320"
                   loading="lazy"
                   decoding="async"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(100%) contrast(106%)' }}
@@ -3002,7 +3066,7 @@ export default function Home({
                     {isCn ? '高管战略咨询会议室' : isId ? 'Ruang Rapat Penasihat Strategis' : 'Executive Advisory Boardroom'}
                   </div>
                   <div style={{ fontSize: '13.5px', color: 'rgba(255, 255, 255, 0.9)', fontWeight: 500 }}>
-                    Menara Prima, Mega Kuningan · Jakarta Financial District
+                    SOHO Building, Jl. Letjen M.T. Haryono Kav. 2 · Jakarta Selatan
                   </div>
                 </div>
               </div>

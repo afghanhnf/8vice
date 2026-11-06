@@ -43,18 +43,37 @@ $pageRoutes = function() use ($resolveLangPrefix) {
         ]); 
     });
     
-    Route::get('/services', function () { return Inertia::render('Services'); });
+    Route::get('/services', function () {
+        $services = \App\Models\Service::orderBy('sort_order')->get();
+        return Inertia::render('Services', [
+            'services' => $services->isEmpty() ? collect(\App\Helpers\SeedData::getServices()) : $services,
+        ]);
+    });
 
     Route::get('/services/{slug}', function ($slug) {
-        return Inertia::render('ServiceDetail', ['slug' => $slug]);
+        $services = \App\Models\Service::orderBy('sort_order')->get();
+        $service = \App\Models\Service::where('slug', $slug)->first();
+        return Inertia::render('ServiceDetail', [
+            'slug' => $slug,
+            'service' => $service,
+            'services' => $services->isEmpty() ? collect(\App\Helpers\SeedData::getServices()) : $services,
+        ]);
     })->whereIn('slug', ['advisory', 'gov-relations', 'business-matching', 'comms', 'media-relations', 'investment']);
 
     Route::get('/gateway', function () {
-        return Inertia::render('Gateway');
+        $services = \App\Models\Service::orderBy('sort_order')->get();
+        $industryCoverages = \App\Models\IndustryCoverage::orderBy('sort_order')->get();
+        return Inertia::render('Gateway', [
+            'services' => $services->isEmpty() ? collect(\App\Helpers\SeedData::getServices()) : $services,
+            'industryCoverages' => $industryCoverages->isEmpty() ? collect(\App\Helpers\SeedData::getIndustryCoverages()) : $industryCoverages,
+        ]);
     });
 
     Route::get('/industries', function () {
-        return Inertia::render('Industries');
+        $industryCoverages = \App\Models\IndustryCoverage::orderBy('sort_order')->get();
+        return Inertia::render('Industries', [
+            'industryCoverages' => $industryCoverages->isEmpty() ? collect(\App\Helpers\SeedData::getIndustryCoverages()) : $industryCoverages,
+        ]);
     });
     
     Route::get('/consultancy', function () use ($resolveLangPrefix) {

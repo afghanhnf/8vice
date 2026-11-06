@@ -116,11 +116,33 @@ function ModernCityBg({ opacity = 0.26, flip = false }) {
   );
 }
 
-export default function Services() {
+export default function Services({ services: cmsServices = [] }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
   const isCn = lang === 'cn';
-  const services = getServices(lang);
+  const baseServices = getServices(lang);
+  const pickLoc = (val, fallback = '') => {
+    if (!val) return fallback;
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      return val[lang] || val.en || val.id || val.cn || fallback;
+    }
+    return fallback;
+  };
+  const services = baseServices.map((baseSvc, idx) => {
+    const dbSvc = Array.isArray(cmsServices)
+      ? cmsServices.find((s) => s.slug === baseSvc.id) || cmsServices[idx]
+      : null;
+    if (!dbSvc) return baseSvc;
+    return {
+      ...baseSvc,
+      title: pickLoc(dbSvc.title_i18n || dbSvc.title, baseSvc.title),
+      headline: pickLoc(dbSvc.headline_i18n || dbSvc.headline, baseSvc.headline),
+      summary: pickLoc(dbSvc.description_i18n || dbSvc.description || dbSvc.summary, baseSvc.summary),
+      heroImage: dbSvc.image || dbSvc.hero_image || baseSvc.heroImage,
+      detailImage: dbSvc.detail_image || baseSvc.detailImage,
+    };
+  });
   const processSteps = getProcessSteps(lang);
 
   // Google Material Design 3 (M3) Scroll Transition Observer
@@ -431,7 +453,7 @@ export default function Services() {
 
             {/* Large Panoramic Image with Embedded Hero Lead Statement Inside */}
             <div className="svc-hero-frame m3-reveal m3-reveal--scale is-visible m3-delay-1">
-              <img src="/images/consultancy_hero.webp" alt={copy.breadcrumb} />
+              <img loading="lazy" decoding="async" src="/images/consultancy_hero.webp" alt={copy.breadcrumb} />
 
               <div
                 style={{

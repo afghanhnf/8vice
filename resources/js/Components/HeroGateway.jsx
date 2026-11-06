@@ -759,8 +759,9 @@ const HERO_CSS = `
 }
 .hg-grain {
   position: absolute; inset: 0; z-index: 6; pointer-events: none;
-  opacity: 0.07; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.04;
+  background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 0);
+  background-size: 24px 24px;
 }
 
 /* Coordinate labels */
@@ -797,25 +798,20 @@ const HERO_CSS = `
 }
 .hg-title__line {
   display: block;
-  animation: hgUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: var(--delay, 0s);
 }
 .hg-kicker {
   margin: 0 0 8px;
   font-size: 11.5px; font-weight: 600;
   letter-spacing: 0.24em; text-transform: uppercase;
   color: rgba(255,255,255,0.62);
-  animation: hgUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
 }
 .hg-sub {
   margin: 0 auto 30px; max-width: 520px;
   font-size: 14px; line-height: 1.6; font-weight: 400;
-  color: rgba(255,255,255,0.48);
-  animation: hgUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+  color: rgba(255,255,255,0.58);
 }
 .hg-actions {
   display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; align-items: center;
-  animation: hgUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.78s both;
 }
 .hg-btn {
   display: inline-flex; align-items: center; gap: 10px;
@@ -849,8 +845,8 @@ const HERO_CSS = `
 .hg-link:hover::after { transform: scaleX(0.35); }
 
 /* Keyframes */
-@keyframes hgRise  { from { opacity: 0; transform: translateY(70px); } to { opacity: 1; transform: none; } }
-@keyframes hgUp    { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes hgRise  { from { transform: translateY(24px); } to { transform: none; } }
+@keyframes hgUp    { from { transform: translateY(10px); } to { transform: none; } }
 @keyframes hgBeam  { 0%,100% { opacity: .88; } 50% { opacity: 1; } }
 @keyframes hgEmber { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: .9; } 80% { opacity: .5; } 100% { transform: translateY(-46vh); opacity: 0; } }
 @keyframes hgFlicker { 0%,100% { transform: scale(1, 1); } 30% { transform: scale(.96, 1.05); } 60% { transform: scale(1.03, .97); } }

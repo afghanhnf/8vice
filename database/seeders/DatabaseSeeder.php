@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             'instagram_url' => $settings->instagram_url,
             'linkedin_url' => $settings->linkedin_url,
             'whatsapp_url' => $settings->whatsapp_url,
-            'wechat_id' => '8vice_official',
+            'wechat_id' => $settings->wechat_id ?? 'eightvice',
             'wechat_qr' => '/images/wechat.webp',
             'youtube_url' => null,
             'google_analytics' => $settings->google_analytics,
@@ -99,8 +99,8 @@ class DatabaseSeeder extends Seeder
         DB::table('statistics')->truncate();
         foreach (SeedData::getStatistics() as $stat) {
             DB::table('statistics')->insert([
-                'title' => $stat->title,
-                'description' => $stat->description,
+                'title' => is_array($stat->title) ? $this->json($stat->title) : $this->json(['en' => $stat->title, 'id' => $stat->title, 'cn' => $stat->title]),
+                'description' => is_array($stat->description) ? $this->json($stat->description) : $this->json(['en' => $stat->description, 'id' => $stat->description, 'cn' => $stat->description]),
                 'image' => $stat->image,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -270,6 +270,45 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $indonesianInsights = [
+            'china-cross-border-industrial-blueprint-2026' => [
+                't' => 'Cetak Biru Relokasi Industri & Rantai Pasok Lintas Batas Tiongkok ke Indonesia (2026–2030)',
+                'excerpt' => 'Riset empiris 58 halaman berdasarkan 120+ grup manufaktur Tiongkok yang beroperasi di Kendal, Batang, Cikarang, dan Morowali: membedah kepatuhan TKDN 40%, biaya lahan kawasan industri, bea cukai logistik, dan tata kelola joint venture.',
+            ],
+            'indonesia-ev-battery-supply-chain-tkdn-mandate' => [
+                't' => 'Mandat TKDN 40% Indonesia: Panduan Rantai Pasok bagi Produsen EV & Baterai Tiongkok',
+                'excerpt' => 'Bagaimana prinsipal otomotif dan pemasok baterai tier-1 di Cikarang, Kendal, dan Morowali menyeimbangkan target lokalisasi wajib, pemrosesan hilir nikel, dan kelayakan insentif fiskal.',
+            ],
+            'indonesia-cross-border-ecommerce-permendag-live-selling' => [
+                't' => 'Live Selling & Kepatuhan Permendag 31: Menata Ulang Arsitektur E-Commerce Lintas Batas',
+                'excerpt' => 'Pengiriman langsung lintas batas telah berakhir pasca Permendag 31. Bagaimana merek konsumen terkemuka merestrukturisasi operasional dengan PT PMA lokal, gudang berikat, izin BPOM, dan ekosistem afiliasi TikTok/Tokopedia.',
+            ],
+            'uu-pdp-indonesia-enterprise-saas-cloud-compliance' => [
+                't' => 'Memahami UU Pelindungan Data Pribadi (UU PDP) Indonesia untuk SaaS Korporat & Cloud',
+                'excerpt' => 'Peta jalan kepatuhan praktis UU No. 27/2022: mandat residensi data lokal, penunjukan Pejabat Pelindung Data (DPO), dan protokol transfer data lintas batas bagi penyedia perangkat lunak global.',
+            ],
+            'indonesia-industrial-park-site-selection-java-kendal-batang' => [
+                't' => 'Pemilihan Lokasi Kawasan Industri Jawa vs Luar Jawa: Produktivitas Tenaga Kerja, Utilitas & Pelabuhan',
+                'excerpt' => 'Perbandingan menyeluruh koridor manufaktur Jawa Tengah (Kendal, Batang), Jawa Barat (Subang, Karawang), dan Sulawesi: upah minimum, hambatan logistik, keandalan daya, dan waktu tunggu kepabeanan.',
+            ],
+            'tier-2-tier-3-indonesia-consumer-markets-distribution' => [
+                't' => 'Melampaui Jabodetabek: Menembus Pasar Konsumen Kota Tier-2 & Tier-3 di Jawa dan Sumatera',
+                'excerpt' => 'Mengapa strategi peluncuran yang dirancang untuk Jakarta sering gagal di Solo, Malang, dan Lampung — serta cara membuka akses ke 200 juta konsumen melalui harga kemasan ekonomis, COD, dan jaringan distribusi warung tradisional.',
+            ],
+            'cross-border-payments-qris' => [
+                't' => 'Pembayaran Lintas Batas: Masa Depan Interoperabilitas QRIS Indonesia–Tiongkok & Penyelesaian Mata Uang Lokal (LCS)',
+                'excerpt' => 'Bagaimana interoperabilitas kode QR bilateral Bank Indonesia dan PBOC serta kerangka Local Currency Settlement (LCS) memangkas biaya konversi valas untuk pariwisata, dompet digital fintech, dan perdagangan internasional.',
+            ],
+            'decoding-china-5-year-plan' => [
+                't' => 'Membedah Rencana Pembangunan Lima Tahun ke-15 Tiongkok: Implikasi Strategis bagi Koridor Asia Tenggara',
+                'excerpt' => 'Kajian eksekutif mengenai kebijakan restrukturisasi industri terbaru Beijing, arus modal energi hijau ke luar negeri, pergeseran manufaktur maju, dan titik temunya dengan Visi Indonesia Emas 2045.',
+            ],
+            'asean-china-strategic-partnership' => [
+                't' => 'Babak Baru Kemitraan Strategis Komprehensif ASEAN–Tiongkok & Pemanfaatan Tarif RCEP',
+                'excerpt' => 'Memaksimalkan jadwal tarif nol persen dan penyederhanaan hambatan non-tarif di bawah RCEP untuk mempercepat perdagangan dua arah antara hilirisasi komoditas Indonesia dan rantai pasok industri Tiongkok.',
+            ],
+        ];
+
         foreach (SeedData::getInsights() as $insight) {
             $isPaper = !empty($insight->is_research_paper);
             $paperTags = $isPaper
@@ -311,22 +350,24 @@ class DatabaseSeeder extends Seeder
                     ]
                   ];
 
+            $idT = $indonesianInsights[$insight->slug]['t'] ?? $insight->t;
+            $idExcerpt = $indonesianInsights[$insight->slug]['excerpt'] ?? $insight->excerpt;
             $cnT = $chineseInsights[$insight->slug]['t'] ?? $insight->t;
             $cnExcerpt = $chineseInsights[$insight->slug]['excerpt'] ?? $insight->excerpt;
 
             DB::table('insights')->insert([
                 'cat' => $insight->cat,
                 'rt' => $insight->rt,
-                't' => $this->json(['en' => $insight->t, 'id' => $insight->t, 'cn' => $cnT]),
+                't' => $this->json(['en' => $insight->t, 'id' => $idT, 'cn' => $cnT]),
                 'slug' => $insight->slug,
                 'cover' => $insight->cover,
                 'date' => $insight->date,
                 'author_name' => $insight->author_name,
                 'author_role' => $insight->author_role,
-                'excerpt' => $this->json(['en' => $insight->excerpt, 'id' => $insight->excerpt, 'cn' => $cnExcerpt]),
+                'excerpt' => $this->json(['en' => $insight->excerpt, 'id' => $idExcerpt, 'cn' => $cnExcerpt]),
                 'body' => $this->json([
                     'en' => "<p>{$insight->excerpt}</p><p>For comprehensive strategic counsel and tailored sector briefings, contact the 8vice bilateral advisory desk.</p>",
-                    'id' => "<p>{$insight->excerpt}</p><p>Untuk konsultasi strategis komprehensif dan kajian sektoral mendalam, hubungi meja penasihat bilateral 8vice.</p>",
+                    'id' => "<p>{$idExcerpt}</p><p>Untuk konsultasi strategis komprehensif dan kajian sektoral mendalam, hubungi meja penasihat bilateral 8vice.</p>",
                     'cn' => "<p>{$cnExcerpt}</p><p>如需获取更详尽的双边战略咨询建议与特定行业定制研报，请随时联络 8vice 战略顾问咨询窗口。</p>"
                 ]),
                 'views_count' => rand(140, 890),

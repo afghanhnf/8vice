@@ -16,6 +16,8 @@ export default function Header() {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isWeChatModalOpen, setIsWeChatModalOpen] = useState(false);
   const [copiedWechat, setCopiedWechat] = useState(false);
+  const [showLangBanner, setShowLangBanner] = useState(false);
+  const [detectedBrowserLang, setDetectedBrowserLang] = useState(null);
   const langDropdownRef = useRef(null);
 
   // Lock body scroll and handle ESC key when WeChat modal is open
@@ -68,6 +70,65 @@ export default function Header() {
   ];
   const currentLangOption = langOptions.find((o) => o.code === lang) || langOptions[0];
 
+  // Auto-detect browser/device language & show top language alert banner
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+
+    const ua = navigator.userAgent || '';
+    const isBot = /bot|crawl|spider|lighthouse|pagespeed|gtmetrix|headless|inspect/i.test(ua) || navigator.webdriver;
+    if (isBot) return;
+
+    try {
+      const rawLang = (
+        (Array.isArray(navigator.languages) && navigator.languages[0]) ||
+        navigator.language ||
+        'en'
+      ).toLowerCase();
+
+      let detected = 'en';
+      if (rawLang.startsWith('id') || rawLang.startsWith('in')) {
+        detected = 'id';
+      } else if (rawLang.startsWith('zh')) {
+        detected = 'cn';
+      }
+      setDetectedBrowserLang(detected);
+
+      const manualChoice = window.localStorage.getItem('8vice_lang_manual');
+      const autoChecked = window.sessionStorage.getItem('8vice_lang_auto_checked');
+      const bannerDismissed = window.localStorage.getItem('8vice_lang_alert_dismissed');
+
+      if (!manualChoice && !autoChecked) {
+        window.sessionStorage.setItem('8vice_lang_auto_checked', detected);
+        if (detected !== lang) {
+          window.location.replace(getLangUrl(detected));
+          return;
+        }
+      }
+
+      if (bannerDismissed !== '1') {
+        setShowLangBanner(true);
+      }
+    } catch (err) {
+      // Ignore storage errors in private browsing
+    }
+  }, [lang]);
+
+  const handleSelectLanguage = (targetCode) => {
+    try {
+      window.localStorage.setItem('8vice_lang_manual', targetCode);
+      window.localStorage.setItem('8vice_lang_alert_dismissed', '1');
+    } catch (e) {}
+    setShowLangBanner(false);
+    setIsLangOpen(false);
+  };
+
+  const handleDismissLangBanner = () => {
+    try {
+      window.localStorage.setItem('8vice_lang_alert_dismissed', '1');
+    } catch (e) {}
+    setShowLangBanner(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 12) {
@@ -112,8 +173,56 @@ export default function Header() {
 
   return (
     <>
+      {/* Auto-Detected Language Alert Banner (Top of Viewport) */}
+      {showLangBanner && (
+        <div className="lang-auto-banner" role="region" aria-label="Language selection notice">
+          <div className="container lang-auto-banner__inner">
+            <div className="lang-auto-banner__text">
+              <span className="lang-auto-banner__badge">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                {lang === 'cn' ? '智能语言匹配' : lang === 'id' ? 'Deteksi Bahasa Otomatis' : 'Auto-Detected Language'}
+              </span>
+              <span className="lang-auto-banner__msg">
+                {lang === 'cn'
+                  ? '系统已根据您的浏览器/设备匹配为中文。如果语言不合适，您可以随时切换：'
+                  : lang === 'id'
+                  ? 'Bahasa disesuaikan dengan perangkat/browser Anda. Kurang cocok? Silakan ubah bahasa:'
+                  : 'Language matched to your device/browser. Prefer another language? Switch anytime:'}
+              </span>
+            </div>
+            <div className="lang-auto-banner__actions">
+              <div className="lang-auto-banner__pills" role="group" aria-label="Switch language">
+                {langOptions.map((opt) => (
+                  <a
+                    key={opt.code}
+                    href={getLangUrl(opt.code)}
+                    onClick={() => handleSelectLanguage(opt.code)}
+                    className={`lang-auto-banner__pill ${lang === opt.code ? 'is-active' : ''}`}
+                  >
+                    {opt.short} · {opt.code === 'cn' ? '中文' : opt.label}
+                  </a>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={handleDismissLangBanner}
+                className="lang-auto-banner__close"
+                aria-label={lang === 'cn' ? '关闭提示' : lang === 'id' ? 'Tutup pemberitahuan' : 'Dismiss notice'}
+                title={lang === 'cn' ? '关闭' : lang === 'id' ? 'Tutup' : 'Dismiss'}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Top Bar / Head Informasi */}
-      <div className="top-bar">
+      <div className={`top-bar ${showLangBanner ? 'has-lang-banner' : ''}`}>
         <div className="container">
           <div className="top-bar__inner">
             <div className="top-bar__tagline">{displayTagline}</div>
@@ -290,12 +399,133 @@ export default function Header() {
           background: #E63946;
           color: #FFFFFF;
         }
+        .lang-auto-banner {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          min-height: 36px;
+          z-index: 10020;
+          background: linear-gradient(90deg, rgba(13, 15, 22, 0.98) 0%, rgba(28, 14, 19, 0.98) 50%, rgba(13, 15, 22, 0.98) 100%);
+          border-bottom: 1px solid rgba(230, 57, 70, 0.38);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          display: flex;
+          align-items: center;
+          padding: 4px 0;
+        }
+        .lang-auto-banner__inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          width: 100%;
+          flex-wrap: wrap;
+        }
+        .lang-auto-banner__text {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.88);
+          line-height: 1.35;
+        }
+        .lang-auto-banner__badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          padding: 2px 8px;
+          border-radius: 999px;
+          background: rgba(230, 57, 70, 0.18);
+          border: 1px solid rgba(230, 57, 70, 0.42);
+          color: #FF8A8A;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+          white-space: nowrap;
+        }
+        .lang-auto-banner__actions {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-left: auto;
+        }
+        .lang-auto-banner__pills {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .lang-auto-banner__pill {
+          display: inline-flex;
+          align-items: center;
+          padding: 3px 9px;
+          border-radius: 999px;
+          font-size: 11px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.78);
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          text-decoration: none;
+          transition: all 0.18s ease;
+          white-space: nowrap;
+        }
+        .lang-auto-banner__pill:hover {
+          background: rgba(255, 255, 255, 0.16);
+          color: #FFFFFF;
+        }
+        .lang-auto-banner__pill.is-active {
+          background: #E63946;
+          border-color: #E63946;
+          color: #FFFFFF;
+        }
+        .lang-auto-banner__close {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 11px;
+          cursor: pointer;
+          transition: all 0.18s ease;
+          padding: 0;
+        }
+        .lang-auto-banner__close:hover {
+          background: rgba(230, 57, 70, 0.3);
+          color: #FFFFFF;
+        }
+        .top-bar.has-lang-banner {
+          opacity: 0;
+          pointer-events: none;
+        }
+        .header.has-lang-banner.is-scrolled {
+          top: 36px;
+        }
+        @media (max-width: 768px) {
+          .lang-auto-banner {
+            padding: 6px 0;
+          }
+          .lang-auto-banner__badge {
+            display: none;
+          }
+          .lang-auto-banner__text {
+            font-size: 11px;
+            flex: 1 1 auto;
+          }
+          .header.has-lang-banner {
+            top: 38px !important;
+          }
+        }
       ` }} />
 
-      <header className={`header ${isScrolled ? 'is-scrolled' : ''}`} id="header">
+      <header className={`header ${isScrolled ? 'is-scrolled' : ''} ${showLangBanner ? 'has-lang-banner' : ''}`} id="header">
         <div className="header__inner container">
           <Link href="/" className="logo" aria-label="8vice home">
-            <img src="/images/profil/8vice-logo.webp" alt="8vice" className="logo__img" width="100" height="32" />
+            <img loading="eager" fetchPriority="high" decoding="async" src="/images/profil/8vice-logo.webp" alt="8vice" className="logo__img" width="100" height="32" />
           </Link>
 
           <nav className="nav" aria-label="Primary">
@@ -438,7 +668,7 @@ export default function Header() {
                         href={getLangUrl(opt.code)}
                         role="menuitem"
                         className={`lang-dropdown__item ${lang === opt.code ? 'is-active' : ''}`}
-                        onClick={() => setIsLangOpen(false)}
+                        onClick={() => handleSelectLanguage(opt.code)}
                       >
                         <span>{opt.native}</span>
                         <span className="lang-dropdown__code">{opt.short}</span>
@@ -465,7 +695,7 @@ export default function Header() {
       <div className={`drawer-backdrop ${isMobileMenuOpen ? 'is-open' : ''}`} id="drawer-backdrop" onClick={() => setIsMobileMenuOpen(false)}></div>
       <aside className={`drawer ${isMobileMenuOpen ? 'is-open' : ''}`} id="drawer" aria-label="Mobile menu">
         <div className="drawer__head">
-          <Link href="/" className="logo"><img src="/images/profil/8vice-logo.webp" alt="8vice" className="logo__img" width="100" height="32" /></Link>
+          <Link href="/" className="logo"><img loading="lazy" decoding="async" src="/images/profil/8vice-logo.webp" alt="8vice" className="logo__img" width="100" height="32" /></Link>
           <button className="drawer__close" id="drawer-close" aria-label="Close menu" onClick={() => setIsMobileMenuOpen(false)}>
             <svg className="ico ico-24" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
@@ -503,9 +733,9 @@ export default function Header() {
         <div className="drawer__utils">
           <span className="drawer__util-lbl">{lang === 'cn' ? '语言选择' : lang === 'id' ? 'Bahasa' : 'Language'}</span>
           <div className="lang-toggle" role="group" aria-label="Language">
-            <a href={getLangUrl('en')} className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`}>EN</a>
-            <a href={getLangUrl('id')} className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`}>ID</a>
-            <a href={getLangUrl('cn')} className={`lang-btn ${lang === 'cn' ? 'is-active' : ''}`}>CN</a>
+            <a href={getLangUrl('en')} onClick={() => handleSelectLanguage('en')} className={`lang-btn ${lang === 'en' ? 'is-active' : ''}`}>EN</a>
+            <a href={getLangUrl('id')} onClick={() => handleSelectLanguage('id')} className={`lang-btn ${lang === 'id' ? 'is-active' : ''}`}>ID</a>
+            <a href={getLangUrl('cn')} onClick={() => handleSelectLanguage('cn')} className={`lang-btn ${lang === 'cn' ? 'is-active' : ''}`}>CN</a>
           </div>
           <button onClick={() => { setIsMobileMenuOpen(false); setIsSearchOpen(true); }} className="drawer__login" aria-label="Search" style={{ width: '100%', justifyContent: 'center' }}>
             <svg className="ico ico-20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>

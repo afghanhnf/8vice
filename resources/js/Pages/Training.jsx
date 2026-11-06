@@ -146,7 +146,7 @@ export default function Training({ courses = [] }) {
             <div style={{ flex: '1 1 min(100%, 400px)' }}>
               <ScrollReveal delay={300}>
                 <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '4/3', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backgroundColor: '#0a0a0a' }}>
-                  <img width="800" height="600" src="/images/training_hero.webp" alt="Training Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img loading="lazy" decoding="async" width="800" height="600" src="/images/training_hero.webp" alt="Training Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </ScrollReveal>
             </div>
@@ -227,7 +227,7 @@ export default function Training({ courses = [] }) {
                   >
                     <div className="course-card__thumb ph on-dark" style={{ background: '#18191e', minHeight: '190px' }}>
                       {coverSrc ? (
-                        <img 
+                        <img loading="lazy" decoding="async" 
                           width="600" 
                           height="338" 
                           src={coverSrc} 

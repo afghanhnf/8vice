@@ -18,7 +18,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         <>
             <SeoHead title="Welcome" />
             <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-                <img width="800" height="600"                     id="background"
+                <img loading="lazy" decoding="async" width="800" height="600"                     id="background"
                     className="absolute -left-20 top-0 max-w-[877px]"
                     src="https://laravel.com/assets/img/welcome/background.svg"
                 />
@@ -76,12 +76,12 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                         id="screenshot-container"
                                         className="relative flex w-full flex-1 items-stretch"
                                     >
-                                        <img width="800" height="600"                                             src="https://laravel.com/assets/img/welcome/docs-light.svg"
+                                        <img loading="lazy" decoding="async" width="800" height="600"                                             src="https://laravel.com/assets/img/welcome/docs-light.svg"
                                             alt="Laravel documentation screenshot"
                                             className="aspect-video h-full w-full flex-1 rounded-[10px] object-cover object-top drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden"
                                             onError={handleImageError}
                                         />
-                                        <img width="800" height="600"                                             src="https://laravel.com/assets/img/welcome/docs-dark.svg"
+                                        <img loading="lazy" decoding="async" width="800" height="600"                                             src="https://laravel.com/assets/img/welcome/docs-dark.svg"
                                             alt="Laravel documentation screenshot"
                                             className="hidden aspect-video h-full w-full flex-1 rounded-[10px] object-cover object-top drop-shadow-[0px_4px_34px_rgba(0,0,0,0.25)] dark:block"
                                         />

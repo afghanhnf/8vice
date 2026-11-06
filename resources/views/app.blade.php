@@ -4,33 +4,36 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta http-equiv="Pragma" content="no-cache" />
-        <meta http-equiv="Expires" content="0" />
+        <title inertia>{{ config('app.name', '8vice') }}</title>
 
         @php
-            $settings = \App\Models\SiteSetting::first();
+            $settings = isset($page['props']['siteSettings'])
+                ? (object) $page['props']['siteSettings']
+                : \App\Models\SiteSetting::first();
+            $gaId = $settings->google_analytics ?? null;
+            $gtmId = $settings->google_tag_manager ?? null;
+            $pixelId = $settings->meta_pixels ?? null;
+            $gscTag = $settings->google_search_console ?? null;
         @endphp
 
         @if($settings)
-            @if($settings->google_analytics)
-                <script async src="https://www.googletagmanager.com/gtag/js?id={{ $settings->google_analytics }}"></script>
+            @if($gaId && $gaId !== 'G-1234567890')
+                <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaId }}"></script>
                 <script>
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
-                  gtag('config', '{{ $settings->google_analytics }}');
+                  gtag('config', '{{ $gaId }}');
                 </script>
             @endif
-            @if($settings->google_tag_manager)
+            @if($gtmId && $gtmId !== 'GTM-XXXXXXX')
                 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','{{ $settings->google_tag_manager }}');</script>
+                })(window,document,'script','dataLayer','{{ $gtmId }}');</script>
             @endif
-            @if($settings->meta_pixels)
+            @if($pixelId && $pixelId !== '123456789012345')
                 <script>
                 !function(f,b,e,v,n,t,s)
                 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -40,12 +43,12 @@
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '{{ $settings->meta_pixels }}');
+                fbq('init', '{{ $pixelId }}');
                 fbq('track', 'PageView');
                 </script>
             @endif
-            @if($settings->google_search_console)
-                {!! $settings->google_search_console !!}
+            @if($gscTag && !str_contains($gscTag, '1234567890'))
+                {!! $gscTag !!}
             @endif
         @endif
 
@@ -64,13 +67,10 @@
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
         </noscript>
 
-        <!-- Google Material Symbols & Material 3 (M3) -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
         <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/prd-utilities.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/pages.css') }}" />
-        <link rel="stylesheet" href="{{ asset('css/m3-motion.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/m3-motion.css') }}" media="print" onload="this.media='all'" />
 
         @routes
         @viteReactRefresh

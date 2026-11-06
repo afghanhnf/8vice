@@ -759,10 +759,42 @@ class SeedData
     public static function getStatistics(): array
     {
         return [
-            (object)['title' => '25+', 'description' => 'Years combined partner advisory experience', 'image' => null],
-            (object)['title' => '30+', 'description' => 'Cross-border multinational clients & partner institutions', 'image' => null],
-            (object)['title' => '6', 'description' => 'Integrated strategic service pillars', 'image' => null],
-            (object)['title' => '5', 'description' => 'Key bilateral industry focus sectors', 'image' => null],
+            (object)[
+                'title' => ['en' => '25+', 'id' => '25+', 'cn' => '25+'],
+                'description' => [
+                    'en' => 'Years combined partner advisory experience',
+                    'id' => 'Tahun pengalaman kolektif tim penasihat mitra',
+                    'cn' => '合伙人团队累计跨国战略咨询经验（年）',
+                ],
+                'image' => null,
+            ],
+            (object)[
+                'title' => ['en' => '30+', 'id' => '30+', 'cn' => '30+'],
+                'description' => [
+                    'en' => 'Cross-border multinational clients & partner institutions',
+                    'id' => 'Klien multinasional lintas batas & institusi mitra',
+                    'cn' => '服务的跨国领军企业与双边合作机构',
+                ],
+                'image' => null,
+            ],
+            (object)[
+                'title' => ['en' => '6', 'id' => '6', 'cn' => '6'],
+                'description' => [
+                    'en' => 'Integrated strategic service pillars',
+                    'id' => 'Pilar layanan strategis terintegrasi',
+                    'cn' => '六大一体化核心战略服务支柱',
+                ],
+                'image' => null,
+            ],
+            (object)[
+                'title' => ['en' => '5', 'id' => '5', 'cn' => '5'],
+                'description' => [
+                    'en' => 'Key bilateral industry focus sectors',
+                    'id' => 'Sektor industri prioritas bilateral utama',
+                    'cn' => '五大中印尼双边重点聚焦产业领域',
+                ],
+                'image' => null,
+            ],
         ];
     }
 

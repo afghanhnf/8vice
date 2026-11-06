@@ -220,6 +220,10 @@ export default function HomeArticles({ isId = false, insights = [] }) {
                   <img 
                     src={art.cover || '/images/project_analysis.webp'} 
                     alt={art.t} 
+                    width="420"
+                    height="240"
+                    loading="lazy"
+                    decoding="async"
                     className="home-article-thumb-img"
                   />
                   <div className="home-article-cat-badge">

@@ -74,9 +74,9 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
           <ScrollReveal delay={100} variant="up">
             <div className="ph" style={{ aspectRatio: '21/9', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 24px 48px rgba(0,0,0,0.32)' }}>
               {caseStudy.cover ? (
-                <img width="1200" height="600" src={caseStudy.cover.startsWith('/') ? caseStudy.cover : `/storage/${caseStudy.cover}`} alt={titleText} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img loading="lazy" decoding="async" width="1200" height="600" src={caseStudy.cover.startsWith('/') ? caseStudy.cover : `/storage/${caseStudy.cover}`} alt={titleText} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
-                <img width="1200" height="600" src="/images/article-sample.webp" alt="Cover Placeholder" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img loading="lazy" decoding="async" width="1200" height="600" src="/images/article-sample.webp" alt="Cover Placeholder" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               )}
             </div>
           </ScrollReveal>
@@ -201,7 +201,7 @@ export default function CaseStudyDetail({ caseStudy, relatedCases = [] }) {
                   <article key={rel.id || i} className="case-card" style={{ background: '#fff', border: '1px solid #ebebeb', borderRadius: '12px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                     <Link href={`/case-study/${rel.slug || rel.id}`} style={{ display: 'block', overflow: 'hidden', aspectRatio: '16/10' }}>
                       {rel.cover ? (
-                        <img width="600" height="375" src={rel.cover.startsWith('/') ? rel.cover : `/storage/${rel.cover}`} alt={getLocalized(rel.h)} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} />
+                        <img loading="lazy" decoding="async" width="600" height="375" src={rel.cover.startsWith('/') ? rel.cover : `/storage/${rel.cover}`} alt={getLocalized(rel.h)} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} />
                       ) : (
                         <div className="ph case-card__cover on-dark" style={{ height: '100%' }}>
                           <span className="ph__tag">CASE STUDY</span>

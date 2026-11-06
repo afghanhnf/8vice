@@ -269,7 +269,7 @@ export default function PageHeroBanner({
             zIndex: 0
           }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={bannerImage}
             alt={typeof title === 'string' ? title : '8Vice Advisory'}
             style={{

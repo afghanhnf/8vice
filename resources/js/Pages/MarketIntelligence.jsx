@@ -99,7 +99,7 @@ export default function MarketIntelligence() {
             <div style={{ flex: '1 1 min(100%, 400px)' }}>
               <ScrollReveal delay={300}>
                 <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', aspectRatio: '4/3', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backgroundColor: '#0a0a0a' }}>
-                  <img width="800" height="600" src="/images/market_intelligence_hero.webp" alt="Market Intelligence Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img loading="lazy" decoding="async" width="800" height="600" src="/images/market_intelligence_hero.webp" alt="Market Intelligence Illustration" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </ScrollReveal>
             </div>
@@ -216,7 +216,7 @@ export default function MarketIntelligence() {
           <ScrollReveal>
             <div className="impact__inner">
               <div className="impact__thumb" style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px' }}>
-                <img 
+                <img loading="lazy" decoding="async" 
                   width="800" 
                   height="600" 
                   src="/images/cases/retail.webp" 

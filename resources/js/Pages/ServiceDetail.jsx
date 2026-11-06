@@ -373,12 +373,33 @@ function DeliverableVectorIcon({ icon, size = 22 }) {
   }
 }
 
-export default function ServiceDetail({ slug }) {
+export default function ServiceDetail({ slug, service: cmsService = null, services: cmsServices = [] }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
   const isCn = lang === 'cn';
-  const allServices = getServices(lang);
-  const svc = getService(lang, slug) || allServices[0];
+  const pickLoc = (val, fallback = '') => {
+    if (!val) return fallback;
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      return val[lang] || val.en || val.id || val.cn || fallback;
+    }
+    return fallback;
+  };
+  const allServices = getServices(lang).map((baseSvc, idx) => {
+    const dbSvc = Array.isArray(cmsServices)
+      ? cmsServices.find((s) => s.slug === baseSvc.id) || cmsServices[idx]
+      : null;
+    if (!dbSvc) return baseSvc;
+    return {
+      ...baseSvc,
+      title: pickLoc(dbSvc.title_i18n || dbSvc.title, baseSvc.title),
+      headline: pickLoc(dbSvc.headline_i18n || dbSvc.headline, baseSvc.headline),
+      summary: pickLoc(dbSvc.description_i18n || dbSvc.description || dbSvc.summary, baseSvc.summary),
+      heroImage: dbSvc.image || dbSvc.hero_image || baseSvc.heroImage,
+      detailImage: dbSvc.detail_image || baseSvc.detailImage,
+    };
+  });
+  const svc = allServices.find((s) => s.id === slug) || getService(lang, slug) || allServices[0];
   const others = allServices.filter((s) => s.id !== svc.id);
   const processSteps = getProcessSteps(lang);
 

@@ -155,7 +155,7 @@ export default function Client({ clients = [] }) {
             </blockquote>
             
             <div className="byline" style={{ justifyContent: 'center', display: 'inline-flex', alignItems: 'center', gap: '16px' }}>
-              <img 
+              <img loading="lazy" decoding="async" 
                 src="/images/profil/wei_chen.webp" 
                 alt="David Chen" 
                 style={{ 

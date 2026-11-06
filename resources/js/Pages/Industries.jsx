@@ -341,7 +341,7 @@ function OpportunityConvergenceSvg({ isId, isCn }) {
   );
 }
 
-export default function Industries() {
+export default function Industries({ industryCoverages = [] }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
   const isCn = lang === 'cn';
@@ -678,6 +678,31 @@ export default function Industries() {
         ctaBtn: 'Discuss Your Project',
         secondaryBtn: 'Indonesia–China Gateway'
       };
+
+  const pickLoc = (val, fallback = '') => {
+    if (!val) return fallback;
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      return val[lang] || val.en || val.id || val.cn || fallback;
+    }
+    return fallback;
+  };
+
+  if (Array.isArray(industryCoverages) && industryCoverages.length > 0) {
+    copy.sectors = copy.sectors.map((baseSec, idx) => {
+      const dbSec = industryCoverages.find((item) => item.slug === baseSec.id || item.id === baseSec.id) || industryCoverages[idx];
+      if (!dbSec) return baseSec;
+      const locTitle = pickLoc(dbSec.title_i18n || dbSec.title, baseSec.title);
+      return {
+        ...baseSec,
+        title: locTitle,
+        idTitle: locTitle,
+        tagline: pickLoc(dbSec.tagline_i18n || dbSec.tagline, baseSec.tagline),
+        desc: pickLoc(dbSec.description_i18n || dbSec.description, baseSec.desc),
+        image: dbSec.image || baseSec.image,
+      };
+    });
+  }
 
   const sectorIcons = {
     infrastructure: IndustryInfraIcon,

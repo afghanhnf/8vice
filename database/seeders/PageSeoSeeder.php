@@ -299,6 +299,50 @@ class PageSeoSeeder extends Seeder
                 'og_type' => 'website',
                 'robots' => 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
             ],
+            [
+                'page_code' => 'gateway',
+                'page_name' => 'Indonesia-China Gateway',
+                'meta_title' => [
+                    'en' => 'Indonesia–China Bilateral Business Gateway | Cross-Border Advisory | 8vice',
+                    'id' => 'Gerbang Bisnis Bilateral Indonesia–Tiongkok | Konsultasi Lintas Batas | 8vice',
+                    'cn' => '印尼—中国双边商业门户 | 跨境战略咨询与资源对接 | 8vice',
+                ],
+                'meta_description' => [
+                    'en' => 'Your strategic two-way corridor connecting Chinese enterprises entering Indonesia and Indonesian businesses exploring partnerships in China.',
+                    'id' => 'Koridor strategis dua arah yang menghubungkan perusahaan Tiongkok yang memasuki Indonesia dan korporasi Indonesia yang menjajaki kemitraan di Tiongkok.',
+                    'cn' => '连接中资企业进军印尼市场与印尼企业拓展中国供应链及战略合作的双向商业走廊。',
+                ],
+                'meta_keywords' => [
+                    'en' => 'Indonesia China gateway, cross border advisory, bilateral business corridor, Chinese investment Indonesia',
+                    'id' => 'gerbang bisnis Indonesia China, konsultasi lintas batas, investasi Tiongkok Indonesia',
+                    'cn' => '印中商业门户, 跨境战略咨询, 双边经贸走廊, 中国对印尼投资',
+                ],
+                'og_image' => 'images/hero_globe_china_indonesia.webp',
+                'og_type' => 'website',
+                'robots' => 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+            ],
+            [
+                'page_code' => 'industries',
+                'page_name' => 'Industries & Opportunities',
+                'meta_title' => [
+                    'en' => 'Priority Industries & Bilateral Sector Opportunities | 8vice',
+                    'id' => 'Industri Prioritas & Peluang Sektor Bilateral | 8vice',
+                    'cn' => '重点聚焦产业与双边行业合作机遇 | 8vice',
+                ],
+                'meta_description' => [
+                    'en' => 'Explore high-potential bilateral sectors across Trade & Investment, Technology & Innovation, Manufacturing & Industrial Collaboration, Tourism, and Creative Economy.',
+                    'id' => 'Jelajahi sektor bilateral berpotensi tinggi mulai dari Perdagangan & Investasi, Teknologi & Inovasi, Manufaktur, Pariwisata, hingga Ekonomi Kreatif.',
+                    'cn' => '探索贸易与投资、科技与数字化创新、高端制造与工业园区合作、文旅款待及数字文创经济五大双边高潜力产业。',
+                ],
+                'meta_keywords' => [
+                    'en' => 'Indonesia priority industries, manufacturing industrial parks Java, EV supply chain Indonesia, cross border trade sectors',
+                    'id' => 'industri prioritas Indonesia, kawasan industri Jawa, rantai pasok EV Indonesia, sektor perdagangan bilateral',
+                    'cn' => '印尼重点产业, 爪哇工业园区, 印尼新能源产业链, 双边贸易行业',
+                ],
+                'og_image' => 'images/industry_manufacturing.webp',
+                'og_type' => 'website',
+                'robots' => 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+            ],
         ];
 
         foreach ($pages as $page) {

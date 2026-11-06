@@ -96,7 +96,7 @@ export default function CaseStudy({ caseStudies = [] }) {
         <ScrollReveal delay={100} variant="up">
           <Link href={featuredUrl} style={{ display: 'block', textDecoration: 'none' }}>
             <div style={{ aspectRatio: '21/9', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', transition: 'transform 0.3s ease' }}>
-              <img width="800" height="600" src={featuredCover} alt={getLocalized(featured?.h) || 'Featured Case Cover'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img loading="lazy" decoding="async" width="800" height="600" src={featuredCover} alt={getLocalized(featured?.h) || 'Featured Case Cover'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </Link>
         </ScrollReveal>
@@ -126,7 +126,7 @@ export default function CaseStudy({ caseStudies = [] }) {
                 <article key={caseItem.id || i} className="case-card" style={{ background: '#fff', border: '1px solid #ebebeb', borderRadius: '12px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                   <Link href={`/case-study/${caseItem.slug || caseItem.id}`} style={{ display: 'block', overflow: 'hidden', height: '240px' }}>
                     {caseItem.cover ? (
-                      <img width="800" height="600" src={caseItem.cover.startsWith('/') ? caseItem.cover : `/storage/${caseItem.cover}`} alt={getLocalized(caseItem.h)} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} />
+                      <img loading="lazy" decoding="async" width="800" height="600" src={caseItem.cover.startsWith('/') ? caseItem.cover : `/storage/${caseItem.cover}`} alt={getLocalized(caseItem.h)} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} />
                     ) : (
                       <div className="ph case-card__cover on-dark" style={{ height: '100%' }}>
                         <span className="ph__tag">CASE THUMBNAIL</span>

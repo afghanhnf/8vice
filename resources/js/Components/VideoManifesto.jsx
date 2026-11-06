@@ -142,7 +142,7 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
           }}
         >
           {/* Background Cover Image with Red Gradient Overlay */}
-          <img 
+          <img loading="lazy" decoding="async" 
             src="/images/video_manifesto_cover.webp" 
             alt="8 Vice Video Manifesto" 
             className="manifesto-bg-img"
@@ -248,7 +248,7 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
               style={{ minHeight: '440px', padding: 'clamp(32px, 5vw, 64px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
             >
             {/* Background Cover Image with Red Gradient Overlay */}
-            <img 
+            <img loading="lazy" decoding="async" 
               src="/images/video_manifesto_cover.webp" 
               alt="8 Vice Video Manifesto" 
               className="manifesto-bg-img"

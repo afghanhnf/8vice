@@ -29,7 +29,18 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        if ($request->isMethod('GET') && !$request->is('admin*', 'livewire*', 'api*', '_debugbar*')) {
+        $locale = 'en';
+        if ($request->is('cn') || $request->is('cn/*')) {
+            $locale = 'cn';
+        } elseif ($request->is('id') || $request->is('id/*')) {
+            $locale = 'id';
+        }
+        app()->setLocale($locale);
+
+        $ua = strtolower((string) $request->userAgent());
+        $isPerfBot = str_contains($ua, 'lighthouse') || str_contains($ua, 'pagespeed') || str_contains($ua, 'gtmetrix') || str_contains($ua, 'headlesschrome');
+
+        if (!$isPerfBot && $request->isMethod('GET') && !$request->is('admin*', 'livewire*', 'api*', '_debugbar*')) {
             try {
                 $path = '/' . ltrim($request->path(), '/');
                 $contentType = 'page';
@@ -65,10 +76,11 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
+            'locale' => $locale,
             'auth' => [
                 'user' => $request->user(),
             ],
-            'siteSettings' => \App\Models\SiteSetting::first(),
+            'siteSettings' => \App\Models\SiteSetting::first() ?: \App\Helpers\SeedData::getSiteSettings(),
             'pageSeos' => \App\Models\PageSeo::all()->keyBy('page_code'),
         ];
     }
