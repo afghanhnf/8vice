@@ -14,7 +14,6 @@
 /.zed
 /auth.json
 /node_modules
-# /public/build
 /public/fonts-manifest.dev.json
 /public/hot
 /public/storage
@@ -26,7 +25,12 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 *.zip
+*.rar
 /scratch
+/scripts
+/legacy_html
+/dist
+/images
 patch_*.php
 update_*.php
 update_*.py
@@ -35,4 +39,6 @@ fix_all_resources.php
 get_columns.php
 seed_missing.php
 check_nav.php
-
+migrate-pages.cjs
+setup-pages.ps1
+secondarymenu.md
