@@ -50,7 +50,7 @@ class SeedData
                     'cn' => '以高度清晰的视野进入新市场。'
                 ],
                 'hero_image' => '/images/china_tech_hub.webp',
-                'detail_image' => '/images/consultation_advisory_bw.webp',
+                'detail_image' => '/images/advisory_skyline_architecture.webp',
                 'link_url' => '/services/advisory',
                 'sort_order' => 1,
                 'deliverables' => [
@@ -146,7 +146,7 @@ class SeedData
                     'cn' => '以目标驱动传播，以定位引领增长。'
                 ],
                 'hero_image' => '/images/industry_creative.webp',
-                'detail_image' => '/images/consultation_advisory_bw.webp',
+                'detail_image' => '/images/comms_digital_architecture.webp',
                 'link_url' => '/services/comms',
                 'sort_order' => 4,
                 'deliverables' => [
@@ -210,7 +210,7 @@ class SeedData
                     'cn' => '将战略投资意向转化为结构化的商业机遇。'
                 ],
                 'hero_image' => '/images/hero_globe_china_indonesia.webp',
-                'detail_image' => '/images/consultation_advisory_bw.webp',
+                'detail_image' => '/images/investment_industry_infrastructure.webp',
                 'link_url' => '/services/investment',
                 'sort_order' => 6,
                 'deliverables' => [

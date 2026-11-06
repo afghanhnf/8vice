@@ -959,7 +959,7 @@ export default function ServiceDetail({ slug, service: cmsService = null, servic
                   }}
                 >
                   <img
-                    src={svc.detailImage || '/images/consultation_advisory_bw.webp'}
+                    src={svc.detailImage || '/images/advisory_skyline_architecture.webp'}
                     alt={svc.photo}
                     loading="lazy"
                     decoding="async"
