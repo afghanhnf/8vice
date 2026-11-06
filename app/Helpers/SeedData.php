@@ -178,7 +178,7 @@ class SeedData
                     'cn' => '守护企业声誉，建立权威媒体公信力。'
                 ],
                 'hero_image' => '/images/media_relations_press_hero.webp',
-                'detail_image' => '/images/video_manifesto_cover.webp',
+                'detail_image' => '/images/media_relations_broadcast.webp',
                 'link_url' => '/services/media-relations',
                 'sort_order' => 5,
                 'deliverables' => [

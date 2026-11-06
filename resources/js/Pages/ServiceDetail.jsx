@@ -485,7 +485,11 @@ export default function ServiceDetail({ slug, service: cmsService = null, servic
 
   return (
     <MainLayout>
-      <SeoHead title={`${svc.title} | 8 Vice`} description={svc.summary} />
+      <SeoHead
+        title={`${svc.title} | 8 Vice`}
+        description={svc.summary}
+        image={svc.detailImage || svc.heroImage}
+      />
 
       <div key={svc.id} className="svc-redesign-root">
         <style

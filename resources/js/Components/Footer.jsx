@@ -91,21 +91,6 @@ export default function Footer() {
                 <Link href="/services/comms">{t('nav.svc_strategic_comms') || 'Strategic Communications'}</Link>
                 <Link href="/services/media-relations">{t('nav.svc_media_relations') || (isId ? 'Hubungan Media & Komunikasi Krisis' : 'Media Relations & Crisis Communications')}</Link>
                 <Link href="/services/investment">{t('nav.svc_investment_dev') || 'Investment & Project Facilitation'}</Link>
-                <Link
-                  href="/social-impact"
-                  style={{
-                    marginTop: '8px',
-                    paddingTop: '10px',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                    color: 'rgba(255, 255, 255, 0.62)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}
-                >
-                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#E63946' }}></span>
-                  <span>{isCn ? '社会影响与 ESG' : isId ? 'Dampak Sosial & ESG' : 'Social Impact & ESG'}</span>
-                </Link>
               </div>
             </div>
 

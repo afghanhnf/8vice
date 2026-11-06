@@ -2,48 +2,51 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Attributes\Description;
-use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\Tags\Url;
-use App\Models\Insight;
-use App\Models\CaseStudy;
+use App\Http\Controllers\SitemapController;
+use Illuminate\Support\Facades\File;
 
-#[Signature('sitemap:generate')]
-#[Description('Generate the sitemap.xml for the website')]
 class GenerateSitemap extends Command
 {
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    protected $signature = 'sitemap:generate {--url= : Override base URL (e.g. https://8vice.communic8.id)}';
+    protected $description = 'Generate multilingual sitemap XML files (index, en, id, cn) in the public directory';
+
+    public function handle(): int
     {
-        $sitemap = Sitemap::create()
-            ->add(Url::create('/')->setPriority(1.0)->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY))
-            ->add(Url::create('/about')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY))
-            ->add(Url::create('/services')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY))
-            ->add(Url::create('/article')->setPriority(0.9)->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY))
-            ->add(Url::create('/case-study')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY))
-            ->add(Url::create('/career')->setPriority(0.7)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY))
-            ->add(Url::create('/contact')->setPriority(0.7)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
+        $overrideUrl = $this->option('url');
+        if ($overrideUrl) {
+            config(['app.url' => $overrideUrl]);
+        }
 
-        // Add dynamic articles
-        Insight::all()->each(function (Insight $insight) use ($sitemap) {
-            $sitemap->add(Url::create("/article/{$insight->slug}")
-                ->setPriority(0.8)
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
-        });
+        $baseUrl = SitemapController::getBaseUrl();
+        $this->info("Generating multilingual sitemaps using base URL: {$baseUrl}");
 
-        // Add dynamic case studies
-        CaseStudy::all()->each(function (CaseStudy $case) use ($sitemap) {
-            $sitemap->add(Url::create("/case-study/{$case->slug}")
-                ->setPriority(0.8)
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-        });
+        $publicPath = public_path();
 
-        $sitemap->writeToFile(public_path('sitemap.xml'));
+        // 1. Generate Language Sitemaps
+        foreach (['en', 'id', 'cn'] as $lang) {
+            $xml = SitemapController::generateLangSitemapXml($lang);
+            $filePath = "{$publicPath}/sitemap-{$lang}.xml";
+            File::put($filePath, $xml);
+            $this->info("✓ Saved: sitemap-{$lang}.xml (" . strlen($xml) . " bytes)");
+        }
 
-        $this->info('Sitemap generated successfully!');
+        // 2. Generate Sitemap Index
+        $latestMod = date('Y-m-d');
+        $indexXml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $indexXml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+        foreach (['en', 'id', 'cn'] as $lang) {
+            $indexXml .= "    <sitemap>\n";
+            $indexXml .= "        <loc>{$baseUrl}/sitemap-{$lang}.xml</loc>\n";
+            $indexXml .= "        <lastmod>{$latestMod}</lastmod>\n";
+            $indexXml .= "    </sitemap>\n";
+        }
+        $indexXml .= '</sitemapindex>';
+
+        File::put("{$publicPath}/sitemap.xml", $indexXml);
+        $this->info("✓ Saved: sitemap.xml (" . strlen($indexXml) . " bytes)");
+
+        $this->info("All multilingual sitemaps successfully generated!");
+        return 0;
     }
 }

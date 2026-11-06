@@ -17,12 +17,13 @@ export default function SeoHead({
   const { props } = usePage();
   const pageSeos = props.pageSeos || {};
   const siteSettings = props.siteSettings || {};
+  const appUrl = props.appUrl || siteSettings?.app_url || '';
   const cmsSeo = pageCode ? pageSeos[pageCode] : null;
 
   // Origin & URLs
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+  const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : (appUrl || 'https://8vice.communic8.id');
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
-  const currentUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+  const currentUrl = url || (typeof window !== 'undefined' ? window.location.href : `${origin}${pathname}`);
 
   // Determine language based on pathname
   const isIndonesian = pathname === '/id' || pathname.startsWith('/id/');
@@ -45,18 +46,18 @@ export default function SeoHead({
 
   // 1. Resolve Title
   let resolvedTitle = '';
-  if (article?.t) {
-    resolvedTitle = pickLang(article.t);
-    if (resolvedTitle && !resolvedTitle.includes('8vice')) {
+  if (article?.t || article?.title) {
+    resolvedTitle = pickLang(article.t || article.title);
+    if (resolvedTitle && !resolvedTitle.includes('8vice') && !resolvedTitle.includes('8 Vice')) {
       resolvedTitle = `${resolvedTitle} | 8vice`;
     }
-  } else if (caseStudy?.h) {
-    resolvedTitle = pickLang(caseStudy.h);
-    if (resolvedTitle && !resolvedTitle.includes('8vice')) {
+  } else if (caseStudy?.h || caseStudy?.title) {
+    resolvedTitle = pickLang(caseStudy.h || caseStudy.title);
+    if (resolvedTitle && !resolvedTitle.includes('8vice') && !resolvedTitle.includes('8 Vice')) {
       resolvedTitle = `${resolvedTitle} | 8vice Case Study`;
     }
   } else if (title) {
-    resolvedTitle = title.includes('8vice') || title.includes('|') ? title : `${title} | 8vice`;
+    resolvedTitle = title.includes('8vice') || title.includes('8 Vice') || title.includes('|') ? title : `${title} | 8vice`;
   } else if (cmsSeo?.meta_title) {
     resolvedTitle = pickLang(cmsSeo.meta_title);
   } else if (siteSettings?.default_meta_title) {
@@ -74,8 +75,9 @@ export default function SeoHead({
   // 2. Resolve Description
   let resolvedDescription = '';
   if (article) {
-    if (article.excerpt) {
-      resolvedDescription = pickLang(article.excerpt);
+    const rawDesc = article.excerpt || article.description;
+    if (rawDesc) {
+      resolvedDescription = pickLang(rawDesc);
     } else if (typeof article.body === 'string') {
       resolvedDescription = article.body.replace(/<[^>]*>?/gm, '').slice(0, 160) + '...';
     } else if (Array.isArray(article.body)) {
@@ -83,8 +85,8 @@ export default function SeoHead({
     } else {
       resolvedDescription = `Read ${resolvedTitle} on 8vice Insights. High-level analysis and strategic intelligence for Indonesia.`;
     }
-  } else if (caseStudy?.p) {
-    resolvedDescription = pickLang(caseStudy.p);
+  } else if (caseStudy?.p || caseStudy?.description || caseStudy?.summary) {
+    resolvedDescription = pickLang(caseStudy.p || caseStudy.description || caseStudy.summary);
   } else if (description) {
     resolvedDescription = description;
   } else if (cmsSeo?.meta_description) {
@@ -103,10 +105,12 @@ export default function SeoHead({
 
   // 3. Resolve Image / OG Image
   let rawImage = '';
-  if (article?.cover) {
-    rawImage = article.cover.startsWith('/') || article.cover.startsWith('http') ? article.cover : `/storage/${article.cover}`;
-  } else if (caseStudy?.cover) {
-    rawImage = caseStudy.cover.startsWith('/') || caseStudy.cover.startsWith('http') ? caseStudy.cover : `/storage/${caseStudy.cover}`;
+  if (article?.cover || article?.image) {
+    const c = article.cover || article.image;
+    rawImage = c.startsWith('/') || c.startsWith('http') ? c : `/storage/${c}`;
+  } else if (caseStudy?.cover || caseStudy?.image) {
+    const c = caseStudy.cover || caseStudy.image;
+    rawImage = c.startsWith('/') || c.startsWith('http') ? c : `/storage/${c}`;
   } else if (image) {
     rawImage = image;
   } else if (cmsSeo?.og_image) {

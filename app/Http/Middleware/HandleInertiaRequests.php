@@ -91,6 +91,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'siteSettings' => $siteSettings ?: \App\Helpers\SeedData::getSiteSettings(),
             'pageSeos' => $pageSeos,
+            'appUrl' => rtrim(config('app.url') && !str_contains(config('app.url'), 'localhost') ? config('app.url') : ($request->getSchemeAndHttpHost() ?: env('APP_URL', 'https://8vice.communic8.id')), '/'),
         ];
     }
 }

@@ -8,6 +8,13 @@ use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\SitemapController;
+
+// Dynamic Multilingual Sitemaps (Index + EN, ID, CN)
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
+Route::get('/sitemap-en.xml', fn() => app(SitemapController::class)->lang('en'));
+Route::get('/sitemap-id.xml', fn() => app(SitemapController::class)->lang('id'));
+Route::get('/sitemap-cn.xml', fn() => app(SitemapController::class)->lang('cn'));
 
 Route::get('/api/search', [SearchController::class, 'index']);
 
