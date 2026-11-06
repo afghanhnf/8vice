@@ -19,6 +19,7 @@ export default function Header() {
   const [showLangBanner, setShowLangBanner] = useState(false);
   const [detectedBrowserLang, setDetectedBrowserLang] = useState(null);
   const langDropdownRef = useRef(null);
+  const langTimerRef = useRef(null);
 
   // Lock body scroll and handle ESC key when WeChat modal is open
   useEffect(() => {
@@ -118,6 +119,7 @@ export default function Header() {
       window.localStorage.setItem('8vice_lang_manual', targetCode);
       window.localStorage.setItem('8vice_lang_alert_dismissed', '1');
     } catch (e) {}
+    if (langTimerRef.current) clearTimeout(langTimerRef.current);
     setShowLangBanner(false);
     setIsLangOpen(false);
   };
@@ -127,6 +129,18 @@ export default function Header() {
       window.localStorage.setItem('8vice_lang_alert_dismissed', '1');
     } catch (e) {}
     setShowLangBanner(false);
+  };
+
+  const handleLangEnter = () => {
+    if (langTimerRef.current) clearTimeout(langTimerRef.current);
+    setIsLangOpen(true);
+  };
+
+  const handleLangLeave = () => {
+    if (langTimerRef.current) clearTimeout(langTimerRef.current);
+    langTimerRef.current = setTimeout(() => {
+      setIsLangOpen(false);
+    }, 240);
   };
 
   useEffect(() => {
@@ -140,11 +154,13 @@ export default function Header() {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
         if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+        if (langTimerRef.current) clearTimeout(langTimerRef.current);
         if (isLangOpen) setIsLangOpen(false);
       }
     };
     const handleClickOutside = (e) => {
       if (langDropdownRef.current && !langDropdownRef.current.contains(e.target)) {
+        if (langTimerRef.current) clearTimeout(langTimerRef.current);
         setIsLangOpen(false);
       }
     };
@@ -153,6 +169,7 @@ export default function Header() {
     document.addEventListener('mousedown', handleClickOutside);
     handleScroll();
     return () => {
+      if (langTimerRef.current) clearTimeout(langTimerRef.current);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('keydown', handleEscape);
       document.removeEventListener('mousedown', handleClickOutside);
@@ -315,6 +332,7 @@ export default function Header() {
           position: relative;
           display: inline-flex;
           align-items: center;
+          padding: 4px 0;
         }
         .lang-dropdown__trigger {
           display: inline-flex;
@@ -348,7 +366,7 @@ export default function Header() {
         }
         .lang-dropdown__menu {
           position: absolute;
-          top: calc(100% + 8px);
+          top: calc(100% + 4px);
           right: 0;
           min-width: 176px;
           background: rgba(13, 15, 20, 0.98);
@@ -362,6 +380,16 @@ export default function Header() {
           display: flex;
           flex-direction: column;
           gap: 2px;
+        }
+        /* Invisible hover bridge: prevents dropdown from disappearing when cursor moves between button and menu */
+        .lang-dropdown__menu::before {
+          content: "";
+          position: absolute;
+          top: -14px;
+          left: -10px;
+          right: -10px;
+          height: 14px;
+          background: transparent;
         }
         .lang-dropdown__item {
           display: flex;
@@ -638,8 +666,8 @@ export default function Header() {
               <div
                 ref={langDropdownRef}
                 className={`lang-dropdown ${isLangOpen ? 'is-open' : ''}`}
-                onMouseEnter={() => setIsLangOpen(true)}
-                onMouseLeave={() => setIsLangOpen(false)}
+                onMouseEnter={handleLangEnter}
+                onMouseLeave={handleLangLeave}
               >
                 <button
                   type="button"
@@ -647,7 +675,11 @@ export default function Header() {
                   aria-haspopup="true"
                   aria-expanded={isLangOpen}
                   aria-label="Select Language"
-                  onClick={() => setIsLangOpen((prev) => !prev)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (langTimerRef.current) clearTimeout(langTimerRef.current);
+                    setIsLangOpen((prev) => !prev);
+                  }}
                 >
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.85 }}>
                     <circle cx="12" cy="12" r="10"></circle>
