@@ -77,6 +77,7 @@ class TrafficLogSeeder extends Seeder
 
         $articleViewCounts = [];
 
+        \Illuminate\Support\Facades\DB::beginTransaction();
         for ($day = $totalDays; $day >= 0; $day--) {
             $date = $now->copy()->subDays($day);
             // Simulate daily traffic volume (higher on weekdays, organic growth)
@@ -119,5 +120,6 @@ class TrafficLogSeeder extends Seeder
         foreach ($articleViewCounts as $insightId => $count) {
             Insight::where('id', $insightId)->update(['views_count' => $count]);
         }
+        \Illuminate\Support\Facades\DB::commit();
     }
 }

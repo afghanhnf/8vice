@@ -214,21 +214,21 @@ export default function HeroGateway({ isId = false }) {
 
   const copy = isCn
     ? {
-        title: ['通往印尼与中国的', '战略商业门户', '赋能跨境增长'],
-        kicker: '连接双边市场 · 驱动实质增长',
-        sub: '专为往来于印尼与中国之间的企业提供高管级战略咨询与落地支持。',
-        cta: '探索核心服务',
-        link: '洽谈您的业务需求',
-      }
+      title: ['通往印尼与中国的', '战略商业门户', '赋能跨境增长'],
+      kicker: '连接双边市场 · 驱动实质增长',
+      sub: '专为往来于印尼与中国之间的企业提供高管级战略咨询与落地支持。',
+      cta: '探索核心服务',
+      link: '洽谈您的业务需求',
+    }
     : isId
-    ? {
+      ? {
         title: ['Gerbang Strategis', 'Bisnis Anda Menuju', 'Indonesia & Tiongkok'],
         kicker: 'Menghubungkan Pasar. Membuka Pertumbuhan.',
         sub: 'Penasihat strategis bagi bisnis yang bergerak di antara Indonesia dan Tiongkok.',
         cta: 'Jelajahi Layanan Kami',
         link: 'Diskusikan Bisnis Anda',
       }
-    : {
+      : {
         title: ['Your Strategic', 'Gateway to', 'Indonesia & China'],
         kicker: 'Connecting Markets. Enabling Growth.',
         sub: 'Strategic advisory for businesses moving between Indonesia and China.',
@@ -418,47 +418,47 @@ export default function HeroGateway({ isId = false }) {
 
             {/* Street level + underground, raised so the cut-away stays above the fold */}
             <g transform="translate(0 -18)">
-            {/* Street furniture + MRT station entrance */}
-            {[330, 392, 640, 724].map((x) => <StreetLamp key={x} x={x} />)}
-            <path d="M456 528 V514 Q490 502 524 514 V528 Z" fill="#1A1B21" stroke="rgba(255,120,90,0.4)" strokeWidth="1" />
-            <rect x="464" y="516" width="52" height="12" fill="rgba(255,200,160,0.14)" />
-            <rect x="534" y="492" width="3" height="36" fill="#2B2C34" />
-            <rect x="526" y="477" width="19" height="16" rx="3" fill="#E63946" />
-            <text x="535.5" y="489.5" textAnchor="middle" fontSize="11" fontWeight="800" fill="#fff" fontFamily="system-ui, sans-serif">M</text>
+              {/* Street furniture + MRT station entrance */}
+              {[330, 392, 640, 724].map((x) => <StreetLamp key={x} x={x} />)}
+              <path d="M456 528 V514 Q490 502 524 514 V528 Z" fill="#1A1B21" stroke="rgba(255,120,90,0.4)" strokeWidth="1" />
+              <rect x="464" y="516" width="52" height="12" fill="rgba(255,200,160,0.14)" />
+              <rect x="534" y="492" width="3" height="36" fill="#2B2C34" />
+              <rect x="526" y="477" width="19" height="16" rx="3" fill="#E63946" />
+              <text x="535.5" y="489.5" textAnchor="middle" fontSize="11" fontWeight="800" fill="#fff" fontFamily="system-ui, sans-serif">M</text>
 
-            {/* Ground cut-away */}
-            <rect x="-120" y="528" width="1040" height="8" fill="#17181D" />
-            <line x1="-120" x2="920" y1="528" y2="528" stroke="rgba(230,57,70,0.3)" strokeWidth="1" />
-            <rect x="-120" y="536" width="1040" height="200" fill="url(#hg-ground)" />
-            <rect x="-120" y="549" width="1040" height="42" rx="21" fill="#18191F" stroke="rgba(230,57,70,0.42)" strokeWidth="1" />
-            <rect x="-120" y="586" width="1040" height="1.5" fill="rgba(255,110,80,0.35)" />
-            {Array.from({ length: 15 }, (_, i) => (
-              <circle key={i} cx={-90 + i * 64} cy="553" r="1.4" fill="rgba(255,190,150,0.55)" />
-            ))}
-            {/* Underground station + stairs */}
-            <rect x="420" y="543" width="190" height="52" rx="4" fill="#1D1E25" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-            <rect x="420" y="586" width="190" height="3" fill="rgba(255,150,120,0.3)" />
-            {Array.from({ length: 8 }, (_, i) => (
-              <rect key={i} x={430 + i * 24} y="546" width="10" height="1.5" fill="rgba(255,210,180,0.55)" />
-            ))}
-            <path d="M472 536 v4 h4 v4 h4 v4 h4 v4 h4 v4 h4 v4" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" fill="none" />
-            {/* MRT train running toward the gateway */}
-            <g mask="url(#hg-mask-l)">
-              <g className="hg-run" style={{ '--x0': '-420px', '--x1': '920px', animationDuration: '11s', animationDelay: '-2s' }}>
-                <g fill="#2E2F37" stroke="rgba(255,255,255,0.12)" strokeWidth="1">
-                  <rect x="0" y="560" width="92" height="24" rx="4" />
-                  <rect x="96" y="560" width="92" height="24" rx="2" />
-                  <path d="M192 560 H276 C284 560 288 568 288 584 H192 Z" />
+              {/* Ground cut-away */}
+              <rect x="-120" y="528" width="1040" height="8" fill="#17181D" />
+              <line x1="-120" x2="920" y1="528" y2="528" stroke="rgba(230,57,70,0.3)" strokeWidth="1" />
+              <rect x="-120" y="536" width="1040" height="200" fill="url(#hg-ground)" />
+              <rect x="-120" y="549" width="1040" height="42" rx="21" fill="#18191F" stroke="rgba(230,57,70,0.42)" strokeWidth="1" />
+              <rect x="-120" y="586" width="1040" height="1.5" fill="rgba(255,110,80,0.35)" />
+              {Array.from({ length: 15 }, (_, i) => (
+                <circle key={i} cx={-90 + i * 64} cy="553" r="1.4" fill="rgba(255,190,150,0.55)" />
+              ))}
+              {/* Underground station + stairs */}
+              <rect x="420" y="543" width="190" height="52" rx="4" fill="#1D1E25" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+              <rect x="420" y="586" width="190" height="3" fill="rgba(255,150,120,0.3)" />
+              {Array.from({ length: 8 }, (_, i) => (
+                <rect key={i} x={430 + i * 24} y="546" width="10" height="1.5" fill="rgba(255,210,180,0.55)" />
+              ))}
+              <path d="M472 536 v4 h4 v4 h4 v4 h4 v4 h4 v4 h4 v4" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" fill="none" />
+              {/* MRT train running toward the gateway */}
+              <g mask="url(#hg-mask-l)">
+                <g className="hg-run" style={{ '--x0': '-420px', '--x1': '920px', animationDuration: '11s', animationDelay: '-2s' }}>
+                  <g fill="#2E2F37" stroke="rgba(255,255,255,0.12)" strokeWidth="1">
+                    <rect x="0" y="560" width="92" height="24" rx="4" />
+                    <rect x="96" y="560" width="92" height="24" rx="2" />
+                    <path d="M192 560 H276 C284 560 288 568 288 584 H192 Z" />
+                  </g>
+                  {[0, 96, 192].map((cx) =>
+                    [0, 1, 2, 3].map((j) => (
+                      <rect key={`${cx}-${j}`} x={cx + 8 + j * 19} y="565" width="14" height="7" rx="1.5" fill="rgba(255,225,195,0.7)" />
+                    ))
+                  )}
+                  <rect x="0" y="576" width="286" height="2" fill="#E63946" opacity="0.9" />
+                  <circle cx="286" cy="579" r="5" fill="rgba(255,230,200,0.5)" filter="url(#hg-blur)" />
                 </g>
-                {[0, 96, 192].map((cx) =>
-                  [0, 1, 2, 3].map((j) => (
-                    <rect key={`${cx}-${j}`} x={cx + 8 + j * 19} y="565" width="14" height="7" rx="1.5" fill="rgba(255,225,195,0.7)" />
-                  ))
-                )}
-                <rect x="0" y="576" width="286" height="2" fill="#E63946" opacity="0.9" />
-                <circle cx="286" cy="579" r="5" fill="rgba(255,230,200,0.5)" filter="url(#hg-blur)" />
               </g>
-            </g>
             </g>
           </svg>
         </div>

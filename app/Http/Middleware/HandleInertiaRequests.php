@@ -74,14 +74,23 @@ class HandleInertiaRequests extends Middleware
             }
         }
 
+        $siteSettings = null;
+        $pageSeos = [];
+        try {
+            $siteSettings = \App\Models\SiteSetting::first();
+            $pageSeos = \App\Models\PageSeo::all()->keyBy('page_code');
+        } catch (\Throwable $e) {
+            // Fallback gracefully if tables are not migrated yet
+        }
+
         return [
             ...parent::share($request),
             'locale' => $locale,
             'auth' => [
                 'user' => $request->user(),
             ],
-            'siteSettings' => \App\Models\SiteSetting::first() ?: \App\Helpers\SeedData::getSiteSettings(),
-            'pageSeos' => \App\Models\PageSeo::all()->keyBy('page_code'),
+            'siteSettings' => $siteSettings ?: \App\Helpers\SeedData::getSiteSettings(),
+            'pageSeos' => $pageSeos,
         ];
     }
 }

@@ -17,13 +17,23 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $clients = Client::all();
-        $caseStudies = CaseStudy::orderByDesc('is_featured')->orderByDesc('id')->take(6)->get();
-        $insights = Insight::published()->orderByDesc('id')->take(6)->get();
-        $industryCoverages = IndustryCoverage::orderBy('sort_order')->get();
-        $services = Service::orderBy('sort_order')->get();
-        $statistics = Statistic::all();
-        $siteSettings = SiteSetting::first();
+        try {
+            $clients = Client::all();
+            $caseStudies = CaseStudy::orderByDesc('is_featured')->orderByDesc('id')->take(6)->get();
+            $insights = Insight::published()->orderByDesc('id')->take(6)->get();
+            $industryCoverages = IndustryCoverage::orderBy('sort_order')->get();
+            $services = Service::orderBy('sort_order')->get();
+            $statistics = Statistic::all();
+            $siteSettings = SiteSetting::first();
+        } catch (\Throwable $e) {
+            $clients = collect();
+            $caseStudies = collect();
+            $insights = collect();
+            $industryCoverages = collect();
+            $services = collect();
+            $statistics = collect();
+            $siteSettings = null;
+        }
 
         return Inertia::render('Home', [
             'clients' => $clients->isEmpty() ? collect(SeedData::getClients()) : $clients,

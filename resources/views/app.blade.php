@@ -7,9 +7,13 @@
         <title inertia>{{ config('app.name', '8vice') }}</title>
 
         @php
-            $settings = isset($page['props']['siteSettings'])
-                ? (object) $page['props']['siteSettings']
-                : \App\Models\SiteSetting::first();
+            try {
+                $settings = isset($page['props']['siteSettings'])
+                    ? (object) $page['props']['siteSettings']
+                    : (\App\Models\SiteSetting::first() ?: \App\Helpers\SeedData::getSiteSettings());
+            } catch (\Throwable $e) {
+                $settings = \App\Helpers\SeedData::getSiteSettings();
+            }
             $gaId = $settings->google_analytics ?? null;
             $gtmId = $settings->google_tag_manager ?? null;
             $pixelId = $settings->meta_pixels ?? null;
