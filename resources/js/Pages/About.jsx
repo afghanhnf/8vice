@@ -1700,7 +1700,7 @@ export default function About({ profiles = [] }) {
                       height: '100%',
                       objectFit: 'cover',
                       display: 'block',
-                      filter: 'grayscale(100%) contrast(1.12) brightness(0.9)'
+                      filter: 'grayscale(25%) contrast(1.08) brightness(0.92)'
                     }}
                   />
                   <div
@@ -2178,7 +2178,7 @@ export default function About({ profiles = [] }) {
                       height: '500px',
                       objectFit: 'cover',
                       display: 'block',
-                      filter: 'grayscale(100%) contrast(1.12) brightness(0.88)'
+                      filter: 'grayscale(20%) contrast(1.08) brightness(0.92)'
                     }}
                   />
                   <div

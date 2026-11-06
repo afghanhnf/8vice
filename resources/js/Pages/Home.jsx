@@ -1749,7 +1749,7 @@ export default function Home({
                       height: '100%',
                       objectFit: 'cover',
                       display: 'block',
-                      filter: 'grayscale(100%) contrast(1.1) brightness(0.9)',
+                      filter: 'grayscale(25%) contrast(1.08) brightness(0.92)',
                       transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease'
                     }}
                     className="overview-photo"
@@ -3035,7 +3035,7 @@ export default function Home({
                   height="320"
                   loading="lazy"
                   decoding="async"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(100%) contrast(106%)' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(20%) contrast(1.08) brightness(0.95)' }}
                 />
                 <div
                   style={{
