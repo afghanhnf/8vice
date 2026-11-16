@@ -25,8 +25,7 @@ export default function SearchModal({ isOpen, onOpen, onClose, lang }) {
   const prefix = isCn ? '/cn' : isId ? '/id' : '';
   const quickLinks = [
     ...getServices(lang).map((s) => ({ type: isCn ? '核心服务' : isId ? 'Layanan' : 'Service', title: s.title, url: `/services/${s.id}` })),
-    { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '印中双边门户' : isId ? 'Gerbang Indonesia–China' : 'Indonesia–China Gateway', url: '/gateway' },
-    { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '重点行业与机遇' : isId ? 'Industri & Peluang' : 'Industries & Opportunities', url: '/industries' },
+    { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '关于我们' : isId ? 'Tentang Kami' : 'About Us', url: '/about' },
     { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '商业洞察与合作' : isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships', url: '/insights' },
     { type: isCn ? '页面' : isId ? 'Halaman' : 'Page', title: isCn ? '联系我们' : isId ? 'Hubungi Kami' : 'Contact Us', url: '/contact' }
   ];

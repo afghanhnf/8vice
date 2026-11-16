@@ -27,14 +27,29 @@ class FormController extends Controller
 
         $validated = $request->validate([
             'email' => 'required|email|max:255',
+            'name' => 'nullable|string|max:255',
         ]);
 
-        Subscriber::updateOrCreate(
-            ['email' => $validated['email']],
-            ['ip_address' => $request->ip()]
+        $subscriber = Subscriber::updateOrCreate(
+            ['email' => strtolower(trim($validated['email']))],
+            [
+                'name' => !empty($validated['name']) ? trim($validated['name']) : null,
+                'ip_address' => $request->ip(),
+                'message' => 'Footer Newsletter (' . strtoupper(app()->getLocale()) . ')',
+            ]
         );
 
-        return back()->with('success', 'Successfully subscribed to the newsletter!');
+        $msg = match (app()->getLocale()) {
+            'cn' => '订阅成功！感谢您加入 8vice 商业洞察简报。',
+            'id' => 'Berhasil berlangganan! Email Anda telah terdaftar untuk newsletter 8vice.',
+            default => 'Successfully subscribed! Thank you for joining the 8vice newsletter.',
+        };
+
+        if ($request->wantsJson() && !$request->header('X-Inertia')) {
+            return response()->json(['message' => $msg, 'subscriber' => $subscriber]);
+        }
+
+        return back()->with('success', $msg);
     }
 
     public function contact(Request $request)

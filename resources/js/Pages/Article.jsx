@@ -294,7 +294,7 @@ export default function Article({ insights = [] }) {
           '我们的目标是协助企业与决策者建立对跨境机遇更全面、更深入的视角，从而做出更充分的战略决策。',
           '探索我们关于市场开拓、商业合作伙伴关系、数字生态系统、旅游业、创意产业及印中经贸合作的最新观点。'
         ],
-        pillarsEyebrow: '01 · 六大洞察与知识支柱',
+        pillarsEyebrow: '六大洞察与知识支柱',
         pillarsTitle: '我们的研究与情报覆盖范围。',
         pillars: [
           {
@@ -334,7 +334,7 @@ export default function Article({ insights = [] }) {
             desc: '展示我们核心能力的精选项目、方法论与成果案例（须遵守客户保密协议与授权许可）。'
           }
         ],
-        chinaResearchEyebrow: '02 · 中国深度研究报告与白皮书',
+        chinaResearchEyebrow: '中国深度研究报告与白皮书',
         chinaResearchTitle: '中印尼跨境战略研究与产业情报白皮书',
         chinaResearchSubtitle:
           '8 Vice 基于对 120+ 家制造企业的运营审计、40% TKDN 合规矩阵以及双边工业园区成本模型撰写的深度实证研究报告。',
@@ -346,14 +346,14 @@ export default function Article({ insights = [] }) {
         chinaResearchCtaPrimary: '阅读文章并获取研究报告',
         chinaResearchCtaLocked: '解锁完整报告 ($99 / Rp 1.49M)',
         chinaResearchOtherTitle: '其他中国跨境战略与政策研究报告',
-        streamEyebrow: '03 · 精选观点与深度文章',
+        streamEyebrow: '精选观点与深度文章',
         streamTitle: '最新高管简报与市场洞察。',
         filterAll: '全部分类',
         searchPh: '按标题、政策法规或战略主题搜索洞察...',
         readBtn: '阅读全文',
         emptyText: '没有找到符合当前筛选条件的文章。',
         resetBtn: '重置筛选',
-        partnerEyebrow: '04 · 生态系统合作伙伴与入驻登记',
+        partnerEyebrow: '生态系统合作伙伴与入驻登记',
         partnerTitle: '协同合作创造更广阔的商业可能。',
         partnerParagraphs: [
           '我们深信，具有深远意义的商业增长绝非孤立可成，而是建立在企业、机构、行业组织、技术提供商及其他相关利益相关方紧密协作的基础之上。',
@@ -412,7 +412,7 @@ export default function Article({ insights = [] }) {
           'Sasaran kami adalah membantu pelaku usaha dan pengambil keputusan membangun perspektif yang lebih utuh mengenai peluang lintas negara sehingga dapat mengambil keputusan strategis yang lebih matang.',
           'Jelajahi perspektif terbaru kami mengenai pengembangan pasar, kemitraan bisnis, ekosistem digital, pariwisata, industri kreatif, dan kerja sama ekonomi Indonesia–Tiongkok.'
         ],
-        pillarsEyebrow: '01 · 6 KATEGORI WAWASAN & PERSPEKTIF',
+        pillarsEyebrow: '6 KATEGORI WAWASAN & PERSPEKTIF',
         pillarsTitle: 'Fokus Kajian & Dokumentasi Strategis Kami.',
         pillars: [
           {
@@ -452,7 +452,7 @@ export default function Article({ insights = [] }) {
             desc: 'Contoh terpilih dari proyek, pendekatan strategis, dan hasil kolaborasi yang menunjukkan kapabilitas kami (tunduk pada kerahasiaan klien).'
           }
         ],
-        chinaResearchEyebrow: '02 · KERTAS RISET MENDALAM TIONGKOK & PAPERS',
+        chinaResearchEyebrow: 'KERTAS RISET MENDALAM TIONGKOK & PAPERS',
         chinaResearchTitle: 'Kertas Riset Industri & Panduan Strategis Lintas Batas Tiongkok–Indonesia',
         chinaResearchSubtitle:
           'Kajian empiris mendalam 8 Vice berbasis audit operasional 120+ korporasi manufaktur, matriks formula 40% TKDN, dan pemodelan biaya kawasan industri bilateral.',
@@ -464,14 +464,14 @@ export default function Article({ insights = [] }) {
         chinaResearchCtaPrimary: 'Buka Artikel & Akses Research Paper',
         chinaResearchCtaLocked: 'Buka Akses Paper (Rp 1.490.000 / $99)',
         chinaResearchOtherTitle: 'Kertas Riset & Makro Kebijakan Lainnya Mengenai Tiongkok',
-        streamEyebrow: '03 · PUBLIKASI & ARTIKEL TERBARU',
+        streamEyebrow: 'PUBLIKASI & ARTIKEL TERBARU',
         streamTitle: 'Eksplorasi Wawasan & Analisis Koridor.',
         filterAll: 'Semua Kategori',
         searchPh: 'Cari artikel, regulasi, atau topik strategis...',
         readBtn: 'Baca Selengkapnya',
         emptyText: 'Tidak ada artikel yang sesuai dengan filter pencarian Anda.',
         resetBtn: 'Reset Filter',
-        partnerEyebrow: '04 · KEMITRAAN EKOSISTEM & PENDAFTARAN MITRA',
+        partnerEyebrow: 'KEMITRAAN EKOSISTEM & PENDAFTARAN MITRA',
         partnerTitle: 'Kolaborasi Menciptakan Kemungkinan yang Lebih Besar.',
         partnerParagraphs: [
           'Kami meyakini bahwa pertumbuhan bisnis yang bermakna jarang dicapai sendirian. Pertumbuhan tersebut dibangun melalui kolaborasi di antara perusahaan, institusi, organisasi industri, penyedia teknologi, dan pemangku kepentingan relevan lainnya.',
@@ -529,7 +529,7 @@ export default function Article({ insights = [] }) {
           'Our objective is to help businesses and decision-makers develop a more informed perspective on cross-border opportunities and make better-prepared strategic decisions.',
           'Explore our latest perspectives on market development, business partnerships, digital ecosystems, tourism, creative industries, and Indonesia–China economic cooperation.'
         ],
-        pillarsEyebrow: '01 · SIX INSIGHT & KNOWLEDGE PILLARS',
+        pillarsEyebrow: 'SIX INSIGHT & KNOWLEDGE PILLARS',
         pillarsTitle: 'Our Editorial & Intelligence Coverage.',
         pillars: [
           {
@@ -569,7 +569,7 @@ export default function Article({ insights = [] }) {
             desc: 'Selected examples of projects, approaches, and outcomes that demonstrate our capabilities, subject to client confidentiality and authorization.'
           }
         ],
-        chinaResearchEyebrow: '02 · IN-DEPTH CHINA RESEARCH & PAPERS',
+        chinaResearchEyebrow: 'IN-DEPTH CHINA RESEARCH & PAPERS',
         chinaResearchTitle: 'China Cross-Border Strategic Research & Industry Intelligence Papers',
         chinaResearchSubtitle:
           'Comprehensive empirical studies by 8 Vice based on operational audits of 120+ manufacturing corporations, 40% TKDN compliance matrices, and bilateral industrial estate cost models.',
@@ -581,14 +581,14 @@ export default function Article({ insights = [] }) {
         chinaResearchCtaPrimary: 'Read Article & Access Research Paper',
         chinaResearchCtaLocked: 'Unlock Paper ($99 / Rp 1.49M)',
         chinaResearchOtherTitle: 'Other Strategic China Research & Policy Papers',
-        streamEyebrow: '03 · FEATURED PERSPECTIVES & ARTICLES',
+        streamEyebrow: 'FEATURED PERSPECTIVES & ARTICLES',
         streamTitle: 'Latest Briefings & Market Perspectives.',
         filterAll: 'All Categories',
         searchPh: 'Search insights by title, policy, or topic...',
         readBtn: 'Read Perspective',
         emptyText: 'No articles match your current filter criteria.',
         resetBtn: 'Reset Filters',
-        partnerEyebrow: '04 · ECOSYSTEM PARTNERSHIPS & REGISTRATION',
+        partnerEyebrow: 'ECOSYSTEM PARTNERSHIPS & REGISTRATION',
         partnerTitle: 'Collaboration Creates Greater Possibilities.',
         partnerParagraphs: [
           'We believe meaningful business growth is rarely achieved alone. It is built through collaboration among companies, institutions, industry organizations, technology providers, and other relevant stakeholders.',

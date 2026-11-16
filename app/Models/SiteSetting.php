@@ -16,6 +16,7 @@ class SiteSetting extends Model
         'default_meta_title' => 'array',
         'default_meta_description' => 'array',
         'tagline' => 'array',
+        'footer_description' => 'array',
         'privacy_policy' => 'array',
         'terms_of_service' => 'array',
     ];

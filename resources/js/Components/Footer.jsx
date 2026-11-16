@@ -1,15 +1,61 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from '@/Components/LocalizedLink';
-import { usePage } from '@inertiajs/react';
+import { usePage, useForm } from '@inertiajs/react';
 import { useTranslation } from '@/Contexts/TranslationContext';
 import ChatFloatingWidget from '@/Components/ChatFloatingWidget';
 
 export default function Footer() {
-  const { siteSettings } = usePage().props;
+  const { siteSettings, footerInsights = [] } = usePage().props;
   const { lang, t } = useTranslation();
   const isId = lang === 'id';
   const isCn = lang === 'cn';
   const [activeLegalModal, setActiveLegalModal] = useState(null); // 'privacy' | 'terms' | null
+  const [subAlert, setSubAlert] = useState(null); // { type: 'success' | 'error', text: string }
+
+  const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
+    email: '',
+    website_url: '', // honeypot
+  });
+
+  const subscribeEndpoint = isCn ? '/cn/subscribe' : isId ? '/id/subscribe' : '/subscribe';
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    clearErrors();
+    setSubAlert(null);
+
+    post(subscribeEndpoint, {
+      preserveScroll: true,
+      onSuccess: (page) => {
+        const msg =
+          page?.props?.flash?.success ||
+          (isCn
+            ? '订阅成功！感谢您加入 8vice 商业洞察简报。'
+            : isId
+            ? 'Berhasil terkirim! Email Anda telah terdaftar di newsletter 8vice.'
+            : 'Successfully subscribed! Thank you for joining the 8vice newsletter.');
+        setSubAlert({ type: 'success', text: msg });
+        reset('email');
+      },
+      onError: (errs) => {
+        const errMsg =
+          errs?.email ||
+          (isCn
+            ? '提交失败，请检查您的邮箱地址是否正确。'
+            : isId
+            ? 'Gagal mengirim, pastikan alamat email valid.'
+            : 'Submission failed. Please enter a valid email address.');
+        setSubAlert({ type: 'error', text: errMsg });
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!subAlert) return;
+    const timer = setTimeout(() => setSubAlert(null), 6000);
+    return () => clearTimeout(timer);
+  }, [subAlert]);
 
   // Escape key listener for legal modal
   useEffect(() => {
@@ -28,19 +74,73 @@ export default function Footer() {
     };
   }, [activeLegalModal]);
 
-  const defaultTagline = isCn
-    ? '通往印尼与中国的战略商业门户。'
+  const defaultFooterDescription = isCn
+    ? '8 Vice 是一家专注于印尼与中国的双边战略咨询及业务拓展机构，致力于协助企业把握市场准入、政企关系与跨境合作机遇。凭借二十余年的双边实战积淀，我们将企业的商业愿景转化为务实高效的本土落地执行。'
     : isId
-    ? 'Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.'
-    : 'Your Strategic Gateway to Indonesia and China.';
+    ? '8 Vice adalah firma penasihat strategis dan pengembangan bisnis Indonesia–Tiongkok yang mendampingi perusahaan menavigasi masuk pasar, hubungan kelembagaan, dan kemitraan bilateral. Berbekal pengalaman lintas batas lebih dari dua dekade, kami menjembatani ambisi komersial dengan eksekusi nyata di lapangan.'
+    : '8 Vice is an Indonesia–China strategic advisory and business development firm helping enterprises navigate market entry, institutional engagement, and bilateral partnerships. With over two decades of cross-border experience, we bridge commercial ambition with practical execution on the ground.';
 
-  const displayTagline = typeof siteSettings?.tagline === 'object'
-    ? (siteSettings?.tagline?.[lang] || siteSettings?.tagline?.en || defaultTagline)
-    : (siteSettings?.tagline || defaultTagline);
+  const displayFooterDescription = typeof siteSettings?.footer_description === 'object'
+    ? (siteSettings?.footer_description?.[lang] || siteSettings?.footer_description?.en || defaultFooterDescription)
+    : (siteSettings?.footer_description || defaultFooterDescription);
 
   const rawEmail = siteSettings?.email || 'hello@8vice.com';
   const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
   const emailHref = `mailto:${cleanEmail}`;
+
+  const fallbackFooterInsights = [
+    {
+      slug: 'asean-china-strategic-partnership',
+      t_i18n: {
+        en: 'ASEAN–China Strategic Partnership & RCEP Tariff Utilization',
+        id: 'Kemitraan Strategis ASEAN–Tiongkok & Pemanfaatan Tarif RCEP',
+        cn: '东盟与中国全面战略伙伴关系与 RCEP 关税优惠应用'
+      }
+    },
+    {
+      slug: 'decoding-china-5-year-plan',
+      t_i18n: {
+        en: "Decoding China's 15th 5-Year Plan for Southeast Asia",
+        id: 'Membedah Rencana Pembangunan ke-15 Tiongkok untuk Asia Tenggara',
+        cn: '深度解读中国“十五五”规划对东南亚经贸走廊的启示'
+      }
+    },
+    {
+      slug: 'cross-border-payments-qris',
+      t_i18n: {
+        en: 'Cross-Border Payments: Indonesia–China QRIS & LCS',
+        id: 'Pembayaran Lintas Batas: Interoperabilitas QRIS & LCS',
+        cn: '跨境支付新潮流：印尼与中国 QRIS 互通与本币结算 (LCS)'
+      }
+    },
+    {
+      slug: 'tier-2-tier-3-indonesia-consumer-markets-distribution',
+      t_i18n: {
+        en: 'Beyond Greater Jakarta: Cracking Tier-2 & Tier-3 Markets',
+        id: 'Melampaui Jabodetabek: Menembus Pasar Tier-2 & Tier-3',
+        cn: '走出大雅加达：深度渗透印尼二三线核心消费市场'
+      }
+    },
+    {
+      slug: 'uu-pdp-indonesia-enterprise-saas-cloud-compliance',
+      t_i18n: {
+        en: "Mastering Indonesia's UU PDP for Enterprise & Cloud",
+        id: 'Memahami UU PDP Indonesia untuk SaaS Korporat & Cloud',
+        cn: '掌握印尼《个人数据保护法》(UU PDP) 企业级合规路线图'
+      }
+    }
+  ];
+
+  const featuredArticles = (Array.isArray(footerInsights) && footerInsights.length > 0 ? footerInsights : fallbackFooterInsights)
+    .slice(0, 5)
+    .map((art) => {
+      const i18n = typeof art.t_i18n === 'object' && art.t_i18n ? art.t_i18n : null;
+      const title = (i18n && (i18n[lang] || i18n.en)) || (typeof art.t === 'object' ? (art.t[lang] || art.t.en) : art.t) || art.slug;
+      return {
+        slug: art.slug,
+        title,
+      };
+    });
 
   return (
     <>
@@ -54,7 +154,9 @@ export default function Footer() {
                 <span className="logo__word">8vice</span>
                 <span className="logo__dot"></span>
               </Link>
-              <p className="footer__tag">{displayTagline}</p>
+              <p className="footer__tag" style={{ fontSize: '13.8px', lineHeight: 1.68 }}>
+                {displayFooterDescription}
+              </p>
               
               <Link href="/contact" className="footer__cta-pill">
                 <span>{isCn ? '预约免费咨询' : isId ? 'Konsultasi Gratis' : 'Book a Consultation'}</span>
@@ -65,32 +167,44 @@ export default function Footer() {
               </Link>
             </div>
 
-            {/* Column 2: Explore */}
+            {/* Column 2: Explore (Synced with Visible Navigation Menu) */}
             <div className="footer__col">
               <h3>{isCn ? '网站导航' : isId ? 'Eksplorasi' : 'Explore'}</h3>
               <div className="footer__nav-list">
-                <Link href="/about">{isCn ? '关于我们' : isId ? 'Tentang Kami' : 'About Us'}</Link>
-                <Link href="/services">{isCn ? '核心服务' : isId ? 'Layanan Kami' : 'Our Services'}</Link>
-                <Link href="/gateway">{isCn ? '印中战略门户' : isId ? 'Gerbang Indonesia–China' : 'Indonesia–China Gateway'}</Link>
-                <Link href="/industries">{isCn ? '重点行业与机遇' : isId ? 'Industri & Peluang' : 'Industries & Opportunities'}</Link>
-                <Link href="/insights">{isCn ? '商业洞察与合作' : isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships'}</Link>
-                <Link href="/client">{isCn ? '客户与合作伙伴' : isId ? 'Klien & Portofolio Mitra' : 'Clients & Brand Portfolio'}</Link>
-                <Link href="/case-study">{isCn ? '成功案例分析' : isId ? 'Studi Kasus Ekspansi' : 'Client Case Studies'}</Link>
-                <Link href="/career">{isCn ? '招贤纳士' : isId ? 'Karier di 8vice' : 'Careers & Opportunities'}</Link>
-                <Link href="/contact">{isCn ? '联系我们' : isId ? 'Hubungi Kami' : 'Contact Us'}</Link>
+                <Link href="/about">{t('nav.about') || (isCn ? '关于我们' : isId ? 'Tentang Kami' : 'About Us')}</Link>
+                <Link href="/services">{t('nav.services') || (isCn ? '我们的服务' : isId ? 'Layanan Kami' : 'Our Services')}</Link>
+                <Link href="/insights">{t('nav.insights_partnerships') || (isCn ? '商业洞察与合作' : isId ? 'Wawasan & Kemitraan' : 'Insights & Partnerships')}</Link>
+                <Link href="/contact">{t('nav.contact') || (isCn ? '联系我们' : isId ? 'Hubungi Kami' : 'Contact Us')}</Link>
               </div>
             </div>
 
-            {/* Column 3: 6 Services */}
+            {/* Column 3: Variative Featured Insights / Articles */}
             <div className="footer__col">
-              <h3>{isCn ? '核心服务' : isId ? 'Layanan Kami' : 'Our Services'}</h3>
+              <h3>{isCn ? '精选商业洞察' : isId ? 'Artikel Pilihan' : 'Featured Articles'}</h3>
               <div className="footer__nav-list">
-                <Link href="/services/advisory">{t('nav.svc_strategic_advisory') || 'Strategic Advisory & Market Entry'}</Link>
-                <Link href="/services/gov-relations">{t('nav.svc_gov_relations') || 'Government Relations'}</Link>
-                <Link href="/services/business-matching">{t('nav.svc_business_matching') || 'Business Matching & Partnerships'}</Link>
-                <Link href="/services/comms">{t('nav.svc_strategic_comms') || 'Strategic Communications'}</Link>
-                <Link href="/services/media-relations">{t('nav.svc_media_relations') || (isId ? 'Hubungan Media & Komunikasi Krisis' : 'Media Relations & Crisis Communications')}</Link>
-                <Link href="/services/investment">{t('nav.svc_investment_dev') || 'Investment & Project Facilitation'}</Link>
+                {featuredArticles.map((art) => (
+                  <Link
+                    key={art.slug}
+                    href={`/insights/${art.slug}`}
+                    style={{ lineHeight: 1.45, paddingBlock: '5px' }}
+                  >
+                    {art.title}
+                  </Link>
+                ))}
+                <Link
+                  href="/insights"
+                  style={{
+                    marginTop: '6px',
+                    color: '#FF7B7B',
+                    fontWeight: 600,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <span>{isCn ? '浏览全部文章与洞察' : isId ? 'Lihat Semua Artikel' : 'Explore All Articles'}</span>
+                  <span>&rarr;</span>
+                </Link>
               </div>
             </div>
 
@@ -115,8 +229,18 @@ export default function Footer() {
                 
                 <div className="footer__contact-item">
                   <span className="lbl">{isCn ? '服务时间' : isId ? 'Jam Layanan' : 'Service Hours'}</span>
-                  <span className="val" style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.72)' }}>
-                    <svg className="ico ico-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span
+                    className="val footer__hours-val"
+                    style={{
+                      fontSize: '13.5px',
+                      color: 'rgba(255,255,255,0.72)',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    <svg className="ico ico-14" style={{ flexShrink: 0 }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     <span>{isCn ? '工作日 (09:00 - 17:00)' : isId ? 'Hari Kerja (09.00 - 17.00)' : 'Weekdays (9 am-5 pm)'}</span>
                   </span>
                 </div>
@@ -133,6 +257,92 @@ export default function Footer() {
               </div>
             </div>
 
+          </div>
+
+          {/* Dedicated Newsletter Subscription Section */}
+          <div className="footer__newsletter-section">
+            <div className="footer__newsletter-info">
+              <div className="footer__newsletter-eyebrow">
+                <span className="footer__newsletter-dot" />
+                <span>{isCn ? '订阅商业洞察简报' : isId ? 'Berlangganan Newsletter' : 'Subscribe Newsletter'}</span>
+              </div>
+              <h4>
+                {isCn
+                  ? '定期获取印尼–中国商业战略与市场研究精华'
+                  : isId
+                  ? 'Dapatkan Ringkasan Riset & Wawasan Lintas Negara Terbaru'
+                  : 'Receive Curated Market Briefings & Cross-Border Intelligence'}
+              </h4>
+              <p>
+                {isCn
+                  ? '涵盖监管动向、重点产业报告与双边商业合作动态，直达您的邮箱。'
+                  : isId
+                  ? 'Wawasan regulasi, analisis industri prioritas, dan peluang ekspansi Indonesia–Tiongkok langsung ke inbox Anda.'
+                  : 'Regulatory updates, priority sector briefings, and Indonesia–China partnership perspectives delivered to your inbox.'}
+              </p>
+            </div>
+
+            <div className="footer__newsletter-form-wrap">
+              <form onSubmit={handleSubscribe} className="footer__newsletter-form">
+                <input
+                  type="text"
+                  name="website_url"
+                  value={data.website_url}
+                  onChange={(e) => setData('website_url', e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+                />
+                <input
+                  type="email"
+                  required
+                  value={data.email}
+                  onChange={(e) => setData('email', e.target.value)}
+                  placeholder={isCn ? '输入您的企业邮箱地址...' : isId ? 'Masukkan alamat email Anda...' : 'Enter your email address...'}
+                  aria-label={isCn ? '邮箱地址' : isId ? 'Alamat Email Newsletter' : 'Newsletter Email Address'}
+                  disabled={processing}
+                  className="footer__newsletter-input"
+                />
+                <button
+                  type="submit"
+                  disabled={processing}
+                  className="footer__newsletter-btn"
+                >
+                  {processing
+                    ? (isCn ? '提交中...' : isId ? 'Mengirim...' : 'Sending...')
+                    : (isCn ? '立即订阅' : isId ? 'Subscribe' : 'Subscribe')}
+                </button>
+              </form>
+
+              {errors.email && (
+                <div style={{ marginTop: '8px', fontSize: '12px', color: '#FF7B7B' }}>
+                  {errors.email}
+                </div>
+              )}
+
+              {subAlert && (
+                <div
+                  role="status"
+                  style={{
+                    marginTop: '10px',
+                    padding: '9px 12px',
+                    borderRadius: '10px',
+                    fontSize: '12.5px',
+                    lineHeight: 1.4,
+                    background: subAlert.type === 'success' ? 'rgba(16, 185, 129, 0.14)' : 'rgba(230, 57, 70, 0.16)',
+                    border: `1px solid ${subAlert.type === 'success' ? 'rgba(16, 185, 129, 0.42)' : 'rgba(230, 57, 70, 0.45)'}`,
+                    color: subAlert.type === 'success' ? '#6EE7B7' : '#FCA5A5',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  <span>{subAlert.type === 'success' ? '✓' : '!'}</span>
+                  <span>{subAlert.text}</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Bottom Bar */}
@@ -445,6 +655,70 @@ export default function Footer() {
       )}
 
       <ChatFloatingWidget />
+
+      {/* Floating Newsletter Toast Alert */}
+      {subAlert && typeof document !== 'undefined' && createPortal(
+        <div
+          role="alert"
+          style={{
+            position: 'fixed',
+            top: '24px',
+            right: '24px',
+            zIndex: 999999,
+            maxWidth: '380px',
+            padding: '14px 18px',
+            borderRadius: '14px',
+            background: subAlert.type === 'success' ? 'rgba(10, 26, 20, 0.96)' : 'rgba(28, 12, 14, 0.96)',
+            border: `1px solid ${subAlert.type === 'success' ? 'rgba(16, 185, 129, 0.5)' : 'rgba(230, 57, 70, 0.5)'}`,
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
+            color: '#FFFFFF',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '12px'
+          }}
+        >
+          <span
+            style={{
+              width: '24px',
+              height: '24px',
+              borderRadius: '50%',
+              background: subAlert.type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(230, 57, 70, 0.2)',
+              color: subAlert.type === 'success' ? '#34D399' : '#F87171',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 700,
+              fontSize: '13px',
+              flexShrink: 0,
+              marginTop: '1px'
+            }}
+          >
+            {subAlert.type === 'success' ? '✓' : '!'}
+          </span>
+          <div style={{ flex: 1, fontSize: '13.5px', lineHeight: 1.45, color: 'rgba(255, 255, 255, 0.92)' }}>
+            {subAlert.text}
+          </div>
+          <button
+            type="button"
+            onClick={() => setSubAlert(null)}
+            aria-label="Close alert"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'rgba(255, 255, 255, 0.55)',
+              cursor: 'pointer',
+              fontSize: '14px',
+              padding: '0 2px',
+              lineHeight: 1
+            }}
+          >
+            ✕
+          </button>
+        </div>,
+        document.body
+      )}
     </>
   );
 }

@@ -26,6 +26,11 @@ class SubscriberResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getModel()::count();
+    }
+
     public static function canCreate(): bool
     {
         return false;

@@ -57,6 +57,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 'Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.',
                 'cn' => '连接印尼与中国的战略商业门户。'
             ]),
+            'footer_description' => $this->json($settings->footer_description),
             'default_meta_title' => $this->json([
                 'en' => '8vice — Indonesia–China Strategic Advisory & Business Gateway',
                 'id' => '8vice — Konsultasi Strategis & Gerbang Bisnis Indonesia–China',

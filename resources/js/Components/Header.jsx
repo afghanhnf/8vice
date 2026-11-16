@@ -12,7 +12,6 @@ export default function Header() {
   const { lang, t } = useTranslation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isWeChatModalOpen, setIsWeChatModalOpen] = useState(false);
   const [copiedWechat, setCopiedWechat] = useState(false);
@@ -291,21 +290,50 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Scoped Styles for Navigation Contact Pill */}
+      {/* Scoped Styles for Navigation Contact Pill & Single-Line Nav */}
       <style dangerouslySetInnerHTML={{
         __html: `
+        .header__inner {
+          justify-content: space-between;
+          gap: 24px !important;
+        }
+        .header .nav {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          flex-wrap: nowrap;
+        }
+        .header .nav__item {
+          flex-shrink: 0;
+        }
+        .header .nav__link {
+          white-space: nowrap !important;
+          padding: 10px 15px;
+          font-size: 13px;
+          letter-spacing: 0.05em;
+        }
+        .nav__utils {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
+          margin-left: 12px;
+          padding-left: 14px;
+          border-left: 1px solid rgba(255, 255, 255, 0.12);
+        }
         .nav__contact-pill {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 7px 18px;
+          white-space: nowrap !important;
+          padding: 8px 18px;
           border-radius: 999px;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.16);
           color: rgba(255, 255, 255, 0.92);
-          font-size: 13px;
+          font-size: 12.5px;
           font-weight: 600;
-          letter-spacing: 0.03em;
+          letter-spacing: 0.04em;
           text-transform: uppercase;
           text-decoration: none;
           transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -563,96 +591,19 @@ export default function Header() {
               <Link href="/about" className={`nav__link${isActive('/about') ? ' is-current' : ''}`}>{t('nav.about')}</Link>
             </div>
 
-            {/* 3. Services (6 Core Capabilities Dropdown) */}
-            <div className={`nav__item ${isServicesOpen ? 'is-open' : ''}`} id="services-item" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
-              <Link href="/services" className={`nav__link${isActive('/services') ? ' is-current' : ''}`} id="services-trigger" aria-haspopup="true" aria-expanded={isServicesOpen}>
+            {/* Our Services (direct link, dropdown hidden per request) */}
+            <div className="nav__item">
+              <Link href="/services" className={`nav__link${isActive('/services') ? ' is-current' : ''}`}>
                 {t('nav.services')}
-                <svg className="ico ico-16 nav__caret" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </Link>
-              <div className="dropdown dropdown--svc" role="menu" aria-label="Services" style={{ minWidth: '380px', padding: '12px' }}>
-                <Link className="dropdown__svc" href="/services/advisory" onClick={() => setIsServicesOpen(false)}>
-                  <div className="dropdown__svc-icon-box" style={{ background: 'rgba(214, 40, 40, 0.12)', color: 'var(--color-red)' }}>
-                    <svg className="dropdown__svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  </div>
-                  <div className="dropdown__svc-text">
-                    <div className="dropdown__svc-title" style={{ fontSize: '13.5px' }}>{t('nav.svc_strategic_advisory')}</div>
-                    <div className="dropdown__svc-desc">{t('nav.svc_strategic_advisory_desc')}</div>
-                  </div>
-                </Link>
-
-                <Link className="dropdown__svc" href="/services/gov-relations" onClick={() => setIsServicesOpen(false)}>
-                  <div className="dropdown__svc-icon-box" style={{ background: 'rgba(214, 40, 40, 0.12)', color: 'var(--color-red)' }}>
-                    <svg className="dropdown__svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"></path></svg>
-                  </div>
-                  <div className="dropdown__svc-text">
-                    <div className="dropdown__svc-title" style={{ fontSize: '13.5px' }}>{t('nav.svc_gov_relations')}</div>
-                    <div className="dropdown__svc-desc">{t('nav.svc_gov_relations_desc')}</div>
-                  </div>
-                </Link>
-
-                <Link className="dropdown__svc" href="/services/business-matching" onClick={() => setIsServicesOpen(false)}>
-                  <div className="dropdown__svc-icon-box" style={{ background: 'rgba(214, 40, 40, 0.12)', color: 'var(--color-red)' }}>
-                    <svg className="dropdown__svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                  </div>
-                  <div className="dropdown__svc-text">
-                    <div className="dropdown__svc-title" style={{ fontSize: '13.5px' }}>{t('nav.svc_business_matching')}</div>
-                    <div className="dropdown__svc-desc">{t('nav.svc_business_matching_desc')}</div>
-                  </div>
-                </Link>
-
-                <Link className="dropdown__svc" href="/services/comms" onClick={() => setIsServicesOpen(false)}>
-                  <div className="dropdown__svc-icon-box" style={{ background: 'rgba(214, 40, 40, 0.12)', color: 'var(--color-red)' }}>
-                    <svg className="dropdown__svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                  </div>
-                  <div className="dropdown__svc-text">
-                    <div className="dropdown__svc-title" style={{ fontSize: '13.5px' }}>{t('nav.svc_strategic_comms')}</div>
-                    <div className="dropdown__svc-desc">{t('nav.svc_strategic_comms_desc')}</div>
-                  </div>
-                </Link>
-
-                <Link className="dropdown__svc" href="/services/media-relations" onClick={() => setIsServicesOpen(false)}>
-                  <div className="dropdown__svc-icon-box" style={{ background: 'rgba(214, 40, 40, 0.12)', color: 'var(--color-red)' }}>
-                    <svg className="dropdown__svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8"></path><path d="M15 18h-5"></path><path d="M10 6h8v4h-8V6Z"></path></svg>
-                  </div>
-                  <div className="dropdown__svc-text">
-                    <div className="dropdown__svc-title" style={{ fontSize: '13.5px' }}>{t('nav.svc_media_relations')}</div>
-                    <div className="dropdown__svc-desc">{t('nav.svc_media_relations_desc')}</div>
-                  </div>
-                </Link>
-
-                <Link className="dropdown__svc" href="/services/investment" onClick={() => setIsServicesOpen(false)}>
-                  <div className="dropdown__svc-icon-box" style={{ background: 'rgba(214, 40, 40, 0.12)', color: 'var(--color-red)' }}>
-                    <svg className="dropdown__svc-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                  </div>
-                  <div className="dropdown__svc-text">
-                    <div className="dropdown__svc-title" style={{ fontSize: '13.5px' }}>{t('nav.svc_investment_dev')}</div>
-                    <div className="dropdown__svc-desc">{t('nav.svc_investment_dev_desc')}</div>
-                  </div>
-                </Link>
-              </div>
-            </div>
-
-            {/* 4. Indonesia-China Gateway */}
-            <div className="nav__item">
-              <Link href="/gateway" className={`nav__link${isActive('/gateway') ? ' is-current' : ''}`}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-red)', display: 'inline-block' }}></span>
-                  {t('nav.gateway')}
-                </span>
               </Link>
             </div>
 
-            {/* 5. Industries & Opportunities */}
-            <div className="nav__item">
-              <Link href="/industries" className={`nav__link${isActive('/industries') ? ' is-current' : ''}`}>{t('nav.industries')}</Link>
-            </div>
-
-            {/* 6. Insights & Partnerships */}
+            {/* Insights & Partnerships */}
             <div className="nav__item">
               <Link href="/insights" className={`nav__link${(isActive('/insights') || isActive('/article')) ? ' is-current' : ''}`}>{t('nav.insights_partnerships')}</Link>
             </div>
 
-            {/* 7. Contact Us (White Opacity Pill, No Red Text) */}
+            {/* Contact Us (White Opacity Pill, Single-Line) */}
             <div className="nav__item" style={{ marginLeft: '6px' }}>
               <Link
                 href="/contact"
@@ -732,25 +683,8 @@ export default function Header() {
             <svg className="ico ico-24" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
         </div>
-        <Link className="drawer__link" href="/about">{t('nav.about')}</Link>
-        <Link className="drawer__link" href="/services">{t('nav.services')}</Link>
-        <div className="drawer__sub">
-          <Link className="drawer__sublink" href="/services/advisory">{t('nav.svc_strategic_advisory')}</Link>
-          <Link className="drawer__sublink" href="/services/gov-relations">{t('nav.svc_gov_relations')}</Link>
-          <Link className="drawer__sublink" href="/services/business-matching">{t('nav.svc_business_matching')}</Link>
-          <Link className="drawer__sublink" href="/services/comms">{t('nav.svc_strategic_comms')}</Link>
-          <Link className="drawer__sublink" href="/services/media-relations">{t('nav.svc_media_relations')}</Link>
-          <Link className="drawer__sublink" href="/services/investment">{t('nav.svc_investment_dev')}</Link>
-        </div>
-        <Link className="drawer__link" href="/gateway" onClick={() => setIsMobileMenuOpen(false)}>
-          <span style={{ color: 'var(--color-red)', marginRight: '6px' }}>●</span>
-          {t('nav.gateway')}
-        </Link>
-        <div className="drawer__sub">
-          <Link className="drawer__sublink" href="/gateway#china-to-indonesia" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.gateway_c2i')}</Link>
-          <Link className="drawer__sublink" href="/gateway#indonesia-to-china" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.gateway_i2c')}</Link>
-        </div>
-        <Link className="drawer__link" href="/industries" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.industries')}</Link>
+        <Link className="drawer__link" href="/about" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.about')}</Link>
+        <Link className="drawer__link" href="/services" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.services')}</Link>
         <Link className="drawer__link" href="/insights" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.insights_partnerships')}</Link>
         <div style={{ marginTop: '16px', marginBottom: '8px' }}>
           <Link

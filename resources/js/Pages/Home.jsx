@@ -150,7 +150,7 @@ export default function Home({
         ]
       },
       services: {
-        eyebrow: "OUR CORE CAPABILITIES · 6 SERVICE PILLARS",
+        eyebrow: "OUR CORE CAPABILITIES",
         title: [
           "Strategy That Connects.",
           "Partnerships That Move Business Forward."
@@ -232,7 +232,7 @@ export default function Home({
         ]
       },
       why: {
-        eyebrow: "WHY 8 VICE · STRATEGIC ADVANTAGES",
+        eyebrow: "STRATEGIC ADVANTAGES",
         title: [
           "Local Understanding.",
           "Cross-Border Perspective."
@@ -269,7 +269,7 @@ export default function Home({
         ]
       },
       gateway: {
-        eyebrow: "TWO MARKETS · ONE STRATEGIC GATEWAY",
+        eyebrow: "STRATEGIC GATEWAY",
         title: "Two Markets. One Strategic Gateway.",
         subtitle: "One platform for businesses expanding between Indonesia and China.",
         desc: "Indonesia and China offer significant opportunities for businesses seeking new markets, strategic partnerships, and long-term growth. 8 Vice helps bridge these differences by connecting market understanding with strategic business development.",
@@ -976,28 +976,28 @@ export default function Home({
 
   const cmsServices = Array.isArray(services) && services.length > 0
     ? services.map((s, idx) => {
-        const fb = baseContent.services.items[idx] || {};
-        return {
-          id: s.slug || s.id || fb.id || 'advisory',
-          num: s.num || String(idx + 1).padStart(2, '0'),
-          title: pickLoc(s.title_i18n || s.title, fb.title),
-          desc: pickLoc(s.description_i18n || s.description || s.summary, fb.desc),
-          points: fb.points || [],
-        };
-      })
+      const fb = baseContent.services.items[idx] || {};
+      return {
+        id: s.slug || s.id || fb.id || 'advisory',
+        num: s.num || String(idx + 1).padStart(2, '0'),
+        title: pickLoc(s.title_i18n || s.title, fb.title),
+        desc: pickLoc(s.description_i18n || s.description || s.summary, fb.desc),
+        points: fb.points || [],
+      };
+    })
     : baseContent.services.items;
 
   const cmsIndustries = Array.isArray(industryCoverages) && industryCoverages.length > 0
     ? industryCoverages.map((ind, idx) => {
-        const fb = baseContent.industries.items[idx] || {};
-        return {
-          id: ind.slug || ind.id || fb.id || 'infrastructure',
-          title: pickLoc(ind.title_i18n || ind.title, fb.title),
-          tag: pickLoc(ind.tag, fb.tag),
-          desc: pickLoc(ind.description_i18n || ind.description, fb.desc),
-          image: ind.image || null,
-        };
-      })
+      const fb = baseContent.industries.items[idx] || {};
+      return {
+        id: ind.slug || ind.id || fb.id || 'infrastructure',
+        title: pickLoc(ind.title_i18n || ind.title, fb.title),
+        tag: pickLoc(ind.tag, fb.tag),
+        desc: pickLoc(ind.description_i18n || ind.description, fb.desc),
+        image: ind.image || null,
+      };
+    })
     : baseContent.industries.items;
 
   const c = {
@@ -1056,7 +1056,6 @@ export default function Home({
         .m3-section .m3-stagger > *,
         .m3-section .home-services-grid > *,
         .m3-section .home-industries-grid > *,
-        .m3-section .home-roadmap-grid > *,
         .m3-section .faq-list > *,
         .m3-section .stat-grid > *,
         .m3-section .home-svc-card,
@@ -1065,7 +1064,6 @@ export default function Home({
         .m3-section .home-card-hover,
         .m3-section .home-article-card,
         .m3-section .faq-item-card,
-        .m3-section .home-roadmap-step,
         .m3-section .stat-card,
         .m3-section .manifesto-card {
           opacity: 1 !important;
@@ -1111,108 +1109,6 @@ export default function Home({
         .home-svc-card:hover .home-svc-arrow {
           transform: translateX(4px);
         }
-        /* Roadmap Process Timeline */
-        .home-roadmap-grid {
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 28px;
-          position: relative;
-        }
-        .home-roadmap-step {
-          position: relative;
-          z-index: 2;
-        }
-        .home-step-dot {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background: #0E1015;
-          border: 2px solid #E63946;
-          color: #FFFFFF;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 13px;
-          font-weight: 700;
-          margin-bottom: 18px;
-          box-shadow: 0 0 16px rgba(230, 57, 70, 0.45), inset 0 0 8px rgba(230, 57, 70, 0.25);
-          position: relative;
-          z-index: 3;
-          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background 0.3s ease;
-        }
-        .home-roadmap-step:hover .home-step-dot {
-          transform: scale(1.12);
-          background: #E63946;
-          color: #FFFFFF;
-          box-shadow: 0 0 24px rgba(230, 57, 70, 0.85);
-        }
-        .home-roadmap-line {
-          position: absolute;
-          top: 19px;
-          left: 20px;
-          width: calc(100% + 28px);
-          height: 2px;
-          background: linear-gradient(90deg, #E63946 0%, rgba(230, 57, 70, 0.7) 60%, rgba(230, 57, 70, 0.3) 100%);
-          box-shadow: 0 0 8px rgba(230, 57, 70, 0.4);
-          z-index: 1;
-          pointer-events: none;
-        }
-        .home-roadmap-arrow {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: #0E1015;
-          border: 1px solid #E63946;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 11px;
-          color: #E63946;
-          font-weight: 700;
-          box-shadow: 0 0 8px rgba(230, 57, 70, 0.5);
-          line-height: 1;
-        }
-        @media (max-width: 992px) {
-          .home-roadmap-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px 24px;
-          }
-          .home-roadmap-line {
-            display: none;
-          }
-        }
-        @media (max-width: 580px) {
-          .home-roadmap-grid {
-            grid-template-columns: 1fr;
-            gap: 28px;
-          }
-          .home-roadmap-step {
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-          }
-          .home-step-dot {
-            margin-bottom: 0;
-            flex-shrink: 0;
-          }
-          .home-roadmap-line {
-            display: block;
-            top: 40px;
-            left: 20px;
-            width: 2px;
-            height: calc(100% + 28px);
-            background: linear-gradient(180deg, #E63946 0%, rgba(230, 57, 70, 0.4) 100%);
-          }
-          .home-roadmap-arrow {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(90deg);
-          }
-        }
         .home-services-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -1254,10 +1150,10 @@ export default function Home({
           }
         }
         .client-partner-item:hover {
-          background: rgba(255, 255, 255, 0.07);
-          border-color: rgba(230, 57, 70, 0.45);
+          background: rgba(255, 255, 255, 0.96);
+          border-color: rgba(230, 57, 70, 0.55);
           transform: translateY(-3px);
-          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 24px rgba(230, 57, 70, 0.16);
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 24px rgba(230, 57, 70, 0.22);
         }
         .client-partner-item img {
           height: 30px;
@@ -1265,13 +1161,17 @@ export default function Home({
           width: auto;
           object-fit: contain;
           display: block;
-          filter: brightness(0) invert(1);
-          opacity: 0.76;
-          transition: opacity 0.25s ease, transform 0.25s ease;
+          filter: brightness(0) invert(1) !important;
+          opacity: 0.85;
+          transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .client-partner-item:hover img {
+          filter: none !important;
           opacity: 1;
-          transform: scale(1.05);
+          transform: scale(1.06);
+        }
+        .client-partner-item:hover span {
+          color: #0A0B0E !important;
         }
         /* Subtle Architectural Network Grid Background */
         .section-grid-bg {
@@ -1830,100 +1730,7 @@ export default function Home({
         </div>
       </section>
 
-      {/* ========================================================================= */}
-      {/* 2. WHO WE ARE                                                             */}
-      {/* ========================================================================= */}
-      <section id="who"
-        className="section"
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          background: 'radial-gradient(circle 600px at 90% 15%, rgba(214, 40, 40, 0.08) 0%, transparent 70%), #0A0B0E',
-          color: '#FFFFFF',
-          paddingBlock: '108px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)'
-        }}
-      >
-        {/* Grid Network Background */}
-        <div className="section-grid-bg" aria-hidden="true">
-          <div className="section-grid-pattern" />
-          <div className="section-grid-dots" />
-        </div>
-
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '56px', alignItems: 'center' }}>
-
-            {/* Left Column: Narrative & Visual Frame */}
-            <div className="m3-header">
-              <div style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', color: '#E63946', marginBottom: '14px', textTransform: 'uppercase' }}>
-                {c.who.eyebrow}
-              </div>
-              <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, marginBottom: '20px' }}>
-                {Array.isArray(c.who.title) ? c.who.title.map((line, i) => (
-                  <span key={i} style={{ display: 'block' }}>{line}</span>
-                )) : c.who.title}
-              </h2>
-              <p style={{ fontSize: '17.5px', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.92)', fontWeight: 400, marginBottom: '16px' }}>
-                {c.who.lead}
-              </p>
-              <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
-                {c.who.desc}
-              </p>
-            </div>
-
-            {/* Right Column: 4 Strategic Pillars */}
-            <div className="m3-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
-              {c.who.pillars.map((p, idx) => {
-                const pIcons = [
-                  <PillarInsightIcon key="0" size={24} color="#E63946" />,
-                  <PillarCultureIcon key="1" size={24} color="#E63946" />,
-                  <PillarNetworkIcon key="2" size={24} color="#E63946" />,
-                  <PillarStrategyIcon key="3" size={24} color="#E63946" />
-                ];
-                return (
-                  <div
-                    key={idx}
-                    className="home-card-hover"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.025)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
-                      borderRadius: '16px',
-                      padding: '28px',
-                      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between'
-                    }}
-                  >
-                    <div>
-                      <div style={{
-                        width: '46px',
-                        height: '46px',
-                        borderRadius: '12px',
-                        background: 'rgba(230, 57, 70, 0.12)',
-                        color: '#E63946',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginBottom: '20px'
-                      }}>
-                        {pIcons[idx % pIcons.length]}
-                      </div>
-                      <h3 style={{ fontSize: '17px', fontWeight: 600, color: '#FFFFFF', marginBottom: '10px', lineHeight: 1.35 }}>
-                        {p.title}
-                      </h3>
-                      <p style={{ fontSize: '13.5px', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.65)', margin: 0 }}>
-                        {p.desc}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-          </div>
-        </div>
-      </section>
+      {/* WHO WE ARE section moved to About Us page per client request */}
 
       {/* ========================================================================= */}
       {/* 4. WHAT WE DO (6 CORE CAPABILITIES)                                       */}
@@ -1985,7 +1792,7 @@ export default function Home({
                     position: 'relative',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between',
+                    justifyContent: 'flex-start',
                     boxShadow: '0 12px 35px rgba(0, 0, 0, 0.4)'
                   }}
                 >
@@ -2031,55 +1838,40 @@ export default function Home({
                       {svc.desc}
                     </p>
                   </div>
-
-                  <div
-                    style={{
-                      marginTop: '30px',
-                      paddingTop: '18px',
-                      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: '12px',
-                      flexWrap: 'wrap'
-                    }}
-                  >
-                    <Link
-                      href={`/services/${svc.id}`}
-                      style={{
-                        fontSize: '13px',
-                        fontWeight: 700,
-                        color: '#FFFFFF',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        textDecoration: 'none'
-                      }}
-                      className="home-svc-explore-link"
-                    >
-                      <span>{isCn ? '查看服务详情' : isId ? 'Lihat Detail Layanan' : 'Explore Service'}</span>
-                      <span style={{ color: '#E63946', fontSize: '14px' }}>→</span>
-                    </Link>
-
-                    <a
-                      href="#contact"
-                      onClick={() => { setSelectedService(svc.title); }}
-                      style={{
-                        fontSize: '12.5px',
-                        fontWeight: 500,
-                        color: 'rgba(255, 255, 255, 0.55)',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                        textDecoration: 'none'
-                      }}
-                    >
-                      <span>{isCn ? '立即咨询' : isId ? 'Konsultasi' : 'Inquire'}</span>
-                    </a>
-                  </div>
                 </div>
               );
             })}
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '48px' }}>
+            <Link
+              href="/services"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '15px 32px',
+                borderRadius: '999px',
+                background: 'linear-gradient(135deg, #E63946 0%, #B81D2A 100%)',
+                color: '#FFFFFF',
+                fontSize: '14.5px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 12px 28px rgba(230, 57, 70, 0.38)',
+                transition: 'transform 0.25s ease, box-shadow 0.25s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 16px 34px rgba(230, 57, 70, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 12px 28px rgba(230, 57, 70, 0.38)';
+              }}
+            >
+              <span>{isCn ? '查看我们的服务' : isId ? 'Lihat Layanan Kami' : 'Our Services'}</span>
+              <span>&rarr;</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -2416,30 +2208,7 @@ export default function Home({
 
           </div>
 
-          {/* 5-Step Process Timeline / Strategic Roadmap */}
-          <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.07)', borderRadius: '20px', padding: '40px' }}>
-            <h4 style={{ textAlign: 'center', fontSize: '19px', fontWeight: 600, color: '#FFFFFF', marginBottom: '36px' }}>
-              {c.gateway.methodology_title}
-            </h4>
-            <div className="home-roadmap-grid">
-              {c.gateway.steps.map((st, idx) => (
-                <div key={idx} className="home-roadmap-step">
-                  {/* Roadmap Line connecting to the next step */}
-                  {idx < c.gateway.steps.length - 1 && (
-                    <div className="home-roadmap-line" aria-hidden="true">
-                      <span className="home-roadmap-arrow">›</span>
-                    </div>
-                  )}
-                  <div className="home-step-dot">{st.num}</div>
-                  <div>
-                    <div style={{ fontSize: '16px', fontWeight: 600, color: '#FFFFFF', marginBottom: '6px' }}>{st.name}</div>
-                    <div style={{ fontSize: '13px', color: 'rgba(255, 255, 255, 0.6)', lineHeight: 1.55 }}>{st.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
+          {/* 5-Step Process Timeline moved to About Us page per client request */}
         </div>
       </section>
 
@@ -2541,17 +2310,6 @@ export default function Home({
                         <p className="industry-card-desc">
                           {ind.desc}
                         </p>
-
-                        <div className="industry-card-cta">
-                          <Link
-                            href={`/industries#${ind.id || 'infrastructure'}`}
-                            onClick={(e) => e.stopPropagation()}
-                            className="industry-card-btn"
-                          >
-                            <span>{isCn ? '探索该行业机遇' : isId ? 'Eksplorasi Sektor Ini' : 'Explore Sector Opportunities'}</span>
-                            <span className="industry-card-btn-arrow">→</span>
-                          </Link>
-                        </div>
                       </div>
 
                       {/* Interactive Cue in Default State */}
@@ -2655,8 +2413,8 @@ export default function Home({
           {/* Client / Ecosystem Network Logos */}
           {clients && clients.length > 0 && (
             <div className="m3-child" style={{ paddingTop: '42px', borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
-              <div style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '28px' }}>
-                {isCn ? '精选项目合作与服务客户' : isId ? 'Kolaborasi Proyek & Inisiatif Terpercaya' : 'Selected Project Collaborations & Engagements'}
+              <div style={{ textAlign: 'center', fontSize: '12px', color: 'rgba(255,255,255,0.52)', textTransform: 'uppercase', letterSpacing: '0.14em', fontWeight: 600, marginBottom: '28px' }}>
+                {isCn ? '领军品牌与机构共同选择' : isId ? 'Pilihan Brand & Institusi Terkemuka' : 'Chosen by Leading Brands & Institutions'}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
                 {[clients.slice(0, 5), clients.slice(5)].map((rowClients, rowIdx) => (
@@ -2698,16 +2456,14 @@ export default function Home({
                               alt={client.name || 'Partner'}
                               width="140"
                               height="48"
-                              loading="lazy"
+                              loading="eager"
                               decoding="async"
                               style={{
                                 height: logoHeight,
                                 maxWidth: logoMaxWidth,
                                 width: 'auto',
                                 objectFit: 'contain',
-                                display: 'block',
-                                filter: 'brightness(0) invert(1)',
-                                opacity: 0.85
+                                display: 'block'
                               }}
                             />
                           ) : (
@@ -2972,8 +2728,8 @@ export default function Home({
                   {isCn
                     ? '我们欢迎探索印尼市场的中国企业、寻求拓展中国业务的印尼企业以及致力于推动双边合作的各类机构垂询洽谈。'
                     : isId
-                    ? 'Kami siap membantu menyusun rencana penetrasi pasar, pendampingan dialog institusional, dan matchmaking kemitraan bilateral Indonesia–China secara terarah dan terpercaya.'
-                    : 'We welcome inquiries from Chinese companies exploring Indonesia, Indonesian enterprises seeking expansion in China, and organizations pursuing bilateral cooperation.'}
+                      ? 'Kami siap membantu menyusun rencana penetrasi pasar, pendampingan dialog institusional, dan matchmaking kemitraan bilateral Indonesia–China secara terarah dan terpercaya.'
+                      : 'We welcome inquiries from Chinese companies exploring Indonesia, Indonesian enterprises seeking expansion in China, and organizations pursuing bilateral cooperation.'}
                 </p>
               </div>
 

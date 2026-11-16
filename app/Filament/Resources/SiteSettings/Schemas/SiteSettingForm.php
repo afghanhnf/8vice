@@ -44,6 +44,28 @@ class SiteSettingForm
                                     TextInput::make('tagline.cn')->label('[CN] Company Tagline')->placeholder('跨境战略咨询与落地执行')->maxLength(255),
                                 ]),
                             ]),
+                        Tabs::make('Footer Description')
+                            ->columnSpanFull()
+                            ->tabs([
+                                Tabs\Tab::make('EN')->schema([
+                                    Textarea::make('footer_description.en')
+                                        ->label('[EN] Footer Company Description')
+                                        ->rows(3)
+                                        ->maxLength(600),
+                                ]),
+                                Tabs\Tab::make('ID')->schema([
+                                    Textarea::make('footer_description.id')
+                                        ->label('[ID] Deskripsi Perusahaan di Footer')
+                                        ->rows(3)
+                                        ->maxLength(600),
+                                ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    Textarea::make('footer_description.cn')
+                                        ->label('[CN] 页脚公司简介')
+                                        ->rows(3)
+                                        ->maxLength(600),
+                                ]),
+                            ]),
                     ]),
 
                 Section::make('Homepage Highlight Stat')

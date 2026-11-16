@@ -360,6 +360,49 @@ class SeedData
                     ]
                 ]
             ],
+            (object)[
+                'call_name' => 'James He',
+                'title' => 'James He (Wei He)',
+                'role' => [
+                    'en' => 'Senior China Affairs Specialist, Gentala Institute China Desk · Strategic Advisor, 8 Vice',
+                    'id' => 'Senior China Affairs Specialist, Gentala Institute China Desk · Penasihat Strategis, 8 Vice',
+                    'cn' => '根塔拉研究所 (Gentala Institute) 中国部资深专家 · 8 Vice 战略顾问'
+                ],
+                'short_bio' => [
+                    'en' => 'Cross-border advisor spanning government, infrastructure, critical resources, and entertainment technology. Serves as Advisor at Indonesia Cyber Security Forum (ICSF), Senior China Affairs Specialist at Gentala Institute, and facilitator between Institut Teknologi PLN (IT PLN) and North China Electric Power University (NCEPU). Former Head of International Business Development at China Film Giant Screen Co., Ltd. (China Film Group) and University of Toronto B.Com graduate.',
+                    'id' => 'Spesialis lintas batas di sektor pemerintahan, infrastruktur, energi, sumber daya kritis, dan teknologi hiburan. Menjabat Penasihat Indonesia Cyber Security Forum (ICSF), Senior China Affairs Specialist di Gentala Institute, serta fasilitator kolaborasi Institut Teknologi PLN dan North China Electric Power University (NCEPU). Pernah menjabat Head of International Business Development di China Film Giant Screen Co., Ltd. dan lulusan B.Com University of Toronto.',
+                    'cn' => '横跨政府事务、能源与基础设施、关键矿产及娱乐科技领域的资深跨境顾问。现任印尼网络安全论坛 (ICSF) 顾问、根塔拉研究所中国部资深专家，并促成印尼国家电力理工学院 (IT PLN) 与华北电力大学 (NCEPU) 国际核电技术合作。曾任中影巨幕国际业务发展总监，毕业于加拿大多伦多大学商学院。'
+                ],
+                'image' => '/images/profiles/james_he.webp',
+                'focus_tags' => ['China Affairs', 'Energy & Infrastructure', 'Project Finance', 'Cyber & Defense Tech', 'Cross-Border Localization'],
+                'socials' => [
+                    'linkedin' => 'https://www.linkedin.com/company/8-vice/',
+                    'instagram' => 'https://www.instagram.com/8viceofficial',
+                    'email' => 'mailto:hello@8vice.com'
+                ],
+                'quote_title' => [
+                    'en' => 'Connecting Industrial Capabilities, Infrastructure Finance & Strategic Technology',
+                    'id' => 'Menghubungkan Kapabilitas Industri, Pembiayaan Infrastruktur & Teknologi Strategis',
+                    'cn' => '连接产业实力、基础设施融资与前沿战略科技合作'
+                ],
+                'quote_message' => [
+                    'en' => [
+                        '“Government, Infrastructure & Critical Resources Experience: Advisor & participant at Indonesia Cyber Security Forum (ICSF); Senior China Affairs Specialist at Gentala Institute China Desk; Air defence strategy & MRO advisor at Indonesian Air Power Study Center (PSAPI); Nuclear technology & international collaboration facilitator between IT PLN and North China Electric Power University (NCEPU); International strategic planning consultant for exoskeleton technology at Beijing Institute of Technology (BIT); and Finance & localization consultant for East Kalimantan Calbar-1 2x100MW Coal Power Plant, Ulaanbaatar tunnel project (China Design Group), and Nalgar Khundii Copper/Gold Mine in Mongolia.”',
+                        '“Entertainment & Global Technology Leadership: Head of International Business Development at China Film Giant Screen Co., Ltd., China Film Group (2010–2023); Board Member of Advanced Imaging Committee, CSMPTE; and technology/marketing advisor for Cinemaxx Indonesia (Karawaci & Medan), Barco America, Deluxe Technicolor Burbank, Pixelogic Media Burbank, and Brenden Theater Group Las Vegas.”',
+                        '“Education & Training: B.Com, University of Toronto (Erindale College Mississauga, Canada); Production & Project Management Training at China Film Group Training Center (2021–2022); Production & Finance Training at China Film Association (2020–2021).”'
+                    ],
+                    'id' => [
+                        '“Pengalaman Pemerintahan, Infrastruktur & Sumber Daya Kritis: Penasihat di Indonesia Cyber Security Forum (ICSF); Senior China Affairs Specialist di Gentala Institute China Desk; Penasihat strategi pertahanan udara & MRO di Indonesian Air Power Study Center (PSAPI); Fasilitator kolaborasi teknologi nuklir antara IT PLN dan North China Electric Power University (NCEPU); Konsultan perencanaan strategis eksoskeleton di Beijing Institute of Technology (BIT); serta Konsultan keuangan & lokalisasi untuk PLTU Calbar-1 2x100MW Kalimantan Timur, proyek terowongan Ulaanbaatar (China Design Group), dan tambang tembaga/emas Nalgar Khundii di Mongolia.”',
+                        '“Kepemimpinan Industri Hiburan & Teknologi: Head of International Business Development di China Film Giant Screen Co., Ltd., China Film Group (2010–2023); Anggota Dewan Advanced Imaging Committee CSMPTE; serta penasihat teknologi dan pemasaran bagi Cinemaxx Indonesia (Karawaci & Medan), Barco America, Deluxe Technicolor Burbank, Pixelogic Media Burbank, dan Brenden Theater Group Las Vegas.”',
+                        '“Pendidikan & Pelatihan: B.Com, University of Toronto (Erindale College Mississauga, Kanada); Pelatihan Produksi & Manajemen Proyek di China Film Group Training Center (2021–2022); Pelatihan Produksi & Keuangan di China Film Association (2020–2021).”'
+                    ],
+                    'cn' => [
+                        '“政府事务、基础设施与关键资源领域经验：印尼网络安全论坛 (ICSF) 顾问；根塔拉研究所 (Gentala Institute) 中国部资深专家；印尼空军力量研究中心 (PSAPI) 防空战略与MRO顾问；印尼国家电力理工学院 (IT PLN) 与华北电力大学 (NCEPU) 核电技术合作促进顾问；北京理工大学 (BIT) 外骨骼技术国际战略规划顾问；加里曼丹 Calbar-1 2x100MW 电厂、乌兰巴托隧道工程及蒙古国 Nalgar Khundii 铜金矿项目融资与本地化顾问。”',
+                        '“文化娱乐与全球科技管理履历：中影巨幕有限公司（中国电影集团）国际业务发展总监 (2010–2023)；中国电影电视技术学会 (CSMPTE) 先进影像专业委员会委员；曾任印尼 Cinemaxx（卡拉瓦奇/棉兰）、美国 Barco America、Deluxe Technicolor、Pixelogic Media 及 Brenden Theater Group 资深技术与营销顾问。”',
+                        '“教育与培训背景：加拿大多伦多大学 (University of Toronto) 商学学士；中国电影集团培训中心制片与项目管理培训；中国电影家协会制片与金融培训。”'
+                    ]
+                ]
+            ],
         ];
     }
 
@@ -749,6 +792,11 @@ class SeedData
                 'en' => "Your Strategic Gateway to Indonesia and China.",
                 'id' => "Gerbang Strategis Anda Menuju Indonesia dan Tiongkok.",
                 'cn' => "连接印尼与中国的战略商业门户。"
+            ],
+            'footer_description' => [
+                'en' => '8 Vice is an Indonesia–China strategic advisory and business development firm helping enterprises navigate market entry, institutional engagement, and bilateral partnerships. With over two decades of cross-border experience, we bridge commercial ambition with practical execution on the ground.',
+                'id' => '8 Vice adalah firma penasihat strategis dan pengembangan bisnis Indonesia–Tiongkok yang mendampingi perusahaan menavigasi masuk pasar, hubungan kelembagaan, dan kemitraan bilateral. Berbekal pengalaman lintas batas lebih dari dua dekade, kami menjembatani ambisi komersial dengan eksekusi nyata di lapangan.',
+                'cn' => '8 Vice 是一家专注于印尼与中国的双边战略咨询及业务拓展机构，致力于协助企业把握市场准入、政企关系与跨境合作机遇。凭借二十余年的双边实战积淀，我们将企业的商业愿景转化为务实高效的本土落地执行。',
             ]
         ];
     }

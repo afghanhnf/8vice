@@ -139,14 +139,6 @@ const StreetLamp = ({ x, flip = false }) => {
   );
 };
 
-// Deterministic embers rising inside the gateway beam
-const EMBERS = Array.from({ length: 16 }, (_, i) => ({
-  x: (((i * 37) % 100) - 50) * 0.9,
-  dur: 6 + ((i * 13) % 7),
-  delay: (i * 0.73) % 7,
-  size: 2 + (i % 3),
-}));
-
 /* -------------------------------------------------------------------------- */
 /*  Component                                                                  */
 /* -------------------------------------------------------------------------- */
@@ -244,22 +236,22 @@ export default function HeroGateway({ isId = false }) {
       <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
         <defs>
           <linearGradient id="hg-ink-l" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#0B0C10" />
-            <stop offset="0.62" stopColor="#15161B" />
-            <stop offset="1" stopColor="#33171B" />
+            <stop offset="0" stopColor="#0D0E13" />
+            <stop offset="0.65" stopColor="#16171E" />
+            <stop offset="1" stopColor="#231418" />
           </linearGradient>
           <linearGradient id="hg-ink-r" x1="1" y1="0" x2="0" y2="0">
-            <stop offset="0" stopColor="#0B0C10" />
-            <stop offset="0.62" stopColor="#15161B" />
-            <stop offset="1" stopColor="#33171B" />
+            <stop offset="0" stopColor="#0D0E13" />
+            <stop offset="0.65" stopColor="#16171E" />
+            <stop offset="1" stopColor="#231418" />
           </linearGradient>
           <linearGradient id="hg-far-l" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#17181D" />
-            <stop offset="1" stopColor="#261619" />
+            <stop offset="0" stopColor="#16171D" />
+            <stop offset="1" stopColor="#201518" />
           </linearGradient>
           <linearGradient id="hg-far-r" x1="1" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#17181D" />
-            <stop offset="1" stopColor="#261619" />
+            <stop offset="0" stopColor="#16171D" />
+            <stop offset="1" stopColor="#201518" />
           </linearGradient>
           <linearGradient id="hg-ground" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#101115" />
@@ -313,26 +305,6 @@ export default function HeroGateway({ isId = false }) {
 
       {/* Atmosphere */}
       <div className="hg-sky" aria-hidden="true" />
-      <div className="hg-layer hg-glow-c" style={{ '--d': 0.15 }} aria-hidden="true" />
-
-      {/* Gateway beam */}
-      <div className="hg-beam-wrap" aria-hidden="true">
-        <div className="hg-beam" />
-        <div className="hg-beam-core" />
-        {EMBERS.map((e, i) => (
-          <span
-            key={i}
-            className="hg-ember"
-            style={{
-              left: `calc(50% + ${e.x}px)`,
-              width: e.size,
-              height: e.size,
-              animationDuration: `${e.dur}s`,
-              animationDelay: `${e.delay}s`,
-            }}
-          />
-        ))}
-      </div>
 
       {/* ============================ INDONESIA (left) ============================ */}
       <div className="hg-side hg-side--l" aria-hidden="true">
@@ -626,15 +598,6 @@ export default function HeroGateway({ isId = false }) {
         </h1>
         <p className="hg-kicker">{copy.kicker}</p>
         <p className="hg-sub">{copy.sub}</p>
-        <div className="hg-actions">
-          <a href="#services" className="hg-btn" id="hero-cta-services">
-            <span>{copy.cta}</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-            </svg>
-          </a>
-          <a href="#contact" className="hg-link" id="hero-cta-contact">{copy.link}</a>
-        </div>
       </div>
     </section>
   );
@@ -661,9 +624,10 @@ const HERO_CSS = `
 .hg-sky {
   position: absolute; inset: 0; z-index: 0;
   background:
-    radial-gradient(ellipse 38% 55% at 50% 100%, rgba(230,57,70,0.28) 0%, transparent 70%),
+    radial-gradient(ellipse 36% 42% at 16% 96%, rgba(230,57,70,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 36% 42% at 84% 96%, rgba(230,57,70,0.10) 0%, transparent 70%),
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.035) 0%, transparent 70%),
-    linear-gradient(180deg, #0A0A0C 0%, #0E0D10 60%, #140D0F 100%);
+    linear-gradient(180deg, #0A0A0C 0%, #0D0E12 65%, #110E11 100%);
 }
 
 /* Parallax layer: depth --d (0 = far, 1 = near) */
@@ -676,51 +640,10 @@ const HERO_CSS = `
     0);
 }
 
-.hg-glow-c {
-  z-index: 1;
-  background: radial-gradient(ellipse 22% 48% at 50% 78%, rgba(255,95,70,0.30), transparent 70%);
-  filter: blur(10px);
-}
-
-/* Beam */
-.hg-beam-wrap {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 60%;
-  z-index: 2; pointer-events: none;
-  transform: translate3d(calc(var(--mx) * -8px), calc(var(--sy) * 0.2px), 0);
-}
-.hg-beam, .hg-beam-core {
-  position: absolute; left: 50%; bottom: 0; height: 100%;
-  transform: translateX(-50%);
-}
-.hg-beam {
-  width: clamp(64px, 6.5vw, 116px);
-  background: linear-gradient(to top, #FF6A4A 0%, #E63946 42%, rgba(230,57,70,0.38) 78%, rgba(230,57,70,0) 100%);
-  box-shadow: 0 0 70px 12px rgba(230,57,70,0.32), 0 0 180px 50px rgba(230,57,70,0.16);
-  opacity: 0.92;
-  animation: hgBeam 7s ease-in-out infinite;
-  -webkit-mask-image: linear-gradient(to top, #000 70%, transparent 100%);
-          mask-image: linear-gradient(to top, #000 70%, transparent 100%);
-}
-.hg-beam-core {
-  width: 2px;
-  background: linear-gradient(to top, rgba(255,230,200,0.9), rgba(255,200,170,0) 85%);
-  filter: blur(0.5px);
-}
-.hg-ember {
-  position: absolute; bottom: 6%;
-  border-radius: 50%;
-  background: #FFB08A;
-  box-shadow: 0 0 8px 2px rgba(255,120,80,0.7);
-  opacity: 0;
-  animation-name: hgEmber;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
 /* Sides */
 .hg-side {
   position: absolute; bottom: 0; z-index: 3;
-  width: min(45vw, 780px);
+  width: min(49vw, 820px);
   aspect-ratio: 4 / 3;
   pointer-events: none;
 }
@@ -747,9 +670,9 @@ const HERO_CSS = `
 .hg-mist {
   z-index: 4; pointer-events: none;
   background:
-    radial-gradient(ellipse 30% 22% at 50% 100%, rgba(230,57,70,0.35), transparent 70%),
-    radial-gradient(ellipse 45% 10% at 18% 100%, rgba(40,30,34,0.45), transparent 70%),
-    radial-gradient(ellipse 45% 10% at 82% 100%, rgba(40,30,34,0.45), transparent 70%);
+    radial-gradient(ellipse 46% 14% at 18% 100%, rgba(230,57,70,0.10), transparent 72%),
+    radial-gradient(ellipse 46% 14% at 82% 100%, rgba(230,57,70,0.10), transparent 72%),
+    radial-gradient(ellipse 55% 12% at 50% 100%, rgba(20,22,28,0.45), transparent 70%);
   animation: hgMist 14s ease-in-out infinite alternate;
 }
 .hg-fade {
@@ -780,7 +703,7 @@ const HERO_CSS = `
 .hg-content {
   position: relative; z-index: 8;
   width: 100%; max-width: 980px;
-  padding: clamp(56px, 10vh, 112px) 24px 0;
+  padding: clamp(72px, 12vh, 128px) 24px 0;
   text-align: center;
   transform: translate3d(calc(var(--mx) * 6px), calc(var(--sy) * 0.32px + var(--my) * 4px), 0);
   opacity: calc(1 - var(--sy) / 560);
@@ -803,52 +726,16 @@ const HERO_CSS = `
   margin: 0 0 8px;
   font-size: 11.5px; font-weight: 600;
   letter-spacing: 0.24em; text-transform: uppercase;
-  color: rgba(255,255,255,0.62);
+  color: rgba(255,255,255,0.68);
 }
 .hg-sub {
-  margin: 0 auto 30px; max-width: 520px;
-  font-size: 14px; line-height: 1.6; font-weight: 400;
-  color: rgba(255,255,255,0.58);
+  margin: 0 auto; max-width: 520px;
+  font-size: 14.5px; line-height: 1.65; font-weight: 400;
+  color: rgba(255,255,255,0.64);
 }
-.hg-actions {
-  display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; align-items: center;
-}
-.hg-btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 13px 26px; border-radius: 999px;
-  background: #fff; color: #0A0A0C;
-  font-size: 13.5px; font-weight: 700; letter-spacing: 0.02em;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  transition: background .3s cubic-bezier(.16,1,.3,1), color .3s cubic-bezier(.16,1,.3,1), transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
-}
-.hg-btn svg { transition: transform .25s ease; }
-.hg-btn:hover {
-  background: #E63946; color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 14px 36px rgba(230,57,70,0.45);
-}
-.hg-btn:hover svg { transform: translateX(3px); }
-.hg-btn:focus-visible, .hg-link:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
-.hg-link {
-  position: relative;
-  font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(255,255,255,0.78);
-  padding-bottom: 4px;
-  transition: color .25s ease;
-}
-.hg-link::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
-  background: currentColor; transform-origin: left;
-  transition: transform .35s cubic-bezier(.16,1,.3,1);
-}
-.hg-link:hover { color: #fff; }
-.hg-link:hover::after { transform: scaleX(0.35); }
 
 /* Keyframes */
 @keyframes hgRise  { from { transform: translateY(24px); } to { transform: none; } }
-@keyframes hgUp    { from { transform: translateY(10px); } to { transform: none; } }
-@keyframes hgBeam  { 0%,100% { opacity: .88; } 50% { opacity: 1; } }
-@keyframes hgEmber { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: .9; } 80% { opacity: .5; } 100% { transform: translateY(-46vh); opacity: 0; } }
 @keyframes hgFlicker { 0%,100% { transform: scale(1, 1); } 30% { transform: scale(.96, 1.05); } 60% { transform: scale(1.03, .97); } }
 @keyframes hgPulse { 0%,100% { opacity: .7; } 50% { opacity: 1; } }
 @keyframes hgBlink { 0%,60% { opacity: 1; } 61%,100% { opacity: .25; } }
@@ -867,10 +754,8 @@ const HERO_CSS = `
 @media (max-width: 560px) {
   .hg { min-height: 620px; }
   .hg-side { width: 78vw; opacity: .45; }
-  .hg-actions { flex-direction: column; gap: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hg *, .hg *::before, .hg *::after { animation: none !important; }
-  .hg-ember { display: none; }
 }
 `;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { router, usePage } from '@inertiajs/react';
+import { QRCodeSVG } from 'qrcode.react';
 import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
@@ -424,34 +425,34 @@ export default function Contact() {
               <div className="cnt-eyebrow-pill">
                 <span className="cnt-eyebrow-dot" />
                 {isCn
-                  ? '开启战略对话 · 商业咨询'
+                  ? '开启战略征程 · 跨境商业咨询'
                   : isId
-                  ? 'MULAI PERCAKAPAN · KONSULTASI STRATEGIS'
-                  : 'START A CONVERSATION · STRATEGIC INQUIRY'}
+                  ? 'MULAI PERJALANAN ANDA · KONSULTASI STRATEGIS'
+                  : 'BEGIN YOUR JOURNEY · STRATEGIC ADVISORY'}
               </div>
 
               <h1 className="cnt-hero__title">
                 {isCn ? (
                   <>
-                    开启 <span className="cnt-text-red">战略对话。</span>
+                    携手开启您的下一段 <span className="cnt-text-red">跨境征程。</span>
                   </>
                 ) : isId ? (
                   <>
-                    Mari Mulai <span className="cnt-text-red">Percakapan Strategis.</span>
+                    Mari Mulai Perjalanan <span className="cnt-text-red">Strategis Anda.</span>
                   </>
                 ) : (
                   <>
-                    Let&apos;s Start a <span className="cnt-text-red">Conversation.</span>
+                    Let&apos;s Chart Your Next <span className="cnt-text-red">Journey.</span>
                   </>
                 )}
               </h1>
 
               <p className="cnt-hero__subtitle">
                 {isCn
-                  ? '每一次成功的跨境合作，都始于对市场机遇的深刻洞察。'
+                  ? '每一次卓有成效的跨境开拓，都始于清晰的战略航向与值得信赖的同行伙伴。'
                   : isId
-                  ? 'Setiap kemitraan yang sukses dimulai dari pemahaman yang tepat terhadap peluang.'
-                  : 'Every successful partnership starts with understanding the opportunity.'}
+                  ? 'Setiap langkah ekspansi lintas negara yang berdampak dimulai dari arah yang jelas dan mitra yang tepat.'
+                  : 'Every enduring cross-border venture begins with clear direction and the right partner beside you.'}
               </p>
 
               {/* Quick Direct Communication Pills */}
@@ -480,9 +481,88 @@ export default function Contact() {
                   <span>{cleanEmail}</span>
                 </a>
               </div>
+
+              {/* Channel QR Codes Directly Under Communication Buttons */}
+              <div className="cnt-channel-qr-grid">
+                {/* 1. WhatsApp QR Code (generated from whatsappUrl link) */}
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cnt-channel-qr-card"
+                >
+                  <div className="cnt-channel-qr-frame">
+                    <QRCodeSVG
+                      value={whatsappUrl}
+                      size={128}
+                      level="M"
+                      bgColor="#FFFFFF"
+                      fgColor="#0B0E14"
+                    />
+                  </div>
+                  <div className="cnt-channel-qr-label">
+                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--green" />
+                    <span>{isCn ? 'WhatsApp 扫码咨询' : isId ? 'QR WhatsApp' : 'WhatsApp QR'}</span>
+                  </div>
+                  <span className="cnt-channel-qr-hint">
+                    {isCn ? '扫码直连客服' : isId ? 'Pindai untuk chat langsung' : 'Scan to start WhatsApp chat'}
+                  </span>
+                </a>
+
+                {/* 2. WeChat Official QR Code (existing WeChat QR image) */}
+                <button
+                  type="button"
+                  onClick={() => setIsWechatModalOpen(true)}
+                  className="cnt-channel-qr-card"
+                >
+                  <div className="cnt-channel-qr-frame">
+                    <img
+                      src="/images/wechat.webp"
+                      alt="8 Vice WeChat QR Code"
+                      loading="eager"
+                      decoding="sync"
+                      onError={(e) => {
+                        if (!e.currentTarget.dataset.fallback) {
+                          e.currentTarget.dataset.fallback = 'true';
+                          e.currentTarget.src = '/images/wechat.jpeg';
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="cnt-channel-qr-label">
+                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--wechat" />
+                    <span>{isCn ? '微信二维码' : isId ? 'QR WeChat Resmi' : 'WeChat QR'}</span>
+                  </div>
+                  <span className="cnt-channel-qr-hint">
+                    {isCn ? '微信号: eightvice' : 'ID: eightvice'}
+                  </span>
+                </button>
+
+                {/* 3. Email QR Code (generated from mailto: link) */}
+                <a
+                  href={emailHref}
+                  className="cnt-channel-qr-card"
+                >
+                  <div className="cnt-channel-qr-frame">
+                    <QRCodeSVG
+                      value={emailHref}
+                      size={128}
+                      level="M"
+                      bgColor="#FFFFFF"
+                      fgColor="#0B0E14"
+                    />
+                  </div>
+                  <div className="cnt-channel-qr-label">
+                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--red" />
+                    <span>{isCn ? '邮件直达二维码' : isId ? 'QR Email' : 'Email QR'}</span>
+                  </div>
+                  <span className="cnt-channel-qr-hint">{cleanEmail}</span>
+                </a>
+              </div>
             </div>
 
-            {/* Panoramic Image with Lead Statement Inside */}
+            {/* Panoramic Image with Lead Statement Inside (hidden per request) */}
+            {false && (
             <div className="cnt-hero__showcase m3-reveal m3-reveal--scale" style={{ transitionDelay: '120ms' }}>
               <div className="cnt-hero__image-frame">
                 <img
@@ -519,6 +599,7 @@ export default function Contact() {
                 </div>
               </div>
             </div>
+            )}
           </div>
         </section>
 
@@ -675,7 +756,8 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* 2. 3-Step Consultation Process Card */}
+                {/* 2. 3-Step Consultation Process Card (hidden) */}
+                {false && (
                 <div className="cnt-steps-card m3-reveal m3-reveal--left" style={{ transitionDelay: '90ms' }}>
                   <div className="cnt-kicker">
                     {isCn ? '后续服务流程' : isId ? 'TAHAPAN TINDAK LANJUT' : 'WHAT HAPPENS NEXT'}
@@ -692,6 +774,7 @@ export default function Contact() {
                     ))}
                   </div>
                 </div>
+                )}
 
                 {/* 3. Map Card */}
                 <div className="cnt-map-card m3-reveal m3-reveal--left" style={{ transitionDelay: '150ms' }}>
@@ -1267,7 +1350,7 @@ export default function Contact() {
         .cnt-hero__header {
           text-align: center;
           max-width: 920px;
-          margin: 0 auto 42px;
+          margin: 0 auto;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -1354,6 +1437,64 @@ export default function Contact() {
         .cnt-channel-pill__dot--red {
           background: #E63946;
           box-shadow: 0 0 8px #E63946;
+        }
+        .cnt-channel-qr-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(175px, 210px));
+          justify-content: center;
+          gap: 18px;
+          margin-top: 24px;
+          width: 100%;
+        }
+        .cnt-channel-qr-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 16px 14px 14px;
+          border-radius: 18px;
+          background: rgba(15, 18, 26, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.11);
+          color: #ffffff;
+          text-decoration: none;
+          cursor: pointer;
+          transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+          font-family: inherit;
+        }
+        .cnt-channel-qr-card:hover {
+          transform: translateY(-3px);
+          border-color: rgba(230, 57, 70, 0.5);
+          box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+        }
+        .cnt-channel-qr-frame {
+          background: #ffffff;
+          padding: 10px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 12px;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        }
+        .cnt-channel-qr-frame img,
+        .cnt-channel-qr-frame svg {
+          width: 128px;
+          height: 128px;
+          display: block;
+          object-fit: contain;
+        }
+        .cnt-channel-qr-label {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          font-size: 13px;
+          font-weight: 700;
+          color: #ffffff;
+          margin-bottom: 3px;
+        }
+        .cnt-channel-qr-hint {
+          font-size: 11.5px;
+          color: rgba(255, 255, 255, 0.62);
+          word-break: break-all;
         }
 
         /* Panoramic Showcase */
@@ -2065,7 +2206,8 @@ export default function Contact() {
           }
           .cnt-form-row,
           .cnt-dir-grid,
-          .cnt-direct-box__btns {
+          .cnt-direct-box__btns,
+          .cnt-channel-qr-grid {
             grid-template-columns: 1fr;
           }
         }

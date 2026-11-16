@@ -4,7 +4,7 @@ import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import { ServiceIcon, Arrow } from '@/Components/InnerBlocks';
 import { useTranslation } from '@/Contexts/TranslationContext';
-import { getServices, getProcessSteps } from '@/data/services';
+import { getServices } from '@/data/services';
 
 /* -------------------------------------------------------------------------- */
 /*  Animated Modern City Skyline & Architectural Grid Background SVG          */
@@ -143,31 +143,6 @@ export default function Services({ services: cmsServices = [] }) {
       detailImage: dbSvc.detail_image || baseSvc.detailImage,
     };
   });
-  const processSteps = getProcessSteps(lang);
-
-  // Google Material Design 3 (M3) Scroll Transition Observer
-  useEffect(() => {
-    const elements = document.querySelectorAll('.m3-reveal');
-    if (!('IntersectionObserver' in window)) {
-      elements.forEach((el) => el.classList.add('is-visible'));
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -36px 0px' }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [lang]);
-
   const copy = isCn
     ? {
         home: '首页',
@@ -181,8 +156,44 @@ export default function Services({ services: cmsServices = [] }) {
         gridTitle: '赋能跨境增长的整合能力',
         gridLead: '选择一项服务以了解我们的方法论、支持范围与工作流程。',
         learnMore: '查看服务详情',
-        processKicker: '02 · 我们的工作流程',
-        processTitle: '我们的跨境工作流程',
+        approachEyebrow: '我们的战略方法论',
+        approachTitle: '从深度市场理解到可落地的商业成果。',
+        approachLead:
+          '每一项跨境商业机遇都伴随着独特的挑战。我们的五阶段方法论旨在协助客户清晰厘定自身目标、战略优先级与务实的下一步行动。',
+        approachSteps: [
+          {
+            num: '01',
+            title: 'Understand',
+            sub: '洞察需求与背景',
+            desc: '我们首先深入了解客户的业务现状、跨境扩张目标、目标细分市场及面临的具体商业痛点。'
+          },
+          {
+            num: '02',
+            title: 'Assess',
+            sub: '评估市场与生态',
+            desc: '我们全面评估相关市场环境、利益相关方格局、潜在商业机遇以及可能的市场准入壁垒。'
+          },
+          {
+            num: '03',
+            title: 'Strategize',
+            sub: '定制战略路线图',
+            desc: '我们量身制定涵盖市场定位、合作伙伴筛选标准、政企沟通策略与实操行动步骤的方案。'
+          },
+          {
+            num: '04',
+            title: 'Connect',
+            sub: '精准引荐与对接',
+            desc: '在适当时机，我们促成客户与目标市场相关企业、政府机构及潜在战略合作伙伴的高层引荐与互动。'
+          },
+          {
+            num: '05',
+            title: 'Develop',
+            sub: '持续推进与落地',
+            desc: '我们根据约定的工作范围，持续支持会后跟进协调、合作条款洽谈以及项目的深入推进。'
+          }
+        ],
+        approachNote:
+          '我们的方法论均根据每位客户的具体需求量身定制。项目范围、交付成果及实施权责均在每次合作启动前由双方明确商定。',
         ctaEyebrow: '开启对话',
         ctaTitle: '正在寻找量身定制的战略咨询合作？',
         ctaDesc:
@@ -203,8 +214,44 @@ export default function Services({ services: cmsServices = [] }) {
         gridTitle: 'Kapabilitas Terpadu untuk Pertumbuhan Lintas Batas',
         gridLead: 'Pilih layanan untuk melihat pendekatan, ruang lingkup dukungan, dan cara kami bekerja.',
         learnMore: 'Lihat Detail Layanan',
-        processKicker: '02 · CARA KAMI BEKERJA',
-        processTitle: 'Metodologi Kerja Lintas Negara',
+        approachEyebrow: 'PENDEKATAN STRATEGIS KAMI',
+        approachTitle: 'Dari Pemahaman Pasar Menuju Peluang Bisnis Nyata.',
+        approachLead:
+          'Setiap peluang lintas negara memiliki tantangan yang berbeda. Pendekatan 5 tahap kami dirancang untuk membantu klien melangkah dengan pemahaman yang jernih mengenai tujuan, prioritas, dan langkah selanjutnya.',
+        approachSteps: [
+          {
+            num: '01',
+            title: 'Understand',
+            sub: 'Memahami Tujuan',
+            desc: 'Kami memulai dengan memahami bisnis klien, sasaran ekspansi, target pasar, serta tantangan spesifik yang dihadapi.'
+          },
+          {
+            num: '02',
+            title: 'Assess',
+            sub: 'Mengkaji Pasar',
+            desc: 'Kami mengevaluasi kondisi pasar yang relevan, lanskap pemangku kepentingan, potensi peluang, serta kemungkinan hambatan masuk.'
+          },
+          {
+            num: '03',
+            title: 'Strategize',
+            sub: 'Merumuskan Strategi',
+            desc: 'Kami menyusun pendekatan khusus yang mencakup market positioning, prioritas kemitraan, strategi keterlibatan, dan langkah praktis berikutnya.'
+          },
+          {
+            num: '04',
+            title: 'Connect',
+            sub: 'Menghubungkan Mitra',
+            desc: 'Bila relevan, kami memfasilitasi perkenalan dan keterlibatan dengan pelaku bisnis, institusi, serta calon mitra strategis yang tepat.'
+          },
+          {
+            num: '05',
+            title: 'Develop',
+            sub: 'Mengembangkan Kolaborasi',
+            desc: 'Kami mendukung koordinasi tindak lanjut, diskusi kemitraan, dan pengembangan proyek berdasarkan ruang lingkup kerja yang disepakati.'
+          }
+        ],
+        approachNote:
+          'Pendekatan kami disesuaikan dengan kebutuhan setiap klien. Ruang lingkup, hasil kerja (deliverables), dan tanggung jawab implementasi disepakati bersama di awal setiap penugasan.',
         ctaEyebrow: 'MULAI DISKUSI STRATEGIS',
         ctaTitle: 'Butuh Pendekatan Khusus untuk Kebutuhan Bisnis Anda?',
         ctaDesc:
@@ -224,8 +271,44 @@ export default function Services({ services: cmsServices = [] }) {
         gridTitle: 'Integrated Capabilities for Cross-Border Growth',
         gridLead: 'Select a service to see our approach, scope of support, and how we work.',
         learnMore: 'View Service Details',
-        processKicker: '02 · HOW WE WORK',
-        processTitle: 'Our Cross-Border Process',
+        approachEyebrow: 'OUR STRATEGIC APPROACH',
+        approachTitle: 'From Market Understanding to Business Opportunities.',
+        approachLead:
+          'Every cross-border opportunity comes with different challenges. Our five-stage methodology is designed to help clients move through the process with a clear understanding of their objectives, priorities, and next steps.',
+        approachSteps: [
+          {
+            num: '01',
+            title: 'Understand',
+            sub: 'Client Objectives & Context',
+            desc: "We begin by understanding the client's business, expansion objectives, target market, and specific challenges."
+          },
+          {
+            num: '02',
+            title: 'Assess',
+            sub: 'Market & Stakeholder Landscape',
+            desc: 'We evaluate relevant market conditions, stakeholder landscapes, potential opportunities, and possible barriers to entry.'
+          },
+          {
+            num: '03',
+            title: 'Strategize',
+            sub: 'Tailored Action Roadmap',
+            desc: 'We develop a tailored approach covering market positioning, partnership priorities, engagement strategies, and practical next steps.'
+          },
+          {
+            num: '04',
+            title: 'Connect',
+            sub: 'Curated Introductions',
+            desc: 'Where appropriate, we facilitate introductions and engagement with relevant businesses, institutions, and potential strategic partners.'
+          },
+          {
+            num: '05',
+            title: 'Develop',
+            sub: 'Execution & Follow-Through',
+            desc: 'We support follow-up coordination, partnership discussions, and project development based on the agreed scope of work.'
+          }
+        ],
+        approachNote:
+          'Our approach is tailored to the needs of each client. The scope, deliverables, and implementation responsibilities are agreed upon at the beginning of every engagement.',
         ctaEyebrow: 'START A CONVERSATION',
         ctaTitle: 'Looking for a Tailored Advisory Engagement?',
         ctaDesc:
@@ -653,7 +736,7 @@ export default function Services({ services: cmsServices = [] }) {
         </section>
 
         {/* ========================================================================= */}
-        {/* 02 · HOW WE WORK (5-STEP CONNECTED ROADMAP)                               */}
+        {/* OUR STRATEGIC APPROACH (5-STAGE CONNECTED ROADMAP, MOVED FROM ABOUT US)    */}
         {/* ========================================================================= */}
         <section
           style={{
@@ -664,13 +747,13 @@ export default function Services({ services: cmsServices = [] }) {
             borderBottom: '1px solid rgba(255, 255, 255, 0.07)'
           }}
         >
-          <ModernCityBg opacity={0.28} />
+          <ModernCityBg opacity={0.28} flip />
 
           <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-            <div className="m3-reveal" style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 60px' }}>
+            <div className="m3-reveal" style={{ textAlign: 'center', maxWidth: '860px', margin: '0 auto 64px' }}>
               <div className="svc-eyebrow-pill">
                 <span className="svc-eyebrow-dot" />
-                <span>{copy.processKicker}</span>
+                <span>{copy.approachEyebrow}</span>
               </div>
               <h2
                 style={{
@@ -679,20 +762,32 @@ export default function Services({ services: cmsServices = [] }) {
                   lineHeight: 1.15,
                   letterSpacing: '-0.025em',
                   color: '#FFFFFF',
+                  margin: '0 0 18px'
+                }}
+              >
+                {copy.approachTitle}
+              </h2>
+              <p
+                style={{
+                  fontSize: '16.5px',
+                  lineHeight: 1.7,
+                  color: 'rgba(255, 255, 255, 0.72)',
                   margin: 0
                 }}
               >
-                {copy.processTitle}
-              </h2>
+                {copy.approachLead}
+              </p>
             </div>
 
+            {/* 5-Stage Connected Roadmap */}
             <div className="svc-roadmap-grid">
-              {processSteps.map((step, idx) => (
+              {copy.approachSteps.map((step, idx) => (
                 <div
                   key={step.num}
                   className={`m3-reveal m3-delay-${idx + 1}`}
                   style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column' }}
                 >
+                  {/* Top Glowing Node + Connector Line */}
                   <div style={{ position: 'relative', display: 'flex', alignItems: 'center', marginBottom: '22px' }}>
                     <div
                       style={{
@@ -716,7 +811,7 @@ export default function Services({ services: cmsServices = [] }) {
                       {step.num}
                     </div>
 
-                    {idx < processSteps.length - 1 && (
+                    {idx < copy.approachSteps.length - 1 && (
                       <div
                         className="svc-roadmap-connector"
                         style={{
@@ -733,6 +828,7 @@ export default function Services({ services: cmsServices = [] }) {
                     )}
                   </div>
 
+                  {/* Step Card */}
                   <div
                     className="svc-glass-card"
                     style={{
@@ -742,16 +838,28 @@ export default function Services({ services: cmsServices = [] }) {
                       flexDirection: 'column'
                     }}
                   >
+                    <div
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        letterSpacing: '0.08em',
+                        color: '#FF7B7B',
+                        textTransform: 'uppercase',
+                        marginBottom: '6px'
+                      }}
+                    >
+                      {step.sub}
+                    </div>
                     <h3
                       style={{
-                        fontSize: '20px',
+                        fontSize: '21px',
                         fontWeight: 800,
                         color: '#FFFFFF',
-                        margin: '0 0 10px',
+                        margin: '0 0 12px',
                         letterSpacing: '-0.01em'
                       }}
                     >
-                      {step.name}
+                      {step.title}
                     </h3>
                     <p
                       style={{
@@ -766,6 +874,28 @@ export default function Services({ services: cmsServices = [] }) {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Governance & Scope Footnote Banner */}
+            <div
+              className="m3-reveal"
+              style={{
+                marginTop: '36px',
+                padding: '18px 26px',
+                borderRadius: '14px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                justifyContent: 'center',
+                textAlign: 'center'
+              }}
+            >
+              <span style={{ color: '#E63946', fontSize: '16px', flexShrink: 0 }}>&#9679;</span>
+              <span style={{ fontSize: '13.5px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: 1.6 }}>
+                {copy.approachNote}
+              </span>
             </div>
           </div>
         </section>

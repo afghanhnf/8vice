@@ -76,11 +76,30 @@ class HandleInertiaRequests extends Middleware
 
         $siteSettings = null;
         $pageSeos = [];
+        $footerInsights = [];
         try {
             $siteSettings = \App\Models\SiteSetting::first();
             $pageSeos = \App\Models\PageSeo::all()->keyBy('page_code');
+            $footerInsights = \App\Models\Insight::published()
+                ->orderBy('id', 'desc')
+                ->take(5)
+                ->get(['id', 'slug', 't', 't_i18n', 'cat'])
+                ->toArray();
         } catch (\Throwable $e) {
             // Fallback gracefully if tables are not migrated yet
+        }
+
+        if (empty($footerInsights)) {
+            $footerInsights = collect(\App\Helpers\SeedData::getInsights())
+                ->take(5)
+                ->map(fn ($item) => [
+                    'slug' => $item->slug ?? ($item['slug'] ?? ''),
+                    't' => $item->t ?? ($item['t'] ?? ''),
+                    't_i18n' => $item->t_i18n ?? ($item['t_i18n'] ?? null),
+                    'cat' => $item->cat ?? ($item['cat'] ?? ''),
+                ])
+                ->values()
+                ->all();
         }
 
         return [
@@ -91,7 +110,12 @@ class HandleInertiaRequests extends Middleware
             ],
             'siteSettings' => $siteSettings ?: \App\Helpers\SeedData::getSiteSettings(),
             'pageSeos' => $pageSeos,
+            'footerInsights' => $footerInsights,
             'appUrl' => rtrim(config('app.url') && !str_contains(config('app.url'), 'localhost') ? config('app.url') : ($request->getSchemeAndHttpHost() ?: env('APP_URL', 'https://8vice.communic8.id')), '/'),
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
+            ],
         ];
     }
 }
