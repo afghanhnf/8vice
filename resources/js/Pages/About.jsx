@@ -2855,7 +2855,7 @@ export default function About({ profiles = [] }) {
                   <div>
                     <div className="about-person-photo-wrap">
                       <img
-                        src={person.photo}
+                        src={person.photo && person.photo.includes('?') ? person.photo : `${person.photo}?v=20261117`}
                         alt={person.fullName}
                         className="about-person-img is-loaded"
                         loading="eager"
