@@ -143,6 +143,46 @@ export default function Services({ services: cmsServices = [] }) {
       detailImage: dbSvc.detail_image || baseSvc.detailImage,
     };
   });
+
+  // Google Material Design 3 (M3) Scroll Transition Observer
+  useEffect(() => {
+    const elements = document.querySelectorAll('.m3-reveal');
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach((el) => el.classList.add('is-visible'));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -24px 0px' }
+    );
+
+    elements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.95) {
+        el.classList.add('is-visible');
+      } else {
+        observer.observe(el);
+      }
+    });
+
+    const fallbackTimer = setTimeout(() => {
+      elements.forEach((el) => el.classList.add('is-visible'));
+    }, 900);
+
+    return () => {
+      clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
+  }, [lang]);
+
   const copy = isCn
     ? {
         home: '首页',
@@ -152,7 +192,7 @@ export default function Services({ services: cmsServices = [] }) {
         heroTitleLine2: '推动商业前行的伙伴关系。',
         heroLead:
           '我们提供综合性的战略咨询与跨境业务拓展服务，旨在协助企业进入新市场、建立战略关系，并挖掘印度尼西亚与中国的增长机遇。',
-        gridKicker: '01 · 6 大服务支柱',
+        gridKicker: '6 大服务支柱',
         gridTitle: '赋能跨境增长的整合能力',
         gridLead: '选择一项服务以了解我们的方法论、支持范围与工作流程。',
         learnMore: '查看服务详情',
@@ -210,7 +250,7 @@ export default function Services({ services: cmsServices = [] }) {
         heroTitleLine2: 'Kemitraan yang Menggerakkan Bisnis Maju.',
         heroLead:
           'Kami menyediakan layanan konsultasi strategis terpadu dan pengembangan bisnis lintas negara yang dirancang untuk membantu organisasi memasuki pasar baru, membangun relasi strategis, dan membuka peluang pertumbuhan di Indonesia dan Tiongkok.',
-        gridKicker: '01 · 6 PILAR LAYANAN',
+        gridKicker: '6 PILAR LAYANAN',
         gridTitle: 'Kapabilitas Terpadu untuk Pertumbuhan Lintas Batas',
         gridLead: 'Pilih layanan untuk melihat pendekatan, ruang lingkup dukungan, dan cara kami bekerja.',
         learnMore: 'Lihat Detail Layanan',
@@ -267,7 +307,7 @@ export default function Services({ services: cmsServices = [] }) {
         heroTitleLine2: 'Partnerships That Move Business Forward.',
         heroLead:
           'We provide integrated strategic advisory and cross-border business development services designed to help organizations enter new markets, establish strategic relationships, and unlock growth opportunities across Indonesia and China.',
-        gridKicker: '01 · 6 SERVICE PILLARS',
+        gridKicker: '6 SERVICE PILLARS',
         gridTitle: 'Integrated Capabilities for Cross-Border Growth',
         gridLead: 'Select a service to see our approach, scope of support, and how we work.',
         learnMore: 'View Service Details',
