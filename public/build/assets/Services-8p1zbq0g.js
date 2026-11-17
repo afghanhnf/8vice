@@ -1,0 +1,137 @@
+import{d as e,l as t,n,t as r}from"./app-CmpnZ5Zj.js";import{t as i}from"./SeoHead-D-EYKz_L.js";import{t as a}from"./LocalizedLink-CA12B5X8.js";import{i as o,t as s}from"./MainLayout-C5-B4DEU.js";import{n as c}from"./InnerBlocks-CuzDMwbW.js";var l=e(t(),1),u=n();function d({opacity:e=.26,flip:t=!1}){return(0,u.jsxs)(`div`,{"aria-hidden":`true`,style:{position:`absolute`,inset:0,pointerEvents:`none`,zIndex:0,overflow:`hidden`},children:[(0,u.jsx)(`div`,{style:{position:`absolute`,inset:0,backgroundSize:`56px 56px`,backgroundImage:`linear-gradient(to right, rgba(255, 255, 255, 0.038) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.038) 1px, transparent 1px)`,maskImage:`radial-gradient(ellipse 85% 70% at 50% 45%, #000 35%, transparent 100%)`,WebkitMaskImage:`radial-gradient(ellipse 85% 70% at 50% 45%, #000 35%, transparent 100%)`}}),(0,u.jsx)(`div`,{style:{position:`absolute`,inset:0,backgroundImage:`radial-gradient(rgba(230, 57, 70, 0.38) 1.25px, transparent 1.25px)`,backgroundSize:`56px 56px`,backgroundPosition:`-0.6px -0.6px`,maskImage:`radial-gradient(ellipse 70% 55% at 50% 50%, #000 25%, transparent 90%)`,WebkitMaskImage:`radial-gradient(ellipse 70% 55% at 50% 50%, #000 25%, transparent 90%)`,opacity:.65}}),(0,u.jsxs)(`svg`,{viewBox:`0 0 1440 320`,preserveAspectRatio:`none`,style:{position:`absolute`,bottom:0,left:0,width:`100%`,height:`280px`,opacity:e,transform:t?`scaleX(-1)`:`none`},children:[(0,u.jsxs)(`defs`,{children:[(0,u.jsxs)(`linearGradient`,{id:`svcIdxCityFade`,x1:`0`,y1:`0`,x2:`0`,y2:`1`,children:[(0,u.jsx)(`stop`,{offset:`0%`,stopColor:`rgba(230, 57, 70, 0.32)`}),(0,u.jsx)(`stop`,{offset:`50%`,stopColor:`rgba(255, 255, 255, 0.08)`}),(0,u.jsx)(`stop`,{offset:`100%`,stopColor:`rgba(8, 9, 12, 0.0)`})]}),(0,u.jsxs)(`linearGradient`,{id:`svcIdxCityStroke`,x1:`0`,y1:`0`,x2:`1`,y2:`0`,children:[(0,u.jsx)(`stop`,{offset:`0%`,stopColor:`rgba(255,255,255,0.04)`}),(0,u.jsx)(`stop`,{offset:`30%`,stopColor:`rgba(230,57,70,0.45)`}),(0,u.jsx)(`stop`,{offset:`50%`,stopColor:`rgba(255,255,255,0.22)`}),(0,u.jsx)(`stop`,{offset:`70%`,stopColor:`rgba(230,57,70,0.45)`}),(0,u.jsx)(`stop`,{offset:`100%`,stopColor:`rgba(255,255,255,0.04)`})]})]}),(0,u.jsx)(`path`,{d:`M0,320 L0,250 L45,250 L45,195 L85,195 L85,235 L115,235 L115,140 L140,105 L165,140 L165,240 L205,240 L205,170 L255,170 L255,220 L290,220 L290,120 L310,120 L310,75 L314,75 L314,120 L335,120 L335,230 L380,230 L380,180 L430,180 L430,245 L480,245 L480,150 L530,130 L530,235 L580,235 L580,190 L635,190 L635,250 L690,250 L690,165 L715,115 L740,165 L740,245 L790,245 L790,145 L840,145 L840,225 L885,225 L885,95 L910,60 L935,95 L935,230 L980,230 L980,160 L1035,160 L1035,215 L1085,215 L1085,125 L1140,125 L1140,235 L1190,235 L1190,175 L1245,175 L1245,220 L1295,220 L1295,150 L1350,150 L1350,240 L1400,240 L1400,200 L1440,200 L1440,320 Z`,fill:`url(#svcIdxCityFade)`,stroke:`url(#svcIdxCityStroke)`,strokeWidth:`1.2`}),(0,u.jsx)(`line`,{x1:`0`,y1:`265`,x2:`1440`,y2:`265`,stroke:`rgba(230, 57, 70, 0.28)`,strokeWidth:`1`,strokeDasharray:`8 12`,className:`svc-city-stream`}),(0,u.jsx)(`line`,{x1:`0`,y1:`290`,x2:`1440`,y2:`290`,stroke:`rgba(255, 255, 255, 0.1)`,strokeWidth:`1`,strokeDasharray:`4 18`,className:`svc-city-stream-reverse`}),(0,u.jsx)(`circle`,{cx:`140`,cy:`105`,r:`3`,fill:`#E63946`,className:`svc-city-beacon`}),(0,u.jsx)(`circle`,{cx:`312`,cy:`75`,r:`3.5`,fill:`#FF6B76`,className:`svc-city-beacon`}),(0,u.jsx)(`circle`,{cx:`530`,cy:`130`,r:`2.5`,fill:`#E63946`,className:`svc-city-beacon`}),(0,u.jsx)(`circle`,{cx:`715`,cy:`115`,r:`3`,fill:`#FF6B76`,className:`svc-city-beacon`}),(0,u.jsx)(`circle`,{cx:`910`,cy:`60`,r:`3.5`,fill:`#E63946`,className:`svc-city-beacon`}),(0,u.jsx)(`circle`,{cx:`1112`,cy:`125`,r:`2.5`,fill:`#FF6B76`,className:`svc-city-beacon`})]})]})}function f({services:e=[]}){let{lang:t}=r(),n=t===`id`,f=t===`cn`,p=o(t),m=(e,n=``)=>e?typeof e==`string`?e:typeof e==`object`&&(e[t]||e.en||e.id||e.cn)||n:n,h=p.map((t,n)=>{let r=Array.isArray(e)?e.find(e=>e.slug===t.id)||e[n]:null;return r?{...t,title:m(r.title_i18n||r.title,t.title),headline:m(r.headline_i18n||r.headline,t.headline),summary:m(r.description_i18n||r.description||r.summary,t.summary),heroImage:r.image||r.hero_image||t.heroImage,detailImage:r.detail_image||t.detailImage}:t});(0,l.useEffect)(()=>{let e=document.querySelectorAll(`.m3-reveal`);if(!(`IntersectionObserver`in window)){e.forEach(e=>e.classList.add(`is-visible`));return}let t=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`is-visible`),t.unobserve(e.target))})},{threshold:.08,rootMargin:`0px 0px -24px 0px`});e.forEach(e=>{e.getBoundingClientRect().top<window.innerHeight*.95?e.classList.add(`is-visible`):t.observe(e)});let n=setTimeout(()=>{e.forEach(e=>e.classList.add(`is-visible`))},900);return()=>{clearTimeout(n),t.disconnect()}},[t]);let g=f?{home:`首页`,breadcrumb:`我们的服务`,eyebrow:`核心能力 · 战略咨询`,heroTitleLine1:`赋能连接的战略。`,heroTitleLine2:`推动商业前行的伙伴关系。`,heroLead:`我们提供综合性的战略咨询与跨境业务拓展服务，旨在协助企业进入新市场、建立战略关系，并挖掘印度尼西亚与中国的增长机遇。`,gridKicker:`6 大服务支柱`,gridTitle:`赋能跨境增长的整合能力`,gridLead:`选择一项服务以了解我们的方法论、支持范围与工作流程。`,learnMore:`查看服务详情`,approachEyebrow:`我们的战略方法论`,approachTitle:`从深度市场理解到可落地的商业成果。`,approachLead:`每一项跨境商业机遇都伴随着独特的挑战。我们的五阶段方法论旨在协助客户清晰厘定自身目标、战略优先级与务实的下一步行动。`,approachSteps:[{num:`01`,title:`Understand`,sub:`洞察需求与背景`,desc:`我们首先深入了解客户的业务现状、跨境扩张目标、目标细分市场及面临的具体商业痛点。`},{num:`02`,title:`Assess`,sub:`评估市场与生态`,desc:`我们全面评估相关市场环境、利益相关方格局、潜在商业机遇以及可能的市场准入壁垒。`},{num:`03`,title:`Strategize`,sub:`定制战略路线图`,desc:`我们量身制定涵盖市场定位、合作伙伴筛选标准、政企沟通策略与实操行动步骤的方案。`},{num:`04`,title:`Connect`,sub:`精准引荐与对接`,desc:`在适当时机，我们促成客户与目标市场相关企业、政府机构及潜在战略合作伙伴的高层引荐与互动。`},{num:`05`,title:`Develop`,sub:`持续推进与落地`,desc:`我们根据约定的工作范围，持续支持会后跟进协调、合作条款洽谈以及项目的深入推进。`}],approachNote:`我们的方法论均根据每位客户的具体需求量身定制。项目范围、交付成果及实施权责均在每次合作启动前由双方明确商定。`,ctaEyebrow:`开启对话`,ctaTitle:`正在寻找量身定制的战略咨询合作？`,ctaDesc:`每一个跨境项目均围绕您的特定市场优先级与商业目标量身构建。欢迎与我们的团队沟通，明确您的合作范围。`,ctaPrimary:`探讨您的商业目标`,ctaSecondary:`探索印中战略门户`}:n?{home:`Beranda`,breadcrumb:`Layanan Kami`,eyebrow:`KAPABILITAS INTI · KONSULTASI STRATEGIS`,heroTitleLine1:`Strategi yang Menghubungkan.`,heroTitleLine2:`Kemitraan yang Menggerakkan Bisnis Maju.`,heroLead:`Kami menyediakan layanan konsultasi strategis terpadu dan pengembangan bisnis lintas negara yang dirancang untuk membantu organisasi memasuki pasar baru, membangun relasi strategis, dan membuka peluang pertumbuhan di Indonesia dan Tiongkok.`,gridKicker:`6 PILAR LAYANAN`,gridTitle:`Kapabilitas Terpadu untuk Pertumbuhan Lintas Batas`,gridLead:`Pilih layanan untuk melihat pendekatan, ruang lingkup dukungan, dan cara kami bekerja.`,learnMore:`Lihat Detail Layanan`,approachEyebrow:`PENDEKATAN STRATEGIS KAMI`,approachTitle:`Dari Pemahaman Pasar Menuju Peluang Bisnis Nyata.`,approachLead:`Setiap peluang lintas negara memiliki tantangan yang berbeda. Pendekatan 5 tahap kami dirancang untuk membantu klien melangkah dengan pemahaman yang jernih mengenai tujuan, prioritas, dan langkah selanjutnya.`,approachSteps:[{num:`01`,title:`Understand`,sub:`Memahami Tujuan`,desc:`Kami memulai dengan memahami bisnis klien, sasaran ekspansi, target pasar, serta tantangan spesifik yang dihadapi.`},{num:`02`,title:`Assess`,sub:`Mengkaji Pasar`,desc:`Kami mengevaluasi kondisi pasar yang relevan, lanskap pemangku kepentingan, potensi peluang, serta kemungkinan hambatan masuk.`},{num:`03`,title:`Strategize`,sub:`Merumuskan Strategi`,desc:`Kami menyusun pendekatan khusus yang mencakup market positioning, prioritas kemitraan, strategi keterlibatan, dan langkah praktis berikutnya.`},{num:`04`,title:`Connect`,sub:`Menghubungkan Mitra`,desc:`Bila relevan, kami memfasilitasi perkenalan dan keterlibatan dengan pelaku bisnis, institusi, serta calon mitra strategis yang tepat.`},{num:`05`,title:`Develop`,sub:`Mengembangkan Kolaborasi`,desc:`Kami mendukung koordinasi tindak lanjut, diskusi kemitraan, dan pengembangan proyek berdasarkan ruang lingkup kerja yang disepakati.`}],approachNote:`Pendekatan kami disesuaikan dengan kebutuhan setiap klien. Ruang lingkup, hasil kerja (deliverables), dan tanggung jawab implementasi disepakati bersama di awal setiap penugasan.`,ctaEyebrow:`MULAI DISKUSI STRATEGIS`,ctaTitle:`Butuh Pendekatan Khusus untuk Kebutuhan Bisnis Anda?`,ctaDesc:`Setiap penugasan dirancang sesuai sasaran, target industri, dan prioritas ekspansi Anda. Mari diskusikan bagaimana 8 Vice dapat mendukung langkah strategis Anda.`,ctaPrimary:`Jadwalkan Diskusi Strategis`,ctaSecondary:`Lihat Gerbang Indonesia–China`}:{home:`Home`,breadcrumb:`Our Services`,eyebrow:`CORE CAPABILITIES · STRATEGIC ADVISORY`,heroTitleLine1:`Strategy That Connects.`,heroTitleLine2:`Partnerships That Move Business Forward.`,heroLead:`We provide integrated strategic advisory and cross-border business development services designed to help organizations enter new markets, establish strategic relationships, and unlock growth opportunities across Indonesia and China.`,gridKicker:`6 SERVICE PILLARS`,gridTitle:`Integrated Capabilities for Cross-Border Growth`,gridLead:`Select a service to see our approach, scope of support, and how we work.`,learnMore:`View Service Details`,approachEyebrow:`OUR STRATEGIC APPROACH`,approachTitle:`From Market Understanding to Business Opportunities.`,approachLead:`Every cross-border opportunity comes with different challenges. Our five-stage methodology is designed to help clients move through the process with a clear understanding of their objectives, priorities, and next steps.`,approachSteps:[{num:`01`,title:`Understand`,sub:`Client Objectives & Context`,desc:`We begin by understanding the client's business, expansion objectives, target market, and specific challenges.`},{num:`02`,title:`Assess`,sub:`Market & Stakeholder Landscape`,desc:`We evaluate relevant market conditions, stakeholder landscapes, potential opportunities, and possible barriers to entry.`},{num:`03`,title:`Strategize`,sub:`Tailored Action Roadmap`,desc:`We develop a tailored approach covering market positioning, partnership priorities, engagement strategies, and practical next steps.`},{num:`04`,title:`Connect`,sub:`Curated Introductions`,desc:`Where appropriate, we facilitate introductions and engagement with relevant businesses, institutions, and potential strategic partners.`},{num:`05`,title:`Develop`,sub:`Execution & Follow-Through`,desc:`We support follow-up coordination, partnership discussions, and project development based on the agreed scope of work.`}],approachNote:`Our approach is tailored to the needs of each client. The scope, deliverables, and implementation responsibilities are agreed upon at the beginning of every engagement.`,ctaEyebrow:`START A CONVERSATION`,ctaTitle:`Looking for a Tailored Advisory Engagement?`,ctaDesc:`Every cross-border initiative is structured around your specific market priorities and objectives. Speak with our team to scope your engagement.`,ctaPrimary:`Discuss Your Business Objectives`,ctaSecondary:`Explore Indonesia–China Gateway`};return(0,u.jsxs)(s,{children:[(0,u.jsx)(i,{pageCode:`services`}),(0,u.jsxs)(`div`,{className:`svc-index-root`,children:[(0,u.jsx)(`style`,{dangerouslySetInnerHTML:{__html:`
+            .svc-index-root {
+              background: #08090C;
+              color: #FFFFFF;
+              position: relative;
+              overflow: hidden;
+            }
+            @keyframes svcStreamMove {
+              0% { stroke-dashoffset: 0; }
+              100% { stroke-dashoffset: -200; }
+            }
+            @keyframes svcBeaconPulse {
+              0%, 100% { opacity: 0.35; transform: scale(0.9); }
+              50% { opacity: 1; transform: scale(1.35); }
+            }
+            .svc-city-stream {
+              animation: svcStreamMove 14s linear infinite;
+            }
+            .svc-city-stream-reverse {
+              animation: svcStreamMove 18s linear infinite reverse;
+            }
+            .svc-city-beacon {
+              transform-origin: center;
+              animation: svcBeaconPulse 3.2s ease-in-out infinite;
+            }
+
+            /* Google Material Design 3 (M3) Emphasized Transition System */
+            .m3-reveal {
+              opacity: 0;
+              transform: translateY(34px);
+              transition: opacity 0.78s cubic-bezier(0.05, 0.7, 0.1, 1),
+                          transform 0.78s cubic-bezier(0.05, 0.7, 0.1, 1);
+              will-change: opacity, transform;
+            }
+            .m3-reveal.m3-reveal--scale {
+              transform: translateY(24px) scale(0.96);
+            }
+            .m3-reveal.is-visible {
+              opacity: 1;
+              transform: translate(0, 0) scale(1);
+            }
+            .m3-delay-1 { transition-delay: 0.08s; }
+            .m3-delay-2 { transition-delay: 0.16s; }
+            .m3-delay-3 { transition-delay: 0.24s; }
+            .m3-delay-4 { transition-delay: 0.32s; }
+            .m3-delay-5 { transition-delay: 0.40s; }
+            .m3-delay-6 { transition-delay: 0.48s; }
+
+            .svc-eyebrow-pill {
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+              padding: 7px 16px;
+              border-radius: 999px;
+              background: rgba(230, 57, 70, 0.12);
+              border: 1px solid rgba(230, 57, 70, 0.35);
+              color: #FF7B7B;
+              font-size: 11.5px;
+              font-weight: 700;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              margin-bottom: 20px;
+            }
+            .svc-eyebrow-dot {
+              width: 7px;
+              height: 7px;
+              border-radius: 50%;
+              background: #E63946;
+              box-shadow: 0 0 10px #E63946;
+            }
+            .svc-glass-card {
+              background: linear-gradient(180deg, rgba(20, 23, 32, 0.88) 0%, rgba(12, 14, 20, 0.94) 100%);
+              border: 1px solid rgba(255, 255, 255, 0.09);
+              border-radius: 22px;
+              box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+              backdrop-filter: blur(14px);
+              -webkit-backdrop-filter: blur(14px);
+              transition: transform 0.42s cubic-bezier(0.2, 0, 0, 1),
+                          border-color 0.35s ease,
+                          box-shadow 0.35s ease;
+            }
+            .svc-glass-card:hover {
+              transform: translateY(-6px);
+              border-color: rgba(230, 57, 70, 0.5);
+              box-shadow: 0 26px 60px rgba(0, 0, 0, 0.65), 0 0 36px rgba(230, 57, 70, 0.16);
+            }
+            .svc-hero-frame {
+              position: relative;
+              border-radius: 28px;
+              overflow: hidden;
+              border: 1px solid rgba(255, 255, 255, 0.14);
+              box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75), 0 0 60px rgba(230, 57, 70, 0.16);
+              background: #0D0F15;
+            }
+            .svc-hero-frame img {
+              width: 100%;
+              height: 500px;
+              object-fit: cover;
+              display: block;
+              filter: brightness(0.74) contrast(1.1);
+              transition: transform 0.9s cubic-bezier(0.2, 0, 0, 1);
+            }
+            .svc-hero-frame:hover img {
+              transform: scale(1.04);
+            }
+            .svc-pillars-grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 28px;
+            }
+            .svc-roadmap-grid {
+              display: grid;
+              grid-template-columns: repeat(5, 1fr);
+              gap: 24px;
+              position: relative;
+            }
+            @media (max-width: 1024px) {
+              .svc-pillars-grid {
+                grid-template-columns: repeat(2, 1fr);
+              }
+              .svc-roadmap-grid {
+                grid-template-columns: repeat(2, 1fr);
+              }
+              .svc-roadmap-connector {
+                display: none !important;
+              }
+            }
+            @media (max-width: 640px) {
+              .svc-hero-frame img {
+                height: 430px;
+              }
+              .svc-pillars-grid,
+              .svc-roadmap-grid {
+                grid-template-columns: 1fr;
+              }
+            }
+          `}}),(0,u.jsxs)(`section`,{style:{position:`relative`,padding:`64px 0 88px`,background:`radial-gradient(ellipse 75% 55% at 50% 0%, rgba(230, 57, 70, 0.20) 0%, rgba(230, 57, 70, 0.05) 48%, transparent 75%), #08090C`,borderBottom:`1px solid rgba(255, 255, 255, 0.07)`},children:[(0,u.jsx)(d,{opacity:.34}),(0,u.jsxs)(`div`,{className:`container`,style:{position:`relative`,zIndex:2},children:[(0,u.jsxs)(`div`,{className:`m3-reveal is-visible`,style:{textAlign:`center`,maxWidth:`940px`,margin:`0 auto 44px`},children:[(0,u.jsxs)(`nav`,{"aria-label":`Breadcrumb`,style:{display:`inline-flex`,alignItems:`center`,gap:`10px`,padding:`6px 16px`,borderRadius:`999px`,background:`rgba(255, 255, 255, 0.04)`,border:`1px solid rgba(255, 255, 255, 0.1)`,fontSize:`12.5px`,fontWeight:500,color:`rgba(255, 255, 255, 0.6)`,marginBottom:`22px`},children:[(0,u.jsx)(a,{href:`/`,style:{color:`rgba(255, 255, 255, 0.75)`,textDecoration:`none`},children:g.home}),(0,u.jsx)(`span`,{style:{opacity:.35},children:`/`}),(0,u.jsx)(`span`,{style:{color:`#FF6B76`,fontWeight:600},children:g.breadcrumb})]}),(0,u.jsx)(`div`,{children:(0,u.jsxs)(`div`,{className:`svc-eyebrow-pill`,children:[(0,u.jsx)(`span`,{className:`svc-eyebrow-dot`}),(0,u.jsx)(`span`,{children:g.eyebrow})]})}),(0,u.jsxs)(`h1`,{style:{fontSize:`clamp(34px, 4.6vw, 60px)`,fontWeight:800,lineHeight:1.1,letterSpacing:`-0.03em`,color:`#FFFFFF`,margin:0},children:[(0,u.jsx)(`span`,{style:{display:`block`},children:g.heroTitleLine1}),(0,u.jsx)(`span`,{style:{display:`block`,background:`linear-gradient(90deg, #FFFFFF 0%, #FF7B7B 55%, #E63946 100%)`,WebkitBackgroundClip:`text`,WebkitTextFillColor:`transparent`},children:g.heroTitleLine2})]})]}),(0,u.jsxs)(`div`,{className:`svc-hero-frame m3-reveal m3-reveal--scale is-visible m3-delay-1`,children:[(0,u.jsx)(`img`,{loading:`lazy`,decoding:`async`,src:`/images/consultancy_hero.webp`,alt:g.breadcrumb}),(0,u.jsx)(`div`,{style:{position:`absolute`,inset:0,background:`linear-gradient(180deg, rgba(8, 9, 12, 0.25) 0%, rgba(8, 9, 12, 0.55) 45%, rgba(8, 9, 12, 0.95) 100%), radial-gradient(circle at 20% 85%, rgba(230, 57, 70, 0.32) 0%, transparent 55%)`}}),(0,u.jsx)(`div`,{style:{position:`absolute`,top:`24px`,left:`26px`,right:`26px`,display:`flex`,justifyContent:`space-between`,alignItems:`center`,flexWrap:`wrap`,gap:`12px`,zIndex:2},children:(0,u.jsxs)(`span`,{style:{display:`inline-flex`,alignItems:`center`,gap:`8px`,padding:`7px 15px`,borderRadius:`999px`,background:`rgba(10, 12, 18, 0.84)`,border:`1px solid rgba(255, 255, 255, 0.16)`,backdropFilter:`blur(10px)`,fontSize:`11px`,fontWeight:700,letterSpacing:`0.1em`,textTransform:`uppercase`,color:`#FFFFFF`},children:[(0,u.jsx)(`span`,{style:{width:`6px`,height:`6px`,borderRadius:`50%`,background:`#E63946`}}),g.eyebrow]})}),(0,u.jsx)(`div`,{style:{position:`absolute`,bottom:`30px`,left:`30px`,right:`30px`,zIndex:2},children:(0,u.jsx)(`div`,{style:{maxWidth:`980px`,margin:`0 auto`,padding:`30px 36px`,borderRadius:`22px`,background:`linear-gradient(135deg, rgba(14, 17, 24, 0.90) 0%, rgba(10, 12, 18, 0.95) 100%)`,border:`1px solid rgba(255, 255, 255, 0.14)`,borderLeft:`5px solid #E63946`,backdropFilter:`blur(16px)`,WebkitBackdropFilter:`blur(16px)`,boxShadow:`0 20px 50px rgba(0, 0, 0, 0.65)`},children:(0,u.jsxs)(`p`,{style:{fontSize:`clamp(17px, 2vw, 23px)`,fontWeight:700,lineHeight:1.45,color:`#FFFFFF`,margin:0,letterSpacing:`-0.01em`},children:[`“`,g.heroLead,`”`]})})})]})]})]}),(0,u.jsxs)(`section`,{style:{position:`relative`,padding:`108px 0`,background:`radial-gradient(ellipse 75% 55% at 15% 35%, rgba(230, 57, 70, 0.12) 0%, transparent 70%), #0A0B0F`,borderBottom:`1px solid rgba(255, 255, 255, 0.07)`},children:[(0,u.jsx)(d,{opacity:.22,flip:!0}),(0,u.jsxs)(`div`,{className:`container`,style:{position:`relative`,zIndex:2},children:[(0,u.jsxs)(`div`,{className:`m3-reveal`,style:{textAlign:`center`,maxWidth:`820px`,margin:`0 auto 60px`},children:[(0,u.jsxs)(`div`,{className:`svc-eyebrow-pill`,children:[(0,u.jsx)(`span`,{className:`svc-eyebrow-dot`}),(0,u.jsx)(`span`,{children:g.gridKicker})]}),(0,u.jsx)(`h2`,{style:{fontSize:`clamp(30px, 3.5vw, 46px)`,fontWeight:800,lineHeight:1.15,letterSpacing:`-0.025em`,color:`#FFFFFF`,margin:`0 0 16px`},children:g.gridTitle}),(0,u.jsx)(`p`,{style:{fontSize:`16.5px`,lineHeight:1.68,color:`rgba(255, 255, 255, 0.72)`,margin:0},children:g.gridLead})]}),(0,u.jsx)(`div`,{className:`svc-pillars-grid`,children:h.map((e,t)=>(0,u.jsxs)(a,{href:`/services/${e.id}`,className:`svc-glass-card m3-reveal m3-delay-${t%6+1}`,style:{padding:`34px 30px`,display:`flex`,flexDirection:`column`,textDecoration:`none`,color:`#FFFFFF`,borderTop:`3px solid #E63946`},children:[(0,u.jsxs)(`div`,{style:{display:`flex`,justifyContent:`space-between`,alignItems:`center`,marginBottom:`22px`},children:[(0,u.jsx)(`span`,{style:{padding:`5px 12px`,borderRadius:`8px`,background:`rgba(230, 57, 70, 0.14)`,border:`1px solid rgba(230, 57, 70, 0.35)`,color:`#FF7B7B`,fontSize:`13px`,fontWeight:800,letterSpacing:`0.08em`},children:e.num}),(0,u.jsx)(`span`,{style:{width:`44px`,height:`44px`,borderRadius:`12px`,background:`rgba(230, 57, 70, 0.12)`,display:`inline-flex`,alignItems:`center`,justifyContent:`center`},children:(0,u.jsx)(c,{slug:e.id})})]}),(0,u.jsx)(`h3`,{style:{fontSize:`21px`,fontWeight:700,lineHeight:1.35,margin:`0 0 12px`,color:`#FFFFFF`},children:e.title}),(0,u.jsx)(`p`,{style:{fontSize:`14.5px`,lineHeight:1.7,color:`rgba(255, 255, 255, 0.68)`,margin:0,flex:1},children:e.summary}),!1]},e.id))})]})]}),(0,u.jsxs)(`section`,{style:{position:`relative`,padding:`112px 0`,background:`radial-gradient(ellipse 80% 50% at 50% 0%, rgba(230, 57, 70, 0.14) 0%, transparent 70%), #07080B`,borderBottom:`1px solid rgba(255, 255, 255, 0.07)`},children:[(0,u.jsx)(d,{opacity:.28,flip:!0}),(0,u.jsxs)(`div`,{className:`container`,style:{position:`relative`,zIndex:2},children:[(0,u.jsxs)(`div`,{className:`m3-reveal`,style:{textAlign:`center`,maxWidth:`860px`,margin:`0 auto 64px`},children:[(0,u.jsxs)(`div`,{className:`svc-eyebrow-pill`,children:[(0,u.jsx)(`span`,{className:`svc-eyebrow-dot`}),(0,u.jsx)(`span`,{children:g.approachEyebrow})]}),(0,u.jsx)(`h2`,{style:{fontSize:`clamp(30px, 3.5vw, 46px)`,fontWeight:800,lineHeight:1.15,letterSpacing:`-0.025em`,color:`#FFFFFF`,margin:`0 0 18px`},children:g.approachTitle}),(0,u.jsx)(`p`,{style:{fontSize:`16.5px`,lineHeight:1.7,color:`rgba(255, 255, 255, 0.72)`,margin:0},children:g.approachLead})]}),(0,u.jsx)(`div`,{className:`svc-roadmap-grid`,children:g.approachSteps.map((e,t)=>(0,u.jsxs)(`div`,{className:`m3-reveal m3-delay-${t+1}`,style:{position:`relative`,zIndex:2,display:`flex`,flexDirection:`column`},children:[(0,u.jsxs)(`div`,{style:{position:`relative`,display:`flex`,alignItems:`center`,marginBottom:`22px`},children:[(0,u.jsx)(`div`,{style:{width:`48px`,height:`48px`,borderRadius:`50%`,background:`linear-gradient(135deg, #E63946 0%, #9E1B24 100%)`,border:`2px solid rgba(255, 255, 255, 0.35)`,color:`#FFFFFF`,fontWeight:800,fontSize:`14px`,display:`flex`,alignItems:`center`,justifyContent:`center`,boxShadow:`0 0 24px rgba(230, 57, 70, 0.55)`,position:`relative`,zIndex:3,flexShrink:0},children:e.num}),t<g.approachSteps.length-1&&(0,u.jsx)(`div`,{className:`svc-roadmap-connector`,style:{position:`absolute`,left:`48px`,right:`-24px`,top:`50%`,height:`2px`,background:`linear-gradient(90deg, #E63946 0%, rgba(230, 57, 70, 0.25) 100%)`,transform:`translateY(-50%)`,zIndex:1}})]}),(0,u.jsxs)(`div`,{className:`svc-glass-card`,style:{padding:`28px 24px`,flex:1,display:`flex`,flexDirection:`column`},children:[(0,u.jsx)(`div`,{style:{fontSize:`11px`,fontWeight:700,letterSpacing:`0.08em`,color:`#FF7B7B`,textTransform:`uppercase`,marginBottom:`6px`},children:e.sub}),(0,u.jsx)(`h3`,{style:{fontSize:`21px`,fontWeight:800,color:`#FFFFFF`,margin:`0 0 12px`,letterSpacing:`-0.01em`},children:e.title}),(0,u.jsx)(`p`,{style:{fontSize:`14px`,lineHeight:1.68,color:`rgba(255, 255, 255, 0.68)`,margin:0},children:e.desc})]})]},e.num))}),(0,u.jsxs)(`div`,{className:`m3-reveal`,style:{marginTop:`36px`,padding:`18px 26px`,borderRadius:`14px`,background:`rgba(255, 255, 255, 0.03)`,border:`1px solid rgba(255, 255, 255, 0.08)`,display:`flex`,alignItems:`center`,gap:`14px`,justifyContent:`center`,textAlign:`center`},children:[(0,u.jsx)(`span`,{style:{color:`#E63946`,fontSize:`16px`,flexShrink:0},children:`●`}),(0,u.jsx)(`span`,{style:{fontSize:`13.5px`,color:`rgba(255, 255, 255, 0.65)`,lineHeight:1.6},children:g.approachNote})]})]})]}),(0,u.jsxs)(`section`,{style:{position:`relative`,padding:`96px 0 112px`,background:`#08090C`},children:[(0,u.jsx)(d,{opacity:.35}),(0,u.jsx)(`div`,{className:`container`,style:{position:`relative`,zIndex:2},children:(0,u.jsxs)(`div`,{className:`m3-reveal m3-reveal--scale`,style:{padding:`56px 48px`,borderRadius:`28px`,background:`radial-gradient(ellipse 85% 90% at 100% 100%, rgba(230, 57, 70, 0.28) 0%, rgba(16, 18, 26, 0.96) 65%)`,border:`1px solid rgba(230, 57, 70, 0.4)`,boxShadow:`0 30px 70px rgba(0, 0, 0, 0.65)`,display:`flex`,flexWrap:`wrap`,alignItems:`center`,justifyContent:`space-between`,gap:`32px`},children:[(0,u.jsxs)(`div`,{style:{maxWidth:`680px`},children:[(0,u.jsxs)(`div`,{className:`svc-eyebrow-pill`,style:{marginBottom:`14px`},children:[(0,u.jsx)(`span`,{className:`svc-eyebrow-dot`}),(0,u.jsx)(`span`,{children:g.ctaEyebrow})]}),(0,u.jsx)(`h2`,{style:{fontSize:`clamp(26px, 3vw, 38px)`,fontWeight:800,lineHeight:1.2,letterSpacing:`-0.02em`,color:`#FFFFFF`,margin:`0 0 14px`},children:g.ctaTitle}),(0,u.jsx)(`p`,{style:{fontSize:`16px`,lineHeight:1.68,color:`rgba(255, 255, 255, 0.76)`,margin:0},children:g.ctaDesc})]}),(0,u.jsxs)(`div`,{style:{display:`flex`,flexWrap:`wrap`,gap:`14px`},children:[(0,u.jsxs)(a,{href:`/contact`,style:{display:`inline-flex`,alignItems:`center`,gap:`10px`,padding:`15px 28px`,borderRadius:`999px`,background:`linear-gradient(135deg, #E63946 0%, #B81D2A 100%)`,color:`#FFFFFF`,fontSize:`14.5px`,fontWeight:700,textDecoration:`none`,boxShadow:`0 12px 28px rgba(230, 57, 70, 0.4)`},children:[(0,u.jsx)(`span`,{children:g.ctaPrimary}),(0,u.jsx)(`span`,{children:`→`})]}),(0,u.jsx)(a,{href:`/gateway`,style:{display:`inline-flex`,alignItems:`center`,gap:`10px`,padding:`15px 26px`,borderRadius:`999px`,background:`rgba(255, 255, 255, 0.05)`,border:`1px solid rgba(255, 255, 255, 0.16)`,color:`#FFFFFF`,fontSize:`14.5px`,fontWeight:600,textDecoration:`none`},children:(0,u.jsx)(`span`,{children:g.ctaSecondary})})]})]})})]})]})]})}export{f as default};

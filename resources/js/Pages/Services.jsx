@@ -754,6 +754,7 @@ export default function Services({ services: cmsServices = [] }) {
                     {svc.summary}
                   </p>
 
+                  {false && (
                   <span
                     style={{
                       marginTop: '26px',
@@ -769,6 +770,7 @@ export default function Services({ services: cmsServices = [] }) {
                   >
                     {copy.learnMore} <Arrow size={14} />
                   </span>
+                  )}
                 </Link>
               ))}
             </div>
