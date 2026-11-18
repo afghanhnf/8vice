@@ -373,7 +373,7 @@ export default function About({ profiles = [] }) {
           fullName: 'Helda Chandra',
           chineseName: '曾宪茹',
           nameNote: 'CEO & Managing Partner',
-          subtitle: 'CEO of 8 Vice.',
+          subtitle: 'Corporate Strategy, Leadership & Overall Growth',
           bioParagraphs: [
             '曾宪茹（Helda Chandra）是一位资深商业战略顾问与企业家，拥有20余年为印度尼西亚政府机构、国有企业及私营企业提供战略咨询的丰富经验，并依托印尼与中国政商界的深厚网络，助力企业高效实现市场准入、战略合作与跨境业务增长。'
           ],
@@ -395,38 +395,12 @@ export default function About({ profiles = [] }) {
           ]
         },
         {
-          id: 'christine',
-          callName: 'Christine Susanna Tjhin',
-          fullName: 'Christine Susanna Tjhin',
-          chineseName: '',
-          nameNote: 'Strategic Partner',
-          subtitle: 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute.',
-          bioParagraphs: [
-            'Christine Susanna Tjhin 是著名的印中关系专家，在政策研究、战略传播与国际事务领域拥有20余年深厚积淀，长期致力于推动印度尼西亚与中国之间可持续的战略伙伴关系。她同时担任印度尼西亚国家国防委员会 (DPN) 中国事务顾问、印尼外交政策共同体 (FPCI) 资深专家，并在多家聚焦中国事务的政策研究网络担任咨询职务。'
-          ],
-          photo: '/images/profiles/christine_tjhin.webp',
-          socials: {
-            linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
-            instagram: 'https://www.instagram.com/8viceofficial',
-            email: 'mailto:hello@8vice.com'
-          },
-          experiences: [
-            '印度尼西亚汉学家理事会监事会成员 (2023 – 至今)',
-            '中国福建省“中国—印尼工业合作研究中心”印尼籍资深专家 (2023 – 至今)',
-            '山西碳达峰碳中和能源革命研究院 (CCERR) 东南亚专家组成员 (2024 – 至今)',
-            '印尼外交政策共同体 (FPCI) 中国政策组资深专家成员，雅加达 (2017 – 至今)',
-            '印度尼西亚华裔总会 (INTI) 智库理事会成员，雅加达 (2005 – 2012)',
-            '印度尼西亚战略与国际问题研究中心 (CSIS Indonesia) 研究员 (2003 – 2019)',
-            '印度尼西亚多元主义研究所 (IPI) 研究员 (2002 – 2003)'
-          ]
-        },
-        {
           id: 'gandhi',
           callName: 'Gandhi Priambodho',
           fullName: 'Gandhi Priambodho',
           chineseName: '',
           nameNote: 'International Business',
-          subtitle: 'Director of International Businesses of Gentala Institute',
+          subtitle: 'Business, Trade & Investment',
           bioParagraphs: [
             'Gandhi Priambodho 是一位拥有丰富国际视野的业务拓展专家，专注于扩大印度尼西亚与中国之间的双边贸易、投资及战略合作伙伴关系。',
             '自2002年起常驻北京以来，他在工业合作、能源与矿产、传媒与文化创意产业、旅游、教育、房地产及医疗健康等多个关键领域建立了广泛而扎实的跨境商业网络。'
@@ -449,12 +423,38 @@ export default function About({ profiles = [] }) {
           ]
         },
         {
+          id: 'christine',
+          callName: 'Christine Susanna Tjhin',
+          fullName: 'Christine Susanna Tjhin',
+          chineseName: '',
+          nameNote: 'Strategic Partner',
+          subtitle: 'Strategy, Policy & Institutional Relations',
+          bioParagraphs: [
+            'Christine Susanna Tjhin 是著名的印中关系专家，在政策研究、战略传播与国际事务领域拥有20余年深厚积淀，长期致力于推动印度尼西亚与中国之间可持续的战略伙伴关系。她同时担任印度尼西亚国家国防委员会 (DPN) 中国事务顾问、印尼外交政策共同体 (FPCI) 资深专家，并在多家聚焦中国事务的政策研究网络担任咨询职务。'
+          ],
+          photo: '/images/profiles/christine_tjhin.webp',
+          socials: {
+            linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
+            instagram: 'https://www.instagram.com/8viceofficial',
+            email: 'mailto:hello@8vice.com'
+          },
+          experiences: [
+            '印度尼西亚汉学家理事会监事会成员 (2023 – 至今)',
+            '中国福建省“中国—印尼工业合作研究中心”印尼籍资深专家 (2023 – 至今)',
+            '山西碳达峰碳中和能源革命研究院 (CCERR) 东南亚专家组成员 (2024 – 至今)',
+            '印尼外交政策共同体 (FPCI) 中国政策组资深专家成员，雅加达 (2017 – 至今)',
+            '印度尼西亚华裔总会 (INTI) 智库理事会成员，雅加达 (2005 – 2012)',
+            '印度尼西亚战略与国际问题研究中心 (CSIS Indonesia) 研究员 (2003 – 2019)',
+            '印度尼西亚多元主义研究所 (IPI) 研究员 (2002 – 2003)'
+          ]
+        },
+        {
           id: 'james',
           callName: 'James He',
           fullName: 'James He (Wei He)',
           chineseName: '何炜',
           nameNote: 'China Affairs & Infrastructure',
-          subtitle: 'Senior China Affairs Specialist, Gentala Institute China Desk & Strategic Advisor, 8 Vice.',
+          subtitle: 'China Affairs & Industrial Collaboration',
           bioParagraphs: [
             '何炜（James He / Wei He）是一位拥有跨国多元经验的资深顾问，业务涵盖印度尼西亚、中国及国际市场的政府事务咨询、基础设施投融资、关键矿产资源以及文化娱乐科技产业。',
             '毕业于加拿大多伦多大学商学院，他兼具十余年中国电影集团国际业务拓展领导经验以及网络安全、电力能源国际合作、防空装备 MRO 与大型基建本地化咨询实绩。'
@@ -720,7 +720,7 @@ export default function About({ profiles = [] }) {
             fullName: 'Helda Chandra',
             chineseName: '曾宪茹',
             nameNote: 'CEO & Managing Partner',
-            subtitle: 'CEO of 8 Vice.',
+            subtitle: 'Corporate Strategy, Leadership & Overall Growth',
             bioParagraphs: [
               'Helda Chandra adalah seorang ahli strategi bisnis dan wirausaha dengan lebih dari 20 tahun pengalaman mendampingi lembaga pemerintah Indonesia, badan usaha milik negara (BUMN), serta perusahaan swasta, didukung jaringan kuat di komunitas pemerintahan dan bisnis di Indonesia maupun Tiongkok untuk memfasilitasi masuk pasar, kemitraan strategis, dan pertumbuhan bisnis lintas batas.'
             ],
@@ -742,38 +742,12 @@ export default function About({ profiles = [] }) {
             ]
           },
           {
-            id: 'christine',
-            callName: 'Christine Susanna Tjhin',
-            fullName: 'Christine Susanna Tjhin',
-            chineseName: '',
-            nameNote: 'Strategic Partner',
-            subtitle: 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute.',
-            bioParagraphs: [
-              'Christine Susanna Tjhin adalah pakar hubungan Indonesia–Tiongkok terkemuka dengan pengalaman lebih dari 20 tahun di bidang riset kebijakan, komunikasi strategis, dan urusan internasional yang mendorong kemitraan strategis dan berkelanjutan antara Indonesia dan Tiongkok. Beliau juga menjabat sebagai penasihat urusan Tiongkok di Dewan Pertahanan Nasional (DPN) RI, Senior Expert di Foreign Policy Community Indonesia (FPCI), serta memegang peran penasihat di berbagai jejaring kebijakan terkait Tiongkok.'
-            ],
-            photo: '/images/profiles/christine_tjhin.webp',
-            socials: {
-              linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
-              instagram: 'https://www.instagram.com/8viceofficial',
-              email: 'mailto:hello@8vice.com'
-            },
-            experiences: [
-              'Anggota Badan Pengawas – Dewan Sinolog Indonesia / Indonesia Council of Sinologists (2023 – Sekarang)',
-              'Senior Indonesian Expert, China-Indonesia Industrial Cooperation Research Center – Fujian, Tiongkok (2023 – Sekarang)',
-              'Southeast Asian Experts Group – Shanxi Carbon-Peak Carbon-Neutral Energy Revolution Research Institute (CCERR) (2024 – Sekarang)',
-              'Senior Expert Member, Foreign Policy Community Indonesia (FPCI), China Policy Group – Jakarta, Indonesia (2017 – Sekarang)',
-              'Anggota Dewan Pakar (Intellectual Council), Perhimpunan Indonesia Tionghoa (INTI) – Jakarta, Indonesia (2005 – 2012)',
-              'Peneliti di Centre for Strategic and International Studies (CSIS), Indonesia (2003 – 2019)',
-              'Indonesian Pluralism Institute (IPI) (2002 – 2003)'
-            ]
-          },
-          {
             id: 'gandhi',
             callName: 'Gandhi Priambodho',
             fullName: 'Gandhi Priambodho',
             chineseName: '',
             nameNote: 'International Business',
-            subtitle: 'Director of International Businesses of Gentala Institute',
+            subtitle: 'Business, Trade & Investment',
             bioParagraphs: [
               'Gandhi Priambodho adalah profesional pengembangan bisnis internasional dengan pengalaman memperluas perdagangan, investasi, dan kemitraan strategis antara Indonesia dan Tiongkok.',
               'Berdomisili di Beijing sejak 2002, beliau telah membangun jejaring bisnis lintas batas yang luas di berbagai sektor, mencakup kerja sama industri, energi dan mineral, media dan industri kreatif, pariwisata, pendidikan, properti, serta layanan kesehatan.'
@@ -796,12 +770,38 @@ export default function About({ profiles = [] }) {
             ]
           },
           {
+            id: 'christine',
+            callName: 'Christine Susanna Tjhin',
+            fullName: 'Christine Susanna Tjhin',
+            chineseName: '',
+            nameNote: 'Strategic Partner',
+            subtitle: 'Strategy, Policy & Institutional Relations',
+            bioParagraphs: [
+              'Christine Susanna Tjhin adalah pakar hubungan Indonesia–Tiongkok terkemuka dengan pengalaman lebih dari 20 tahun di bidang riset kebijakan, komunikasi strategis, dan urusan internasional yang mendorong kemitraan strategis dan berkelanjutan antara Indonesia dan Tiongkok. Beliau juga menjabat sebagai penasihat urusan Tiongkok di Dewan Pertahanan Nasional (DPN) RI, Senior Expert di Foreign Policy Community Indonesia (FPCI), serta memegang peran penasihat di berbagai jejaring kebijakan terkait Tiongkok.'
+            ],
+            photo: '/images/profiles/christine_tjhin.webp',
+            socials: {
+              linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
+              instagram: 'https://www.instagram.com/8viceofficial',
+              email: 'mailto:hello@8vice.com'
+            },
+            experiences: [
+              'Anggota Badan Pengawas – Dewan Sinolog Indonesia / Indonesia Council of Sinologists (2023 – Sekarang)',
+              'Senior Indonesian Expert, China-Indonesia Industrial Cooperation Research Center – Fujian, Tiongkok (2023 – Sekarang)',
+              'Southeast Asian Experts Group – Shanxi Carbon-Peak Carbon-Neutral Energy Revolution Research Institute (CCERR) (2024 – Sekarang)',
+              'Senior Expert Member, Foreign Policy Community Indonesia (FPCI), China Policy Group – Jakarta, Indonesia (2017 – Sekarang)',
+              'Anggota Dewan Pakar (Intellectual Council), Perhimpunan Indonesia Tionghoa (INTI) – Jakarta, Indonesia (2005 – 2012)',
+              'Peneliti di Centre for Strategic and International Studies (CSIS), Indonesia (2003 – 2019)',
+              'Indonesian Pluralism Institute (IPI) (2002 – 2003)'
+            ]
+          },
+          {
             id: 'james',
             callName: 'James He',
             fullName: 'James He (Wei He)',
             chineseName: '何炜',
             nameNote: 'China Affairs & Infrastructure',
-            subtitle: 'Senior China Affairs Specialist, Gentala Institute China Desk & Strategic Advisor, 8 Vice.',
+            subtitle: 'China Affairs & Industrial Collaboration',
             bioParagraphs: [
               'James He (Wei He) adalah spesialis lintas batas dengan pengalaman luas di bidang advisori pemerintahan, pembiayaan infrastruktur, sumber daya kritis, dan teknologi hiburan di Indonesia, Tiongkok, maupun pasar internasional.',
               'Lulusan B.Com dari University of Toronto, ia memadukan lebih dari satu dekade kepemimpinan pengembangan bisnis internasional di China Film Group dengan peran advisori strategis di bidang keamanan siber, kolaborasi energi, MRO pertahanan udara, serta proyek industri skala besar.'
@@ -1066,7 +1066,7 @@ export default function About({ profiles = [] }) {
             fullName: 'Helda Chandra',
             chineseName: '曾宪茹',
             nameNote: 'CEO & Managing Partner',
-            subtitle: 'CEO of 8 Vice.',
+            subtitle: 'Corporate Strategy, Leadership & Overall Growth',
             bioParagraphs: [
               'Helda Chandra is a business strategist and entrepreneur with over 20 years of experience advising Indonesian government institutions, state-owned enterprises, and private-sector companies, backed by strong networks across government and business communities in Indonesia and China to facilitate market entry, strategic partnerships, and cross-border business growth.'
             ],
@@ -1088,38 +1088,12 @@ export default function About({ profiles = [] }) {
             ]
           },
           {
-            id: 'christine',
-            callName: 'Christine Susanna Tjhin',
-            fullName: 'Christine Susanna Tjhin',
-            chineseName: '',
-            nameNote: 'Strategic Partner',
-            subtitle: 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute.',
-            bioParagraphs: [
-              'Christine Susanna Tjhin is a prominent Indonesia–China relations expert with over 20 years of experience in policy research, strategic communication, and international affairs, promotes sustainable and strategic partnerships between Indonesia and China. She also serves as an advisor on China affairs to Indonesia’s National Defense Council (DPN), a Senior Expert at the Foreign Policy Community Indonesia (FPCI), and holds advisory roles in several China-focused policy networks.'
-            ],
-            photo: '/images/profiles/christine_tjhin.webp',
-            socials: {
-              linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
-              instagram: 'https://www.instagram.com/8viceofficial',
-              email: 'mailto:hello@8vice.com'
-            },
-            experiences: [
-              'Supervisory Board Member - Indonesia Council of Sinologists (2023 – now)',
-              'Senior Indonesian Expert at the China-Indonesia Industrial Cooperation Research Center - Fujian, China (2023 – now)',
-              '2024 - to date: Southeast Asian Experts Group - Shanxi Carbon-Peak Carbon-Neutral Energy Revolution Research Institute (CCERR) (2024 – now)',
-              'Senior Expert Member at the Foreign Policy Community Indonesia (FPCI), China Policy Group - Jakarta, Indonesia (2017 – now)',
-              'Intellectual Council Member at the Chinese Indonesian Association (INTI) - Jakarta, Indonesia (2005–2012)',
-              'Centre for Strategic and International Studies (CSIS), Indonesia (2003–2019)',
-              'Indonesian Pluralism Institute (IPI) (2002 – 2003)'
-            ]
-          },
-          {
             id: 'gandhi',
             callName: 'Gandhi Priambodho',
             fullName: 'Gandhi Priambodho',
             chineseName: '',
             nameNote: 'International Business',
-            subtitle: 'Director of International Businesses of Gentala Institute',
+            subtitle: 'Business, Trade & Investment',
             bioParagraphs: [
               'Gandhi Priambodho is an international business development professional with experience expanding trade, investment, and strategic partnerships between Indonesia and China.',
               'Based in Beijing since 2002, he has established extensive cross-border business networks across multiple sectors, including industrial cooperation, energy and minerals, media and creative industries, tourism, education, real estate, and healthcare.'
@@ -1142,12 +1116,38 @@ export default function About({ profiles = [] }) {
             ]
           },
           {
+            id: 'christine',
+            callName: 'Christine Susanna Tjhin',
+            fullName: 'Christine Susanna Tjhin',
+            chineseName: '',
+            nameNote: 'Strategic Partner',
+            subtitle: 'Strategy, Policy & Institutional Relations',
+            bioParagraphs: [
+              'Christine Susanna Tjhin is a prominent Indonesia–China relations expert with over 20 years of experience in policy research, strategic communication, and international affairs, promotes sustainable and strategic partnerships between Indonesia and China. She also serves as an advisor on China affairs to Indonesia’s National Defense Council (DPN), a Senior Expert at the Foreign Policy Community Indonesia (FPCI), and holds advisory roles in several China-focused policy networks.'
+            ],
+            photo: '/images/profiles/christine_tjhin.webp',
+            socials: {
+              linkedin: 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
+              instagram: 'https://www.instagram.com/8viceofficial',
+              email: 'mailto:hello@8vice.com'
+            },
+            experiences: [
+              'Supervisory Board Member - Indonesia Council of Sinologists (2023 – now)',
+              'Senior Indonesian Expert at the China-Indonesia Industrial Cooperation Research Center - Fujian, China (2023 – now)',
+              '2024 - to date: Southeast Asian Experts Group - Shanxi Carbon-Peak Carbon-Neutral Energy Revolution Research Institute (CCERR) (2024 – now)',
+              'Senior Expert Member at the Foreign Policy Community Indonesia (FPCI), China Policy Group - Jakarta, Indonesia (2017 – now)',
+              'Intellectual Council Member at the Chinese Indonesian Association (INTI) - Jakarta, Indonesia (2005–2012)',
+              'Centre for Strategic and International Studies (CSIS), Indonesia (2003–2019)',
+              'Indonesian Pluralism Institute (IPI) (2002 – 2003)'
+            ]
+          },
+          {
             id: 'james',
             callName: 'James He',
             fullName: 'James He (Wei He)',
             chineseName: '何炜',
             nameNote: 'China Affairs & Infrastructure',
-            subtitle: 'Senior China Affairs Specialist, Gentala Institute China Desk & Strategic Advisor, 8 Vice.',
+            subtitle: 'China Affairs & Industrial Collaboration',
             bioParagraphs: [
               'James He (Wei He) is a cross-border specialist with extensive experience across government advisory, infrastructure finance, critical resources, and entertainment technology in Indonesia, China, and international markets.',
               'Educated in Commerce at the University of Toronto, he pairs over a decade of international business development leadership at China Film Group with strategic advisory roles spanning cybersecurity, energy collaboration, air defense MRO, and large-scale industrial localization.'
@@ -2855,7 +2855,7 @@ export default function About({ profiles = [] }) {
                   <div>
                     <div className="about-person-photo-wrap">
                       <img
-                        src={person.photo && person.photo.includes('?') ? person.photo : `${person.photo}?v=20261117`}
+                        src={person.photo && person.photo.includes('?') ? person.photo : `${person.photo}?v=20261118`}
                         alt={person.fullName}
                         className="about-person-img is-loaded"
                         loading="eager"
