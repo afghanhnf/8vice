@@ -3058,7 +3058,9 @@ export default function About({ profiles = [] }) {
                           marginBottom: '18px'
                         }}
                       >
-                        {person.subtitle.toLowerCase().startsWith('expertise in') ? person.subtitle : `Expertise in: ${person.subtitle}`}
+                        {person.subtitle.toLowerCase().startsWith('expertise in')
+                          ? person.subtitle.replace(/^expertise in\s*:\s*/i, 'Expertise in ')
+                          : `Expertise in ${person.subtitle}`}
                       </div>
                     )}
 
