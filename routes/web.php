@@ -11,6 +11,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\SitemapController;
 
 // Dynamic Multilingual Sitemaps (Index + EN, ID, CN) & Robots.txt
+Route::get('/sitemap.xsl', [SitemapController::class, 'xsl']);
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 Route::get('/sitemap-en.xml', fn() => app(SitemapController::class)->lang('en'));
 Route::get('/sitemap-id.xml', fn() => app(SitemapController::class)->lang('id'));

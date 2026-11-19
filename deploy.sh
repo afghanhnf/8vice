@@ -52,7 +52,7 @@ STAMP="$(date +%Y%m%d-%H%M%S)"
 [ -f "database/database.sqlite" ] && cp "database/database.sqlite" "$BACKUP_DIR/database.sqlite.$STAMP"
 
 echo "==> [3/7] Pulling latest changes from origin/main..."
-rm -f public/hot
+rm -f public/hot public/sitemap.xml public/sitemap-en.xml public/sitemap-id.xml public/sitemap-cn.xml public/robots.txt
 if ! git pull origin main; then
   echo "    Standard git pull hit local changes; stashing server changes and pulling..."
   git stash push -u -m "auto-deploy-backup-$STAMP"

@@ -58,6 +58,123 @@ class SitemapController extends Controller
     }
 
     /**
+     * Serve XSL stylesheet so browsers render /sitemap*.xml cleanly as a structured table
+     * while Google Search Console and other crawlers parse pure XML underneath.
+     */
+    public function xsl(): Response
+    {
+        $xsl = <<<'XSL'
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
+<xsl:template match="/">
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>XML Sitemap — 8vice</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0b0f;color:#e5e7eb;line-height:1.5;padding:32px 20px}
+        .wrap{max-width:1180px;margin:0 auto}
+        .head{background:#12141c;border:1px solid rgba(255,255,255,.1);border-left:4px solid #e63946;border-radius:12px;padding:24px 28px;margin-bottom:24px}
+        .head h1{font-size:22px;font-weight:700;color:#fff;margin-bottom:6px}
+        .head p{font-size:13.5px;color:#9ca3af}
+        .meta{display:inline-block;margin-top:10px;padding:4px 10px;border-radius:999px;background:rgba(230,57,70,.16);color:#ff858e;font-size:12px;font-weight:600}
+        .card{background:#12141c;border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden}
+        table{width:100%;border-collapse:collapse;font-size:13px}
+        th{text-align:left;padding:12px 16px;background:#181b25;color:#fff;font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.1)}
+        td{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top}
+        tr:hover td{background:rgba(255,255,255,.03)}
+        a{color:#93c5fd;text-decoration:none;word-break:break-all}
+        a:hover{color:#fff;text-decoration:underline}
+        .pill{display:inline-block;padding:2px 7px;border-radius:6px;background:rgba(255,255,255,.07);color:#d1d5db;font-size:11px;margin-right:4px;text-decoration:none}
+        .pill:hover{background:#e63946;color:#fff;text-decoration:none}
+        .num{color:#9ca3af;font-variant-numeric:tabular-nums;white-space:nowrap}
+        @media (max-width:768px){th:nth-child(3),td:nth-child(3),th:nth-child(4),td:nth-child(4){display:none}}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="head">
+        <h1>8vice XML Sitemap</h1>
+        <p>Generated dynamically by 8vice Laravel SEO Controller for Google Search Console &amp; search engine crawlers.</p>
+        <xsl:choose>
+            <xsl:when test="sitemap:sitemapindex">
+                <span class="meta">Sitemap Index: <xsl:value-of select="count(sitemap:sitemapindex/sitemap:sitemap)"/> sub-sitemaps</span>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="meta">URLs Indexed: <xsl:value-of select="count(sitemap:urlset/sitemap:url)"/> canonical URLs</span>
+            </xsl:otherwise>
+        </xsl:choose>
+    </div>
+    <div class="card">
+        <xsl:choose>
+            <xsl:when test="sitemap:sitemapindex">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sub-Sitemap</th>
+                            <th>Last Modified</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <xsl:for-each select="sitemap:sitemapindex/sitemap:sitemap">
+                            <tr>
+                                <td><a href="{sitemap:loc}"><xsl:value-of select="sitemap:loc"/></a></td>
+                                <td class="num"><xsl:value-of select="sitemap:lastmod"/></td>
+                            </tr>
+                        </xsl:for-each>
+                    </tbody>
+                </table>
+            </xsl:when>
+            <xsl:otherwise>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>URL</th>
+                            <th>Alternates</th>
+                            <th>Freq</th>
+                            <th>Priority</th>
+                            <th>Last Modified</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <xsl:for-each select="sitemap:urlset/sitemap:url">
+                            <tr>
+                                <td><a href="{sitemap:loc}"><xsl:value-of select="sitemap:loc"/></a></td>
+                                <td>
+                                    <xsl:for-each select="xhtml:link">
+                                        <a class="pill" href="{@href}"><xsl:value-of select="@hreflang"/></a>
+                                    </xsl:for-each>
+                                </td>
+                                <td class="num"><xsl:value-of select="sitemap:changefreq"/></td>
+                                <td class="num"><xsl:value-of select="sitemap:priority"/></td>
+                                <td class="num"><xsl:value-of select="sitemap:lastmod"/></td>
+                            </tr>
+                        </xsl:for-each>
+                    </tbody>
+                </table>
+            </xsl:otherwise>
+        </xsl:choose>
+    </div>
+</div>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
+XSL;
+
+        return response($xsl, 200, [
+            'Content-Type' => 'application/xslt+xml; charset=utf-8',
+            'Cache-Control' => 'public, max-age=3600',
+        ]);
+    }
+
+    /**
      * XML Sitemap Index linking to EN, ID, and CN sub-sitemaps
      */
     public function index(): Response
@@ -66,6 +183,7 @@ class SitemapController extends Controller
         $latestMod = self::resolveLatestMod();
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>' . "\n";
         $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
         foreach (['en', 'id', 'cn'] as $localeCode) {
@@ -81,7 +199,7 @@ class SitemapController extends Controller
         return response($xml, 200, [
             'Content-Type' => 'application/xml; charset=utf-8',
             'X-Robots-Tag' => 'noindex, follow',
-            'Cache-Control' => 'public, max-age=3600',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
         ]);
     }
 
@@ -98,7 +216,7 @@ class SitemapController extends Controller
 
         return response($xml, 200, [
             'Content-Type' => 'application/xml; charset=utf-8',
-            'Cache-Control' => 'public, max-age=3600',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
         ]);
     }
 
@@ -113,6 +231,7 @@ class SitemapController extends Controller
         $langPrefix = $lang === 'en' ? '' : "/{$lang}";
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>' . "\n";
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
 
         foreach ($urls as $item) {
