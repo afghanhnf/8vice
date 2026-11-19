@@ -87,54 +87,61 @@ if [ "$RUN_SEED" = true ]; then
   echo "==> Running full DatabaseSeeder (--seed)..."
   "$PHP_BIN" artisan db:seed --force
 else
-  echo "==> Syncing footer_description, PageSeo OG image, and James He profile safely (non-destructive)..."
-  "$PHP_BIN" artisan tinker --execute='
-  $s = \App\Helpers\SeedData::getSiteSettings();
-  $row = \App\Models\SiteSetting::first();
-  if ($row) {
-      $updates = [];
-      if (empty($row->footer_description)) {
-          $updates["footer_description"] = $s->footer_description;
-      }
-      if (empty($row->google_tag_manager) || $row->google_tag_manager === "GTM-XXXXXXX") {
-          $updates["google_tag_manager"] = $s->google_tag_manager;
-      }
-      if ($row->google_analytics === "G-1234567890") {
-          $updates["google_analytics"] = null;
-      }
-      if (empty($row->google_search_console) || str_contains((string) $row->google_search_console, "1234567890")) {
-          $updates["google_search_console"] = $s->google_search_console;
-      }
-      if (!empty($updates)) {
-          $row->update($updates);
-      }
-  }
-  \App\Models\PageSeo::where("page_code", "industries")
-      ->where("og_image", "images/industry_manufacturing.webp")
-      ->update(["og_image" => "images/industry_infrastructure.webp"]);
-  $profiles = \App\Helpers\SeedData::getProfiles();
-  $james = end($profiles);
-  if ($james && !\App\Models\Profile::where("call_name", "James He")->exists()) {
-      \App\Models\Profile::create([
-          "call_name" => $james->call_name,
-          "full_title" => $james->title,
-          "title" => ["en" => $james->title, "id" => $james->title, "cn" => $james->title],
-          "role" => $james->role,
-          "short_bio" => $james->short_bio,
-          "focus_tags" => $james->focus_tags,
-          "socials" => $james->socials,
-          "quote_title" => $james->quote_title,
-          "quote_message" => $james->quote_message,
-          "description" => [
-              "en" => $james->role["en"]."\n\n".$james->short_bio["en"],
-              "id" => $james->role["id"]."\n\n".$james->short_bio["id"],
-              "cn" => $james->role["cn"]."\n\n".$james->short_bio["cn"],
-          ],
-          "image" => $james->image,
-          "sort_order" => 4,
-      ]);
-  }
-  '
+  echo "==> Syncing footer_description, PageSeo OG image, analytics/GSC & James He profile safely..."
+  "$PHP_BIN" <<'PHP'
+<?php
+require __DIR__ . '/vendor/autoload.php';
+$app = require __DIR__ . '/bootstrap/app.php';
+$app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+$s = \App\Helpers\SeedData::getSiteSettings();
+$row = \App\Models\SiteSetting::first();
+if ($row) {
+    $updates = [];
+    if (empty($row->footer_description)) {
+        $updates['footer_description'] = $s->footer_description;
+    }
+    if (empty($row->google_tag_manager) || $row->google_tag_manager === 'GTM-XXXXXXX') {
+        $updates['google_tag_manager'] = $s->google_tag_manager;
+    }
+    if ($row->google_analytics === 'G-1234567890') {
+        $updates['google_analytics'] = null;
+    }
+    if (empty($row->google_search_console) || str_contains((string) $row->google_search_console, '1234567890')) {
+        $updates['google_search_console'] = $s->google_search_console;
+    }
+    if (!empty($updates)) {
+        $row->update($updates);
+    }
+}
+
+\App\Models\PageSeo::where('page_code', 'industries')
+    ->where('og_image', 'images/industry_manufacturing.webp')
+    ->update(['og_image' => 'images/industry_infrastructure.webp']);
+
+$profiles = \App\Helpers\SeedData::getProfiles();
+$james = end($profiles);
+if ($james && !\App\Models\Profile::where('call_name', 'James He')->exists()) {
+    \App\Models\Profile::create([
+        'call_name' => $james->call_name,
+        'full_title' => $james->title,
+        'title' => ['en' => $james->title, 'id' => $james->title, 'cn' => $james->title],
+        'role' => $james->role,
+        'short_bio' => $james->short_bio,
+        'focus_tags' => $james->focus_tags,
+        'socials' => $james->socials,
+        'quote_title' => $james->quote_title,
+        'quote_message' => $james->quote_message,
+        'description' => [
+            'en' => $james->role['en'] . "\n\n" . $james->short_bio['en'],
+            'id' => $james->role['id'] . "\n\n" . $james->short_bio['id'],
+            'cn' => $james->role['cn'] . "\n\n" . $james->short_bio['cn'],
+        ],
+        'image' => $james->image,
+        'sort_order' => 4,
+    ]);
+}
+PHP
 fi
 
 echo "==> [6/7] Ensuring storage directories, permissions & symlinks..."
@@ -143,6 +150,7 @@ chmod -R 775 storage bootstrap/cache
 "$PHP_BIN" artisan storage:link || true
 
 echo "==> [7/7] Refreshing Laravel caches..."
+rm -f storage/framework/views/*.php
 "$PHP_BIN" artisan optimize:clear
 "$PHP_BIN" artisan config:cache
 "$PHP_BIN" artisan route:cache || echo "    Skipped route:cache (closure routes active)"

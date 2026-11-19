@@ -14,10 +14,32 @@
             }
             $seoMeta = \App\Helpers\SeoResolver::resolve($page ?? []);
             $gaId = $settings->google_analytics ?? null;
-            $gtmId = $settings->google_tag_manager ?? null;
+            $rawGtmId = trim((string) ($settings->google_tag_manager ?? ''));
+            $gtmId = ($rawGtmId !== '' && $rawGtmId !== 'GTM-XXXXXXX') ? $rawGtmId : 'GTM-W8QBG2XZ';
             $pixelId = $settings->meta_pixels ?? null;
-            $gscTag = $settings->google_search_console ?? null;
+            $rawGscTag = trim((string) ($settings->google_search_console ?? ''));
+            $gscTag = ($rawGscTag !== '' && !str_contains($rawGscTag, '1234567890'))
+                ? $rawGscTag
+                : '<meta name="google-site-verification" content="mxE9QUV2EQe_-xB0JEapaMjC2zKSjKxAKGtgNyPVwxs" />';
         @endphp
+
+        @if(str_contains($gscTag, '<meta'))
+            {!! $gscTag !!}
+        @else
+            <meta name="google-site-verification" content="{{ trim(str_replace('google-site-verification=', '', $gscTag)) }}" />
+        @endif
+
+        <!-- Google tag (gtag.js / GTM) -->
+        <script async src="https://www.googletagmanager.com/gtm.js?id={{ $gtmId }}"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          @if($gaId && $gaId !== 'G-1234567890')
+          gtag('config', '{{ $gaId }}');
+          @endif
+        </script>
 
         <title inertia>{{ $seoMeta['title'] }}</title>
         <meta name="description" inertia="description" content="{{ $seoMeta['description'] }}">
@@ -56,21 +78,6 @@
         @if($settings)
             @if($gaId && $gaId !== 'G-1234567890')
                 <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaId }}"></script>
-                <script>
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '{{ $gaId }}');
-                </script>
-            @endif
-            @if($gtmId && $gtmId !== 'GTM-XXXXXXX')
-                <script async src="https://www.googletagmanager.com/gtm.js?id={{ $gtmId }}"></script>
-                <script>
-                  window.dataLayer = window.dataLayer || [];
-                  window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                </script>
             @endif
             @if($pixelId && $pixelId !== '123456789012345')
                 <script>
@@ -85,13 +92,6 @@
                 fbq('init', '{{ $pixelId }}');
                 fbq('track', 'PageView');
                 </script>
-            @endif
-            @if($gscTag && !str_contains($gscTag, '1234567890'))
-                @if(str_contains($gscTag, '<meta'))
-                    {!! $gscTag !!}
-                @else
-                    <meta name="google-site-verification" content="{{ trim(str_replace('google-site-verification=', '', $gscTag)) }}" />
-                @endif
             @endif
         @endif
 
