@@ -64,11 +64,13 @@
                 </script>
             @endif
             @if($gtmId && $gtmId !== 'GTM-XXXXXXX')
-                <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','{{ $gtmId }}');</script>
+                <script async src="https://www.googletagmanager.com/gtm.js?id={{ $gtmId }}"></script>
+                <script>
+                  window.dataLayer = window.dataLayer || [];
+                  window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                </script>
             @endif
             @if($pixelId && $pixelId !== '123456789012345')
                 <script>
@@ -85,7 +87,11 @@
                 </script>
             @endif
             @if($gscTag && !str_contains($gscTag, '1234567890'))
-                {!! $gscTag !!}
+                @if(str_contains($gscTag, '<meta'))
+                    {!! $gscTag !!}
+                @else
+                    <meta name="google-site-verification" content="{{ trim(str_replace('google-site-verification=', '', $gscTag)) }}" />
+                @endif
             @endif
         @endif
 

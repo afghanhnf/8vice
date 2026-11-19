@@ -91,8 +91,23 @@ else
   "$PHP_BIN" artisan tinker --execute='
   $s = \App\Helpers\SeedData::getSiteSettings();
   $row = \App\Models\SiteSetting::first();
-  if ($row && empty($row->footer_description)) {
-      $row->update(["footer_description" => $s->footer_description]);
+  if ($row) {
+      $updates = [];
+      if (empty($row->footer_description)) {
+          $updates["footer_description"] = $s->footer_description;
+      }
+      if (empty($row->google_tag_manager) || $row->google_tag_manager === "GTM-XXXXXXX") {
+          $updates["google_tag_manager"] = $s->google_tag_manager;
+      }
+      if ($row->google_analytics === "G-1234567890") {
+          $updates["google_analytics"] = null;
+      }
+      if (empty($row->google_search_console) || str_contains((string) $row->google_search_console, "1234567890")) {
+          $updates["google_search_console"] = $s->google_search_console;
+      }
+      if (!empty($updates)) {
+          $row->update($updates);
+      }
   }
   \App\Models\PageSeo::where("page_code", "industries")
       ->where("og_image", "images/industry_manufacturing.webp")
