@@ -130,7 +130,7 @@ chmod -R 775 storage bootstrap/cache
 echo "==> [7/7] Refreshing Laravel caches..."
 "$PHP_BIN" artisan optimize:clear
 "$PHP_BIN" artisan config:cache
-"$PHP_BIN" artisan route:cache
+"$PHP_BIN" artisan route:cache || echo "    Skipped route:cache (closure routes active)"
 "$PHP_BIN" artisan view:cache
 
 echo ""
