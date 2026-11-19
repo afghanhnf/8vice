@@ -594,7 +594,7 @@ export default function HeroGateway({ isId = false }) {
         <h1 id="hero-title" className="hg-title">
           {copy.title.map((line, i) => (
             <React.Fragment key={i}>
-              {i > 0 && <br />}
+              {i > 0 && <>{' '}<br /></>}
               {line}
             </React.Fragment>
           ))}

@@ -193,7 +193,7 @@
                     <section class="hg" data-screen-label="Hero" aria-labelledby="hero-title">
                         <div class="hg-sky" aria-hidden="true"></div>
                         <div class="hg-content">
-                            <h1 id="hero-title" class="hg-title">{{ $heroLines[0] }}<br>{{ $heroLines[1] }}<br>{{ $heroLines[2] }}</h1>
+                            <h1 id="hero-title" class="hg-title">{{ $heroLines[0] }} <br>{{ $heroLines[1] }} <br>{{ $heroLines[2] }}</h1>
                             <p class="hg-kicker">{{ $heroKicker }}</p>
                             <p class="hg-sub">{{ $heroSub }}</p>
                         </div>

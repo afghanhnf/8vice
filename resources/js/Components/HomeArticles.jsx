@@ -6,6 +6,15 @@ export default function HomeArticles({ isId = false, insights = [] }) {
   const { lang } = useTranslation();
   const isCn = lang === 'cn';
 
+  const pickLoc = (val, fallback = '') => {
+    if (!val) return fallback;
+    if (typeof val === 'string') return val;
+    if (typeof val === 'object') {
+      return val[lang] || val.en || val.id || val.cn || Object.values(val)[0] || fallback;
+    }
+    return String(val);
+  };
+
   // Use passed insights or provide verified defaults
   const articlesList = (insights && insights.length > 0)
     ? insights.slice(0, 3)
@@ -227,24 +236,24 @@ export default function HomeArticles({ isId = false, insights = [] }) {
                     className="home-article-thumb-img"
                   />
                   <div className="home-article-cat-badge">
-                    {art.cat || (isCn ? '深度洞察' : isId ? 'Wawasan' : 'Insights')}
+                    {pickLoc(art.cat_i18n || art.cat, isCn ? '深度洞察' : isId ? 'Wawasan' : 'Insights')}
                   </div>
                 </div>
 
                 <div style={{ padding: '28px', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)', marginBottom: '12px' }}>
-                      <span>{art.date || (isCn ? '最新' : isId ? 'Terkini' : 'Recent')}</span>
+                      <span>{pickLoc(art.date, isCn ? '最新' : isId ? 'Terkini' : 'Recent')}</span>
                       <span>•</span>
-                      <span>{art.rt || (isCn ? '8 分钟阅读' : '8 min read')}</span>
+                      <span>{pickLoc(art.rt_i18n || art.rt, isCn ? '8 分钟阅读' : '8 min read')}</span>
                     </div>
 
                     <h3 style={{ fontSize: '19px', fontWeight: 600, color: '#FFFFFF', lineHeight: 1.4, marginBottom: '12px' }}>
-                      {art.t}
+                      {pickLoc(art.t_i18n || art.t)}
                     </h3>
 
                     <p style={{ fontSize: '13.5px', color: 'rgba(255, 255, 255, 0.62)', lineHeight: 1.6, margin: '0 0 20px 0' }}>
-                      {art.excerpt}
+                      {pickLoc(art.excerpt_i18n || art.excerpt)}
                     </p>
                   </div>
 

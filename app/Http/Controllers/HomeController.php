@@ -17,48 +17,66 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $pickField = static function ($item, string $key): string {
+            $val = is_array($item) ? ($item[$key] ?? '') : ($item->$key ?? '');
+            if (is_array($val)) {
+                $loc = app()->getLocale();
+                return (string) ($val[$loc] ?? $val['en'] ?? $val['id'] ?? $val['cn'] ?? reset($val) ?: '');
+            }
+            return (string) $val;
+        };
+
         try {
             $clients = Client::select(['id', 'name', 'logo', 'website', 'sort_order'])->get();
             $insights = Insight::published()
                 ->orderByDesc('id')
                 ->take(3)
-                ->get(['id', 'slug', 'cat', 'cat_i18n', 'rt', 'rt_i18n', 'date', 't', 't_i18n', 'cover', 'excerpt', 'excerpt_i18n', 'status'])
-                ->map(fn ($item) => [
-                    'id' => $item->id,
-                    'slug' => $item->slug,
-                    'cat' => $item->cat,
-                    'cat_i18n' => $item->cat_i18n,
-                    'rt' => $item->rt,
-                    'rt_i18n' => $item->rt_i18n,
-                    'date' => $item->date,
-                    't' => $item->t,
-                    't_i18n' => $item->t_i18n,
-                    'cover' => $item->cover,
-                    'excerpt' => $item->excerpt,
-                    'excerpt_i18n' => $item->excerpt_i18n,
-                ]);
+                ->get(['id', 'slug', 'cat', 'rt', 'date', 't', 'cover', 'excerpt', 'status'])
+                ->map(function ($item) {
+                    $arr = $item->toArray();
+                    return [
+                        'id' => $arr['id'] ?? null,
+                        'slug' => $arr['slug'] ?? '',
+                        'cat' => $arr['cat'] ?? '',
+                        'cat_i18n' => $arr['cat_i18n'] ?? null,
+                        'rt' => $arr['rt'] ?? '',
+                        'rt_i18n' => $arr['rt_i18n'] ?? null,
+                        'date' => $arr['date'] ?? '',
+                        't' => $arr['t'] ?? '',
+                        't_i18n' => $arr['t_i18n'] ?? null,
+                        'cover' => $arr['cover'] ?? '',
+                        'excerpt' => $arr['excerpt'] ?? '',
+                        'excerpt_i18n' => $arr['excerpt_i18n'] ?? null,
+                    ];
+                });
             $industryCoverages = IndustryCoverage::orderBy('sort_order')
-                ->get(['id', 'title', 'title_i18n', 'description', 'description_i18n', 'image', 'sort_order'])
-                ->map(fn ($item) => [
-                    'id' => $item->id,
-                    'title' => $item->title,
-                    'title_i18n' => $item->title_i18n,
-                    'description' => $item->description,
-                    'description_i18n' => $item->description_i18n,
-                    'image' => $item->image,
-                    'sort_order' => $item->sort_order,
-                ]);
+                ->get(['id', 'title', 'description', 'image', 'sort_order'])
+                ->map(function ($item) {
+                    $arr = $item->toArray();
+                    return [
+                        'id' => $arr['id'] ?? null,
+                        'title' => $arr['title'] ?? '',
+                        'title_i18n' => $arr['title_i18n'] ?? null,
+                        'description' => $arr['description'] ?? '',
+                        'description_i18n' => $arr['description_i18n'] ?? null,
+                        'image' => $arr['image'] ?? '',
+                        'sort_order' => $arr['sort_order'] ?? 0,
+                    ];
+                });
             $services = Service::orderBy('sort_order')
-                ->get(['id', 'slug', 'title', 'title_i18n', 'description', 'description_i18n', 'sort_order'])
-                ->map(fn ($item) => [
-                    'id' => $item->id,
-                    'slug' => $item->slug,
-                    'title' => $item->title,
-                    'title_i18n' => $item->title_i18n,
-                    'description' => $item->description,
-                    'description_i18n' => $item->description_i18n,
-                    'sort_order' => $item->sort_order,
-                ]);
+                ->get(['id', 'slug', 'title', 'description', 'sort_order'])
+                ->map(function ($item) {
+                    $arr = $item->toArray();
+                    return [
+                        'id' => $arr['id'] ?? null,
+                        'slug' => $arr['slug'] ?? '',
+                        'title' => $arr['title'] ?? '',
+                        'title_i18n' => $arr['title_i18n'] ?? null,
+                        'description' => $arr['description'] ?? '',
+                        'description_i18n' => $arr['description_i18n'] ?? null,
+                        'sort_order' => $arr['sort_order'] ?? 0,
+                    ];
+                });
             $siteSettings = SiteSetting::first();
         } catch (\Throwable $e) {
             $clients = collect();
@@ -72,15 +90,15 @@ class HomeController extends Controller
             $insights = collect(SeedData::getInsights())->take(3)->map(fn ($item) => [
                 'id' => $item->id ?? ($item['id'] ?? null),
                 'slug' => $item->slug ?? ($item['slug'] ?? ''),
-                'cat' => $item->cat ?? ($item['cat'] ?? ''),
+                'cat' => $pickField($item, 'cat'),
                 'cat_i18n' => $item->cat_i18n ?? ($item['cat_i18n'] ?? null),
-                'rt' => $item->rt ?? ($item['rt'] ?? ''),
+                'rt' => $pickField($item, 'rt'),
                 'rt_i18n' => $item->rt_i18n ?? ($item['rt_i18n'] ?? null),
-                'date' => $item->date ?? ($item['date'] ?? ''),
-                't' => $item->t ?? ($item['t'] ?? ''),
+                'date' => $pickField($item, 'date'),
+                't' => $pickField($item, 't'),
                 't_i18n' => $item->t_i18n ?? ($item['t_i18n'] ?? null),
                 'cover' => $item->cover ?? ($item['cover'] ?? ''),
-                'excerpt' => $item->excerpt ?? ($item['excerpt'] ?? ''),
+                'excerpt' => $pickField($item, 'excerpt'),
                 'excerpt_i18n' => $item->excerpt_i18n ?? ($item['excerpt_i18n'] ?? null),
             ]);
         }
