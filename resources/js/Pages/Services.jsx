@@ -129,20 +129,30 @@ export default function Services({ services: cmsServices = [] }) {
     }
     return fallback;
   };
-  const services = baseServices.map((baseSvc, idx) => {
-    const dbSvc = Array.isArray(cmsServices)
-      ? cmsServices.find((s) => s.slug === baseSvc.id) || cmsServices[idx]
-      : null;
-    if (!dbSvc) return baseSvc;
-    return {
-      ...baseSvc,
-      title: pickLoc(dbSvc.title_i18n || dbSvc.title, baseSvc.title),
-      headline: pickLoc(dbSvc.headline_i18n || dbSvc.headline, baseSvc.headline),
-      summary: pickLoc(dbSvc.description_i18n || dbSvc.description || dbSvc.summary, baseSvc.summary),
-      heroImage: dbSvc.image || dbSvc.hero_image || baseSvc.heroImage,
-      detailImage: dbSvc.detail_image || baseSvc.detailImage,
-    };
-  });
+  const normalizeSvcAsset = (val, fallback) => {
+    if (!val || typeof val !== 'string') return fallback;
+    const trimmed = val.trim();
+    if (!trimmed) return fallback;
+    if (trimmed.startsWith('http') || trimmed.startsWith('/')) return trimmed;
+    if (trimmed.startsWith('images/')) return `/${trimmed}`;
+    return `/storage/${trimmed}`;
+  };
+  const services = Array.isArray(cmsServices) && cmsServices.length > 0
+    ? cmsServices.map((dbSvc, idx) => {
+        const slugKey = dbSvc.slug || (dbSvc.link_url ? dbSvc.link_url.replace(/^\/services\//, '') : '');
+        const baseSvc = baseServices.find((b) => b.id === slugKey) || baseServices[idx] || {};
+        return {
+          ...baseSvc,
+          id: slugKey || baseSvc.id || `service-${dbSvc.id || idx}`,
+          num: dbSvc.num || baseSvc.num || String(idx + 1).padStart(2, '0'),
+          title: pickLoc(dbSvc.title_i18n || dbSvc.title, baseSvc.title || ''),
+          headline: pickLoc(dbSvc.headline_i18n || dbSvc.headline, baseSvc.headline || ''),
+          summary: pickLoc(dbSvc.description_i18n || dbSvc.description || dbSvc.summary, baseSvc.summary || ''),
+          heroImage: normalizeSvcAsset(dbSvc.image || dbSvc.hero_image, baseSvc.heroImage || '/images/china_tech_hub.webp'),
+          detailImage: normalizeSvcAsset(dbSvc.detail_image, baseSvc.detailImage || '/images/advisory_skyline_architecture.webp'),
+        };
+      })
+    : baseServices;
 
   // Google Material Design 3 (M3) Scroll Transition Observer
   useEffect(() => {

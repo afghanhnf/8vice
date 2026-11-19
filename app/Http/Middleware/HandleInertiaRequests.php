@@ -111,7 +111,7 @@ class HandleInertiaRequests extends Middleware
             'siteSettings' => $siteSettings ?: \App\Helpers\SeedData::getSiteSettings(),
             'pageSeos' => $pageSeos,
             'footerInsights' => $footerInsights,
-            'appUrl' => rtrim(config('app.url') && !str_contains(config('app.url'), 'localhost') ? config('app.url') : ($request->getSchemeAndHttpHost() ?: env('APP_URL', 'https://8vice.communic8.id')), '/'),
+            'appUrl' => \App\Http\Controllers\SitemapController::getBaseUrl(),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

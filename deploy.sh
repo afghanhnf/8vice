@@ -87,13 +87,16 @@ if [ "$RUN_SEED" = true ]; then
   echo "==> Running full DatabaseSeeder (--seed)..."
   "$PHP_BIN" artisan db:seed --force
 else
-  echo "==> Syncing footer_description and James He profile safely (non-destructive)..."
+  echo "==> Syncing footer_description, PageSeo OG image, and James He profile safely (non-destructive)..."
   "$PHP_BIN" artisan tinker --execute='
   $s = \App\Helpers\SeedData::getSiteSettings();
   $row = \App\Models\SiteSetting::first();
   if ($row && empty($row->footer_description)) {
       $row->update(["footer_description" => $s->footer_description]);
   }
+  \App\Models\PageSeo::where("page_code", "industries")
+      ->where("og_image", "images/industry_manufacturing.webp")
+      ->update(["og_image" => "images/industry_infrastructure.webp"]);
   $profiles = \App\Helpers\SeedData::getProfiles();
   $james = end($profiles);
   if ($james && !\App\Models\Profile::where("call_name", "James He")->exists()) {

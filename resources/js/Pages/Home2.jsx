@@ -2117,23 +2117,27 @@ export default function Home2({
 
             {/* Direct Contact Links */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '36px', paddingTop: '28px', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-              <div>
-                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
-                  {c.inquiry.office_title}
+              {(siteSettings ? (siteSettings.address || '').trim() : c.inquiry.office_addr) && (
+                <div>
+                  <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
+                    {c.inquiry.office_title}
+                  </div>
+                  <div style={{ fontSize: '12.5px', color: 'rgba(255,255,255,0.75)', lineHeight: 1.4 }}>
+                    {(siteSettings ? (siteSettings.address || '').trim() : c.inquiry.office_addr)}
+                  </div>
                 </div>
-                <div style={{ fontSize: '12.5px', color: 'rgba(255,255,255,0.75)', lineHeight: 1.4 }}>
-                  {siteSettings?.address || c.inquiry.office_addr}
-                </div>
-              </div>
+              )}
 
-              <div>
-                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
-                  {c.inquiry.email_title}
+              {(siteSettings ? (siteSettings.email || '').replace(/^mailto:/i, '').trim() : 'hello@8vice.com') && (
+                <div>
+                  <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
+                    {c.inquiry.email_title}
+                  </div>
+                  <a href={`mailto:${(siteSettings ? (siteSettings.email || '').replace(/^mailto:/i, '').trim() : 'hello@8vice.com')}`} style={{ fontSize: '13px', color: 'var(--h2-red)', textDecoration: 'none', fontWeight: 600 }}>
+                    {(siteSettings ? (siteSettings.email || '').replace(/^mailto:/i, '').trim() : 'hello@8vice.com')}
+                  </a>
                 </div>
-                <a href={`mailto:${siteSettings?.email || 'hello@8vice.com'}`} style={{ fontSize: '13px', color: 'var(--h2-red)', textDecoration: 'none', fontWeight: 600 }}>
-                  {siteSettings?.email || 'hello@8vice.com'}
-                </a>
-              </div>
+              )}
 
               <div>
                 <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>

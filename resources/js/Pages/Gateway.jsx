@@ -589,7 +589,7 @@ export default function Gateway() {
 
   return (
     <MainLayout>
-      <SeoHead pageCode="gateway" title={copy.breadcrumb} />
+      <SeoHead pageCode="gateway" />
 
       <div className="gw-redesign-root">
         <style

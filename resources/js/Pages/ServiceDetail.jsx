@@ -385,21 +385,34 @@ export default function ServiceDetail({ slug, service: cmsService = null, servic
     }
     return fallback;
   };
-  const allServices = getServices(lang).map((baseSvc, idx) => {
-    const dbSvc = Array.isArray(cmsServices)
-      ? cmsServices.find((s) => s.slug === baseSvc.id) || cmsServices[idx]
-      : null;
-    if (!dbSvc) return baseSvc;
+  const baseServices = getServices(lang);
+  const normalizeSvcAsset = (val, fallback) => {
+    if (!val || typeof val !== 'string') return fallback;
+    const trimmed = val.trim();
+    if (!trimmed) return fallback;
+    if (trimmed.startsWith('http') || trimmed.startsWith('/')) return trimmed;
+    if (trimmed.startsWith('images/')) return `/${trimmed}`;
+    return `/storage/${trimmed}`;
+  };
+  const mapDbService = (dbSvc, idx = 0) => {
+    const slugKey = dbSvc.slug || (dbSvc.link_url ? dbSvc.link_url.replace(/^\/services\//, '') : '');
+    const baseSvc = baseServices.find((b) => b.id === slugKey) || baseServices[idx] || baseServices[0];
     return {
       ...baseSvc,
+      id: slugKey || baseSvc.id,
+      num: dbSvc.num || baseSvc.num || String(idx + 1).padStart(2, '0'),
       title: pickLoc(dbSvc.title_i18n || dbSvc.title, baseSvc.title),
       headline: pickLoc(dbSvc.headline_i18n || dbSvc.headline, baseSvc.headline),
       summary: pickLoc(dbSvc.description_i18n || dbSvc.description || dbSvc.summary, baseSvc.summary),
-      heroImage: dbSvc.image || dbSvc.hero_image || baseSvc.heroImage,
-      detailImage: dbSvc.detail_image || baseSvc.detailImage,
+      heroImage: normalizeSvcAsset(dbSvc.image || dbSvc.hero_image, baseSvc.heroImage),
+      detailImage: normalizeSvcAsset(dbSvc.detail_image, baseSvc.detailImage),
     };
-  });
-  const svc = allServices.find((s) => s.id === slug) || getService(lang, slug) || allServices[0];
+  };
+  const allServices = Array.isArray(cmsServices) && cmsServices.length > 0
+    ? cmsServices.map((s, idx) => mapDbService(s, idx))
+    : baseServices;
+  const matchedCms = cmsService ? mapDbService(cmsService) : allServices.find((s) => s.id === slug);
+  const svc = matchedCms || getService(lang, slug) || allServices[0];
   const others = allServices.filter((s) => s.id !== svc.id);
   const processSteps = getProcessSteps(lang);
 
@@ -486,6 +499,7 @@ export default function ServiceDetail({ slug, service: cmsService = null, servic
   return (
     <MainLayout>
       <SeoHead
+        service={cmsService || svc}
         title={`${svc.title} | 8 Vice`}
         description={svc.summary}
         image={svc.detailImage || svc.heroImage}

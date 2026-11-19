@@ -11,23 +11,50 @@ use App\Helpers\SeedData;
 class SitemapController extends Controller
 {
     /**
-     * Resolve the base URL dynamically:
-     * 1. Prioritize APP_URL from .env / config('app.url')
-     * 2. Fall back to current request host if APP_URL is unset or localhost on production
+     * Resolve the base URL dynamically so sitemaps strictly match the active GSC property host & scheme:
+     * 1. Prioritize live HTTP request host (when not running in CLI / localhost)
+     * 2. Fall back to APP_URL from config/env when valid and non-localhost
      */
     public static function getBaseUrl(): string
     {
+        if (!app()->runningInConsole() && request()) {
+            $requestHost = request()->getSchemeAndHttpHost();
+            if ($requestHost && !str_contains($requestHost, 'localhost') && !str_contains($requestHost, '127.0.0.1')) {
+                return rtrim($requestHost, '/');
+            }
+        }
+
         $appUrl = config('app.url') ?: env('APP_URL');
-        if ($appUrl && !str_contains($appUrl, 'localhost')) {
+        if ($appUrl && !str_contains($appUrl, 'localhost') && !str_contains($appUrl, '127.0.0.1')) {
             return rtrim($appUrl, '/');
         }
-        
-        $requestHost = request()->getSchemeAndHttpHost();
-        if ($requestHost && !str_contains($requestHost, 'localhost')) {
+
+        $requestHost = request()?->getSchemeAndHttpHost();
+        if ($requestHost) {
             return rtrim($requestHost, '/');
         }
 
         return rtrim($appUrl ?: 'http://localhost', '/');
+    }
+
+    /**
+     * Resolve latest real content modification timestamp in W3C / ISO-8601 format
+     */
+    protected static function resolveLatestMod(): string
+    {
+        try {
+            $dates = array_filter([
+                Insight::published()->max('updated_at'),
+                Service::max('updated_at'),
+                CaseStudy::max('updated_at'),
+                \App\Models\PageSeo::max('updated_at'),
+            ]);
+            if (!empty($dates)) {
+                return \Carbon\Carbon::parse(max($dates))->toAtomString();
+            }
+        } catch (\Throwable $e) {}
+
+        return now()->startOfDay()->toAtomString();
     }
 
     /**
@@ -36,38 +63,25 @@ class SitemapController extends Controller
     public function index(): Response
     {
         $baseUrl = self::getBaseUrl();
-        $latestMod = date('Y-m-d');
-
-        try {
-            $latestInsight = Insight::latest('updated_at')->first();
-            if ($latestInsight && $latestInsight->updated_at) {
-                $latestMod = $latestInsight->updated_at->format('Y-m-d');
-            }
-        } catch (\Throwable $e) {}
+        $latestMod = self::resolveLatestMod();
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-        
-        $xml .= "    <sitemap>\n";
-        $xml .= "        <loc>{$baseUrl}/sitemap-en.xml</loc>\n";
-        $xml .= "        <lastmod>{$latestMod}</lastmod>\n";
-        $xml .= "    </sitemap>\n";
 
-        $xml .= "    <sitemap>\n";
-        $xml .= "        <loc>{$baseUrl}/sitemap-id.xml</loc>\n";
-        $xml .= "        <lastmod>{$latestMod}</lastmod>\n";
-        $xml .= "    </sitemap>\n";
+        foreach (['en', 'id', 'cn'] as $localeCode) {
+            $loc = htmlspecialchars("{$baseUrl}/sitemap-{$localeCode}.xml", ENT_XML1, 'UTF-8');
+            $xml .= "    <sitemap>\n";
+            $xml .= "        <loc>{$loc}</loc>\n";
+            $xml .= "        <lastmod>{$latestMod}</lastmod>\n";
+            $xml .= "    </sitemap>\n";
+        }
 
-        $xml .= "    <sitemap>\n";
-        $xml .= "        <loc>{$baseUrl}/sitemap-cn.xml</loc>\n";
-        $xml .= "        <lastmod>{$latestMod}</lastmod>\n";
-        $xml .= "    </sitemap>\n";
-
-        $xml .= '</sitemapindex>';
+        $xml .= '</sitemapindex>' . "\n";
 
         return response($xml, 200, [
             'Content-Type' => 'application/xml; charset=utf-8',
             'X-Robots-Tag' => 'noindex, follow',
+            'Cache-Control' => 'public, max-age=3600',
         ]);
     }
 
@@ -76,7 +90,7 @@ class SitemapController extends Controller
      */
     public function lang(string $lang): Response
     {
-        if (!in_array($lang, ['en', 'id', 'cn'])) {
+        if (!in_array($lang, ['en', 'id', 'cn'], true)) {
             $lang = 'en';
         }
 
@@ -84,11 +98,12 @@ class SitemapController extends Controller
 
         return response($xml, 200, [
             'Content-Type' => 'application/xml; charset=utf-8',
+            'Cache-Control' => 'public, max-age=3600',
         ]);
     }
 
     /**
-     * Build the XML string for a specific language
+     * Build the W3C / GSC compliant XML string for a specific language
      */
     public static function generateLangSitemapXml(string $lang): string
     {
@@ -102,141 +117,142 @@ class SitemapController extends Controller
 
         foreach ($urls as $item) {
             $path = $item['path'];
-            $loc = $baseUrl . ($path === '/' ? ($langPrefix ?: '') : "{$langPrefix}{$path}");
-            if ($path === '/' && empty($langPrefix)) {
-                $loc = $baseUrl;
-            }
+            $loc = $path === '/'
+                ? ($langPrefix ? "{$baseUrl}{$langPrefix}" : "{$baseUrl}/")
+                : "{$baseUrl}{$langPrefix}{$path}";
 
-            $enUrl = $baseUrl . ($path === '/' ? '' : $path);
-            $idUrl = $baseUrl . '/id' . ($path === '/' ? '' : $path);
-            $cnUrl = $baseUrl . '/cn' . ($path === '/' ? '' : $path);
+            $enUrl = $path === '/' ? "{$baseUrl}/" : "{$baseUrl}{$path}";
+            $idUrl = $path === '/' ? "{$baseUrl}/id" : "{$baseUrl}/id{$path}";
+            $cnUrl = $path === '/' ? "{$baseUrl}/cn" : "{$baseUrl}/cn{$path}";
 
-            $lastmod = $item['lastmod'] ?? date('Y-m-d');
+            $lastmod = $item['lastmod'] ?? self::resolveLatestMod();
             $changefreq = $item['changefreq'] ?? 'weekly';
             $priority = $item['priority'] ?? '0.8';
 
             $xml .= "    <url>\n";
-            $xml .= "        <loc>" . htmlspecialchars($loc, ENT_XML1) . "</loc>\n";
-            $xml .= "        <lastmod>{$lastmod}</lastmod>\n";
+            $xml .= "        <loc>" . htmlspecialchars($loc, ENT_XML1, 'UTF-8') . "</loc>\n";
+            $xml .= "        <lastmod>" . htmlspecialchars($lastmod, ENT_XML1, 'UTF-8') . "</lastmod>\n";
             $xml .= "        <changefreq>{$changefreq}</changefreq>\n";
             $xml .= "        <priority>{$priority}</priority>\n";
-            $xml .= '        <xhtml:link rel="alternate" hreflang="en" href="' . htmlspecialchars($enUrl, ENT_XML1) . '" />' . "\n";
-            $xml .= '        <xhtml:link rel="alternate" hreflang="id" href="' . htmlspecialchars($idUrl, ENT_XML1) . '" />' . "\n";
-            $xml .= '        <xhtml:link rel="alternate" hreflang="zh-CN" href="' . htmlspecialchars($cnUrl, ENT_XML1) . '" />' . "\n";
-            $xml .= '        <xhtml:link rel="alternate" hreflang="x-default" href="' . htmlspecialchars($enUrl, ENT_XML1) . '" />' . "\n";
+            $xml .= '        <xhtml:link rel="alternate" hreflang="en" href="' . htmlspecialchars($enUrl, ENT_XML1, 'UTF-8') . '" />' . "\n";
+            $xml .= '        <xhtml:link rel="alternate" hreflang="id" href="' . htmlspecialchars($idUrl, ENT_XML1, 'UTF-8') . '" />' . "\n";
+            $xml .= '        <xhtml:link rel="alternate" hreflang="zh-CN" href="' . htmlspecialchars($cnUrl, ENT_XML1, 'UTF-8') . '" />' . "\n";
+            $xml .= '        <xhtml:link rel="alternate" hreflang="x-default" href="' . htmlspecialchars($enUrl, ENT_XML1, 'UTF-8') . '" />' . "\n";
             $xml .= "    </url>\n";
         }
 
-        $xml .= '</urlset>';
+        $xml .= '</urlset>' . "\n";
         return $xml;
     }
 
     /**
-     * Gather all canonical route paths with their priority, change frequency, and lastmod
+     * Gather all canonical, indexable route paths (excluding 302 redirects and draft content)
      */
     public static function collectAllRoutes(): array
     {
-        $today = date('Y-m-d');
+        $defaultMod = self::resolveLatestMod();
 
         $staticPages = [
-            ['path' => '/', 'priority' => '1.0', 'changefreq' => 'daily', 'lastmod' => $today],
-            ['path' => '/about', 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $today],
-            ['path' => '/services', 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $today],
-            ['path' => '/gateway', 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $today],
-            ['path' => '/industries', 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $today],
-            ['path' => '/insights', 'priority' => '0.9', 'changefreq' => 'daily', 'lastmod' => $today],
-            ['path' => '/case-study', 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => $today],
-            ['path' => '/contact', 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => $today],
-            ['path' => '/career', 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $today],
-            ['path' => '/client', 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $today],
-            ['path' => '/consultancy', 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $today],
-            ['path' => '/training', 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $today],
-            ['path' => '/market-intelligence', 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $today],
-            ['path' => '/social-impact', 'priority' => '0.6', 'changefreq' => 'monthly', 'lastmod' => $today],
+            ['path' => '/', 'priority' => '1.0', 'changefreq' => 'daily', 'lastmod' => $defaultMod],
+            ['path' => '/about', 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $defaultMod],
+            ['path' => '/services', 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $defaultMod],
+            ['path' => '/gateway', 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $defaultMod],
+            ['path' => '/industries', 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $defaultMod],
+            ['path' => '/insights', 'priority' => '0.9', 'changefreq' => 'daily', 'lastmod' => $defaultMod],
+            ['path' => '/case-study', 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => $defaultMod],
+            ['path' => '/contact', 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => $defaultMod],
+            ['path' => '/career', 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $defaultMod],
+            ['path' => '/client', 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $defaultMod],
+            ['path' => '/training', 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $defaultMod],
+            ['path' => '/social-impact', 'priority' => '0.6', 'changefreq' => 'monthly', 'lastmod' => $defaultMod],
         ];
 
-        // 1. Dynamic Services (The 6 Pillars)
+        // 1. Dynamic Services (ordered by sort_order)
         $services = [];
         try {
-            $dbServices = Service::all();
-            if ($dbServices->isNotEmpty()) {
-                foreach ($dbServices as $s) {
-                    $slug = $s->slug ?: strtolower(str_replace(' ', '-', $s->title));
+            if (Service::exists()) {
+                foreach (Service::orderBy('sort_order')->get() as $s) {
+                    $slug = $s->slug ?: strtolower(str_replace(' ', '-', (string) $s->title));
+                    if (!$slug) continue;
                     $services[] = [
                         'path' => "/services/{$slug}",
                         'priority' => '0.9',
                         'changefreq' => 'weekly',
-                        'lastmod' => $s->updated_at ? $s->updated_at->format('Y-m-d') : $today,
+                        'lastmod' => $s->updated_at ? $s->updated_at->toAtomString() : $defaultMod,
+                    ];
+                }
+            } else {
+                foreach (SeedData::getServices() as $s) {
+                    $services[] = [
+                        'path' => "/services/{$s->slug}",
+                        'priority' => '0.9',
+                        'changefreq' => 'weekly',
+                        'lastmod' => $defaultMod,
                     ];
                 }
             }
-        } catch (\Throwable $e) {}
-
-        if (empty($services)) {
-            $fallbackSlugs = ['advisory', 'gov-relations', 'business-matching', 'comms', 'media-relations', 'investment'];
-            foreach ($fallbackSlugs as $slug) {
+        } catch (\Throwable $e) {
+            foreach (['advisory', 'gov-relations', 'business-matching', 'comms', 'media-relations', 'investment'] as $slug) {
                 $services[] = [
                     'path' => "/services/{$slug}",
                     'priority' => '0.9',
                     'changefreq' => 'weekly',
-                    'lastmod' => $today,
+                    'lastmod' => $defaultMod,
                 ];
             }
         }
 
-        // 2. Dynamic Insights & Articles
+        // 2. Dynamic Published Insights ONLY (exclude drafts; fall back to seed data only if empty table)
         $insights = [];
         try {
-            $dbInsights = Insight::all();
-            foreach ($dbInsights as $i) {
-                if ($i->slug) {
+            if (Insight::exists()) {
+                foreach (Insight::published()->orderByDesc('id')->get() as $i) {
+                    if ($i->slug) {
+                        $insights[] = [
+                            'path' => "/insights/{$i->slug}",
+                            'priority' => '0.8',
+                            'changefreq' => 'weekly',
+                            'lastmod' => $i->updated_at ? $i->updated_at->toAtomString() : $defaultMod,
+                        ];
+                    }
+                }
+            } else {
+                foreach (SeedData::getInsights() as $i) {
                     $insights[] = [
                         'path' => "/insights/{$i->slug}",
                         'priority' => '0.8',
                         'changefreq' => 'weekly',
-                        'lastmod' => $i->updated_at ? $i->updated_at->format('Y-m-d') : $today,
+                        'lastmod' => $defaultMod,
                     ];
                 }
             }
         } catch (\Throwable $e) {}
 
-        if (empty($insights)) {
-            foreach (SeedData::getInsights() as $i) {
-                $insights[] = [
-                    'path' => "/insights/{$i->slug}",
-                    'priority' => '0.8',
-                    'changefreq' => 'weekly',
-                    'lastmod' => $today,
-                ];
-            }
-        }
-
-        // 3. Dynamic Case Studies
+        // 3. Dynamic Case Studies (fall back to seed data only if empty table)
         $caseStudies = [];
         try {
-            $dbCases = CaseStudy::all();
-            foreach ($dbCases as $c) {
-                if ($c->slug) {
+            if (CaseStudy::exists()) {
+                foreach (CaseStudy::orderByDesc('id')->get() as $c) {
+                    if ($c->slug) {
+                        $caseStudies[] = [
+                            'path' => "/case-study/{$c->slug}",
+                            'priority' => '0.8',
+                            'changefreq' => 'monthly',
+                            'lastmod' => $c->updated_at ? $c->updated_at->toAtomString() : $defaultMod,
+                        ];
+                    }
+                }
+            } else {
+                foreach (SeedData::getCaseStudies() as $c) {
                     $caseStudies[] = [
                         'path' => "/case-study/{$c->slug}",
                         'priority' => '0.8',
                         'changefreq' => 'monthly',
-                        'lastmod' => $c->updated_at ? $c->updated_at->format('Y-m-d') : $today,
+                        'lastmod' => $defaultMod,
                     ];
                 }
             }
         } catch (\Throwable $e) {}
-
-        if (empty($caseStudies)) {
-            foreach (SeedData::getCaseStudies() as $c) {
-                $caseStudies[] = [
-                    'path' => "/case-study/{$c->slug}",
-                    'priority' => '0.8',
-                    'changefreq' => 'monthly',
-                    'lastmod' => $today,
-                ];
-            }
-        }
 
         return array_merge($staticPages, $services, $insights, $caseStudies);
     }

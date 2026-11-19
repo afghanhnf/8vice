@@ -13,22 +13,39 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
   const [isWeChatModalOpen, setIsWeChatModalOpen] = useState(false);
   const [copiedWechat, setCopiedWechat] = useState(false);
   const [showLangBanner, setShowLangBanner] = useState(false);
   const [detectedBrowserLang, setDetectedBrowserLang] = useState(null);
   const langDropdownRef = useRef(null);
+  const mobileLangDropdownRef = useRef(null);
   const langTimerRef = useRef(null);
 
-  // Lock body scroll and handle ESC key when WeChat modal is open
+  const hasSiteSettings = Boolean(siteSettings && typeof siteSettings === 'object');
+  const rawEmail = (hasSiteSettings ? (siteSettings.email || '') : 'hello@8vice.com').trim();
+  const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
+  const emailHref = cleanEmail ? `mailto:${cleanEmail}` : '';
+  const instagramUrl = (hasSiteSettings ? (siteSettings.instagram_url || '') : 'https://www.instagram.com/8viceofficial').trim();
+  const linkedinUrl = (hasSiteSettings ? (siteSettings.linkedin_url || '') : 'https://www.linkedin.com/company/8-vice/').trim();
+  const whatsappUrl = (hasSiteSettings ? (siteSettings.whatsapp_url || '') : '').trim();
+  const wechatId = (hasSiteSettings ? (siteSettings.wechat_id || '') : 'eightvice').trim();
+  const rawWechatQr = (hasSiteSettings ? (siteSettings.wechat_qr || '') : '/images/wechat.webp').trim();
+  const wechatQrSrc = rawWechatQr
+    ? (rawWechatQr.startsWith('http') || rawWechatQr.startsWith('/') ? rawWechatQr : `/storage/${rawWechatQr.replace(/^\/+/, '')}`)
+    : '';
+  const hasWechat = Boolean(wechatId || wechatQrSrc);
+
+  // Lock body scroll and handle ESC key when WeChat modal or mobile drawer is open
   useEffect(() => {
-    if (!isWeChatModalOpen) return;
+    if (!isWeChatModalOpen && !isMobileMenuOpen) return;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setIsWeChatModalOpen(false);
+        setIsMobileMenuOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -36,11 +53,11 @@ export default function Header() {
       document.body.style.overflow = originalOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isWeChatModalOpen]);
+  }, [isWeChatModalOpen, isMobileMenuOpen]);
 
   const handleCopyWechatId = () => {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText('eightvice');
+    if (wechatId && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(wechatId);
       setCopiedWechat(true);
       setTimeout(() => setCopiedWechat(false), 2000);
     }
@@ -155,12 +172,16 @@ export default function Header() {
         if (isMobileMenuOpen) setIsMobileMenuOpen(false);
         if (langTimerRef.current) clearTimeout(langTimerRef.current);
         if (isLangOpen) setIsLangOpen(false);
+        if (isMobileLangOpen) setIsMobileLangOpen(false);
       }
     };
     const handleClickOutside = (e) => {
       if (langDropdownRef.current && !langDropdownRef.current.contains(e.target)) {
         if (langTimerRef.current) clearTimeout(langTimerRef.current);
         setIsLangOpen(false);
+      }
+      if (mobileLangDropdownRef.current && !mobileLangDropdownRef.current.contains(e.target)) {
+        setIsMobileLangOpen(false);
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -173,11 +194,8 @@ export default function Header() {
       window.removeEventListener('keydown', handleEscape);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isMobileMenuOpen, isSearchOpen, isLangOpen]);
+  }, [isMobileMenuOpen, isSearchOpen, isLangOpen, isMobileLangOpen]);
 
-  const rawEmail = siteSettings?.email || 'hello@8vice.com';
-  const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
-  const emailHref = `mailto:${cleanEmail}`;
   const defaultTagline = lang === 'cn'
     ? '通往印尼与中国的战略商业门户'
     : lang === 'id'
@@ -243,52 +261,56 @@ export default function Header() {
           <div className="top-bar__inner">
             <div className="top-bar__tagline">{displayTagline}</div>
             <div className="top-bar__contact">
-              <a
-                href={emailHref}
-                aria-label={`Email ${cleanEmail}`}
-                className="top-bar__email-link"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ico ico-16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                <span className="top-bar__email-text" style={{ fontSize: '12.5px' }}>{cleanEmail}</span>
-              </a>
-              {(siteSettings?.instagram_url || 'https://www.instagram.com/8viceofficial') && (
-                <a href={siteSettings?.instagram_url || 'https://www.instagram.com/8viceofficial'} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              {cleanEmail && (
+                <a
+                  href={emailHref}
+                  aria-label={`Email ${cleanEmail}`}
+                  className="top-bar__email-link"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ico ico-16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <span className="top-bar__email-text" style={{ fontSize: '12.5px' }}>{cleanEmail}</span>
+                </a>
+              )}
+              {instagramUrl && (
+                <a href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ico ico-16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </a>
               )}
-              {(siteSettings?.linkedin_url || 'https://www.linkedin.com/company/8-vice/') && (
-                <a href={siteSettings?.linkedin_url || 'https://www.linkedin.com/company/8-vice/'} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              {linkedinUrl && (
+                <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ico ico-16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
               )}
-              <button
-                type="button"
-                onClick={() => setIsWeChatModalOpen(true)}
-                aria-label="WeChat QR Code"
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: 'inherit',
-                  cursor: 'pointer',
-                  padding: 0,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  opacity: 0.85
-                }}
-                title={lang === 'id' ? 'Buka QR Code WeChat 8vice' : 'Scan 8vice WeChat QR Code'}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="ico ico-16">
-                  <path d="M9.5 14c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 .7-.2 1.4-.5 2" />
-                  <path d="M5.8 13.1 4.5 15.5l2.5-.9" />
-                  <circle cx="7.7" cy="8.3" r="0.6" fill="currentColor" stroke="none" />
-                  <circle cx="11.3" cy="8.3" r="0.6" fill="currentColor" stroke="none" />
-                  <path d="M15.5 19.8c2.8 0 5-1.8 5-4.1s-2.2-4.1-5-4.1-5 1.8-5 4.1 2.2 4.1 5 4.1Z" />
-                  <path d="M18.2 19.2 19.5 21l-2.2-.8" />
-                </svg>
-              </button>
-              {siteSettings?.whatsapp_url && (
-                <a href={siteSettings.whatsapp_url} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp">
+              {hasWechat && (
+                <button
+                  type="button"
+                  onClick={() => setIsWeChatModalOpen(true)}
+                  aria-label="WeChat QR Code"
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'inherit',
+                    cursor: 'pointer',
+                    padding: 0,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    opacity: 0.85
+                  }}
+                  title={lang === 'id' ? 'Buka QR Code WeChat 8vice' : 'Scan 8vice WeChat QR Code'}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" className="ico ico-16">
+                    <path d="M9.5 14c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 .7-.2 1.4-.5 2" />
+                    <path d="M5.8 13.1 4.5 15.5l2.5-.9" />
+                    <circle cx="7.7" cy="8.3" r="0.6" fill="currentColor" stroke="none" />
+                    <circle cx="11.3" cy="8.3" r="0.6" fill="currentColor" stroke="none" />
+                    <path d="M15.5 19.8c2.8 0 5-1.8 5-4.1s-2.2-4.1-5-4.1-5 1.8-5 4.1 2.2 4.1 5 4.1Z" />
+                    <path d="M18.2 19.2 19.5 21l-2.2-.8" />
+                  </svg>
+                </button>
+              )}
+              {whatsappUrl && (
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ico ico-16">
                     <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
                     <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
@@ -466,26 +488,21 @@ export default function Header() {
           color: #FFFFFF;
         }
         .lang-auto-banner {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
+          position: relative;
           min-height: 36px;
           z-index: 10020;
           background: linear-gradient(90deg, rgba(13, 15, 22, 0.98) 0%, rgba(28, 14, 19, 0.98) 50%, rgba(13, 15, 22, 0.98) 100%);
           border-bottom: 1px solid rgba(230, 57, 70, 0.38);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
           display: flex;
           align-items: center;
-          padding: 4px 0;
+          padding: 6px 0;
         }
         .lang-auto-banner__inner {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 12px;
+          gap: 10px;
           width: 100%;
           flex-wrap: wrap;
         }
@@ -521,6 +538,7 @@ export default function Header() {
           display: inline-flex;
           align-items: center;
           gap: 4px;
+          flex-wrap: wrap;
         }
         .lang-auto-banner__pill {
           display: inline-flex;
@@ -549,8 +567,9 @@ export default function Header() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          width: 22px;
-          height: 22px;
+          width: 24px;
+          height: 24px;
+          flex-shrink: 0;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.08);
           border: 1px solid rgba(255, 255, 255, 0.14);
@@ -565,25 +584,154 @@ export default function Header() {
           color: #FFFFFF;
         }
         .top-bar.has-lang-banner {
-          opacity: 0;
-          pointer-events: none;
+          display: none;
         }
-        .header.has-lang-banner.is-scrolled {
-          top: 36px;
+        .header {
+          position: sticky;
+          top: 0;
+          z-index: 10030;
+        }
+        .drawer-backdrop {
+          z-index: 10040 !important;
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+        }
+        .drawer {
+          z-index: 10050 !important;
+          height: 100vh;
+          height: 100dvh;
+          width: min(88vw, 350px) !important;
+          padding: 20px 20px calc(28px + env(safe-area-inset-bottom, 0px)) !important;
+        }
+        .drawer__close {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background 0.2s ease;
+        }
+        .drawer__close:hover {
+          background: rgba(255, 255, 255, 0.14);
+        }
+        .drawer__link.is-current {
+          color: #FF7B7B;
+          border-bottom-color: rgba(230, 57, 70, 0.4);
+        }
+        .header__mobile-actions {
+          display: none;
+          align-items: center;
+          gap: 8px;
+          margin-left: auto;
+          flex-shrink: 0;
+        }
+        .header__mobile-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 38px;
+          height: 38px;
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #FFFFFF;
+          cursor: pointer;
+          padding: 0;
+          transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .header__mobile-btn:hover {
+          background: rgba(255, 255, 255, 0.14);
+          border-color: rgba(230, 57, 70, 0.45);
+        }
+        @media (max-width: 1024px) {
+          .header__inner {
+            gap: 12px !important;
+            height: 68px !important;
+          }
+          .header .nav {
+            display: none !important;
+          }
+          .header__mobile-actions {
+            display: inline-flex;
+          }
+          .hamburger {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #FFFFFF;
+            margin-left: 0 !important;
+            padding: 0 !important;
+            cursor: pointer;
+          }
+          .hamburger:hover {
+            background: rgba(255, 255, 255, 0.14);
+          }
         }
         @media (max-width: 768px) {
           .lang-auto-banner {
-            padding: 6px 0;
+            padding: 8px 0;
+          }
+          .lang-auto-banner__inner {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 8px;
           }
           .lang-auto-banner__badge {
             display: none;
           }
           .lang-auto-banner__text {
-            font-size: 11px;
-            flex: 1 1 auto;
+            font-size: 11.5px;
           }
-          .header.has-lang-banner {
-            top: 38px !important;
+          .lang-auto-banner__actions {
+            margin-left: 0;
+            justify-content: space-between;
+            width: 100%;
+          }
+          .top-bar {
+            height: auto;
+            min-height: 36px;
+            padding: 6px 0;
+          }
+          .top-bar__contact {
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+          .header__inner {
+            height: 62px !important;
+            padding-inline: 16px !important;
+          }
+          .header .logo__img,
+          .drawer__head .logo__img {
+            height: 26px;
+            width: auto;
+          }
+        }
+        @media (max-width: 420px) {
+          .lang-auto-banner__pill {
+            padding: 3px 7px;
+            font-size: 10.5px;
+          }
+          .header__mobile-actions {
+            gap: 6px;
+          }
+          .header__mobile-btn,
+          .hamburger {
+            width: 36px;
+            height: 36px;
+          }
+          .lang-dropdown__trigger {
+            padding: 6px 10px;
+            font-size: 11.5px;
           }
         }
       ` }} />
@@ -678,9 +826,77 @@ export default function Header() {
             </div>
           </nav>
 
-          <button className="hamburger" id="hamburger" aria-label="Open menu" onClick={() => setIsMobileMenuOpen(true)}>
-            <svg className="ico ico-24" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          </button>
+          <div className="header__mobile-actions">
+            <div
+              ref={mobileLangDropdownRef}
+              className={`lang-dropdown ${isMobileLangOpen ? 'is-open' : ''}`}
+            >
+              <button
+                type="button"
+                className="lang-dropdown__trigger"
+                aria-haspopup="true"
+                aria-expanded={isMobileLangOpen}
+                aria-label="Select Language"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsMobileLangOpen((prev) => !prev);
+                }}
+              >
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.85 }}>
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>{currentLangOption.short}</span>
+                <svg className="lang-dropdown__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              {isMobileLangOpen && (
+                <div className="lang-dropdown__menu" role="menu" aria-label="Mobile language options">
+                  {langOptions.map((opt) => (
+                    <a
+                      key={opt.code}
+                      href={getLangUrl(opt.code)}
+                      role="menuitem"
+                      className={`lang-dropdown__item ${lang === opt.code ? 'is-active' : ''}`}
+                      onClick={() => {
+                        handleSelectLanguage(opt.code);
+                        setIsMobileLangOpen(false);
+                      }}
+                    >
+                      <span>{opt.native}</span>
+                      <span className="lang-dropdown__code">{opt.short}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className="header__mobile-btn"
+              aria-label="Search"
+              onClick={() => setIsSearchOpen(true)}
+            >
+              <svg className="ico ico-18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              className="hamburger"
+              id="hamburger"
+              aria-label="Open menu"
+              aria-expanded={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <svg className="ico ico-22" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -688,14 +904,14 @@ export default function Header() {
       <div className={`drawer-backdrop ${isMobileMenuOpen ? 'is-open' : ''}`} id="drawer-backdrop" onClick={() => setIsMobileMenuOpen(false)}></div>
       <aside className={`drawer ${isMobileMenuOpen ? 'is-open' : ''}`} id="drawer" aria-label="Mobile menu">
         <div className="drawer__head">
-          <Link href="/" className="logo"><img loading="lazy" decoding="async" src="/images/profil/8vice-logo.webp" alt="8vice" className="logo__img" width="100" height="32" /></Link>
-          <button className="drawer__close" id="drawer-close" aria-label="Close menu" onClick={() => setIsMobileMenuOpen(false)}>
-            <svg className="ico ico-24" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <Link href="/" className="logo" onClick={() => setIsMobileMenuOpen(false)}><img loading="lazy" decoding="async" src="/images/profil/8vice-logo.webp" alt="8vice" className="logo__img" width="100" height="32" /></Link>
+          <button type="button" className="drawer__close" id="drawer-close" aria-label="Close menu" onClick={() => setIsMobileMenuOpen(false)}>
+            <svg className="ico ico-22" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
         </div>
-        <Link className="drawer__link" href="/about" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.about')}</Link>
-        <Link className="drawer__link" href="/services" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.services')}</Link>
-        <Link className="drawer__link" href="/insights" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.insights_partnerships')}</Link>
+        <Link className={`drawer__link${isActive('/about') ? ' is-current' : ''}`} href="/about" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.about')}</Link>
+        <Link className={`drawer__link${isActive('/services') ? ' is-current' : ''}`} href="/services" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.services')}</Link>
+        <Link className={`drawer__link${(isActive('/insights') || isActive('/article')) ? ' is-current' : ''}`} href="/insights" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.insights_partnerships')}</Link>
         <div style={{ marginTop: '16px', marginBottom: '8px' }}>
           <Link
             className="nav__contact-pill"
@@ -840,7 +1056,7 @@ export default function Header() {
               }}
             >
               <img
-                src="/images/wechat.webp"
+                src={wechatQrSrc || '/images/wechat.webp'}
                 alt="8vice WeChat QR"
                 loading="eager"
                 decoding="sync"
@@ -855,48 +1071,50 @@ export default function Header() {
               />
             </div>
 
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: '10px 14px',
-                borderRadius: '12px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                fontSize: '13px',
-                color: 'rgba(255, 255, 255, 0.8)'
-              }}
-            >
-              <span>WeChat ID:</span>
-              <strong style={{ color: '#07C160', letterSpacing: '0.5px' }}>eightvice</strong>
-              <button
-                type="button"
-                onClick={handleCopyWechatId}
+            {wechatId && (
+              <div
                 style={{
-                  background: 'rgba(7, 193, 96, 0.18)',
-                  border: '1px solid rgba(7, 193, 96, 0.4)',
-                  color: '#07C160',
-                  fontSize: '11.5px',
-                  fontWeight: 600,
-                  borderRadius: '6px',
-                  padding: '3px 8px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#07C160';
-                  e.currentTarget.style.color = '#FFFFFF';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(7, 193, 96, 0.18)';
-                  e.currentTarget.style.color = '#07C160';
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '10px 14px',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  fontSize: '13px',
+                  color: 'rgba(255, 255, 255, 0.8)'
                 }}
               >
-                {copiedWechat ? (lang === 'cn' ? '已复制 ✓' : lang === 'id' ? 'Tersalin ✓' : 'Copied ✓') : (lang === 'cn' ? '复制' : lang === 'id' ? 'Salin' : 'Copy')}
-              </button>
-            </div>
+                <span>WeChat ID:</span>
+                <strong style={{ color: '#07C160', letterSpacing: '0.5px' }}>{wechatId}</strong>
+                <button
+                  type="button"
+                  onClick={handleCopyWechatId}
+                  style={{
+                    background: 'rgba(7, 193, 96, 0.18)',
+                    border: '1px solid rgba(7, 193, 96, 0.4)',
+                    color: '#07C160',
+                    fontSize: '11.5px',
+                    fontWeight: 600,
+                    borderRadius: '6px',
+                    padding: '3px 8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#07C160';
+                    e.currentTarget.style.color = '#FFFFFF';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(7, 193, 96, 0.18)';
+                    e.currentTarget.style.color = '#07C160';
+                  }}
+                >
+                  {copiedWechat ? (lang === 'cn' ? '已复制 ✓' : lang === 'id' ? 'Tersalin ✓' : 'Copied ✓') : (lang === 'cn' ? '复制' : lang === 'id' ? 'Salin' : 'Copy')}
+                </button>
+              </div>
+            )}
           </div>
         </div>,
         document.body

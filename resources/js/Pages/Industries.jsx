@@ -714,7 +714,7 @@ export default function Industries({ industryCoverages = [] }) {
 
   return (
     <MainLayout>
-      <SeoHead pageCode="industries" title={copy.breadcrumb} />
+      <SeoHead pageCode="industries" />
 
       <div className="ind-page">
         {/* ================================================================

@@ -1222,30 +1222,79 @@ export default function About({ profiles = [] }) {
         ctaSecondary: 'Explore Our Services'
       };
 
-  // Combine CMS profiles from backend props with detailed localized team data (matched by name)
+  // Combine CMS profiles from backend props cleanly (respecting DB sort_order, photos, socials, and dynamically added rows)
   const peopleList = useMemo(() => {
-    const dbByKey = new Map();
-    if (profiles && profiles.length > 0) {
-      profiles.forEach((p) => {
-        const key = (p.call_name || p.full_title || '').toLowerCase();
-        if (key.includes('helda')) dbByKey.set('helda', p);
-        else if (key.includes('christine')) dbByKey.set('christine', p);
-        else if (key.includes('gandhi')) dbByKey.set('gandhi', p);
-        else if (key.includes('james')) dbByKey.set('james', p);
+    const pickLoc = (val, fallback = '') => {
+      if (!val) return fallback;
+      if (typeof val === 'string') {
+        const trimmed = val.trim();
+        if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+          try {
+            const parsed = JSON.parse(trimmed);
+            if (parsed && typeof parsed === 'object') {
+              return String(parsed[lang] || parsed.en || parsed.id || parsed.cn || fallback).trim();
+            }
+          } catch (e) {}
+        }
+        return trimmed;
+      }
+      if (typeof val === 'object') {
+        return String(val[lang] || val.en || val.id || val.cn || Object.values(val)[0] || fallback).trim();
+      }
+      return fallback;
+    };
+
+    const resolvePhotoUrl = (raw, fallback) => {
+      if (!raw || typeof raw !== 'string') return fallback;
+      const trimmed = raw.trim();
+      if (!trimmed) return fallback;
+      if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('/')) return trimmed;
+      if (trimmed.startsWith('images/')) return `/${trimmed}`;
+      return `/storage/${trimmed}`;
+    };
+
+    const findBasePerson = (dbProfile) => {
+      const key = `${dbProfile.call_name || ''} ${dbProfile.full_title || ''} ${dbProfile.title || ''}`.toLowerCase();
+      return copy.people.find((bp) => {
+        if (bp.id === 'helda' && key.includes('helda')) return true;
+        if (bp.id === 'gandhi' && key.includes('gandhi')) return true;
+        if (bp.id === 'christine' && key.includes('christine')) return true;
+        if (bp.id === 'james' && key.includes('james')) return true;
+        return false;
+      });
+    };
+
+    if (Array.isArray(profiles) && profiles.length > 0) {
+      return profiles.map((p, idx) => {
+        const base = findBasePerson(p);
+        const dbBioText = pickLoc(p.short_bio_i18n || p.short_bio || p.description_i18n || p.description, '');
+        const dbSocials = p.socials && typeof p.socials === 'object' ? p.socials : null;
+
+        if (base) {
+          return {
+            ...base,
+            photo: resolvePhotoUrl(p.image, base.photo),
+            socials: dbSocials || base.socials,
+          };
+        }
+
+        return {
+          id: `profile-${p.id || idx}`,
+          callName: p.call_name || pickLoc(p.title_i18n || p.title, 'Advisor'),
+          fullName: pickLoc(p.full_title_i18n || p.full_title || p.title_i18n || p.title, p.call_name || 'Advisor'),
+          chineseName: '',
+          nameNote: pickLoc(p.role_i18n || p.role, ''),
+          subtitle: pickLoc(p.role_i18n || p.role, ''),
+          bioParagraphs: dbBioText ? dbBioText.split(/\n+/).filter(Boolean) : [],
+          photo: resolvePhotoUrl(p.image, '/images/executive_profile_bw.webp'),
+          socials: dbSocials || {},
+          experiences: Array.isArray(p.focus_tags) ? p.focus_tags : [],
+        };
       });
     }
 
-    return copy.people.map((person) => {
-      const p = dbByKey.get(person.id);
-      if (!p) return person;
-
-      return {
-        ...person,
-        photo: p.image ? (p.image.startsWith('/') ? p.image : `/storage/${p.image}`) : person.photo,
-        socials: p.socials || person.socials,
-      };
-    });
-  }, [profiles, copy.people]);
+    return copy.people;
+  }, [profiles, copy.people, lang]);
 
   return (
     <MainLayout>

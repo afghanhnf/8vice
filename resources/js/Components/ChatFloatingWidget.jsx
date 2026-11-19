@@ -14,7 +14,14 @@ export default function ChatFloatingWidget() {
   const [copiedWechat, setCopiedWechat] = useState(false);
   const widgetRef = useRef(null);
 
-  const whatsappUrl = siteSettings?.whatsapp_url || 'https://wa.me/628118005110';
+  const hasSiteSettings = Boolean(siteSettings && typeof siteSettings === 'object');
+  const whatsappUrl = (hasSiteSettings ? (siteSettings.whatsapp_url || '') : 'https://wa.me/628118005110').trim();
+  const wechatId = (hasSiteSettings ? (siteSettings.wechat_id || '') : 'eightvice').trim();
+  const rawWechatQr = (hasSiteSettings ? (siteSettings.wechat_qr || '') : '/images/wechat.webp').trim();
+  const wechatQrSrc = rawWechatQr
+    ? (rawWechatQr.startsWith('http') || rawWechatQr.startsWith('/') ? rawWechatQr : `/storage/${rawWechatQr.replace(/^\/+/, '')}`)
+    : '';
+  const hasWechat = Boolean(wechatId || wechatQrSrc);
 
   // Body scroll lock when WeChat modal is open
   useEffect(() => {
@@ -27,8 +34,8 @@ export default function ChatFloatingWidget() {
   }, [showWechatModal]);
 
   const handleCopyWechatId = () => {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText('eightvice');
+    if (wechatId && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(wechatId);
       setCopiedWechat(true);
       setTimeout(() => setCopiedWechat(false), 2000);
     }
@@ -56,6 +63,10 @@ export default function ChatFloatingWidget() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  if (!whatsappUrl && !hasWechat) {
+    return null;
+  }
 
   return (
     <>
@@ -105,118 +116,122 @@ export default function ChatFloatingWidget() {
             </div>
 
             {/* Option 1: WhatsApp */}
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setIsOpen(false)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '10px 12px',
-                borderRadius: '14px',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
-                color: '#FFFFFF',
-                textDecoration: 'none',
-                transition: 'all 0.2s ease',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(37, 211, 102, 0.12)';
-                e.currentTarget.style.borderColor = 'rgba(37, 211, 102, 0.4)';
-                e.currentTarget.style.transform = 'translateX(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
-                e.currentTarget.style.transform = 'translateX(0)';
-              }}
-            >
-              <div
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
                 style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '50%',
-                  background: '#25D366',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  gap: '12px',
+                  padding: '10px 12px',
+                  borderRadius: '14px',
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
                   color: '#FFFFFF',
-                  flexShrink: 0,
-                  boxShadow: '0 4px 12px rgba(37, 211, 102, 0.35)'
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(37, 211, 102, 0.12)';
+                  e.currentTarget.style.borderColor = 'rgba(37, 211, 102, 0.4)';
+                  e.currentTarget.style.transform = 'translateX(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                  e.currentTarget.style.transform = 'translateX(0)';
                 }}
               >
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.004c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 1 1 6.97 3.86zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.43-.06-.65.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.17 1.74 2.66 4.22 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z" />
-                </svg>
-              </div>
-              <div>
-                <div style={{ fontSize: '14.5px', fontWeight: 600, color: '#FFFFFF', lineHeight: 1.2 }}>WhatsApp</div>
-                <div style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '2px' }}>
-                  {isCn ? '即时在线沟通' : isId ? 'Chat langsung' : 'Chat directly'}
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '50%',
+                    background: '#25D366',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#FFFFFF',
+                    flexShrink: 0,
+                    boxShadow: '0 4px 12px rgba(37, 211, 102, 0.35)'
+                  }}
+                >
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.004c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 1 1 6.97 3.86zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.43-.06-.65.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.17 1.74 2.66 4.22 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z" />
+                  </svg>
                 </div>
-              </div>
-            </a>
+                <div>
+                  <div style={{ fontSize: '14.5px', fontWeight: 600, color: '#FFFFFF', lineHeight: 1.2 }}>WhatsApp</div>
+                  <div style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '2px' }}>
+                    {isCn ? '即时在线沟通' : isId ? 'Chat langsung' : 'Chat directly'}
+                  </div>
+                </div>
+              </a>
+            )}
 
             {/* Option 2: WeChat */}
-            <button
-              type="button"
-              onClick={() => {
-                setShowWechatModal(true);
-                setIsOpen(false);
-              }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '10px 12px',
-                borderRadius: '14px',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
-                color: '#FFFFFF',
-                textAlign: 'left',
-                width: '100%',
-                transition: 'all 0.2s ease',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(7, 193, 96, 0.12)';
-                e.currentTarget.style.borderColor = 'rgba(7, 193, 96, 0.4)';
-                e.currentTarget.style.transform = 'translateX(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
-                e.currentTarget.style.transform = 'translateX(0)';
-              }}
-            >
-              <div
+            {hasWechat && (
+              <button
+                type="button"
+                onClick={() => {
+                  setShowWechatModal(true);
+                  setIsOpen(false);
+                }}
                 style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '50%',
-                  background: '#07C160',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  gap: '12px',
+                  padding: '10px 12px',
+                  borderRadius: '14px',
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
                   color: '#FFFFFF',
-                  flexShrink: 0,
-                  boxShadow: '0 4px 12px rgba(7, 193, 96, 0.35)'
+                  textAlign: 'left',
+                  width: '100%',
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(7, 193, 96, 0.12)';
+                  e.currentTarget.style.borderColor = 'rgba(7, 193, 96, 0.4)';
+                  e.currentTarget.style.transform = 'translateX(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                  e.currentTarget.style.transform = 'translateX(0)';
                 }}
               >
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                  <path d="M8.5 2C4.36 2 1 4.91 1 8.5c0 1.94.97 3.69 2.5 4.88-.11.75-.48 2.22-1.25 3.32 1.46-.22 3.12-.92 3.97-1.57.71.24 1.48.37 2.28.37.28 0 .56-.02.83-.05C8.83 14.7 8.5 13.88 8.5 13c0-3.87 3.81-7 8.5-7 .34 0 .67.02 1 .06C17.02 3.73 13.11 2 8.5 2zm-2.25 4a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zm4.5 0a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM17 7c-3.87 0-7 2.69-7 6s3.13 6 7 6c.64 0 1.25-.09 1.83-.26.68.52 2.01 1.08 3.17 1.26-.62-.88-.91-2.06-1-2.66 1.22-.95 2-2.35 2-3.9 0-3.31-3.13-6-7-6zm-2 4.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg>
-              </div>
-              <div>
-                <div style={{ fontSize: '14.5px', fontWeight: 600, color: '#FFFFFF', lineHeight: 1.2 }}>WeChat</div>
-                <div style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '2px' }}>
-                  {isCn ? '扫描二维码' : isId ? 'Pindai QR Code' : 'Scan QR Code'}
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '50%',
+                    background: '#07C160',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#FFFFFF',
+                    flexShrink: 0,
+                    boxShadow: '0 4px 12px rgba(7, 193, 96, 0.35)'
+                  }}
+                >
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M8.5 2C4.36 2 1 4.91 1 8.5c0 1.94.97 3.69 2.5 4.88-.11.75-.48 2.22-1.25 3.32 1.46-.22 3.12-.92 3.97-1.57.71.24 1.48.37 2.28.37.28 0 .56-.02.83-.05C8.83 14.7 8.5 13.88 8.5 13c0-3.87 3.81-7 8.5-7 .34 0 .67.02 1 .06C17.02 3.73 13.11 2 8.5 2zm-2.25 4a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zm4.5 0a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM17 7c-3.87 0-7 2.69-7 6s3.13 6 7 6c.64 0 1.25-.09 1.83-.26.68.52 2.01 1.08 3.17 1.26-.62-.88-.91-2.06-1-2.66 1.22-.95 2-2.35 2-3.9 0-3.31-3.13-6-7-6zm-2 4.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                  </svg>
                 </div>
-              </div>
-            </button>
+                <div>
+                  <div style={{ fontSize: '14.5px', fontWeight: 600, color: '#FFFFFF', lineHeight: 1.2 }}>WeChat</div>
+                  <div style={{ fontSize: '11.5px', color: 'rgba(255, 255, 255, 0.55)', marginTop: '2px' }}>
+                    {isCn ? '扫描二维码' : isId ? 'Pindai QR Code' : 'Scan QR Code'}
+                  </div>
+                </div>
+              </button>
+            )}
           </div>
         )}
 
@@ -379,55 +394,58 @@ export default function ChatFloatingWidget() {
             </p>
 
             {/* QR Code Container */}
-            <div
-              style={{
-                background: '#FFFFFF',
-                padding: '12px',
-                borderRadius: '16px',
-                display: 'inline-block',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.45)',
-                marginBottom: '14px'
-              }}
-            >
-              <img
-                src="/images/wechat.webp"
-                alt="8Vice WeChat QR Code"
-                loading="eager"
-                decoding="sync"
-                fetchPriority="high"
-                onError={(e) => {
-                  if (!e.currentTarget.dataset.fallback) {
-                    e.currentTarget.dataset.fallback = 'true';
-                    e.currentTarget.src = '/images/wechat.jpeg';
-                  }
-                }}
+            {wechatQrSrc && (
+              <div
                 style={{
-                  width: '210px',
-                  height: '210px',
-                  objectFit: 'contain',
-                  display: 'block',
-                  borderRadius: '6px'
+                  background: '#FFFFFF',
+                  padding: '12px',
+                  borderRadius: '16px',
+                  display: 'inline-block',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.45)',
+                  marginBottom: '14px'
                 }}
-              />
-            </div>
+              >
+                <img
+                  src={wechatQrSrc}
+                  alt="8Vice WeChat QR Code"
+                  loading="eager"
+                  decoding="sync"
+                  fetchPriority="high"
+                  onError={(e) => {
+                    if (!e.currentTarget.dataset.fallback) {
+                      e.currentTarget.dataset.fallback = 'true';
+                      e.currentTarget.src = '/images/wechat.jpeg';
+                    }
+                  }}
+                  style={{
+                    width: '210px',
+                    height: '210px',
+                    objectFit: 'contain',
+                    display: 'block',
+                    borderRadius: '6px'
+                  }}
+                />
+              </div>
+            )}
 
             {/* WeChat ID & Copy Box */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '12px',
-                padding: '8px 14px',
-                fontSize: '13px',
-                marginBottom: '14px'
-              }}
-            >
-              <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>WeChat ID:</span>
-              <strong style={{ color: '#07C160', letterSpacing: '0.5px' }}>eightvice</strong>
+            {wechatId && (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: '12px',
+                  padding: '8px 14px',
+                  fontSize: '13px',
+                  marginBottom: '14px'
+                }}
+              >
+                <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>WeChat ID:</span>
+                <strong style={{ color: '#07C160', letterSpacing: '0.5px' }}>{wechatId}</strong>
               <button
                 type="button"
                 onClick={handleCopyWechatId}
@@ -453,7 +471,8 @@ export default function ChatFloatingWidget() {
               >
                 {copiedWechat ? (isCn ? '已复制 ✓' : isId ? 'Tersalin ✓' : 'Copied ✓') : (isCn ? '复制' : isId ? 'Salin' : 'Copy')}
               </button>
-            </div>
+              </div>
+            )}
 
             {/* Footer note */}
             <div

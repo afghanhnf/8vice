@@ -339,7 +339,7 @@ class PageSeoSeeder extends Seeder
                     'id' => 'industri prioritas Indonesia, kawasan industri Jawa, rantai pasok EV Indonesia, sektor perdagangan bilateral',
                     'cn' => '印尼重点产业, 爪哇工业园区, 印尼新能源产业链, 双边贸易行业',
                 ],
-                'og_image' => 'images/industry_manufacturing.webp',
+                'og_image' => 'images/industry_infrastructure.webp',
                 'og_type' => 'website',
                 'robots' => 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
             ],

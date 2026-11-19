@@ -808,7 +808,7 @@ export default function Article({ insights = [] }) {
 
   return (
     <MainLayout>
-      <SeoHead pageCode="article" title={copy.breadcrumb} />
+      <SeoHead pageCode="article" />
 
       <div className="ins-page">
         {/* ================================================================

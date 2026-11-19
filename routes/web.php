@@ -10,11 +10,30 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\SitemapController;
 
-// Dynamic Multilingual Sitemaps (Index + EN, ID, CN)
+// Dynamic Multilingual Sitemaps (Index + EN, ID, CN) & Robots.txt
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 Route::get('/sitemap-en.xml', fn() => app(SitemapController::class)->lang('en'));
 Route::get('/sitemap-id.xml', fn() => app(SitemapController::class)->lang('id'));
 Route::get('/sitemap-cn.xml', fn() => app(SitemapController::class)->lang('cn'));
+Route::get('/robots.txt', function () {
+    $baseUrl = SitemapController::getBaseUrl();
+    $content = implode("\n", [
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /admin/',
+        'Disallow: /login',
+        'Disallow: /register',
+        'Disallow: /password/',
+        'Disallow: /dashboard',
+        'Disallow: /profile',
+        'Disallow: /api/',
+        '',
+        "Sitemap: {$baseUrl}/sitemap.xml",
+        '',
+    ]);
+
+    return response($content, 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
+});
 
 Route::get('/api/search', [SearchController::class, 'index']);
 
@@ -60,12 +79,15 @@ $pageRoutes = function() use ($resolveLangPrefix) {
     Route::get('/services/{slug}', function ($slug) {
         $services = \App\Models\Service::orderBy('sort_order')->get();
         $service = \App\Models\Service::where('slug', $slug)->first();
+        if (!$service && \App\Models\Service::exists()) {
+            abort(404);
+        }
         return Inertia::render('ServiceDetail', [
             'slug' => $slug,
             'service' => $service,
             'services' => $services->isEmpty() ? collect(\App\Helpers\SeedData::getServices()) : $services,
         ]);
-    })->whereIn('slug', ['advisory', 'gov-relations', 'business-matching', 'comms', 'media-relations', 'investment']);
+    })->where('slug', '[a-z0-9\-]+');
 
     Route::get('/gateway', function () {
         $services = \App\Models\Service::orderBy('sort_order')->get();

@@ -12,6 +12,7 @@ export default function SeoHead({
   robots,
   article,
   caseStudy,
+  service,
   schema,
 }) {
   const { props } = usePage();
@@ -20,54 +21,77 @@ export default function SeoHead({
   const appUrl = props.appUrl || siteSettings?.app_url || '';
   const cmsSeo = pageCode ? pageSeos[pageCode] : null;
 
-  // Origin & URLs
-  const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : (appUrl || 'https://8vice.communic8.id');
-  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
-  const currentUrl = url || (typeof window !== 'undefined' ? window.location.href : `${origin}${pathname}`);
+  // Origin & Canonical URLs (strip query string so UTM parameters never split canonicals)
+  const origin =
+    (typeof window !== 'undefined' && window.location.origin)
+      ? window.location.origin.replace(/\/+$/, '')
+      : (appUrl || '').replace(/\/+$/, '');
+  const pathname = typeof window !== 'undefined' ? (window.location.pathname || '/') : '/';
+  const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
+  const canonicalPathUrl = url || `${origin}${normalizedPath}`;
 
-  // Determine language based on pathname
+  // Determine language based on pathname or Inertia shared locale
   const isIndonesian = pathname === '/id' || pathname.startsWith('/id/');
   const isChinese = pathname === '/cn' || pathname.startsWith('/cn/');
-  const langKey = isChinese ? 'cn' : isIndonesian ? 'id' : 'en';
-  const locale = isChinese ? 'zh_CN' : isIndonesian ? 'id_ID' : 'en_US';
-  const alternateLocale = isChinese ? 'en_US' : isIndonesian ? 'en_US' : 'zh_CN';
+  const langKey = isChinese ? 'cn' : isIndonesian ? 'id' : (props.locale || 'en');
+  const locale = langKey === 'cn' ? 'zh_CN' : langKey === 'id' ? 'id_ID' : 'en_US';
+  const alternateLocale = langKey === 'en' ? 'zh_CN' : 'en_US';
 
   // Hreflang alternate URLs
-  const cleanPath = pathname.replace(/^\/(id|cn)(\/|$)/, '/') || '/';
-  const enUrl = `${origin}${cleanPath === '/' ? '' : cleanPath}`;
+  const cleanPath = normalizedPath.replace(/^\/(id|cn)(\/|$)/, '/') || '/';
+  const enUrl = `${origin}${cleanPath === '/' ? '/' : cleanPath}`;
   const idUrl = `${origin}/id${cleanPath === '/' ? '' : cleanPath}`;
   const cnUrl = `${origin}/cn${cleanPath === '/' ? '' : cleanPath}`;
 
   const pickLang = (field) => {
     if (!field) return '';
-    if (typeof field === 'string') return field;
-    return field[langKey] || field.en || field.id || field.cn || '';
+    if (typeof field === 'string') {
+      const trimmed = field.trim();
+      if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+        try {
+          const parsed = JSON.parse(trimmed);
+          if (parsed && typeof parsed === 'object') {
+            return String(parsed[langKey] || parsed.en || parsed.id || parsed.cn || '').trim();
+          }
+        } catch (e) {}
+      }
+      return trimmed;
+    }
+    if (typeof field === 'object') {
+      return String(field[langKey] || field.en || field.id || field.cn || Object.values(field)[0] || '').trim();
+    }
+    return '';
   };
 
-  // 1. Resolve Title
+  // 1. Resolve Title (Entity -> CMS PageSeo -> explicit fallback title -> Site Default -> Fallback)
   let resolvedTitle = '';
-  if (article?.t || article?.title) {
-    resolvedTitle = pickLang(article.t || article.title);
+  if (article?.t_i18n || article?.t || article?.title) {
+    resolvedTitle = pickLang(article.t_i18n || article.t || article.title);
     if (resolvedTitle && !resolvedTitle.includes('8vice') && !resolvedTitle.includes('8 Vice')) {
       resolvedTitle = `${resolvedTitle} | 8vice`;
     }
-  } else if (caseStudy?.h || caseStudy?.title) {
-    resolvedTitle = pickLang(caseStudy.h || caseStudy.title);
+  } else if (caseStudy?.h_i18n || caseStudy?.h || caseStudy?.title) {
+    resolvedTitle = pickLang(caseStudy.h_i18n || caseStudy.h || caseStudy.title);
     if (resolvedTitle && !resolvedTitle.includes('8vice') && !resolvedTitle.includes('8 Vice')) {
       resolvedTitle = `${resolvedTitle} | 8vice Case Study`;
     }
+  } else if (service?.title_i18n || service?.title) {
+    resolvedTitle = pickLang(service.title_i18n || service.title);
+    if (resolvedTitle && !resolvedTitle.includes('8vice') && !resolvedTitle.includes('8 Vice')) {
+      resolvedTitle = `${resolvedTitle} | 8vice`;
+    }
+  } else if (cmsSeo?.meta_title_i18n || cmsSeo?.meta_title) {
+    resolvedTitle = pickLang(cmsSeo.meta_title_i18n || cmsSeo.meta_title);
   } else if (title) {
     resolvedTitle = title.includes('8vice') || title.includes('8 Vice') || title.includes('|') ? title : `${title} | 8vice`;
-  } else if (cmsSeo?.meta_title) {
-    resolvedTitle = pickLang(cmsSeo.meta_title);
-  } else if (siteSettings?.default_meta_title) {
-    resolvedTitle = pickLang(siteSettings.default_meta_title);
+  } else if (siteSettings?.default_meta_title_i18n || siteSettings?.default_meta_title) {
+    resolvedTitle = pickLang(siteSettings.default_meta_title_i18n || siteSettings.default_meta_title);
   }
 
   if (!resolvedTitle) {
-    resolvedTitle = isChinese
-      ? '8vice | 您的印尼与中国战略商业门户与跨境咨询伙伴'
-      : isIndonesian
+    resolvedTitle = langKey === 'cn'
+      ? '8vice | 通往印尼与中国的战略商业门户'
+      : langKey === 'id'
       ? '8vice | Solusi Strategis & Konsultasi Bisnis Global di Indonesia'
       : '8vice | Indonesia, Decoded for Chinese Businesses & Global Enterprises';
   }
@@ -75,7 +99,7 @@ export default function SeoHead({
   // 2. Resolve Description
   let resolvedDescription = '';
   if (article) {
-    const rawDesc = article.excerpt || article.description;
+    const rawDesc = article.excerpt_i18n || article.excerpt || article.description;
     if (rawDesc) {
       resolvedDescription = pickLang(rawDesc);
     } else if (typeof article.body === 'string') {
@@ -85,20 +109,22 @@ export default function SeoHead({
     } else {
       resolvedDescription = `Read ${resolvedTitle} on 8vice Insights. High-level analysis and strategic intelligence for Indonesia.`;
     }
-  } else if (caseStudy?.p || caseStudy?.description || caseStudy?.summary) {
-    resolvedDescription = pickLang(caseStudy.p || caseStudy.description || caseStudy.summary);
+  } else if (caseStudy?.p_i18n || caseStudy?.p || caseStudy?.description || caseStudy?.summary) {
+    resolvedDescription = pickLang(caseStudy.p_i18n || caseStudy.p || caseStudy.description || caseStudy.summary);
+  } else if (service?.description_i18n || service?.description || service?.summary) {
+    resolvedDescription = pickLang(service.description_i18n || service.description || service.summary);
+  } else if (cmsSeo?.meta_description_i18n || cmsSeo?.meta_description) {
+    resolvedDescription = pickLang(cmsSeo.meta_description_i18n || cmsSeo.meta_description);
   } else if (description) {
     resolvedDescription = description;
-  } else if (cmsSeo?.meta_description) {
-    resolvedDescription = pickLang(cmsSeo.meta_description);
-  } else if (siteSettings?.default_meta_description) {
-    resolvedDescription = pickLang(siteSettings.default_meta_description);
+  } else if (siteSettings?.default_meta_description_i18n || siteSettings?.default_meta_description) {
+    resolvedDescription = pickLang(siteSettings.default_meta_description_i18n || siteSettings.default_meta_description);
   }
 
   if (!resolvedDescription) {
-    resolvedDescription = isChinese
+    resolvedDescription = langKey === 'cn'
       ? '8vice 助力中国与跨国企业无缝进入印尼市场，提供战略咨询、市场准入、政府关系、商业配对与品牌本土化落地服务。'
-      : isIndonesian
+      : langKey === 'id'
       ? '8vice membantu bisnis global dan Tiongkok berekspansi di Indonesia dengan strategi masuk pasar, perizinan, struktur bisnis, dan riset mendalam.'
       : '8vice empowers Chinese & global businesses to seamlessly enter, structure, and scale in Indonesia with senior advisors who have operated on the ground.';
   }
@@ -111,17 +137,19 @@ export default function SeoHead({
   } else if (caseStudy?.cover || caseStudy?.image) {
     const c = caseStudy.cover || caseStudy.image;
     rawImage = c.startsWith('/') || c.startsWith('http') ? c : `/storage/${c}`;
-  } else if (image) {
-    rawImage = image;
+  } else if (service?.detail_image || service?.detailImage || service?.image || service?.hero_image || service?.heroImage) {
+    rawImage = service.detail_image || service.detailImage || service.image || service.hero_image || service.heroImage;
   } else if (cmsSeo?.og_image) {
     rawImage = cmsSeo.og_image;
+  } else if (image) {
+    rawImage = image;
   } else if (siteSettings?.default_og_image) {
     rawImage = siteSettings.default_og_image;
   } else {
     rawImage = '/images/og-default.webp';
   }
 
-  // Ensure full URL for social crawlers (Facebook, LinkedIn, Twitter, WhatsApp)
+  // Ensure full URL for social crawlers (Facebook, LinkedIn, Twitter, WhatsApp, WeChat)
   let resolvedOgImage = '';
   if (rawImage.startsWith('http://') || rawImage.startsWith('https://')) {
     resolvedOgImage = rawImage;
@@ -135,20 +163,20 @@ export default function SeoHead({
 
   // 4. Resolve Keywords
   let resolvedKeywords = keywords;
-  if (!resolvedKeywords && cmsSeo?.meta_keywords) {
-    resolvedKeywords = pickLang(cmsSeo.meta_keywords);
+  if (!resolvedKeywords && (cmsSeo?.meta_keywords_i18n || cmsSeo?.meta_keywords)) {
+    resolvedKeywords = pickLang(cmsSeo.meta_keywords_i18n || cmsSeo.meta_keywords);
   }
   if (!resolvedKeywords && siteSettings?.site_keywords) {
     resolvedKeywords = pickLang(siteSettings.site_keywords);
   }
   if (!resolvedKeywords) {
-    resolvedKeywords = 'indonesia market entry, chinese business indonesia, corporate advisory jakarta, business consultancy, business intelligence, 印尼市场准入, 中资企业出海印尼';
+    resolvedKeywords = 'indonesia market entry, chinese business indonesia, corporate advisory jakarta, business consultancy, business intelligence';
   }
 
   // 5. OpenGraph Type & Robots
   const resolvedOgType = article || caseStudy ? 'article' : (type || cmsSeo?.og_type || 'website');
   const resolvedRobots = robots || cmsSeo?.robots || 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
-  const resolvedCanonical = cmsSeo?.canonical_url || currentUrl;
+  const resolvedCanonical = cmsSeo?.canonical_url || canonicalPathUrl;
   const twitterHandle = siteSettings?.twitter_handle || '@8vice';
 
   // 6. JSON-LD Structured Data
@@ -168,13 +196,13 @@ export default function SeoHead({
         'description': 'Strategic advisory, corporate intelligence, and market entry consultancy for Indonesia.',
         'address': {
           '@type': 'PostalAddress',
-          'streetAddress': 'SOHO Building, Jl. Letjen M.T. Haryono No.Kav. 2, RT.1/RW.6, Tebet Bar., Kec. Pancoran',
+          'streetAddress': siteSettings?.address || 'SOHO Building, Jl. Letjen M.T. Haryono No.Kav. 2, Jakarta Selatan 12810',
           'addressLocality': 'Jakarta Selatan',
           'addressCountry': 'ID',
         },
         'sameAs': [
-          siteSettings?.linkedin_url || 'https://www.linkedin.com/company/8-vice/',
-          siteSettings?.instagram_url || 'https://www.instagram.com/8viceofficial',
+          siteSettings?.linkedin_url,
+          siteSettings?.instagram_url,
         ].filter(Boolean),
       },
       {
@@ -188,7 +216,7 @@ export default function SeoHead({
       },
       article ? {
         '@type': 'Article',
-        '@id': `${currentUrl}#article`,
+        '@id': `${canonicalPathUrl}#article`,
         'isPartOf': {
           '@id': `${origin}/#website`,
         },
@@ -207,7 +235,7 @@ export default function SeoHead({
       } : null,
       Array.isArray(article?.faqs) && article.faqs.length > 0 ? {
         '@type': 'FAQPage',
-        '@id': `${currentUrl}#faq`,
+        '@id': `${canonicalPathUrl}#faq`,
         'mainEntity': article.faqs
           .filter((f) => f?.q && f?.a)
           .map((f) => ({
@@ -225,44 +253,44 @@ export default function SeoHead({
     <Head>
       {/* Standard Meta Tags */}
       <title>{resolvedTitle}</title>
-      <meta name="description" content={resolvedDescription} />
-      <meta name="keywords" content={resolvedKeywords} />
-      <meta name="author" content="8vice Advisory" />
-      <meta name="robots" content={resolvedRobots} />
-      <meta name="googlebot" content={resolvedRobots} />
+      <meta head-key="description" name="description" content={resolvedDescription} />
+      <meta head-key="keywords" name="keywords" content={resolvedKeywords} />
+      <meta head-key="author" name="author" content="8vice Advisory" />
+      <meta head-key="robots" name="robots" content={resolvedRobots} />
+      <meta head-key="googlebot" name="googlebot" content={resolvedRobots} />
 
       {/* Canonical & Hreflang */}
-      <link rel="canonical" href={resolvedCanonical} />
-      <link rel="alternate" hrefLang="en" href={enUrl} />
-      <link rel="alternate" hrefLang="id" href={idUrl} />
-      <link rel="alternate" hrefLang="zh-CN" href={cnUrl} />
-      <link rel="alternate" hrefLang="x-default" href={enUrl} />
+      <link head-key="canonical" rel="canonical" href={resolvedCanonical} />
+      <link head-key="hreflang-en" rel="alternate" hrefLang="en" href={enUrl} />
+      <link head-key="hreflang-id" rel="alternate" hrefLang="id" href={idUrl} />
+      <link head-key="hreflang-cn" rel="alternate" hrefLang="zh-CN" href={cnUrl} />
+      <link head-key="hreflang-default" rel="alternate" hrefLang="x-default" href={enUrl} />
 
       {/* Open Graph / Facebook / LinkedIn / WhatsApp */}
-      <meta property="og:site_name" content="8VICE" />
-      <meta property="og:type" content={resolvedOgType} />
-      <meta property="og:url" content={currentUrl} />
-      <meta property="og:title" content={resolvedTitle} />
-      <meta property="og:description" content={resolvedDescription} />
-      <meta property="og:image" content={resolvedOgImage} />
-      <meta property="og:image:secure_url" content={resolvedOgImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={resolvedTitle} />
-      <meta property="og:locale" content={locale} />
-      <meta property="og:locale:alternate" content={alternateLocale} />
+      <meta head-key="og:site_name" property="og:site_name" content="8VICE" />
+      <meta head-key="og:type" property="og:type" content={resolvedOgType} />
+      <meta head-key="og:url" property="og:url" content={canonicalPathUrl} />
+      <meta head-key="og:title" property="og:title" content={resolvedTitle} />
+      <meta head-key="og:description" property="og:description" content={resolvedDescription} />
+      <meta head-key="og:image" property="og:image" content={resolvedOgImage} />
+      <meta head-key="og:image:secure_url" property="og:image:secure_url" content={resolvedOgImage} />
+      <meta head-key="og:image:width" property="og:image:width" content="1200" />
+      <meta head-key="og:image:height" property="og:image:height" content="630" />
+      <meta head-key="og:image:alt" property="og:image:alt" content={resolvedTitle} />
+      <meta head-key="og:locale" property="og:locale" content={locale} />
+      <meta head-key="og:locale:alternate" property="og:locale:alternate" content={alternateLocale} />
 
       {/* Twitter / X Cards */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content={twitterHandle} />
-      <meta name="twitter:creator" content={twitterHandle} />
-      <meta name="twitter:title" content={resolvedTitle} />
-      <meta name="twitter:description" content={resolvedDescription} />
-      <meta name="twitter:image" content={resolvedOgImage} />
-      <meta name="twitter:image:alt" content={resolvedTitle} />
+      <meta head-key="twitter:card" name="twitter:card" content="summary_large_image" />
+      <meta head-key="twitter:site" name="twitter:site" content={twitterHandle} />
+      <meta head-key="twitter:creator" name="twitter:creator" content={twitterHandle} />
+      <meta head-key="twitter:title" name="twitter:title" content={resolvedTitle} />
+      <meta head-key="twitter:description" name="twitter:description" content={resolvedDescription} />
+      <meta head-key="twitter:image" name="twitter:image" content={resolvedOgImage} />
+      <meta head-key="twitter:image:alt" name="twitter:image:alt" content={resolvedTitle} />
 
       {/* Structured Data (JSON-LD) for Google Rich Snippets */}
-      <script type="application/ld+json">
+      <script head-key="jsonld" type="application/ld+json">
         {JSON.stringify(finalSchema)}
       </script>
     </Head>

@@ -50,7 +50,36 @@ class SearchController extends Controller
      */
     private function servicePages(bool $isId, bool $isCn = false): array
     {
+        $lang = $isCn ? 'cn' : ($isId ? 'id' : 'en');
         $type = $isCn ? '核心服务' : ($isId ? 'Layanan' : 'Service');
+
+        $fallbackDefaults = [
+            'advisory' => ['market entry', 'ekspansi', 'penetrasi', 'strategy', 'strategi', 'advisory', 'konsultasi', 'consult', 'go-to-market', 'feasibility', 'kelayakan', 'research', 'riset', 'localization', 'lokalisasi', 'roadmap', '战略', '咨询', '市场准入', '扩张'],
+            'gov-relations' => ['government', 'pemerintah', 'stakeholder', 'pemangku', 'institution', 'institusi', 'kelembagaan', 'public-private', 'publik', 'association', 'asosiasi', 'regulator', 'liaison', '政府', '合规', '协会', '机构'],
+            'business-matching' => ['partner', 'mitra', 'kemitraan', 'partnership', 'matching', 'matchmaking', 'b2b', 'distributor', 'delegation', 'delegasi', 'trade mission', 'misi dagang', 'mou', '合作', '配对', '分销', '代表团'],
+            'comms' => ['communication', 'komunikasi', 'brand', 'merek', 'branding', 'positioning', 'marketing', 'pemasaran', 'narrative', 'narasi', 'public relations', '传播', '品牌', '定位', '公关'],
+            'media-relations' => ['media', 'press', 'pers', 'crisis', 'krisis', 'reputation', 'reputasi', 'interview', 'wawancara', 'press conference', 'konferensi', 'journalist', 'jurnalis', 'issue', 'isu', '媒体', '危机', '声誉', '发布会'],
+            'investment' => ['investment', 'investasi', 'investor', 'business development', 'pengembangan bisnis', 'project', 'proyek', 'proposal', 'funding', '投资', '工业园', '合资', '项目'],
+        ];
+
+        try {
+            $dbServices = \App\Models\Service::orderBy('sort_order')->get();
+            if ($dbServices->isNotEmpty()) {
+                return $dbServices->map(function ($s) use ($lang, $type, $fallbackDefaults) {
+                    $slug = $s->slug ?: ltrim((string) preg_replace('#^/services/#', '', (string) $s->link_url), '/');
+                    $title = $this->extractText($s->title_i18n ?? $s->title, $lang);
+                    $desc = $this->cleanSnippet($this->extractText($s->description_i18n ?? $s->description, $lang), 150);
+                    return [
+                        'title' => $title,
+                        'desc' => $desc,
+                        'url' => $slug ? "/services/{$slug}" : ($s->link_url ?: '/services'),
+                        'type' => $type,
+                        'keywords' => array_merge($fallbackDefaults[$slug] ?? [], array_filter([$slug, strtolower($title)])),
+                    ];
+                })->values()->all();
+            }
+        } catch (\Throwable $e) {}
+
         return [
             [
                 'title' => $isCn ? '战略咨询与市场准入' : ($isId ? 'Konsultasi Strategis & Ekspansi Pasar' : 'Strategic Advisory & Market Entry'),

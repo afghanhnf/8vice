@@ -4,8 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>{{ config('app.name', '8vice') }}</title>
-
         @php
             try {
                 $settings = isset($page['props']['siteSettings'])
@@ -14,11 +12,46 @@
             } catch (\Throwable $e) {
                 $settings = \App\Helpers\SeedData::getSiteSettings();
             }
+            $seoMeta = \App\Helpers\SeoResolver::resolve($page ?? []);
             $gaId = $settings->google_analytics ?? null;
             $gtmId = $settings->google_tag_manager ?? null;
             $pixelId = $settings->meta_pixels ?? null;
             $gscTag = $settings->google_search_console ?? null;
         @endphp
+
+        <title inertia>{{ $seoMeta['title'] }}</title>
+        <meta name="description" inertia="description" content="{{ $seoMeta['description'] }}">
+        <meta name="keywords" inertia="keywords" content="{{ $seoMeta['keywords'] }}">
+        <meta name="author" inertia="author" content="8vice Advisory">
+        <meta name="robots" inertia="robots" content="{{ $seoMeta['robots'] }}">
+        <meta name="googlebot" inertia="googlebot" content="{{ $seoMeta['robots'] }}">
+
+        <link rel="canonical" inertia="canonical" href="{{ $seoMeta['canonical'] }}">
+        <link rel="alternate" hreflang="en" inertia="hreflang-en" href="{{ $seoMeta['en_url'] }}">
+        <link rel="alternate" hreflang="id" inertia="hreflang-id" href="{{ $seoMeta['id_url'] }}">
+        <link rel="alternate" hreflang="zh-CN" inertia="hreflang-cn" href="{{ $seoMeta['cn_url'] }}">
+        <link rel="alternate" hreflang="x-default" inertia="hreflang-default" href="{{ $seoMeta['en_url'] }}">
+
+        <meta property="og:site_name" inertia="og:site_name" content="8VICE">
+        <meta property="og:type" inertia="og:type" content="{{ $seoMeta['og_type'] }}">
+        <meta property="og:url" inertia="og:url" content="{{ $seoMeta['current_url'] }}">
+        <meta property="og:title" inertia="og:title" content="{{ $seoMeta['title'] }}">
+        <meta property="og:description" inertia="og:description" content="{{ $seoMeta['description'] }}">
+        <meta property="og:image" inertia="og:image" content="{{ $seoMeta['og_image'] }}">
+        <meta property="og:image:secure_url" inertia="og:image:secure_url" content="{{ $seoMeta['og_image'] }}">
+        <meta property="og:image:width" inertia="og:image:width" content="1200">
+        <meta property="og:image:height" inertia="og:image:height" content="630">
+        <meta property="og:image:alt" inertia="og:image:alt" content="{{ $seoMeta['title'] }}">
+        <meta property="og:locale" inertia="og:locale" content="{{ $seoMeta['og_locale'] }}">
+        <meta property="og:locale:alternate" inertia="og:locale:alternate" content="{{ $seoMeta['og_locale_alt'] }}">
+
+        <meta name="twitter:card" inertia="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" inertia="twitter:site" content="{{ $seoMeta['twitter_handle'] }}">
+        <meta name="twitter:creator" inertia="twitter:creator" content="{{ $seoMeta['twitter_handle'] }}">
+        <meta name="twitter:title" inertia="twitter:title" content="{{ $seoMeta['title'] }}">
+        <meta name="twitter:description" inertia="twitter:description" content="{{ $seoMeta['description'] }}">
+        <meta name="twitter:image" inertia="twitter:image" content="{{ $seoMeta['og_image'] }}">
+        <meta name="twitter:image:alt" inertia="twitter:image:alt" content="{{ $seoMeta['title'] }}">
 
         @if($settings)
             @if($gaId && $gaId !== 'G-1234567890')

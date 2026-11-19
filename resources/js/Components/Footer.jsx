@@ -80,13 +80,20 @@ export default function Footer() {
     ? '8 Vice adalah firma penasihat strategis dan pengembangan bisnis Indonesia–Tiongkok yang mendampingi perusahaan menavigasi masuk pasar, hubungan kelembagaan, dan kemitraan bilateral. Berbekal pengalaman lintas batas lebih dari dua dekade, kami menjembatani ambisi komersial dengan eksekusi nyata di lapangan.'
     : '8 Vice is an Indonesia–China strategic advisory and business development firm helping enterprises navigate market entry, institutional engagement, and bilateral partnerships. With over two decades of cross-border experience, we bridge commercial ambition with practical execution on the ground.';
 
+  const hasSiteSettings = Boolean(siteSettings && typeof siteSettings === 'object');
   const displayFooterDescription = typeof siteSettings?.footer_description === 'object'
     ? (siteSettings?.footer_description?.[lang] || siteSettings?.footer_description?.en || defaultFooterDescription)
     : (siteSettings?.footer_description || defaultFooterDescription);
 
-  const rawEmail = siteSettings?.email || 'hello@8vice.com';
+  const rawEmail = (hasSiteSettings ? (siteSettings.email || '') : 'hello@8vice.com').trim();
   const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
-  const emailHref = `mailto:${cleanEmail}`;
+  const emailHref = cleanEmail ? `mailto:${cleanEmail}` : '';
+  const displayAddress = (hasSiteSettings
+    ? (siteSettings.address || '')
+    : 'SOHO Building, Jl. Letjen M.T. Haryono No.Kav. 2, RT.1/RW.6, Tebet Bar., Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12810'
+  ).trim();
+  const linkedinUrl = (hasSiteSettings ? (siteSettings.linkedin_url || '') : 'https://www.linkedin.com/company/8-vice/').trim();
+  const instagramUrl = (hasSiteSettings ? (siteSettings.instagram_url || '') : 'https://www.instagram.com/8viceofficial').trim();
 
   const fallbackFooterInsights = [
     {
@@ -212,20 +219,24 @@ export default function Footer() {
             <div className="footer__col footer__contact">
               <h3>{isCn ? '联系方式与办公地址' : isId ? 'Kontak & Kantor' : 'Contact'}</h3>
               <div className="footer__contact-items">
-                <div className="footer__contact-item">
-                  <span className="lbl">{isCn ? '电子邮箱' : 'Email'}</span>
-                  <a href={emailHref} className="val" aria-label={`Email ${cleanEmail}`}>
-                    <svg className="ico ico-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    <span>{cleanEmail}</span>
-                  </a>
-                </div>
+                {cleanEmail && (
+                  <div className="footer__contact-item">
+                    <span className="lbl">{isCn ? '电子邮箱' : 'Email'}</span>
+                    <a href={emailHref} className="val" aria-label={`Email ${cleanEmail}`}>
+                      <svg className="ico ico-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                      <span>{cleanEmail}</span>
+                    </a>
+                  </div>
+                )}
 
-                <div className="footer__contact-item">
-                  <span className="lbl">{isCn ? '雅加达总部' : isId ? 'Kantor Jakarta' : 'Office'}</span>
-                  <span className="val" style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.72)' }}>
-                    {siteSettings?.address || 'SOHO Building, Jl. Letjen M.T. Haryono No.Kav. 2, RT.1/RW.6, Tebet Bar., Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12810'}
-                  </span>
-                </div>
+                {displayAddress && (
+                  <div className="footer__contact-item">
+                    <span className="lbl">{isCn ? '雅加达总部' : isId ? 'Kantor Jakarta' : 'Office'}</span>
+                    <span className="val" style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.72)' }}>
+                      {displayAddress}
+                    </span>
+                  </div>
+                )}
                 
                 <div className="footer__contact-item">
                   <span className="lbl">{isCn ? '服务时间' : isId ? 'Jam Layanan' : 'Service Hours'}</span>
@@ -247,14 +258,20 @@ export default function Footer() {
               </div>
 
               {/* Social Media */}
-              <div className="footer__social">
-                <a href={siteSettings?.linkedin_url || 'https://www.linkedin.com/company/8-vice/'} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                  <svg className="ico ico-20" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
-                <a href={siteSettings?.instagram_url || 'https://www.instagram.com/8viceofficial'} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                  <svg className="ico ico-20" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                </a>
-              </div>
+              {(linkedinUrl || instagramUrl) && (
+                <div className="footer__social">
+                  {linkedinUrl && (
+                    <a href={linkedinUrl} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                      <svg className="ico ico-20" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                  )}
+                  {instagramUrl && (
+                    <a href={instagramUrl} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                      <svg className="ico ico-20" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
 
           </div>

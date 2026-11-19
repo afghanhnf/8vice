@@ -91,10 +91,17 @@ export default function Contact() {
   const isCn = lang === 'cn';
   const { siteSettings } = usePage().props;
 
-  const rawEmail = siteSettings?.email || 'hello@8vice.com';
+  const hasSiteSettings = Boolean(siteSettings && typeof siteSettings === 'object');
+  const rawEmail = (hasSiteSettings ? (siteSettings.email || '') : 'hello@8vice.com').trim();
   const cleanEmail = rawEmail.replace(/^mailto:/i, '').trim();
-  const emailHref = `mailto:${cleanEmail}`;
-  const whatsappUrl = siteSettings?.whatsapp_url || 'https://wa.me/628118005110';
+  const emailHref = cleanEmail ? `mailto:${cleanEmail}` : '';
+  const whatsappUrl = (hasSiteSettings ? (siteSettings.whatsapp_url || '') : 'https://wa.me/628118005110').trim();
+  const wechatId = (hasSiteSettings ? (siteSettings.wechat_id || '') : 'eightvice').trim();
+  const rawWechatQr = (hasSiteSettings ? (siteSettings.wechat_qr || '') : '/images/wechat.webp').trim();
+  const wechatQrSrc = rawWechatQr
+    ? (rawWechatQr.startsWith('http') || rawWechatQr.startsWith('/') ? rawWechatQr : `/storage/${rawWechatQr.replace(/^\/+/, '')}`)
+    : '';
+  const hasWechat = Boolean(wechatId || wechatQrSrc);
 
   const [submitted, setSubmitted] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -121,8 +128,8 @@ export default function Contact() {
   }, [isWechatModalOpen]);
 
   const handleCopyWechatId = () => {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText('eightvice');
+    if (wechatId && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(wechatId);
       setCopiedWechat(true);
       setTimeout(() => setCopiedWechat(false), 2000);
     }
@@ -403,7 +410,7 @@ export default function Contact() {
 
   return (
     <MainLayout>
-      <SeoHead pageCode="contact" title={isCn ? '联系我们' : (isId ? 'Hubungi Kami' : 'Contact Us')} />
+      <SeoHead pageCode="contact" />
 
       <div className="cnt-page">
         {/* ================================================================
@@ -457,107 +464,123 @@ export default function Contact() {
 
               {/* Quick Direct Communication Pills */}
               <div className="cnt-channel-pills">
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cnt-channel-pill cnt-channel-pill--wa"
-                >
-                  <span className="cnt-channel-pill__dot cnt-channel-pill__dot--green" />
-                  <span>{isCn ? 'WhatsApp 咨询' : isId ? 'Konsultasi WhatsApp' : 'WhatsApp Consultation'}</span>
-                </a>
+                {whatsappUrl && (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cnt-channel-pill cnt-channel-pill--wa"
+                  >
+                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--green" />
+                    <span>{isCn ? 'WhatsApp 咨询' : isId ? 'Konsultasi WhatsApp' : 'WhatsApp Consultation'}</span>
+                  </a>
+                )}
 
-                <button
-                  type="button"
-                  onClick={() => setIsWechatModalOpen(true)}
-                  className="cnt-channel-pill cnt-channel-pill--wc"
-                >
-                  <span className="cnt-channel-pill__dot cnt-channel-pill__dot--wechat" />
-                  <span>{isCn ? '微信公众号 / 企业微信' : isId ? 'WeChat Official QR Code' : 'WeChat Official QR'}</span>
-                </button>
+                {hasWechat && (
+                  <button
+                    type="button"
+                    onClick={() => setIsWechatModalOpen(true)}
+                    className="cnt-channel-pill cnt-channel-pill--wc"
+                  >
+                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--wechat" />
+                    <span>{isCn ? '微信公众号 / 企业微信' : isId ? 'WeChat Official QR Code' : 'WeChat Official QR'}</span>
+                  </button>
+                )}
 
-                <a href={emailHref} className="cnt-channel-pill">
-                  <span className="cnt-channel-pill__dot cnt-channel-pill__dot--red" />
-                  <span>{cleanEmail}</span>
-                </a>
+                {cleanEmail && (
+                  <a href={emailHref} className="cnt-channel-pill">
+                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--red" />
+                    <span>{cleanEmail}</span>
+                  </a>
+                )}
               </div>
 
               {/* Channel QR Codes Directly Under Communication Buttons */}
               <div className="cnt-channel-qr-grid">
                 {/* 1. WhatsApp QR Code (generated from whatsappUrl link) */}
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cnt-channel-qr-card"
-                >
-                  <div className="cnt-channel-qr-frame">
-                    <QRCodeSVG
-                      value={whatsappUrl}
-                      size={128}
-                      level="M"
-                      bgColor="#FFFFFF"
-                      fgColor="#0B0E14"
-                    />
-                  </div>
-                  <div className="cnt-channel-qr-label">
-                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--green" />
-                    <span>{isCn ? 'WhatsApp 扫码咨询' : isId ? 'QR WhatsApp' : 'WhatsApp QR'}</span>
-                  </div>
-                  <span className="cnt-channel-qr-hint">
-                    {isCn ? '扫码直连客服' : isId ? 'Pindai untuk chat langsung' : 'Scan to start WhatsApp chat'}
-                  </span>
-                </a>
+                {whatsappUrl && (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cnt-channel-qr-card"
+                  >
+                    <div className="cnt-channel-qr-frame">
+                      <QRCodeSVG
+                        value={whatsappUrl}
+                        size={128}
+                        level="M"
+                        bgColor="#FFFFFF"
+                        fgColor="#0B0E14"
+                      />
+                    </div>
+                    <div className="cnt-channel-qr-label">
+                      <span className="cnt-channel-pill__dot cnt-channel-pill__dot--green" />
+                      <span>{isCn ? 'WhatsApp 扫码咨询' : isId ? 'QR WhatsApp' : 'WhatsApp QR'}</span>
+                    </div>
+                    <span className="cnt-channel-qr-hint">
+                      {isCn ? '扫码直连客服' : isId ? 'Pindai untuk chat langsung' : 'Scan to start WhatsApp chat'}
+                    </span>
+                  </a>
+                )}
 
-                {/* 2. WeChat Official QR Code (existing WeChat QR image) */}
-                <button
-                  type="button"
-                  onClick={() => setIsWechatModalOpen(true)}
-                  className="cnt-channel-qr-card"
-                >
-                  <div className="cnt-channel-qr-frame">
-                    <img
-                      src="/images/wechat.webp"
-                      alt="8 Vice WeChat QR Code"
-                      loading="eager"
-                      decoding="sync"
-                      onError={(e) => {
-                        if (!e.currentTarget.dataset.fallback) {
-                          e.currentTarget.dataset.fallback = 'true';
-                          e.currentTarget.src = '/images/wechat.jpeg';
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className="cnt-channel-qr-label">
-                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--wechat" />
-                    <span>{isCn ? '微信二维码' : isId ? 'QR WeChat Resmi' : 'WeChat QR'}</span>
-                  </div>
-                  <span className="cnt-channel-qr-hint">
-                    {isCn ? '微信号: eightvice' : 'ID: eightvice'}
-                  </span>
-                </button>
+                {/* 2. WeChat Official QR Code */}
+                {hasWechat && (
+                  <button
+                    type="button"
+                    onClick={() => setIsWechatModalOpen(true)}
+                    className="cnt-channel-qr-card"
+                  >
+                    {wechatQrSrc && (
+                      <div className="cnt-channel-qr-frame">
+                        <img
+                          src={wechatQrSrc}
+                          alt="8 Vice WeChat QR Code"
+                          loading="eager"
+                          decoding="sync"
+                          onError={(e) => {
+                            if (!e.currentTarget.dataset.fallback) {
+                              e.currentTarget.dataset.fallback = 'true';
+                              e.currentTarget.src = '/images/wechat.jpeg';
+                            }
+                          }}
+                        />
+                      </div>
+                    )}
+                    <div className="cnt-channel-qr-label">
+                      <span className="cnt-channel-pill__dot cnt-channel-pill__dot--wechat" />
+                      <span>{isCn ? '微信二维码' : isId ? 'QR WeChat Resmi' : 'WeChat QR'}</span>
+                    </div>
+                    {wechatId && (
+                      <span className="cnt-channel-qr-hint">
+                        {isCn ? `微信号: ${wechatId}` : `ID: ${wechatId}`}
+                      </span>
+                    )}
+                  </button>
+                )}
 
                 {/* 3. Email QR Code (generated from mailto: link) */}
-                <a
-                  href={emailHref}
-                  className="cnt-channel-qr-card"
-                >
-                  <div className="cnt-channel-qr-frame">
-                    <QRCodeSVG
-                      value={emailHref}
-                      size={128}
-                      level="M"
-                      bgColor="#FFFFFF"
-                      fgColor="#0B0E14"
-                    />
-                  </div>
-                  <div className="cnt-channel-qr-label">
-                    <span className="cnt-channel-pill__dot cnt-channel-pill__dot--red" />
-                    <span>{isCn ? '邮件直达二维码' : isId ? 'QR Email' : 'Email QR'}</span>
-                  </div>
-                  <span className="cnt-channel-qr-hint">{cleanEmail}</span>
-                </a>
+                {cleanEmail && (
+                  <a
+                    href={emailHref}
+                    className="cnt-channel-qr-card"
+                  >
+                    <div className="cnt-channel-qr-frame">
+                      <QRCodeSVG
+                        value={emailHref}
+                        size={128}
+                        level="M"
+                        bgColor="#FFFFFF"
+                        fgColor="#0B0E14"
+                      />
+                    </div>
+                    <div className="cnt-channel-qr-label">
+                      <span className="cnt-channel-pill__dot cnt-channel-pill__dot--red" />
+                      <span>{isCn ? '邮件直达二维码' : isId ? 'QR Email' : 'Email QR'}</span>
+                    </div>
+                    <span className="cnt-channel-qr-hint">{cleanEmail}</span>
+                  </a>
+                )}
               </div>
             </div>
 
@@ -650,41 +673,45 @@ export default function Contact() {
 
                     <div className="cnt-info-list">
                       {/* Jakarta Office */}
-                      <div className="cnt-info-item">
-                        <div className="cnt-info-item__icon">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                            <circle cx="12" cy="10" r="3" />
-                          </svg>
-                        </div>
-                        <div>
-                          <div className="cnt-info-item__lbl">
-                            {isCn ? '雅加达总部' : isId ? 'Kantor Pusat Jakarta' : 'Jakarta Headquarters'}
+                      {(hasSiteSettings ? (siteSettings.address || '').trim() : true) && (
+                        <div className="cnt-info-item">
+                          <div className="cnt-info-item__icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2">
+                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                              <circle cx="12" cy="10" r="3" />
+                            </svg>
                           </div>
-                          <div className="cnt-info-item__val">
-                            {siteSettings?.address ||
-                              'SOHO Building, Jl. Letjen M.T. Haryono Kav. 2, Jakarta Selatan 12810, Indonesia'}
+                          <div>
+                            <div className="cnt-info-item__lbl">
+                              {isCn ? '雅加达总部' : isId ? 'Kantor Pusat Jakarta' : 'Jakarta Headquarters'}
+                            </div>
+                            <div className="cnt-info-item__val">
+                              {(hasSiteSettings ? (siteSettings.address || '').trim() : '') ||
+                                'SOHO Building, Jl. Letjen M.T. Haryono Kav. 2, Jakarta Selatan 12810, Indonesia'}
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
 
                       {/* Email */}
-                      <div className="cnt-info-item">
-                        <div className="cnt-info-item__icon">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                            <polyline points="22,6 12,13 2,6" />
-                          </svg>
-                        </div>
-                        <div>
-                          <div className="cnt-info-item__lbl">
-                            {isCn ? '官方邮箱' : isId ? 'Email Resmi' : 'Official Email'}
+                      {cleanEmail && (
+                        <div className="cnt-info-item">
+                          <div className="cnt-info-item__icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2">
+                              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                              <polyline points="22,6 12,13 2,6" />
+                            </svg>
                           </div>
-                          <a href={emailHref} className="cnt-info-item__link">
-                            {cleanEmail}
-                          </a>
+                          <div>
+                            <div className="cnt-info-item__lbl">
+                              {isCn ? '官方邮箱' : isId ? 'Email Resmi' : 'Official Email'}
+                            </div>
+                            <a href={emailHref} className="cnt-info-item__link">
+                              {cleanEmail}
+                            </a>
+                          </div>
                         </div>
-                      </div>
+                      )}
 
                       {/* Website & Response Time */}
                       <div className="cnt-info-item">
@@ -1135,34 +1162,38 @@ export default function Contact() {
                   : 'Scan the official QR code below using your WeChat app, or add our WeChat ID directly.'}
               </p>
 
-              <div className="cnt-modal-qr-frame">
-                <img
-                  src="/images/wechat.webp"
-                  alt="8 Vice WeChat QR Code"
-                  loading="eager"
-                  decoding="sync"
-                  fetchPriority="high"
-                  onError={(e) => {
-                    if (!e.currentTarget.dataset.fallback) {
-                      e.currentTarget.dataset.fallback = 'true';
-                      e.currentTarget.src = '/images/wechat.jpeg';
-                    }
-                  }}
-                />
-              </div>
+              {wechatQrSrc && (
+                <div className="cnt-modal-qr-frame">
+                  <img
+                    src={wechatQrSrc}
+                    alt="8 Vice WeChat QR Code"
+                    loading="eager"
+                    decoding="sync"
+                    fetchPriority="high"
+                    onError={(e) => {
+                      if (!e.currentTarget.dataset.fallback) {
+                        e.currentTarget.dataset.fallback = 'true';
+                        e.currentTarget.src = '/images/wechat.jpeg';
+                      }
+                    }}
+                  />
+                </div>
+              )}
 
-              <div className="cnt-modal-id-box">
-                <span className="cnt-modal-id-label">WeChat ID:</span>
-                <span className="cnt-modal-id-val">eightvice</span>
-                <button
-                  type="button"
-                  className="cnt-modal-id-copy"
-                  onClick={handleCopyWechatId}
-                  title={isCn ? '复制微信号' : isId ? 'Salin ID' : 'Copy ID'}
-                >
-                  {copiedWechat ? (isCn ? '已复制 ✓' : isId ? 'Tersalin ✓' : 'Copied ✓') : (isCn ? '复制' : isId ? 'Salin' : 'Copy')}
-                </button>
-              </div>
+              {wechatId && (
+                <div className="cnt-modal-id-box">
+                  <span className="cnt-modal-id-label">WeChat ID:</span>
+                  <span className="cnt-modal-id-val">{wechatId}</span>
+                  <button
+                    type="button"
+                    className="cnt-modal-id-copy"
+                    onClick={handleCopyWechatId}
+                    title={isCn ? '复制微信号' : isId ? 'Salin ID' : 'Copy ID'}
+                  >
+                    {copiedWechat ? (isCn ? '已复制 ✓' : isId ? 'Tersalin ✓' : 'Copied ✓') : (isCn ? '复制' : isId ? 'Salin' : 'Copy')}
+                  </button>
+                </div>
+              )}
 
               <button
                 type="button"

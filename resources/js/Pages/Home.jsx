@@ -1000,6 +1000,10 @@ export default function Home({
     })
     : baseContent.industries.items;
 
+  const hasSiteSettings = Boolean(siteSettings && typeof siteSettings === 'object');
+  const displayEmail = (hasSiteSettings ? (siteSettings.email || '') : 'hello@8vice.com').replace(/^mailto:/i, '').trim();
+  const displayAddress = (hasSiteSettings ? (siteSettings.address || '') : baseContent.inquiry.office_addr).trim();
+
   const c = {
     ...baseContent,
     services: {
@@ -1012,7 +1016,7 @@ export default function Home({
     },
     inquiry: {
       ...baseContent.inquiry,
-      office_addr: siteSettings?.address || baseContent.inquiry.office_addr,
+      office_addr: displayAddress,
     },
   };
 
@@ -2736,28 +2740,32 @@ export default function Home({
               <div style={{ background: '#0D0E13', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', padding: '28px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
 
                 {/* Office */}
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: 'rgba(230, 57, 70, 0.12)', color: '#E63946', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                {c.inquiry.office_addr && (
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: 'rgba(230, 57, 70, 0.12)', color: '#E63946', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: '#E63946', marginBottom: '4px' }}>{c.inquiry.office_title}</div>
+                      <div style={{ fontSize: '14.5px', color: 'rgba(255, 255, 255, 0.88)', lineHeight: 1.5 }}>{c.inquiry.office_addr}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#E63946', marginBottom: '4px' }}>{c.inquiry.office_title}</div>
-                    <div style={{ fontSize: '14.5px', color: 'rgba(255, 255, 255, 0.88)', lineHeight: 1.5 }}>{c.inquiry.office_addr}</div>
-                  </div>
-                </div>
+                )}
 
                 {/* Email */}
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: 'rgba(230, 57, 70, 0.12)', color: '#E63946', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                {displayEmail && (
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: 'rgba(230, 57, 70, 0.12)', color: '#E63946', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: '#E63946', marginBottom: '4px' }}>{c.inquiry.email_title}</div>
+                      <a href={`mailto:${displayEmail}`} style={{ fontSize: '14.5px', color: '#FFFFFF', textDecoration: 'none' }}>
+                        {displayEmail}
+                      </a>
+                    </div>
                   </div>
-                  <div>
-                    <div style={{ fontSize: '13px', fontWeight: 600, color: '#E63946', marginBottom: '4px' }}>{c.inquiry.email_title}</div>
-                    <a href={`mailto:${(siteSettings?.email || 'hello@8vice.com').replace(/^mailto:/i, '')}`} style={{ fontSize: '14.5px', color: '#FFFFFF', textDecoration: 'none' }}>
-                      {(siteSettings?.email || 'hello@8vice.com').replace(/^mailto:/i, '')}
-                    </a>
-                  </div>
-                </div>
+                )}
 
                 {/* Service Hours */}
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
