@@ -1,29 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#18191D"/>
-      <stop offset="100%" stop-color="#08080A"/>
+      <stop offset="0%" stop-color="#14151A"/>
+      <stop offset="100%" stop-color="#08080B"/>
     </linearGradient>
-    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF4245"/>
-      <stop offset="100%" stop-color="#D62828"/>
-    </linearGradient>
-    <mask id="cutout">
-      <rect width="512" height="512" fill="#FFFFFF"/>
-      <ellipse cx="218" cy="182.5" rx="43" ry="41" fill="#000000"/>
-      <ellipse cx="218" cy="325" rx="53.5" ry="49" fill="#000000"/>
-    </mask>
   </defs>
-
-  <!-- Squircle Base with subtle luxury border -->
-  <rect x="18" y="18" width="476" height="476" rx="112" fill="url(#bgGrad)" stroke="rgba(255, 255, 255, 0.1)" stroke-width="6"/>
-
-  <!-- Iconic 8 with Cutout Holes -->
-  <g mask="url(#cutout)">
-    <ellipse cx="218" cy="182.5" rx="95" ry="87.5" fill="#FFFFFF"/>
-    <ellipse cx="218" cy="325" rx="116" ry="102.5" fill="#FFFFFF"/>
-  </g>
-
-  <!-- Signature 8vice Crimson Red Dot -->
-  <circle cx="376" cy="393.5" r="34" fill="url(#redGrad)"/>
+  <rect x="16" y="16" width="480" height="480" rx="110" fill="url(#bgGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="6"/>
+  <image href="data:image/png;base64,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" x="40" y="164.3" width="432" height="183.4" preserveAspectRatio="xMidYMid meet"/>
 </svg>
