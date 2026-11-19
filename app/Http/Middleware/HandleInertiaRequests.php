@@ -79,11 +79,32 @@ class HandleInertiaRequests extends Middleware
         $footerInsights = [];
         try {
             $siteSettings = \App\Models\SiteSetting::first();
-            $pageSeos = \App\Models\PageSeo::all()->keyBy('page_code');
+            $pageSeos = \App\Models\PageSeo::all()
+                ->map(fn ($seo) => [
+                    'page_code' => $seo->page_code,
+                    'meta_title' => $seo->meta_title,
+                    'meta_title_i18n' => $seo->meta_title_i18n,
+                    'meta_description' => $seo->meta_description,
+                    'meta_description_i18n' => $seo->meta_description_i18n,
+                    'meta_keywords' => $seo->meta_keywords,
+                    'meta_keywords_i18n' => $seo->meta_keywords_i18n,
+                    'og_image' => $seo->og_image,
+                    'og_type' => $seo->og_type,
+                    'robots' => $seo->robots,
+                    'canonical_url' => $seo->canonical_url,
+                ])
+                ->keyBy('page_code');
             $footerInsights = \App\Models\Insight::published()
                 ->orderBy('id', 'desc')
                 ->take(5)
                 ->get(['id', 'slug', 't', 't_i18n', 'cat'])
+                ->map(fn ($item) => [
+                    'id' => $item->id,
+                    'slug' => $item->slug,
+                    't' => $item->t,
+                    't_i18n' => $item->t_i18n,
+                    'cat' => $item->cat,
+                ])
                 ->toArray();
         } catch (\Throwable $e) {
             // Fallback gracefully if tables are not migrated yet

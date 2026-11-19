@@ -1712,7 +1712,7 @@ export default function Home({
                         width: '100%',
                         padding: '14px 24px',
                         borderRadius: '12px',
-                        background: '#E63946',
+                        background: '#C81E2B',
                         color: '#FFFFFF',
                         fontWeight: 700,
                         fontSize: '14.5px',
@@ -1805,7 +1805,7 @@ export default function Home({
                       <div style={{
                         fontSize: '13px',
                         fontWeight: 800,
-                        color: '#E63946',
+                        color: '#FF6B76',
                         letterSpacing: '0.1em',
                         background: 'rgba(230, 57, 70, 0.1)',
                         padding: '4px 10px',
@@ -2556,9 +2556,9 @@ export default function Home({
                           aria-checked={businessDirection === opt}
                           onClick={() => setBusinessDirection(opt)}
                           style={{
-                            background: businessDirection === opt ? '#E63946' : 'rgba(255, 255, 255, 0.04)',
+                            background: businessDirection === opt ? '#C81E2B' : 'rgba(255, 255, 255, 0.04)',
                             color: '#FFFFFF',
-                            border: businessDirection === opt ? '1px solid #E63946' : '1px solid rgba(255, 255, 255, 0.12)',
+                            border: businessDirection === opt ? '1px solid #C81E2B' : '1px solid rgba(255, 255, 255, 0.12)',
                             borderRadius: '8px',
                             padding: '8px 14px',
                             fontSize: '12.5px',

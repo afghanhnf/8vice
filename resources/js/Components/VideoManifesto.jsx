@@ -126,10 +126,6 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
         <section 
           className="section manifesto-full-section"
           onClick={() => setIsOpen(true)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsOpen(true); }}
-          aria-label={copy.play}
           style={{
             position: 'relative',
             overflow: 'hidden',
@@ -215,11 +211,17 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
                 </div>
 
                 {/* Glowing Play Button */}
-                <div className="manifesto-play-pulse" aria-hidden="true" style={{ width: '84px', height: '84px' }}>
+                <button
+                  type="button"
+                  className="manifesto-play-pulse"
+                  aria-label={copy.play}
+                  onClick={(e) => { e.stopPropagation(); setIsOpen(true); }}
+                  style={{ width: '84px', height: '84px', border: 'none', cursor: 'pointer' }}
+                >
                   <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" style={{ marginLeft: '4px' }}>
                     <polygon points="5 3 19 12 5 21 5 3"></polygon>
                   </svg>
-                </div>
+                </button>
               </div>
 
             </div>
@@ -241,10 +243,6 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
             <div 
               className="manifesto-card"
               onClick={() => setIsOpen(true)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsOpen(true); }}
-              aria-label={copy.play}
               style={{ minHeight: '440px', padding: 'clamp(32px, 5vw, 64px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
             >
             {/* Background Cover Image with Red Gradient Overlay */}
@@ -310,11 +308,17 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
               </div>
 
               {/* Glowing Play Button */}
-              <div className="manifesto-play-pulse" aria-hidden="true">
+              <button
+                type="button"
+                className="manifesto-play-pulse"
+                aria-label={copy.play}
+                onClick={(e) => { e.stopPropagation(); setIsOpen(true); }}
+                style={{ border: 'none', cursor: 'pointer' }}
+              >
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" style={{ marginLeft: '3px' }}>
                   <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
-              </div>
+              </button>
             </div>
 
           </div>

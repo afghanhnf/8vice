@@ -21,6 +21,11 @@
             $gscTag = ($rawGscTag !== '' && !str_contains($rawGscTag, '1234567890'))
                 ? $rawGscTag
                 : '<meta name="google-site-verification" content="mxE9QUV2EQe_-xB0JEapaMjC2zKSjKxAKGtgNyPVwxs" />';
+            $currentLocale = $page['props']['locale'] ?? app()->getLocale() ?? 'en';
+            $isHomeComponent = ($page['component'] ?? '') === 'Home';
+            $inlineStylesCss = is_file(public_path('css/styles.min.css'))
+                ? file_get_contents(public_path('css/styles.min.css'))
+                : '';
         @endphp
 
         <link rel="alternate" type="text/markdown" title="LLMs Context" href="{{ url('/llms.txt') }}" />
@@ -115,12 +120,32 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
         <noscript>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
         </noscript>
 
-        <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}" />
+        @if($inlineStylesCss !== '')
+            <style id="critical-base-css">{!! $inlineStylesCss !!}</style>
+        @else
+            <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}" />
+        @endif
+
+        <style id="critical-hero-css">
+            .header{position:sticky;top:0;z-index:10030}
+            .header__mobile-actions{display:none;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+            @media (max-width:1024px){.header__inner{gap:12px!important;height:68px!important}.header .nav{display:none!important}.header__mobile-actions{display:inline-flex}}
+            @media (max-width:768px){.header__inner{height:62px!important;padding-inline:16px!important}.header .logo__img{height:26px;width:auto}}
+            .hg{--mx:0;--my:0;--sy:0;position:relative;overflow:hidden;isolation:isolate;min-height:max(660px,calc(100svh - 112px));background:#0A0A0C;color:#fff;display:flex;justify-content:center}
+            .hg-sky{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 36% 42% at 16% 96%,rgba(230,57,70,0.10) 0%,transparent 70%),radial-gradient(ellipse 36% 42% at 84% 96%,rgba(230,57,70,0.10) 0%,transparent 70%),radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,255,255,0.035) 0%,transparent 70%),linear-gradient(180deg,#0A0A0C 0%,#0D0E12 65%,#110E11 100%)}
+            .hg-content{position:relative;z-index:8;width:100%;max-width:980px;padding:clamp(72px,12vh,128px) 24px 0;text-align:center}
+            .hg-title{margin:0 0 22px;font-family:var(--font-display,"Plus Jakarta Sans",system-ui,sans-serif);font-weight:800;font-size:clamp(38px,5.6vw,84px);line-height:0.98;letter-spacing:-0.01em;text-transform:uppercase;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,0.65)}
+            .hg-kicker{margin:0 0 8px;font-size:11.5px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.68)}
+            .hg-sub{margin:0 auto;max-width:520px;font-size:14.5px;line-height:1.65;font-weight:400;color:rgba(255,255,255,0.64)}
+            @media (max-width:900px){.hg-sub{font-size:13.5px}}
+            @media (max-width:560px){.hg{min-height:620px}}
+        </style>
+
         <link rel="stylesheet" href="{{ asset('css/prd-utilities.css') }}" media="print" onload="this.media='all'" />
         <link rel="stylesheet" href="{{ asset('css/pages.min.css') }}" media="print" onload="this.media='all'" />
         <link rel="stylesheet" href="{{ asset('css/m3-motion.css') }}" media="print" onload="this.media='all'" />
@@ -130,13 +155,54 @@
             <link rel="stylesheet" href="{{ asset('css/m3-motion.css') }}" />
         </noscript>
 
-        @routes
+        @if(str_starts_with($page['component'] ?? '', 'Auth/') || str_starts_with($page['component'] ?? '', 'Profile/') || in_array($page['component'] ?? '', ['Dashboard', 'Welcome']))
+            @routes
+        @endif
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
     </head>
     <body class="font-sans antialiased" oncontextmenu="return false;">
-        @inertia
+        @if($isHomeComponent)
+            @php
+                $heroLines = $currentLocale === 'cn'
+                    ? ['通往印尼与中国的', '战略商业门户', '赋能跨境增长']
+                    : ($currentLocale === 'id'
+                        ? ['Gerbang Strategis', 'Bisnis Anda Menuju', 'Indonesia & Tiongkok']
+                        : ['Your Strategic', 'Gateway to', 'Indonesia & China']);
+                $heroKicker = $currentLocale === 'cn'
+                    ? '连接双边市场 · 驱动实质增长'
+                    : ($currentLocale === 'id'
+                        ? 'Menghubungkan Pasar. Membuka Pertumbuhan.'
+                        : 'Connecting Markets. Enabling Growth.');
+                $heroSub = $currentLocale === 'cn'
+                    ? '专为往来于印尼与中国之间的企业提供高管级战略咨询与落地支持。'
+                    : ($currentLocale === 'id'
+                        ? 'Penasihat strategis bagi bisnis yang bergerak di antara Indonesia dan Tiongkok.'
+                        : 'Strategic advisory for businesses moving between Indonesia and China.');
+            @endphp
+            <div id="app" data-page="{{ json_encode($page) }}">
+                <header class="header" id="header">
+                    <div class="header__inner container">
+                        <a href="{{ url('/') }}" class="logo" aria-label="8vice home">
+                            <img loading="eager" fetchpriority="high" decoding="async" src="/images/profil/8vice-logo.webp" alt="8vice" class="logo__img" width="100" height="32" />
+                        </a>
+                    </div>
+                </header>
+                <main class="m3-page-transition">
+                    <section class="hg" data-screen-label="Hero" aria-labelledby="hero-title">
+                        <div class="hg-sky" aria-hidden="true"></div>
+                        <div class="hg-content">
+                            <h1 id="hero-title" class="hg-title">{{ $heroLines[0] }}<br>{{ $heroLines[1] }}<br>{{ $heroLines[2] }}</h1>
+                            <p class="hg-kicker">{{ $heroKicker }}</p>
+                            <p class="hg-sub">{{ $heroSub }}</p>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        @else
+            @inertia
+        @endif
         
         <!-- Anti Inspect Scripts -->
         <script>

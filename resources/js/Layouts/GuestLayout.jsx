@@ -1,3 +1,4 @@
+import '../../css/app.css';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Link from '@/Components/LocalizedLink';
 

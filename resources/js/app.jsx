@@ -1,7 +1,4 @@
-import '../css/app.css';
-import './bootstrap';
-
-import { createInertiaApp } from '@inertiajs/react';
+import { createInertiaApp, router } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { TranslationProvider, detectPathnameLang, preloadTranslation } from '@/Contexts/TranslationContext';
@@ -9,10 +6,6 @@ import { registerWebMcpTools } from '@/utils/webmcp';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
-// Fallback for static HTML exports (like GitHub Pages)
-// When Inertia receives an HTML file instead of a JSON response, it triggers an 'invalid' event.
-// We intercept this and do a hard navigation to the requested URL instead.
-import { router } from '@inertiajs/react';
 router.on('invalid', (event) => {
     event.preventDefault();
     window.location.href = event.detail.response.url;
@@ -27,8 +20,11 @@ createInertiaApp({
         ),
     async setup({ el, App, props }) {
         const initialLang = detectPathnameLang();
-        const initialDict = await preloadTranslation(initialLang);
-        registerWebMcpTools();
+        const isHome = props?.initialPage?.component === 'Home';
+        const initialDict = isHome ? null : await preloadTranslation(initialLang);
+        if (isHome) {
+            preloadTranslation(initialLang);
+        }
 
         const root = createRoot(el);
 
@@ -37,6 +33,12 @@ createInertiaApp({
                 <App {...props} />
             </TranslationProvider>
         );
+
+        if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(() => registerWebMcpTools(), { timeout: 1500 });
+        } else {
+            setTimeout(() => registerWebMcpTools(), 200);
+        }
     },
     progress: {
         color: '#D62828',

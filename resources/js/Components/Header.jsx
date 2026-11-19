@@ -123,7 +123,7 @@ export default function Header() {
         }
       }
 
-      if (bannerDismissed !== '1') {
+      if (bannerDismissed !== '1' && detected !== lang) {
         setShowLangBanner(true);
       }
     } catch (err) {
@@ -805,7 +805,7 @@ export default function Header() {
                   className="lang-dropdown__trigger"
                   aria-haspopup="true"
                   aria-expanded={isLangOpen}
-                  aria-label="Select Language"
+                  aria-label={`${currentLangOption.short} - Select Language`}
                   onClick={(e) => {
                     e.stopPropagation();
                     if (langTimerRef.current) clearTimeout(langTimerRef.current);
@@ -858,7 +858,7 @@ export default function Header() {
                 className="lang-dropdown__trigger"
                 aria-haspopup="true"
                 aria-expanded={isMobileLangOpen}
-                aria-label="Select Language"
+                aria-label={`${currentLangOption.short} - Select Language`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsMobileLangOpen((prev) => !prev);

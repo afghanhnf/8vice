@@ -593,7 +593,10 @@ export default function HeroGateway({ isId = false }) {
       <div className="hg-content">
         <h1 id="hero-title" className="hg-title">
           {copy.title.map((line, i) => (
-            <span key={i} className="hg-title__line" style={{ '--delay': `${0.15 + i * 0.12}s` }}>{line}</span>
+            <React.Fragment key={i}>
+              {i > 0 && <br />}
+              {line}
+            </React.Fragment>
           ))}
         </h1>
         <p className="hg-kicker">{copy.kicker}</p>
@@ -651,7 +654,7 @@ const HERO_CSS = `
 .hg-side--r { right: 0; }
 .hg-side .hg-layer svg { width: 100%; height: 100%; }
 
-.hg-rise { animation: hgRise 1.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--delay, 0s); }
+.hg-rise { animation: hgRise 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0s; }
 .hg-flame { animation: hgFlicker 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
 .hg-flame-glow { animation: hgPulse 3.2s ease-in-out infinite; }
 .hg-blink { animation: hgBlink 1.8s steps(1, end) infinite; }
