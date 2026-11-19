@@ -23,6 +23,8 @@
                 : '<meta name="google-site-verification" content="mxE9QUV2EQe_-xB0JEapaMjC2zKSjKxAKGtgNyPVwxs" />';
         @endphp
 
+        <link rel="alternate" type="text/markdown" title="LLMs Context" href="{{ url('/llms.txt') }}" />
+
         @if(str_contains($gscTag, '<meta'))
             {!! $gscTag !!}
         @else
@@ -81,16 +83,25 @@
             @endif
             @if($pixelId && $pixelId !== '123456789012345')
                 <script>
-                !function(f,b,e,v,n,t,s)
-                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '{{ $pixelId }}');
-                fbq('track', 'PageView');
+                (function() {
+                    var initPixel = function() {
+                        !function(f,b,e,v,n,t,s)
+                        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                        n.queue=[];t=b.createElement(e);t.async=!0;
+                        t.src=v;s=b.getElementsByTagName(e)[0];
+                        s.parentNode.insertBefore(t,s)}(window, document,'script',
+                        'https://connect.facebook.net/en_US/fbevents.js');
+                        fbq('init', '{{ $pixelId }}');
+                        fbq('track', 'PageView');
+                    };
+                    if ('requestIdleCallback' in window) {
+                        window.requestIdleCallback(initPixel, { timeout: 2500 });
+                    } else {
+                        window.addEventListener('load', function() { setTimeout(initPixel, 1200); });
+                    }
+                })();
                 </script>
             @endif
         @endif
@@ -104,16 +115,20 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
         <noscript>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
         </noscript>
 
         <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('css/prd-utilities.css') }}" />
-        <link rel="stylesheet" href="{{ asset('css/pages.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/prd-utilities.css') }}" media="print" onload="this.media='all'" />
+        <link rel="stylesheet" href="{{ asset('css/pages.min.css') }}" media="print" onload="this.media='all'" />
         <link rel="stylesheet" href="{{ asset('css/m3-motion.css') }}" media="print" onload="this.media='all'" />
+        <noscript>
+            <link rel="stylesheet" href="{{ asset('css/prd-utilities.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/pages.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/m3-motion.css') }}" />
+        </noscript>
 
         @routes
         @viteReactRefresh

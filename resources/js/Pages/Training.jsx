@@ -312,7 +312,13 @@ export default function Training({ courses = [] }) {
                 <h3 className="t-h4">{t('training_page.form_title')}</h3>
                 <p className="train-req__note">{t('training_page.form_note')}</p>
                 {!recentlySuccessful ? (
-                  <form className="req-form" onSubmit={handleFormSubmit} noValidate>
+                  <form
+                    className="req-form"
+                    onSubmit={handleFormSubmit}
+                    toolname="request_corporate_training"
+                    tooldescription="Request tailored corporate training or executive workshops from 8vice."
+                    noValidate
+                  >
                     {/* Honeypot */}
                     <input type="text" name="website_url" style={{ display: 'none' }} value={data.website_url} onChange={e => setData('website_url', e.target.value)} />
                     

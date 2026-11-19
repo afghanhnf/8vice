@@ -669,7 +669,12 @@ export default function Article({ insights = [] }) {
     }
 
     return (
-      <form onSubmit={handlePartnerSubmit} className="ins-partner-form">
+      <form
+        onSubmit={handlePartnerSubmit}
+        className="ins-partner-form"
+        toolname="submit_partnership_application"
+        tooldescription="Apply for strategic partnership or cross-border research collaboration with 8vice."
+      >
         <div className="ins-form-row">
           <div className="ins-form-field">
             <label>{isCn ? '机构 / 公司名称 *' : isId ? 'Nama Organisasi / Perusahaan *' : 'Organization / Company Name *'}</label>

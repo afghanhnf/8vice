@@ -4,7 +4,8 @@ import './bootstrap';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
-import { TranslationProvider } from '@/Contexts/TranslationContext';
+import { TranslationProvider, detectPathnameLang, preloadTranslation } from '@/Contexts/TranslationContext';
+import { registerWebMcpTools } from '@/utils/webmcp';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -24,11 +25,15 @@ createInertiaApp({
             `./Pages/${name}.jsx`,
             import.meta.glob('./Pages/**/*.jsx'),
         ),
-    setup({ el, App, props }) {
+    async setup({ el, App, props }) {
+        const initialLang = detectPathnameLang();
+        const initialDict = await preloadTranslation(initialLang);
+        registerWebMcpTools();
+
         const root = createRoot(el);
 
         root.render(
-            <TranslationProvider>
+            <TranslationProvider initialLang={initialLang} initialDict={initialDict}>
                 <App {...props} />
             </TranslationProvider>
         );

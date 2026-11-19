@@ -1,18 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { router } from '@inertiajs/react';
-import en from '../lang/en.json';
-import id from '../lang/id.json';
-import cn from '../lang/cn.json';
-
-const translations = {
-  en,
-  id,
-  cn
-};
 
 const TranslationContext = createContext();
+const loadedDictionaries = {};
 
-function detectPathnameLang() {
+const loaders = {
+  en: () => import('../lang/en.json').then((m) => m.default || m),
+  id: () => import('../lang/id.json').then((m) => m.default || m),
+  cn: () => import('../lang/cn.json').then((m) => m.default || m),
+};
+
+export function detectPathnameLang() {
   if (typeof window !== 'undefined') {
     const p = window.location.pathname;
     if (p === '/id' || p.startsWith('/id/')) return 'id';
@@ -21,30 +19,53 @@ function detectPathnameLang() {
   return 'en';
 }
 
-export function TranslationProvider({ children }) {
-  const [lang, setLang] = useState(detectPathnameLang);
+export async function preloadTranslation(locale) {
+  const code = ['en', 'id', 'cn'].includes(locale) ? locale : 'en';
+  if (!loadedDictionaries[code]) {
+    loadedDictionaries[code] = await loaders[code]();
+  }
+  return loadedDictionaries[code];
+}
+
+export function TranslationProvider({ children, initialLang, initialDict }) {
+  const [lang, setLang] = useState(() => initialLang || detectPathnameLang());
+  const [dictVersion, setDictVersion] = useState(0);
+
+  if (initialLang && initialDict && !loadedDictionaries[initialLang]) {
+    loadedDictionaries[initialLang] = initialDict;
+  }
 
   useEffect(() => {
-    const removeListener = router.on('navigate', () => {
-      setLang(detectPathnameLang());
-    });
+    const syncLang = async () => {
+      const next = detectPathnameLang();
+      if (!loadedDictionaries[next]) {
+        await preloadTranslation(next);
+        setDictVersion((v) => v + 1);
+      }
+      setLang(next);
+    };
+
+    if (!loadedDictionaries[lang]) {
+      preloadTranslation(lang).then(() => setDictVersion((v) => v + 1));
+    }
+
+    const removeListener = router.on('navigate', syncLang);
     return removeListener;
-  }, []);
+  }, [lang]);
 
   const t = (key) => {
     const keys = key.split('.');
-    let value = translations[lang];
+    let value = loadedDictionaries[lang];
     for (const k of keys) {
       if (value && value[k] !== undefined) {
         value = value[k];
       } else {
-        // Fallback to English if key is missing in the selected language
-        let fallbackValue = translations['en'];
+        let fallbackValue = loadedDictionaries['en'];
         for (const fk of keys) {
           if (fallbackValue && fallbackValue[fk] !== undefined) {
             fallbackValue = fallbackValue[fk];
           } else {
-            return key; // return key if not found at all
+            return key;
           }
         }
         return fallbackValue;
@@ -67,6 +88,7 @@ export function TranslationProvider({ children }) {
         isEn: lang === 'en',
         isId: lang === 'id',
         isCn: lang === 'cn',
+        dictVersion,
         t,
         tr
       }}

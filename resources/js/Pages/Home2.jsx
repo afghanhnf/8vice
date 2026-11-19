@@ -1997,17 +1997,23 @@ export default function Home2({
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmitInquiry}>
+              <form
+                onSubmit={handleSubmitInquiry}
+                toolname="submit_business_inquiry"
+                tooldescription="Submit a cross-border Indonesia-China strategic advisory or market entry inquiry to 8vice."
+              >
                 {/* Direction Picker */}
                 <div style={{ marginBottom: '24px' }}>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '10px' }}>
+                  <span id="h2-direction-label" style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '10px' }}>
                     {c.inquiry.dir_lbl}
-                  </label>
-                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  </span>
+                  <div role="radiogroup" aria-labelledby="h2-direction-label" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     {c.inquiry.dir_opts.map((dir, dIdx) => (
                       <button
                         key={dIdx}
                         type="button"
+                        role="radio"
+                        aria-checked={businessDirection === dir}
                         onClick={() => setBusinessDirection(dir)}
                         style={{
                           padding: '10px 18px',
@@ -2030,12 +2036,15 @@ export default function Home2({
                 {/* Service and Industry Selection */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
+                    <label htmlFor="h2-inquiry-service" style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
                       {c.inquiry.svc_lbl}
                     </label>
                     <select
+                      id="h2-inquiry-service"
+                      name="service"
                       value={selectedService}
                       onChange={e => setSelectedService(e.target.value)}
+                      toolparamdescription="Primary advisory service required"
                       style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '14px' }}
                     >
                       {c.services.items.map((svc, sIdx) => (
@@ -2045,12 +2054,15 @@ export default function Home2({
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
+                    <label htmlFor="h2-inquiry-industry" style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
                       {c.inquiry.ind_lbl}
                     </label>
                     <select
+                      id="h2-inquiry-industry"
+                      name="industry"
                       value={selectedIndustry}
                       onChange={e => setSelectedIndustry(e.target.value)}
+                      toolparamdescription="Client industry sector"
                       style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '14px' }}
                     >
                       {c.industries.items.map((ind, iIdx) => (
@@ -2063,27 +2075,33 @@ export default function Home2({
                 {/* Company & Email */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
+                    <label htmlFor="h2-inquiry-company" style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
                       {c.inquiry.company_lbl}
                     </label>
                     <input
+                      id="h2-inquiry-company"
+                      name="company"
                       type="text"
                       value={companyName}
                       onChange={e => setCompanyName(e.target.value)}
                       placeholder={isId ? 'PT / Korporasi...' : 'e.g. Acme Corp'}
+                      toolparamdescription="Company or organization name"
                       style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '14px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
+                    <label htmlFor="h2-inquiry-email" style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
                       {c.inquiry.email_lbl}
                     </label>
                     <input
+                      id="h2-inquiry-email"
+                      name="email"
                       type="email"
                       value={emailInput}
                       onChange={e => setEmailInput(e.target.value)}
                       placeholder="executive@company.com"
                       required
+                      toolparamdescription="Corporate email address for advisory response"
                       style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '14px' }}
                     />
                   </div>
@@ -2091,14 +2109,17 @@ export default function Home2({
 
                 {/* Notes */}
                 <div style={{ marginBottom: '28px' }}>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
+                  <label htmlFor="h2-inquiry-notes" style={{ display: 'block', fontSize: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '8px' }}>
                     {c.inquiry.notes_lbl}
                   </label>
                   <textarea
+                    id="h2-inquiry-notes"
+                    name="message"
                     rows={3}
                     value={inquiryNotes}
                     onChange={e => setInquiryNotes(e.target.value)}
                     placeholder={c.inquiry.notes_ph}
+                    toolparamdescription="Summary of expansion goals, project timeline, or partnership needs"
                     style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '14px', resize: 'vertical' }}
                   ></textarea>
                 </div>

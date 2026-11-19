@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { createPortal } from 'react-dom';
 import { usePage } from '@inertiajs/react';
 import Link from '@/Components/LocalizedLink';
 import { useTranslation } from '@/Contexts/TranslationContext';
-import SearchModal from '@/Components/SearchModal';
+
+const SearchModal = lazy(() => import('@/Components/SearchModal'));
 
 export default function Header() {
   const { url, props } = usePage();
@@ -168,6 +169,11 @@ export default function Header() {
       }
     };
     const handleEscape = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+        return;
+      }
       if (e.key === 'Escape') {
         if (isMobileMenuOpen) setIsMobileMenuOpen(false);
         if (langTimerRef.current) clearTimeout(langTimerRef.current);
@@ -487,16 +493,27 @@ export default function Header() {
           background: #E63946;
           color: #FFFFFF;
         }
+        .nav__link.is-current {
+          color: #FFFFFF;
+        }
+        .nav__link.is-current::after {
+          transform: scaleX(1);
+        }
         .lang-auto-banner {
-          position: relative;
-          min-height: 36px;
-          z-index: 10020;
-          background: linear-gradient(90deg, rgba(13, 15, 22, 0.98) 0%, rgba(28, 14, 19, 0.98) 50%, rgba(13, 15, 22, 0.98) 100%);
-          border-bottom: 1px solid rgba(230, 57, 70, 0.38);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          max-width: min(520px, calc(100vw - 104px));
+          z-index: 9980;
+          background: rgba(13, 15, 22, 0.96);
+          border: 1px solid rgba(230, 57, 70, 0.42);
+          border-radius: 14px;
+          box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
           display: flex;
           align-items: center;
-          padding: 6px 0;
+          padding: 10px 14px;
         }
         .lang-auto-banner__inner {
           display: flex;
@@ -505,6 +522,7 @@ export default function Header() {
           gap: 10px;
           width: 100%;
           flex-wrap: wrap;
+          padding: 0 !important;
         }
         .lang-auto-banner__text {
           display: flex;
@@ -584,7 +602,7 @@ export default function Header() {
           color: #FFFFFF;
         }
         .top-bar.has-lang-banner {
-          display: none;
+          opacity: 1;
         }
         .header {
           position: sticky;
@@ -678,7 +696,11 @@ export default function Header() {
         }
         @media (max-width: 768px) {
           .lang-auto-banner {
-            padding: 8px 0;
+            bottom: 84px;
+            left: 12px;
+            right: 12px;
+            max-width: none;
+            padding: 10px 12px;
           }
           .lang-auto-banner__inner {
             flex-direction: column;
@@ -935,7 +957,11 @@ export default function Header() {
         </div>
       </aside>
 
-      <SearchModal isOpen={isSearchOpen} onOpen={() => setIsSearchOpen(true)} onClose={() => setIsSearchOpen(false)} lang={lang} />
+      {isSearchOpen && (
+        <Suspense fallback={null}>
+          <SearchModal isOpen={isSearchOpen} onOpen={() => setIsSearchOpen(true)} onClose={() => setIsSearchOpen(false)} lang={lang} />
+        </Suspense>
+      )}
 
       {/* WeChat QR Code Modal (Rendered via Portal to document.body) */}
       {isWeChatModalOpen && typeof document !== 'undefined' && createPortal(

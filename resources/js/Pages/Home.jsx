@@ -2521,9 +2521,9 @@ export default function Home({
               <div style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', color: '#E63946', marginBottom: '10px', textTransform: 'uppercase' }}>
                 {c.inquiry.eyebrow}
               </div>
-              <h3 style={{ fontSize: '28px', fontWeight: 700, color: '#FFFFFF', marginBottom: '8px' }}>
+              <h2 style={{ fontSize: '28px', fontWeight: 700, color: '#FFFFFF', marginBottom: '8px' }}>
                 {c.inquiry.title}
-              </h3>
+              </h2>
               <p style={{ fontSize: '14.5px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: 1.6, marginBottom: '28px' }}>
                 {c.inquiry.subtitle}
               </p>
@@ -2531,22 +2531,29 @@ export default function Home({
               {submitted ? (
                 <div style={{ background: 'rgba(46, 204, 113, 0.15)', border: '1px solid rgba(46, 204, 113, 0.4)', borderRadius: '12px', padding: '24px', textAlign: 'center' }}>
                   <div style={{ fontSize: '24px', marginBottom: '8px' }}>✓</div>
-                  <h4 style={{ fontSize: '18px', fontWeight: 600, color: '#2ECC71', marginBottom: '8px' }}>Inquiry Received</h4>
+                  <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#2ECC71', marginBottom: '8px' }}>Inquiry Received</h3>
                   <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', margin: 0 }}>{c.inquiry.success_msg}</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmitInquiry} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <form
+                  onSubmit={handleSubmitInquiry}
+                  toolname="submit_business_inquiry"
+                  tooldescription="Submit a cross-border Indonesia-China strategic advisory or market entry inquiry to 8vice."
+                  style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+                >
 
                   {/* Direction Radios */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '10px' }}>
+                    <span id="home-direction-label" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '10px' }}>
                       {c.inquiry.dir_lbl}
-                    </label>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                    </span>
+                    <div role="radiogroup" aria-labelledby="home-direction-label" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                       {c.inquiry.dir_opts.map((opt, idx) => (
                         <button
                           key={idx}
                           type="button"
+                          role="radio"
+                          aria-checked={businessDirection === opt}
                           onClick={() => setBusinessDirection(opt)}
                           style={{
                             background: businessDirection === opt ? '#E63946' : 'rgba(255, 255, 255, 0.04)',
@@ -2568,12 +2575,15 @@ export default function Home({
 
                   {/* Service Dropdown */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
+                    <label htmlFor="home-inquiry-service" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
                       {c.inquiry.svc_lbl}
                     </label>
                     <select
+                      id="home-inquiry-service"
+                      name="service"
                       value={selectedService}
                       onChange={(e) => setSelectedService(e.target.value)}
+                      toolparamdescription="Primary advisory service pillar required"
                       style={{
                         width: '100%',
                         background: '#14161C',
@@ -2598,12 +2608,15 @@ export default function Home({
 
                   {/* Industry Dropdown */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
+                    <label htmlFor="home-inquiry-industry" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
                       {c.inquiry.ind_lbl}
                     </label>
                     <select
+                      id="home-inquiry-industry"
+                      name="industry"
                       value={selectedIndustry}
                       onChange={(e) => setSelectedIndustry(e.target.value)}
+                      toolparamdescription="Client industry sector"
                       style={{
                         width: '100%',
                         background: '#14161C',
@@ -2628,14 +2641,17 @@ export default function Home({
 
                   {/* Company Name */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
+                    <label htmlFor="home-inquiry-company" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
                       {c.inquiry.company_lbl}
                     </label>
                     <input
+                      id="home-inquiry-company"
+                      name="company"
                       type="text"
                       placeholder="e.g. Enterprise Ltd. / PT Bisnis Sejahtera"
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
+                      toolparamdescription="Company or organization name"
                       style={{
                         width: '100%',
                         background: '#14161C',
@@ -2651,15 +2667,18 @@ export default function Home({
 
                   {/* Email */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
+                    <label htmlFor="home-inquiry-email" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
                       {c.inquiry.email_lbl} *
                     </label>
                     <input
+                      id="home-inquiry-email"
+                      name="email"
                       type="email"
                       required
                       placeholder="name@company.com"
                       value={emailInput}
                       onChange={(e) => setEmailInput(e.target.value)}
+                      toolparamdescription="Corporate email address for advisory response"
                       style={{
                         width: '100%',
                         background: '#14161C',
@@ -2675,14 +2694,17 @@ export default function Home({
 
                   {/* Notes / Message */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
+                    <label htmlFor="home-inquiry-notes" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.85)', marginBottom: '8px' }}>
                       {c.inquiry.notes_lbl}
                     </label>
                     <textarea
+                      id="home-inquiry-notes"
+                      name="message"
                       rows={3}
                       placeholder={c.inquiry.notes_ph}
                       value={inquiryNotes}
                       onChange={(e) => setInquiryNotes(e.target.value)}
+                      toolparamdescription="Summary of expansion goals, project timeline, or partnership needs"
                       style={{
                         width: '100%',
                         background: '#14161C',
@@ -2725,9 +2747,9 @@ export default function Home({
             {/* Direct Contact & Office Details with B&W Advisory Photo (Stretches to keep section level/rata) */}
             <div className="m3-card" style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}>
               <div>
-                <h4 style={{ fontSize: '24px', fontWeight: 700, color: '#FFFFFF', marginBottom: '14px' }}>
+                <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#FFFFFF', marginBottom: '14px' }}>
                   {isCn ? '与 8 Vice 顾问团队直接沟通' : isId ? 'Konsultasi Langsung dengan Tim 8 Vice' : 'Direct Strategic Advisory Consultation'}
-                </h4>
+                </h3>
                 <p style={{ fontSize: '15px', lineHeight: 1.65, color: 'rgba(255, 255, 255, 0.68)', margin: 0 }}>
                   {isCn
                     ? '我们欢迎探索印尼市场的中国企业、寻求拓展中国业务的印尼企业以及致力于推动双边合作的各类机构垂询洽谈。'

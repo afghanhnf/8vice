@@ -356,7 +356,13 @@ export default function Career({ careers }) {
                     </div>
                   )}
 
-                  <form className="req-form" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  <form
+                    className="req-form"
+                    onSubmit={handleSubmit}
+                    toolname="submit_career_application"
+                    tooldescription="Submit a job or advisory career application to 8vice."
+                    style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
+                  >
                     
                     {/* Honeypot field - invisible to user */}
                     <div style={{ display: 'none' }} aria-hidden="true">

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { createPortal } from 'react-dom';
 import Link from '@/Components/LocalizedLink';
 import { usePage, useForm } from '@inertiajs/react';
 import { useTranslation } from '@/Contexts/TranslationContext';
-import ChatFloatingWidget from '@/Components/ChatFloatingWidget';
+
+const ChatFloatingWidget = lazy(() => import('@/Components/ChatFloatingWidget'));
 
 export default function Footer() {
   const { siteSettings, footerInsights = [] } = usePage().props;
@@ -300,7 +301,18 @@ export default function Footer() {
             </div>
 
             <div className="footer__newsletter-form-wrap">
-              <form onSubmit={handleSubscribe} className="footer__newsletter-form">
+              <form
+                onSubmit={handleSubscribe}
+                className="footer__newsletter-form"
+                toolname="subscribe_newsletter"
+                tooldescription="Subscribe to the 8vice cross-border business intelligence and regulatory updates newsletter."
+              >
+                <label
+                  htmlFor="footer-newsletter-email"
+                  style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' }}
+                >
+                  {isCn ? '邮箱地址' : isId ? 'Alamat Email Newsletter' : 'Newsletter Email Address'}
+                </label>
                 <input
                   type="text"
                   name="website_url"
@@ -312,12 +324,15 @@ export default function Footer() {
                   style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
                 />
                 <input
+                  id="footer-newsletter-email"
+                  name="email"
                   type="email"
                   required
                   value={data.email}
                   onChange={(e) => setData('email', e.target.value)}
                   placeholder={isCn ? '输入您的企业邮箱地址...' : isId ? 'Masukkan alamat email Anda...' : 'Enter your email address...'}
                   aria-label={isCn ? '邮箱地址' : isId ? 'Alamat Email Newsletter' : 'Newsletter Email Address'}
+                  toolparamdescription="Subscriber work email address"
                   disabled={processing}
                   className="footer__newsletter-input"
                 />
@@ -671,7 +686,9 @@ export default function Footer() {
         </div>
       )}
 
-      <ChatFloatingWidget />
+      <Suspense fallback={null}>
+        <ChatFloatingWidget />
+      </Suspense>
 
       {/* Floating Newsletter Toast Alert */}
       {subAlert && typeof document !== 'undefined' && createPortal(

@@ -914,7 +914,12 @@ export default function Contact() {
                         </div>
                       )}
 
-                      <form onSubmit={handleSubmit} className="cnt-form">
+                      <form
+                        onSubmit={handleSubmit}
+                        className="cnt-form"
+                        toolname="submit_contact_inquiry"
+                        tooldescription="Submit an executive consultation or bilateral partnership inquiry to the 8vice advisory team."
+                      >
                         {/* Honeypot */}
                         <div style={{ display: 'none' }} aria-hidden="true">
                           <input

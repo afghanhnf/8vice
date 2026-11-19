@@ -9,12 +9,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\AgenticController;
 
-// Dynamic Multilingual Sitemaps (Index + EN, ID, CN) & Robots.txt
+// Dynamic Multilingual Sitemaps, Robots.txt & LLMs Agent Discovery
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 Route::get('/sitemap-en.xml', fn() => app(SitemapController::class)->lang('en'));
 Route::get('/sitemap-id.xml', fn() => app(SitemapController::class)->lang('id'));
 Route::get('/sitemap-cn.xml', fn() => app(SitemapController::class)->lang('cn'));
+Route::get('/llms.txt', [AgenticController::class, 'llmsTxt']);
+Route::get('/llms-full.txt', [AgenticController::class, 'llmsFullTxt']);
 Route::get('/robots.txt', function () {
     $baseUrl = SitemapController::getBaseUrl();
     $content = implode("\n", [
@@ -28,6 +31,7 @@ Route::get('/robots.txt', function () {
         'Disallow: /profile',
         'Disallow: /api/',
         '',
+        "# LLMs Context: {$baseUrl}/llms.txt",
         "Sitemap: {$baseUrl}/sitemap.xml",
         '',
     ]);
