@@ -372,7 +372,8 @@ export default function About({ profiles = [] }) {
           callName: 'Helda Chandra',
           fullName: 'Helda Chandra',
           chineseName: '曾宪茹',
-          nameNote: 'CEO & Managing Partner',
+          jobTitle: 'Chief Executive Officer',
+          nameNote: 'Chief Executive Officer',
           subtitle: 'Corporate Strategy, Leadership & Overall Growth',
           bioParagraphs: [
             '曾宪茹（Helda Chandra）是一位资深商业战略顾问与企业家，拥有20余年为印度尼西亚政府机构、国有企业及私营企业提供战略咨询的丰富经验，并依托印尼与中国政商界的深厚网络，助力企业高效实现市场准入、战略合作与跨境业务增长。'
@@ -399,7 +400,8 @@ export default function About({ profiles = [] }) {
           callName: 'Gandhi Priambodho',
           fullName: 'Gandhi Priambodho',
           chineseName: '',
-          nameNote: 'International Business',
+          jobTitle: 'Chief Business Development Officer',
+          nameNote: 'Chief Business Development Officer',
           subtitle: 'Business, Trade & Investment',
           bioParagraphs: [
             'Gandhi Priambodho 是一位拥有丰富国际视野的业务拓展专家，专注于扩大印度尼西亚与中国之间的双边贸易、投资及战略合作伙伴关系。',
@@ -427,7 +429,8 @@ export default function About({ profiles = [] }) {
           callName: 'Christine Susanna Tjhin',
           fullName: 'Christine Susanna Tjhin',
           chineseName: '',
-          nameNote: 'Strategic Partner',
+          jobTitle: 'Chief Strategy Officer',
+          nameNote: 'Chief Strategy Officer',
           subtitle: 'Strategy, Policy & Institutional Relations',
           bioParagraphs: [
             'Christine Susanna Tjhin 是著名的印中关系专家，在政策研究、战略传播与国际事务领域拥有20余年深厚积淀，长期致力于推动印度尼西亚与中国之间可持续的战略伙伴关系。她同时担任印度尼西亚国家国防委员会 (DPN) 中国事务顾问、印尼外交政策共同体 (FPCI) 资深专家，并在多家聚焦中国事务的政策研究网络担任咨询职务。'
@@ -453,7 +456,8 @@ export default function About({ profiles = [] }) {
           callName: 'James He',
           fullName: 'James He (Wei He)',
           chineseName: '何炜',
-          nameNote: 'China Affairs & Infrastructure',
+          jobTitle: 'Chief China Affairs Officer',
+          nameNote: 'Chief China Affairs Officer',
           subtitle: 'China Affairs & Industrial Collaboration',
           bioParagraphs: [
             '何炜（James He / Wei He）是一位拥有跨国多元经验的资深顾问，业务涵盖印度尼西亚、中国及国际市场的政府事务咨询、基础设施投融资、关键矿产资源以及文化娱乐科技产业。',
@@ -719,7 +723,8 @@ export default function About({ profiles = [] }) {
             callName: 'Helda Chandra',
             fullName: 'Helda Chandra',
             chineseName: '曾宪茹',
-            nameNote: 'CEO & Managing Partner',
+            jobTitle: 'Chief Executive Officer',
+            nameNote: 'Chief Executive Officer',
             subtitle: 'Corporate Strategy, Leadership & Overall Growth',
             bioParagraphs: [
               'Helda Chandra adalah seorang ahli strategi bisnis dan wirausaha dengan lebih dari 20 tahun pengalaman mendampingi lembaga pemerintah Indonesia, badan usaha milik negara (BUMN), serta perusahaan swasta, didukung jaringan kuat di komunitas pemerintahan dan bisnis di Indonesia maupun Tiongkok untuk memfasilitasi masuk pasar, kemitraan strategis, dan pertumbuhan bisnis lintas batas.'
@@ -746,7 +751,8 @@ export default function About({ profiles = [] }) {
             callName: 'Gandhi Priambodho',
             fullName: 'Gandhi Priambodho',
             chineseName: '',
-            nameNote: 'International Business',
+            jobTitle: 'Chief Business Development Officer',
+            nameNote: 'Chief Business Development Officer',
             subtitle: 'Business, Trade & Investment',
             bioParagraphs: [
               'Gandhi Priambodho adalah profesional pengembangan bisnis internasional dengan pengalaman memperluas perdagangan, investasi, dan kemitraan strategis antara Indonesia dan Tiongkok.',
@@ -774,7 +780,8 @@ export default function About({ profiles = [] }) {
             callName: 'Christine Susanna Tjhin',
             fullName: 'Christine Susanna Tjhin',
             chineseName: '',
-            nameNote: 'Strategic Partner',
+            jobTitle: 'Chief Strategy Officer',
+            nameNote: 'Chief Strategy Officer',
             subtitle: 'Strategy, Policy & Institutional Relations',
             bioParagraphs: [
               'Christine Susanna Tjhin adalah pakar hubungan Indonesia–Tiongkok terkemuka dengan pengalaman lebih dari 20 tahun di bidang riset kebijakan, komunikasi strategis, dan urusan internasional yang mendorong kemitraan strategis dan berkelanjutan antara Indonesia dan Tiongkok. Beliau juga menjabat sebagai penasihat urusan Tiongkok di Dewan Pertahanan Nasional (DPN) RI, Senior Expert di Foreign Policy Community Indonesia (FPCI), serta memegang peran penasihat di berbagai jejaring kebijakan terkait Tiongkok.'
@@ -800,7 +807,8 @@ export default function About({ profiles = [] }) {
             callName: 'James He',
             fullName: 'James He (Wei He)',
             chineseName: '何炜',
-            nameNote: 'China Affairs & Infrastructure',
+            jobTitle: 'Chief China Affairs Officer',
+            nameNote: 'Chief China Affairs Officer',
             subtitle: 'China Affairs & Industrial Collaboration',
             bioParagraphs: [
               'James He (Wei He) adalah spesialis lintas batas dengan pengalaman luas di bidang advisori pemerintahan, pembiayaan infrastruktur, sumber daya kritis, dan teknologi hiburan di Indonesia, Tiongkok, maupun pasar internasional.',
@@ -1065,7 +1073,8 @@ export default function About({ profiles = [] }) {
             callName: 'Helda Chandra',
             fullName: 'Helda Chandra',
             chineseName: '曾宪茹',
-            nameNote: 'CEO & Managing Partner',
+            jobTitle: 'Chief Executive Officer',
+            nameNote: 'Chief Executive Officer',
             subtitle: 'Corporate Strategy, Leadership & Overall Growth',
             bioParagraphs: [
               'Helda Chandra is a business strategist and entrepreneur with over 20 years of experience advising Indonesian government institutions, state-owned enterprises, and private-sector companies, backed by strong networks across government and business communities in Indonesia and China to facilitate market entry, strategic partnerships, and cross-border business growth.'
@@ -1092,7 +1101,8 @@ export default function About({ profiles = [] }) {
             callName: 'Gandhi Priambodho',
             fullName: 'Gandhi Priambodho',
             chineseName: '',
-            nameNote: 'International Business',
+            jobTitle: 'Chief Business Development Officer',
+            nameNote: 'Chief Business Development Officer',
             subtitle: 'Business, Trade & Investment',
             bioParagraphs: [
               'Gandhi Priambodho is an international business development professional with experience expanding trade, investment, and strategic partnerships between Indonesia and China.',
@@ -1120,7 +1130,8 @@ export default function About({ profiles = [] }) {
             callName: 'Christine Susanna Tjhin',
             fullName: 'Christine Susanna Tjhin',
             chineseName: '',
-            nameNote: 'Strategic Partner',
+            jobTitle: 'Chief Strategy Officer',
+            nameNote: 'Chief Strategy Officer',
             subtitle: 'Strategy, Policy & Institutional Relations',
             bioParagraphs: [
               'Christine Susanna Tjhin is a prominent Indonesia–China relations expert with over 20 years of experience in policy research, strategic communication, and international affairs, promotes sustainable and strategic partnerships between Indonesia and China. She also serves as an advisor on China affairs to Indonesia’s National Defense Council (DPN), a Senior Expert at the Foreign Policy Community Indonesia (FPCI), and holds advisory roles in several China-focused policy networks.'
@@ -1146,7 +1157,8 @@ export default function About({ profiles = [] }) {
             callName: 'James He',
             fullName: 'James He (Wei He)',
             chineseName: '何炜',
-            nameNote: 'China Affairs & Infrastructure',
+            jobTitle: 'Chief China Affairs Officer',
+            nameNote: 'Chief China Affairs Officer',
             subtitle: 'China Affairs & Industrial Collaboration',
             bioParagraphs: [
               'James He (Wei He) is a cross-border specialist with extensive experience across government advisory, infrastructure finance, critical resources, and entertainment technology in Indonesia, China, and international markets.',
@@ -1271,8 +1283,18 @@ export default function About({ profiles = [] }) {
         const dbSocials = p.socials && typeof p.socials === 'object' ? p.socials : null;
 
         if (base) {
+          const dbRole = pickLoc(p.role_i18n || p.role, '');
+          const isLegacySeedRole =
+            dbRole.includes('Co-Founder') ||
+            dbRole.includes('Director of International Business') ||
+            dbRole.includes('Senior China Affairs Specialist') ||
+            dbRole.includes('首席执行官兼联合创始人') ||
+            dbRole.includes('国际业务总监') ||
+            dbRole.includes('联合创始人兼战略传播') ||
+            dbRole.includes('中国部资深专家');
           return {
             ...base,
+            jobTitle: (!isLegacySeedRole && dbRole) ? dbRole : base.jobTitle,
             photo: resolvePhotoUrl(p.image, base.photo),
             socials: dbSocials || base.socials,
           };
@@ -1283,8 +1305,9 @@ export default function About({ profiles = [] }) {
           callName: p.call_name || pickLoc(p.title_i18n || p.title, 'Advisor'),
           fullName: pickLoc(p.full_title_i18n || p.full_title || p.title_i18n || p.title, p.call_name || 'Advisor'),
           chineseName: '',
+          jobTitle: pickLoc(p.role_i18n || p.role, ''),
           nameNote: pickLoc(p.role_i18n || p.role, ''),
-          subtitle: pickLoc(p.role_i18n || p.role, ''),
+          subtitle: Array.isArray(p.focus_tags) && p.focus_tags.length > 0 ? p.focus_tags.join(', ') : '',
           bioParagraphs: dbBioText ? dbBioText.split(/\n+/).filter(Boolean) : [],
           photo: resolvePhotoUrl(p.image, '/images/executive_profile_bw.webp'),
           socials: dbSocials || {},
@@ -3009,19 +3032,35 @@ export default function About({ profiles = [] }) {
                       )}
                     </h3>
 
-                    <div
-                      style={{
-                        fontSize: '14.5px',
-                        fontStyle: 'italic',
-                        fontWeight: 500,
-                        color: '#FF7B7B',
-                        lineHeight: 1.5,
-                        marginTop: '10px',
-                        marginBottom: '18px'
-                      }}
-                    >
-                      {person.subtitle}
-                    </div>
+                    {person.jobTitle && (
+                      <div
+                        style={{
+                          fontSize: '15px',
+                          fontWeight: 600,
+                          color: 'rgba(255, 255, 255, 0.9)',
+                          lineHeight: 1.4,
+                          marginTop: '8px'
+                        }}
+                      >
+                        {person.jobTitle}
+                      </div>
+                    )}
+
+                    {person.subtitle && (
+                      <div
+                        style={{
+                          fontSize: '14px',
+                          fontStyle: 'italic',
+                          fontWeight: 500,
+                          color: '#FF7B7B',
+                          lineHeight: 1.5,
+                          marginTop: '6px',
+                          marginBottom: '18px'
+                        }}
+                      >
+                        {person.subtitle.toLowerCase().startsWith('expertise in') ? person.subtitle : `Expertise in: ${person.subtitle}`}
+                      </div>
+                    )}
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                       {(Array.isArray(person.bioParagraphs) ? person.bioParagraphs : []).map((para, pIdx) => (

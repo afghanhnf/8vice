@@ -120,6 +120,15 @@ if ($row) {
     ->update(['og_image' => 'images/industry_infrastructure.webp']);
 
 $profiles = \App\Helpers\SeedData::getProfiles();
+foreach ($profiles as $idx => $seedProfile) {
+    $existing = \App\Models\Profile::where('call_name', $seedProfile->call_name)->first();
+    if ($existing) {
+        $existing->update([
+            'role' => $seedProfile->role,
+            'sort_order' => $idx + 1,
+        ]);
+    }
+}
 $james = end($profiles);
 if ($james && !\App\Models\Profile::where('call_name', 'James He')->exists()) {
     \App\Models\Profile::create([

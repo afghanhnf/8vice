@@ -235,9 +235,9 @@ class SeedData
                 'call_name' => 'Helda Chandra',
                 'title' => 'Helda Chandra, S.E., M.Si.',
                 'role' => [
-                    'en' => 'CEO & Co-Founder, 8 Vice · Managing Partner, Gentala Institute',
-                    'id' => 'CEO & Co-Founder, 8 Vice · Managing Partner, Gentala Institute',
-                    'cn' => '8 Vice 首席执行官兼联合创始人 · 根塔拉研究所 (Gentala Institute) 执行合伙人'
+                    'en' => 'Chief Executive Officer',
+                    'id' => 'Chief Executive Officer',
+                    'cn' => 'Chief Executive Officer'
                 ],
                 'short_bio' => [
                     'en' => 'Seasoned business strategist with over 20 years guiding multinational corporations, BUMN, and governments. Spearheads cross-border advisory for Alibaba Group, DingTalk, Alipay, DiDi, Coolita, and Skyworth. Serves as Expert Consultant to the Indonesian Ministry of Creative Economy and former PT MRT Jakarta Commissioner Committee.',
@@ -278,9 +278,9 @@ class SeedData
                 'call_name' => 'Gandhi Priambodho',
                 'title' => 'Gandhi Priambodho',
                 'role' => [
-                    'en' => 'Director of International Business · Partner, 8 Vice',
-                    'id' => 'Director of International Business · Partner, 8 Vice',
-                    'cn' => '8 Vice 国际业务总监 · 合伙人'
+                    'en' => 'Chief Business Development Officer',
+                    'id' => 'Chief Business Development Officer',
+                    'cn' => 'Chief Business Development Officer'
                 ],
                 'short_bio' => [
                     'en' => 'Spearheads the expansion of business, trade and investment networks in Indonesia and China. Based in Beijing since 2002, Gandhi has long fostered eclectic business development networks across trade, industrial cooperation, energy & minerals, media, creative industry, tourism, education, real estate, and healthcare.',
@@ -321,9 +321,9 @@ class SeedData
                 'call_name' => 'Christine Susanna Tjhin',
                 'title' => 'Christine Susanna Tjhin',
                 'role' => [
-                    'en' => 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute · Strategic Partner, 8 Vice',
-                    'id' => 'Co-Founder & Director of Strategic Communication and Research, Gentala Institute · Strategic Partner, 8 Vice',
-                    'cn' => '根塔拉研究所 (Gentala Institute) 联合创始人兼战略传播与研究总监 · 8 Vice 战略合伙人'
+                    'en' => 'Chief Strategy Officer',
+                    'id' => 'Chief Strategy Officer',
+                    'cn' => 'Chief Strategy Officer'
                 ],
                 'short_bio' => [
                     'en' => 'Co-Founder and Director of Strategic Communication and Research at Gentala Institute and Partner at 8 Vice. Serves as advisor on China affairs to the Deputy for Geopolitics at the Indonesian National Defense Council (DPN), Member of the Supervisory Body of Indonesia Council of Sinologists, Senior Expert at FPCI China Policy Group, and former CSIS Indonesia researcher.',
@@ -364,9 +364,9 @@ class SeedData
                 'call_name' => 'James He',
                 'title' => 'James He (Wei He)',
                 'role' => [
-                    'en' => 'Senior China Affairs Specialist, Gentala Institute China Desk · Strategic Advisor, 8 Vice',
-                    'id' => 'Senior China Affairs Specialist, Gentala Institute China Desk · Penasihat Strategis, 8 Vice',
-                    'cn' => '根塔拉研究所 (Gentala Institute) 中国部资深专家 · 8 Vice 战略顾问'
+                    'en' => 'Chief China Affairs Officer',
+                    'id' => 'Chief China Affairs Officer',
+                    'cn' => 'Chief China Affairs Officer'
                 ],
                 'short_bio' => [
                     'en' => 'Cross-border advisor spanning government, infrastructure, critical resources, and entertainment technology. Serves as Advisor at Indonesia Cyber Security Forum (ICSF), Senior China Affairs Specialist at Gentala Institute, and facilitator between Institut Teknologi PLN (IT PLN) and North China Electric Power University (NCEPU). Former Head of International Business Development at China Film Giant Screen Co., Ltd. (China Film Group) and University of Toronto B.Com graduate.',
