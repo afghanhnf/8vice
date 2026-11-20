@@ -153,6 +153,9 @@ foreach ($profiles as $idx => $seedProfile) {
         if (empty($existing->experiences)) {
             $updates['experiences'] = $seedProfile->experiences;
         }
+        if (empty($existing->image) && !empty($seedProfile->image)) {
+            $updates['image'] = $seedProfile->image;
+        }
         if (!empty($updates)) {
             $existing->update($updates);
         }
@@ -184,8 +187,11 @@ PHP
 fi
 
 echo "==> [6/7] Ensuring storage directories, permissions & symlinks..."
-mkdir -p storage/framework/{sessions,views,cache} storage/logs bootstrap/cache
+mkdir -p storage/framework/{sessions,views,cache} storage/logs bootstrap/cache storage/app/public
 chmod -R 775 storage bootstrap/cache
+if [ -L public/storage ] && [ ! -e public/storage ]; then
+  rm -f public/storage
+fi
 "$PHP_BIN" artisan storage:link || true
 
 echo "==> [7/7] Refreshing Laravel caches..."

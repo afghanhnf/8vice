@@ -41,6 +41,34 @@ Route::get('/robots.txt', function () {
 
 Route::get('/api/search', [SearchController::class, 'index']);
 
+// Serve uploaded storage assets reliably even when host symlinks are missing or blocked
+Route::get('/storage/{path}', function (string $path) {
+    $clean = ltrim(str_replace('\\', '/', $path), '/');
+    if ($clean === '' || str_contains($clean, '..')) {
+        abort(404);
+    }
+
+    $roots = [storage_path('app/public')];
+    if (preg_match('#^(insights|services|case_studies|clients|industries|seo|settings|images|profiles)/#', $clean)) {
+        $roots[] = storage_path('app/private');
+    }
+
+    foreach ($roots as $root) {
+        $base = realpath($root);
+        if (!$base) {
+            continue;
+        }
+        $candidate = realpath($base . DIRECTORY_SEPARATOR . $clean);
+        if ($candidate && str_starts_with($candidate, $base . DIRECTORY_SEPARATOR) && is_file($candidate)) {
+            return response()->file($candidate, [
+                'Cache-Control' => 'public, max-age=31536000',
+            ]);
+        }
+    }
+
+    abort(404);
+})->where('path', '.*');
+
 Route::middleware('throttle:5,1')->group(function () {
     Route::post('/subscribe', [FormController::class, 'subscribe']);
     Route::post('/id/subscribe', [FormController::class, 'subscribe']);
