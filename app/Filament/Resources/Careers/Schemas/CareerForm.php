@@ -13,9 +13,11 @@ class CareerForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('Job Role Information')
-                    ->columns(2)
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->schema([
                         Tabs::make('Title')
                             ->columnSpanFull()
@@ -100,7 +102,12 @@ class CareerForm
                                         ->maxLength(255),
                                 ]),
                             ]),
+                    ]),
 
+                Section::make('Requirements & Responsibilities')
+                    ->columnSpanFull()
+                    ->columns(1)
+                    ->schema([
                         Tabs::make('Requirements')
                             ->columnSpanFull()
                             ->tabs([
@@ -143,7 +150,7 @@ class CareerForm
                                         ->rows(5),
                                 ]),
                             ]),
-                    ])
+                    ]),
             ]);
     }
 }

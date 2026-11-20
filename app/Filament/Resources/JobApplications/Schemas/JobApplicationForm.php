@@ -13,8 +13,11 @@ class JobApplicationForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('Application Details')
+                    ->columnSpanFull()
+                    ->columns(2)
                     ->schema([
                         Select::make('career_id')
                             ->label('Applied Role')
@@ -42,9 +45,9 @@ class JobApplicationForm
                             ->columnSpanFull(),
                         TextInput::make('ip_address')
                             ->maxLength(255)
-                            ->disabled(),
-                    ])
-                    ->columns(2),
+                            ->disabled()
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 }

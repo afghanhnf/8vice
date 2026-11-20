@@ -15,8 +15,10 @@ class FaqForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('FAQ Category & Order')
+                    ->columnSpanFull()
                     ->columns(3)
                     ->schema([
                         Select::make('category')
@@ -37,7 +39,10 @@ class FaqForm
                             ->label('Active on Website')
                             ->default(true),
                     ]),
-                Section::make('Question')
+
+                Section::make('Question (Multilingual)')
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->schema([
                         Tabs::make('Question Tabs')
                             ->columnSpanFull()
@@ -48,9 +53,15 @@ class FaqForm
                                 Tabs\Tab::make('EN')->schema([
                                     TextInput::make('question.en')->label('Question (English)')->required()->maxLength(500),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    TextInput::make('question.cn')->label('常见问题 (Mandarin)')->maxLength(500),
+                                ]),
                             ]),
                     ]),
-                Section::make('Answer')
+
+                Section::make('Answer (Multilingual)')
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->schema([
                         Tabs::make('Answer Tabs')
                             ->columnSpanFull()
@@ -61,9 +72,11 @@ class FaqForm
                                 Tabs\Tab::make('EN')->schema([
                                     Textarea::make('answer.en')->label('Answer (English)')->required()->rows(5)->maxLength(2000),
                                 ]),
+                                Tabs\Tab::make('CN')->schema([
+                                    Textarea::make('answer.cn')->label('解答内容 (Mandarin)')->rows(5)->maxLength(2000),
+                                ]),
                             ]),
                     ]),
             ]);
     }
 }
-

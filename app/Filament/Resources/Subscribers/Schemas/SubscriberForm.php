@@ -12,8 +12,11 @@ class SubscriberForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('Subscriber Details')
+                    ->columnSpanFull()
+                    ->columns(3)
                     ->schema([
                         TextInput::make('name')
                             ->maxLength(255),
@@ -21,13 +24,14 @@ class SubscriberForm
                             ->email()
                             ->required()
                             ->maxLength(255),
+                        TextInput::make('ip_address')
+                            ->disabled()
+                            ->maxLength(255),
                         Textarea::make('message')
+                            ->rows(4)
                             ->maxLength(65535)
                             ->columnSpanFull(),
-                        TextInput::make('ip_address')
-                            ->maxLength(255),
-                    ])
-                    ->columns(2),
+                    ]),
             ]);
     }
 }

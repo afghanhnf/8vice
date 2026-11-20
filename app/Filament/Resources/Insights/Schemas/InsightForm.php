@@ -103,8 +103,8 @@ class InsightForm
                                     ->default(true),
                             ]),
                         Section::make('Author')
-                            ->columnSpan(6)
-                            ->columns(1)
+                            ->columnSpan(12)
+                            ->columns(2)
                             ->schema([
                                 TextInput::make('author_name')
                                     ->label('Author Name')
@@ -114,7 +114,8 @@ class InsightForm
                                     ->maxLength(100),
                             ]),
                         Section::make('Cover Image')
-                            ->columnSpan(6)
+                            ->columnSpan(12)
+                            ->columns(1)
                             ->schema([
                                 FileUpload::make('cover')
                                     ->label('Cover Image')

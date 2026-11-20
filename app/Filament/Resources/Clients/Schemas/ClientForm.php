@@ -7,9 +7,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Section;
 
-use Filament\Schemas\Components\Grid;
-use Filament\Schemas\Components\Group;
-
 class ClientForm
 {
     public static function configure(Schema $schema): Schema
@@ -17,10 +14,8 @@ class ClientForm
         return $schema
             ->columns(1)
             ->components([
-                Grid::make(12)
-                    ->schema([
-                        Section::make('Client Info')
-                            ->columnSpan(12)
+                Section::make('Client Info')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         TextInput::make('name')
@@ -32,17 +27,17 @@ class ClientForm
                             ->placeholder('e.g. 支 or A')
                             ->maxLength(10),
                     ]),
-                        Section::make('Logo')
-                            ->columnSpan(12)
-                            ->schema([
+
+                Section::make('Logo')
+                    ->columnSpanFull()
+                    ->columns(1)
+                    ->schema([
                         FileUpload::make('image')
                             ->label('Client Logo (optional)')
                             ->image()
                             ->directory('clients')
                             ->maxSize(1024),
-                            ]),
-                    ])
+                    ]),
             ]);
     }
 }
-

@@ -17,6 +17,7 @@ class PageContentForm
             ->columns(1)
             ->components([
                 Section::make('Page Identity')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         TextInput::make('page_name')

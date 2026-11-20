@@ -15,8 +15,10 @@ class SiteSettingForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('Company Information')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         Textarea::make('address')
@@ -70,6 +72,7 @@ class SiteSettingForm
 
                 Section::make('Homepage Highlight Stat')
                     ->description('Featured statistic counter shown on the homepage hero banner (e.g. $130B).')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         TextInput::make('macro_stat_value')
@@ -84,6 +87,7 @@ class SiteSettingForm
 
                 Section::make('China Communications & Direct Channels')
                     ->description('Direct messaging channels for Chinese enterprise delegations and global clients.')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         TextInput::make('wechat_id')
@@ -98,6 +102,7 @@ class SiteSettingForm
                     ]),
 
                 Section::make('Social Media Links')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         TextInput::make('whatsapp_url')
@@ -120,9 +125,12 @@ class SiteSettingForm
 
                 Section::make('Global SEO & Social Fallbacks')
                     ->description('Default meta information used when specific pages or dynamic posts do not have custom meta tags.')
-                    ->columns(1)
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->collapsible()
                     ->schema([
                         Tabs::make('Default Meta Title')
+                            ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('EN')
                                     ->schema([
@@ -145,9 +153,10 @@ class SiteSettingForm
                                             ->placeholder('8vice | 印尼与中国跨境战略商业咨询门户')
                                             ->maxLength(255),
                                     ]),
-                            ])->columnSpanFull(),
+                            ]),
 
                         Tabs::make('Default Meta Description')
+                            ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('EN')
                                     ->schema([
@@ -173,12 +182,17 @@ class SiteSettingForm
                                             ->placeholder('网站全局默认搜索引擎描述...')
                                             ->maxLength(500),
                                     ]),
-                            ])->columnSpanFull(),
+                            ]),
 
                         TextInput::make('site_keywords')
                             ->label('Global Keywords (Comma-separated)')
                             ->placeholder('indonesia market entry, business consulting jakarta, corporate strategy')
                             ->maxLength(500),
+
+                        TextInput::make('twitter_handle')
+                            ->label('Official X / Twitter Handle')
+                            ->placeholder('@8vice')
+                            ->maxLength(100),
 
                         FileUpload::make('default_og_image')
                             ->label('Global Default OG Social Share Image (1200x630 px)')
@@ -186,19 +200,17 @@ class SiteSettingForm
                             ->image()
                             ->helperText('Fallback banner used when sharing any page or dynamic article without an explicit image.')
                             ->columnSpanFull(),
-
-                        TextInput::make('twitter_handle')
-                            ->label('Official X / Twitter Handle')
-                            ->placeholder('@8vice')
-                            ->maxLength(100),
                     ]),
 
                 Section::make('Legal & Compliance Policies')
                     ->description('Legal agreements and disclosures.')
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->collapsible()
                     ->collapsed()
                     ->schema([
                         Tabs::make('Privacy Policy')
+                            ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('EN')->schema([
                                     RichEditor::make('privacy_policy.en')->label('[EN] Privacy Policy Content'),
@@ -211,6 +223,7 @@ class SiteSettingForm
                                 ]),
                             ]),
                         Tabs::make('Terms of Service')
+                            ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('EN')->schema([
                                     RichEditor::make('terms_of_service.en')->label('[EN] Terms of Service Content'),
@@ -225,7 +238,9 @@ class SiteSettingForm
                     ]),
 
                 Section::make('Analytics & Tracking')
+                    ->columnSpanFull()
                     ->columns(2)
+                    ->collapsible()
                     ->schema([
                         TextInput::make('google_analytics')
                             ->label('Google Analytics Measurement ID')

@@ -12,8 +12,11 @@ class ContactMessageForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('Inquiry Details')
+                    ->columnSpanFull()
+                    ->columns(2)
                     ->schema([
                         TextInput::make('name')
                             ->required()
@@ -37,8 +40,7 @@ class ContactMessageForm
                             ->required()
                             ->rows(6)
                             ->columnSpanFull(),
-                    ])
-                    ->columns(2),
+                    ]),
             ]);
     }
 }

@@ -17,12 +17,28 @@ class CaseStudyForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
-                Section::make('Case Study Details')
+                Section::make('Case Study Identity & Cover')
+                    ->columnSpanFull()
+                    ->columns(2)
                     ->schema([
                         TextInput::make('slug')->required()->maxLength(255),
-                        FileUpload::make('cover')->image()->directory('case_studies')->maxSize(2048),
-                        
+                        Toggle::make('is_featured')
+                            ->label('Featured Case Study (Hero)')
+                            ->helperText('Shown as the big hero on the Case Studies page. Only one case should be featured.')
+                            ->default(false),
+                        FileUpload::make('cover')
+                            ->image()
+                            ->directory('case_studies')
+                            ->maxSize(2048)
+                            ->columnSpanFull(),
+                    ]),
+
+                Section::make('Case Study Content (ID / EN / CN)')
+                    ->columnSpanFull()
+                    ->columns(1)
+                    ->schema([
                         Tabs::make('Tag')
                             ->columnSpanFull()
                             ->tabs([
@@ -52,13 +68,13 @@ class CaseStudyForm
                                 Tabs\Tab::make('CN')->schema([RichEditor::make('body.cn')->label('Full Body Content')]),
                             ]),
                     ]),
-                Section::make('Featured & Highlights')
-                    ->description('The featured case study is shown as the big hero on the Case Studies page. Only one case should be featured.')
+
+                Section::make('Headline Metrics (Hero Highlights)')
+                    ->description('Up to 4 headline numbers showcased on the case study card/hero.')
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->collapsible()
                     ->schema([
-                        Toggle::make('is_featured')
-                            ->label('Featured case study')
-                            ->default(false),
                         Repeater::make('metrics')
                             ->label('Headline metrics (hero)')
                             ->schema([
@@ -76,8 +92,11 @@ class CaseStudyForm
                             ->defaultItems(0)
                             ->columnSpanFull(),
                     ]),
-                Section::make('Engagement Overview (sidebar)')
+
+                Section::make('Engagement Overview (Sidebar)')
                     ->description('Shown in the sidebar of the case study detail page. The sector is taken from the Tag.')
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->collapsible()
                     ->schema([
                         Tabs::make('Corridor')

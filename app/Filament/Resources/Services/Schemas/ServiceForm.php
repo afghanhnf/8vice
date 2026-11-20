@@ -7,7 +7,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TagsInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 
@@ -16,8 +15,10 @@ class ServiceForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('Service Identification')
+                    ->columnSpanFull()
                     ->columns(3)
                     ->schema([
                         TextInput::make('slug')
@@ -35,7 +36,9 @@ class ServiceForm
                             ->default(0)
                             ->helperText('Lower numbers appear first.'),
                     ]),
+
                 Section::make('Service Titles & Headline')
+                    ->columnSpanFull()
                     ->columns(1)
                     ->schema([
                         Tabs::make('Title')
@@ -68,7 +71,9 @@ class ServiceForm
                                 ]),
                             ]),
                     ]),
+
                 Section::make('Visual Assets')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         FileUpload::make('image')
@@ -84,18 +89,23 @@ class ServiceForm
                             ->maxSize(4096)
                             ->helperText('Feature photography shown in the detailed service breakdown (auto-converted to WebP).'),
                     ]),
+
                 Section::make('Deliverables & Value Highlights')
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->collapsible()
                     ->schema([
                         Tabs::make('Deliverables Language')
+                            ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('EN')->schema([
                                     Repeater::make('deliverables.en')
                                         ->label('Deliverable Modules (EN)')
+                                        ->columns(2)
                                         ->schema([
                                             TextInput::make('title')->label('Deliverable Title')->required(),
                                             TextInput::make('icon')->label('Icon key')->placeholder('assessment, strategy, model, etc.'),
-                                            Textarea::make('desc')->label('Description')->rows(2)->required(),
+                                            Textarea::make('desc')->label('Description')->rows(2)->required()->columnSpanFull(),
                                         ])
                                         ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
                                         ->addActionLabel('Add Deliverable')
@@ -106,10 +116,11 @@ class ServiceForm
                                 Tabs\Tab::make('ID')->schema([
                                     Repeater::make('deliverables.id')
                                         ->label('Deliverable Modules (ID)')
+                                        ->columns(2)
                                         ->schema([
                                             TextInput::make('title')->label('Deliverable Title')->required(),
                                             TextInput::make('icon')->label('Icon key')->placeholder('assessment, strategy, model, etc.'),
-                                            Textarea::make('desc')->label('Description')->rows(2)->required(),
+                                            Textarea::make('desc')->label('Description')->rows(2)->required()->columnSpanFull(),
                                         ])
                                         ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
                                         ->addActionLabel('Add Deliverable')
@@ -120,10 +131,11 @@ class ServiceForm
                                 Tabs\Tab::make('CN')->schema([
                                     Repeater::make('deliverables.cn')
                                         ->label('Deliverable Modules (CN)')
+                                        ->columns(2)
                                         ->schema([
                                             TextInput::make('title')->label('Deliverable Title')->required(),
                                             TextInput::make('icon')->label('Icon key')->placeholder('assessment, strategy, model, etc.'),
-                                            Textarea::make('desc')->label('Description')->rows(2)->required(),
+                                            Textarea::make('desc')->label('Description')->rows(2)->required()->columnSpanFull(),
                                         ])
                                         ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
                                         ->addActionLabel('Add Deliverable')

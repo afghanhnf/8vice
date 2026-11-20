@@ -15,8 +15,10 @@ class IndustryCoverageForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('Industry Sector Information')
+                    ->columnSpanFull()
                     ->columns(3)
                     ->schema([
                         TextInput::make('slug')
@@ -34,7 +36,9 @@ class IndustryCoverageForm
                             ->default(0)
                             ->helperText('Lower numbers appear first.'),
                     ]),
+
                 Section::make('Sector Titles & Positioning')
+                    ->columnSpanFull()
                     ->columns(1)
                     ->schema([
                         Tabs::make('Title')
@@ -68,10 +72,13 @@ class IndustryCoverageForm
                             ]),
                         TagsInput::make('highlights')
                             ->label('Key Sector Highlights / Focus Areas')
-                            ->placeholder('Add subsector / highlight focus'),
+                            ->placeholder('Add subsector / highlight focus')
+                            ->columnSpanFull(),
                     ]),
+
                 Section::make('Cover Imagery')
-                    ->columns(2)
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->schema([
                         FileUpload::make('image')
                             ->label('Industry Backdrop Image')

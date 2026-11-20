@@ -142,13 +142,26 @@ h1, h2, h3, h4, h5, h6,
 .fi-wi-table,
 .fi-section {
     background-color: #FFFFFF !important;
-    border: 1px solid rgba(0, 0, 0, 0.06) !important;
-    border-radius: 18px !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 16px !important;
     box-shadow: var(--m3-elevation-1) !important;
     transition: transform var(--m3-duration-medium-1) var(--m3-easing-emphasized),
                 box-shadow var(--m3-duration-medium-1) var(--m3-easing-emphasized),
                 border-color var(--m3-duration-short-4) var(--m3-easing-standard) !important;
+}
+
+.fi-wi-chart,
+.fi-wi-table {
     overflow: hidden;
+}
+
+/* Keep form sections overflow-visible so dropdowns/menus inside forms never clip */
+.fi-section {
+    overflow: visible !important;
+}
+
+.fi-section-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
 
 .fi-wi-stats-overview-stat:hover,
@@ -265,13 +278,11 @@ h1, h2, h3, h4, h5, h6,
    ============================================================ */
 .fi-input-wrp {
     background-color: #FFFFFF !important;
-    border: 1.5px solid rgba(0, 0, 0, 0.1) !important;
-    border-radius: 12px !important;
-    box-shadow: var(--m3-elevation-1) !important;
+    border: 1px solid rgba(0, 0, 0, 0.14) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
     transition: border-color var(--m3-duration-short-4) var(--m3-easing-standard),
-                box-shadow var(--m3-duration-short-4) var(--m3-easing-standard),
-                background-color var(--m3-duration-short-4) ease !important;
-    padding: 0.15rem 0.4rem !important;
+                box-shadow var(--m3-duration-short-4) var(--m3-easing-standard) !important;
 }
 
 .fi-input-wrp:focus-within {
@@ -282,11 +293,30 @@ h1, h2, h3, h4, h5, h6,
 .fi-fo-field-wrp-label label {
     font-weight: 600 !important;
     font-size: 0.85rem !important;
-    color: #333333 !important;
+    color: #262626 !important;
 }
 
-/* Multilingual Tabs (M3 Pill Slider) */
-.fi-tabs {
+/* Multilingual Tabs — Clean Full-Width Bar Inside Contained Tabs & Pill Style Outside */
+.fi-sc-tabs.fi-contained {
+    border-radius: 14px !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    background-color: #FAFAF7 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+.fi-tabs.fi-contained {
+    background-color: #F2F2EE !important;
+    border-radius: 14px 14px 0 0 !important;
+    padding: 0.45rem 0.75rem !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+    width: 100% !important;
+}
+
+.fi-tabs:not(.fi-contained) {
     background-color: #ECECE8 !important;
     border-radius: var(--m3-radius-full) !important;
     padding: 4px !important;
@@ -295,20 +325,20 @@ h1, h2, h3, h4, h5, h6,
     gap: 2px !important;
 }
 
-.fi-tabs-item-button {
+.fi-tabs-item {
     border-radius: var(--m3-radius-full) !important;
     font-weight: 600 !important;
     font-size: 0.82rem !important;
-    padding: 0.4rem 1.1rem !important;
+    padding: 0.4rem 1rem !important;
     color: #666666 !important;
     transition: all var(--m3-duration-short-3) var(--m3-easing-standard) !important;
 }
 
-.fi-tabs-item-active .fi-tabs-item-button,
-.fi-tabs-item.fi-active .fi-tabs-item-button {
+.fi-tabs-item.fi-active,
+.fi-tabs-item[aria-selected="true"] {
     background-color: #FFFFFF !important;
-    color: #0A0A0A !important;
-    box-shadow: var(--m3-elevation-1) !important;
+    color: #D62828 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ============================================================

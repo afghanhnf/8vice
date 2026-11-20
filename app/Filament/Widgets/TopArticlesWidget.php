@@ -12,7 +12,7 @@ class TopArticlesWidget extends BaseWidget
 {
     protected static ?int $sort = 4;
     protected ?string $pollingInterval = '15s';
-    protected int | string | array $columnSpan = 1;
+    protected int | string | array $columnSpan = 'full';
     protected static ?string $heading = 'Most Read Articles & Insights';
 
     public function table(Table $table): Table

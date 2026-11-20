@@ -8,6 +8,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TagsInput;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 
@@ -16,8 +17,10 @@ class ProfileForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make('Profile Identity')
+                    ->columnSpanFull()
                     ->columns(4)
                     ->schema([
                         TextInput::make('call_name')
@@ -43,6 +46,7 @@ class ProfileForm
 
                 Section::make('Role, Expertise, Bio & Experiences (Multilingual EN / ID / CN)')
                     ->description('All fields below map directly to the People Behind 8 Vice section on /about.')
+                    ->columnSpanFull()
                     ->columns(1)
                     ->schema([
                         Tabs::make('Profile Translations')
@@ -119,10 +123,12 @@ class ProfileForm
 
                         TagsInput::make('focus_tags')
                             ->label('Summary Focus Tags')
-                            ->placeholder('Add tag'),
+                            ->placeholder('Add tag')
+                            ->columnSpanFull(),
                     ]),
 
                 Section::make('Portrait Photo & Social Links')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         FileUpload::make('image')
@@ -132,25 +138,25 @@ class ProfileForm
                             ->directory('profiles')
                             ->maxSize(4096)
                             ->helperText('Recommended: 1:1 square WebP/JPG/PNG.'),
-                        Section::make('Social & Contact Links')
-                            ->columns(1)
-                            ->schema([
-                                TextInput::make('socials.linkedin')
-                                    ->label('LinkedIn URL')
-                                    ->url()
-                                    ->maxLength(500),
-                                TextInput::make('socials.instagram')
-                                    ->label('Instagram URL')
-                                    ->url()
-                                    ->maxLength(500),
-                                TextInput::make('socials.email')
-                                    ->label('Email Link (mailto:...)')
-                                    ->placeholder('mailto:hello@8vice.com')
-                                    ->maxLength(255),
-                            ]),
+                        Group::make([
+                            TextInput::make('socials.linkedin')
+                                ->label('LinkedIn URL')
+                                ->url()
+                                ->maxLength(500),
+                            TextInput::make('socials.instagram')
+                                ->label('Instagram URL')
+                                ->url()
+                                ->maxLength(500),
+                            TextInput::make('socials.email')
+                                ->label('Email Link (mailto:...)')
+                                ->placeholder('mailto:hello@8vice.com')
+                                ->maxLength(255),
+                        ])->columns(1),
                     ]),
 
                 Section::make('Strategic Leadership Message / Modal Quote')
+                    ->columnSpanFull()
+                    ->columns(1)
                     ->collapsible()
                     ->collapsed()
                     ->schema([
