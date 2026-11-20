@@ -484,7 +484,7 @@ class SeedData
                         'Former Finance and Localization Consultant for Pegasus Capital International (Coal Power Plant East Kalimantan, Ulaanbaatar Tunnel Project and Nalgar Khundii Copper/Gold Mine Project.',
                         'Former Head of International Business Development, China Film Giant Screen Co., Ltd.',
                         'Former Board Member, Advanced Imaging Committee, China Society of Motion Picture and Television Engineers (CSMPTE)',
-                        'Former Technology & Marketing Advisor for Cinemaxx Entertainment Project, in Indonesia, Barco America, and Las Vegas',
+                        'Former Technology & Marketing Advisor for Cinemaxx Entertainment Project, (in Indonesia, Barco America, and Las Vegas)',
                     ],
                     'id' => [
                         'Penasihat dan partisipan, Indonesia Cyber Security Forum (ICSF)',
