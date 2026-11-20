@@ -717,7 +717,7 @@ const HERO_CSS = `
   margin: 0 0 22px;
   font-family: var(--font-display, "Plus Jakarta Sans", system-ui, sans-serif);
   font-weight: 800;
-  font-size: clamp(38px, 5.6vw, 84px);
+  font-size: clamp(30px, 5.6vw, 84px);
   line-height: 0.98;
   letter-spacing: -0.01em;
   text-transform: uppercase;
@@ -757,7 +757,10 @@ const HERO_CSS = `
   .hg-sub { font-size: 13.5px; }
 }
 @media (max-width: 560px) {
-  .hg { min-height: 620px; }
+  .hg { min-height: 540px; }
+  .hg-content { padding: 64px 18px 0; }
+  .hg-title { font-size: clamp(28px, 8.2vw, 42px); line-height: 1.05; margin-bottom: 16px; }
+  .hg-kicker { letter-spacing: 0.16em; }
   .hg-side { width: 78vw; opacity: .45; }
 }
 @media (prefers-reduced-motion: reduce) {

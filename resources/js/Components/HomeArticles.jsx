@@ -146,10 +146,32 @@ export default function HomeArticles({ isId = false, insights = [] }) {
           text-transform: uppercase;
           color: #FF8A8A;
         }
+        .home-articles-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 28px;
+        }
+        @media (max-width: 1024px) {
+          .home-articles-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+        @media (max-width: 680px) {
+          .home-articles-grid {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 20px;
+          }
+          .home-articles-section {
+            padding-block: 64px !important;
+          }
+          .home-article-body {
+            padding: 20px 18px !important;
+          }
+        }
       ` }} />
 
       <section 
-        className="section"
+        className="section home-articles-section"
         id="articles"
         style={{
           background: '#090A0D',
@@ -162,8 +184,8 @@ export default function HomeArticles({ isId = false, insights = [] }) {
         <div className="container">
           
           {/* Header Row */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '24px', marginBottom: '56px' }}>
-            <div className="m3-header" style={{ maxWidth: '680px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '24px', marginBottom: '44px' }}>
+            <div className="m3-header" style={{ maxWidth: '680px', minWidth: 0 }}>
               <div style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -218,8 +240,13 @@ export default function HomeArticles({ isId = false, insights = [] }) {
           </div>
 
           {/* Articles Grid */}
-          <div className="m3-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
-            {articlesList.map((art, idx) => (
+          <div className="m3-stagger home-articles-grid">
+            {articlesList.map((art, idx) => {
+              const rawCover = (art.cover || '').trim();
+              const coverSrc = !rawCover
+                ? '/images/project_analysis.webp'
+                : (rawCover.startsWith('/') || rawCover.startsWith('http') ? rawCover : `/storage/${rawCover}`);
+              return (
               <Link 
                 key={idx} 
                 href={art.slug ? `/insights/${art.slug}` : '/insights'}
@@ -227,8 +254,8 @@ export default function HomeArticles({ isId = false, insights = [] }) {
               >
                 <div className="home-article-thumb-wrap">
                   <img 
-                    src={art.cover || '/images/project_analysis.webp'} 
-                    alt={art.t} 
+                    src={coverSrc} 
+                    alt={pickLoc(art.t_i18n || art.t)} 
                     width="420"
                     height="240"
                     loading="lazy"
@@ -240,7 +267,7 @@ export default function HomeArticles({ isId = false, insights = [] }) {
                   </div>
                 </div>
 
-                <div style={{ padding: '28px', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
+                <div className="home-article-body" style={{ padding: '28px', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.45)', marginBottom: '12px' }}>
                       <span>{pickLoc(art.date, isCn ? '最新' : isId ? 'Terkini' : 'Recent')}</span>
@@ -266,7 +293,8 @@ export default function HomeArticles({ isId = false, insights = [] }) {
                   </div>
                 </div>
               </Link>
-            ))}
+              );
+            })}
           </div>
 
         </div>

@@ -140,11 +140,11 @@
             .hg{--mx:0;--my:0;--sy:0;position:relative;overflow:hidden;isolation:isolate;min-height:max(660px,calc(100svh - 112px));background:#0A0A0C;color:#fff;display:flex;justify-content:center}
             .hg-sky{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 36% 42% at 16% 96%,rgba(230,57,70,0.10) 0%,transparent 70%),radial-gradient(ellipse 36% 42% at 84% 96%,rgba(230,57,70,0.10) 0%,transparent 70%),radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,255,255,0.035) 0%,transparent 70%),linear-gradient(180deg,#0A0A0C 0%,#0D0E12 65%,#110E11 100%)}
             .hg-content{position:relative;z-index:8;width:100%;max-width:980px;padding:clamp(72px,12vh,128px) 24px 0;text-align:center}
-            .hg-title{margin:0 0 22px;font-family:var(--font-display,"Plus Jakarta Sans",system-ui,sans-serif);font-weight:800;font-size:clamp(38px,5.6vw,84px);line-height:0.98;letter-spacing:-0.01em;text-transform:uppercase;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,0.65)}
+            .hg-title{margin:0 0 22px;font-family:var(--font-display,"Plus Jakarta Sans",system-ui,sans-serif);font-weight:800;font-size:clamp(30px,5.6vw,84px);line-height:0.98;letter-spacing:-0.01em;text-transform:uppercase;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,0.65)}
             .hg-kicker{margin:0 0 8px;font-size:11.5px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.68)}
             .hg-sub{margin:0 auto;max-width:520px;font-size:14.5px;line-height:1.65;font-weight:400;color:rgba(255,255,255,0.64)}
             @media (max-width:900px){.hg-sub{font-size:13.5px}}
-            @media (max-width:560px){.hg{min-height:620px}}
+            @media (max-width:560px){.hg{min-height:540px}.hg-content{padding:64px 18px 0}.hg-title{font-size:clamp(28px,8.2vw,42px);line-height:1.05;margin-bottom:16px}.hg-kicker{letter-spacing:0.16em}}
         </style>
 
         <link rel="stylesheet" href="{{ asset('css/prd-utilities.css') }}" media="print" onload="this.media='all'" />

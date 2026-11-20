@@ -1117,17 +1117,110 @@ export default function Home({
         }
         .home-services-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 28px;
         }
         @media (max-width: 1024px) {
           .home-services-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
           }
         }
         @media (max-width: 640px) {
           .home-services-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 18px;
+          }
+        }
+        .home-overview-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 56px;
+          align-items: center;
+        }
+        .overview-photo-wrap {
+          position: relative;
+          height: 500px;
+          overflow: hidden;
+        }
+        .home-gateway-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 32px;
+          margin-bottom: 64px;
+        }
+        .home-gateway-card {
+          padding: 40px;
+        }
+        .home-stat-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 340px));
+          justify-content: center;
+          gap: 28px;
+          max-width: 760px;
+          margin: 48px auto 56px auto;
+        }
+        .home-contact-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 56px;
+          align-items: stretch;
+        }
+        .home-contact-card {
+          padding: 38px;
+        }
+        .home-contact-info-box {
+          padding: 28px;
+        }
+        @media (max-width: 960px) {
+          .home-overview-grid {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 36px;
+          }
+          .home-gateway-grid {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+          }
+          .home-contact-grid {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 36px;
+          }
+        }
+        @media (max-width: 768px) {
+          .home-section-pad {
+            padding-block: 64px !important;
+          }
+          .why-strength-card {
+            padding: 18px 16px !important;
+            gap: 14px !important;
+          }
+          .why-strength-card:hover {
+            transform: none !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .overview-photo-wrap {
+            height: 380px;
+          }
+          .home-svc-card {
+            padding: 24px 20px !important;
+          }
+          .home-gateway-card {
+            padding: 26px 20px !important;
+          }
+          .home-stat-grid {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 16px;
+            margin: 36px auto 40px auto;
+          }
+          .stat-card {
+            padding: 24px 20px !important;
+          }
+          .home-contact-card {
+            padding: 24px 18px !important;
+          }
+          .home-contact-info-box {
+            padding: 20px 18px !important;
           }
         }
         .client-partner-item {
@@ -1153,6 +1246,22 @@ export default function Home({
         @media (max-width: 1100px) {
           .client-partner-row {
             flex-wrap: wrap;
+          }
+        }
+        @media (max-width: 640px) {
+          .client-partner-row {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 12px !important;
+          }
+          .client-partner-item {
+            min-width: 0 !important;
+            width: 100%;
+            height: 70px;
+            padding: 10px 14px;
+          }
+          .client-partner-item img {
+            max-width: 105px !important;
           }
         }
         .client-partner-item:hover {
@@ -1432,7 +1541,10 @@ export default function Home({
         @media (hover: none), (max-width: 768px) {
           .industry-card {
             height: auto;
-            min-height: 400px;
+            min-height: 290px;
+          }
+          .industry-card-content {
+            padding: 20px 18px;
           }
           .industry-card-desc {
             max-height: 200px !important;
@@ -1546,7 +1658,7 @@ export default function Home({
       {/* ========================================================================= */}
       <section
         id="overview"
-        className="section"
+        className="section home-section-pad"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -1563,7 +1675,7 @@ export default function Home({
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div className="m3-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '56px', alignItems: 'center' }}>
+          <div className="m3-stagger home-overview-grid">
 
             {/* Left Column: Strategic Advisory Copy */}
             <div className="m3-child">
@@ -1642,7 +1754,7 @@ export default function Home({
                   background: '#0D0E13'
                 }}
               >
-                <div style={{ position: 'relative', height: '500px', overflow: 'hidden' }} className="overview-photo-wrap">
+                <div className="overview-photo-wrap">
                   <img
                     src="/images/executive_profile_bw.webp"
                     alt="8 Vice Executive Strategic Advisory"
@@ -1743,7 +1855,7 @@ export default function Home({
       {/* ========================================================================= */}
       <section
         id="services"
-        className="section"
+        className="section home-section-pad"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -1775,7 +1887,7 @@ export default function Home({
           </div>
 
           {/* 6 Services Grid: 3 top & 3 bottom */}
-          <div className="home-services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
+          <div className="home-services-grid">
             {c.services.items.map((svc, idx) => {
               const svcIcons = [
                 <ServiceAdvisoryIcon key="0" size={22} color="#E63946" />,
@@ -1887,7 +1999,7 @@ export default function Home({
       {/* ========================================================================= */}
       <section
         id="why-8vice"
-        className="section"
+        className="section home-section-pad"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -2064,7 +2176,7 @@ export default function Home({
       {/* ========================================================================= */}
       <section
         id="gateway"
-        className="section"
+        className="section home-section-pad"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -2097,18 +2209,17 @@ export default function Home({
           </div>
 
           {/* Dual Corridors Side-by-Side */}
-          <div className="m3-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '32px', marginBottom: '64px' }}>
+          <div className="m3-stagger home-gateway-grid">
 
             {/* Card 1: China to Indonesia */}
             <div
               id="gateway-c2i"
-              className="home-card-hover"
+              className="home-card-hover home-gateway-card"
               style={{
                 background: '#0E1015',
                 border: '1px solid rgba(230, 57, 70, 0.35)',
                 borderTop: '3px solid #E63946',
                 borderRadius: '20px',
-                padding: '40px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -2159,13 +2270,12 @@ export default function Home({
             {/* Card 2: Indonesia to China */}
             <div
               id="gateway-i2c"
-              className="home-card-hover"
+              className="home-card-hover home-gateway-card"
               style={{
                 background: '#0E1015',
                 border: '1px solid rgba(255, 255, 255, 0.12)',
                 borderTop: '3px solid rgba(255, 255, 255, 0.45)',
                 borderRadius: '20px',
-                padding: '40px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -2223,7 +2333,7 @@ export default function Home({
       {/* ========================================================================= */}
       <section
         id="industries"
-        className="section"
+        className="section home-section-pad"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -2342,7 +2452,7 @@ export default function Home({
       {/* 8. EXPERIENCE, CREDIBILITY & NDA COMPLIANCE                               */}
       {/* ========================================================================= */}
       <section
-        className="section"
+        className="section home-section-pad"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -2396,7 +2506,7 @@ export default function Home({
           </div>
 
           {/* 4 Key Statistics Cards */}
-          <div className="stat-grid m3-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 340px))', justifyContent: 'center', gap: '28px', maxWidth: '760px', margin: '48px auto 56px auto' }}>
+          <div className="stat-grid m3-stagger home-stat-grid">
             {c.hero.stats.map((st, idx) => (
               <div
                 key={idx}
@@ -2491,7 +2601,7 @@ export default function Home({
       {/* ========================================================================= */}
       <section
         id="contact"
-        className="section"
+        className="section home-section-pad"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -2507,16 +2617,15 @@ export default function Home({
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '56px', alignItems: 'stretch' }}>
+          <div className="home-contact-grid">
 
             {/* Form Column */}
             <div
-              className="m3-card"
+              className="m3-card home-contact-card"
               style={{
                 background: '#0D0E13',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 borderRadius: '24px',
-                padding: '38px',
                 boxShadow: '0 24px 60px rgba(0, 0, 0, 0.6), 0 0 50px rgba(230, 57, 70, 0.12)'
               }}
             >
@@ -2761,7 +2870,7 @@ export default function Home({
                 </p>
               </div>
 
-              <div style={{ background: '#0D0E13', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', padding: '28px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
+              <div className="home-contact-info-box" style={{ background: '#0D0E13', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '20px', display: 'flex', flexDirection: 'column', gap: '22px' }}>
 
                 {/* Office */}
                 {c.inquiry.office_addr && (

@@ -120,6 +120,19 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
           50% { transform: scale(1.15); opacity: 0.2; }
           100% { transform: scale(1.35); opacity: 0; }
         }
+        @media (max-width: 768px) {
+          .manifesto-section-pad {
+            padding-block: 64px !important;
+          }
+          .manifesto-card {
+            min-height: 320px !important;
+            padding: 24px 20px !important;
+          }
+          .manifesto-play-pulse {
+            width: 62px !important;
+            height: 62px !important;
+          }
+        }
       ` }} />
 
       {fullSection ? (
@@ -229,7 +242,7 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
         </section>
       ) : (
         <section id="manifesto"
-          className="section"
+          className="section manifesto-section-pad"
           style={{
             background: 'radial-gradient(ellipse 70% 50% at 50% 50%, rgba(214, 40, 40, 0.12) 0%, transparent 70%), #0A0B0E',
             color: '#FFFFFF',
@@ -243,7 +256,7 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
             <div 
               className="manifesto-card"
               onClick={() => setIsOpen(true)}
-              style={{ minHeight: '440px', padding: 'clamp(32px, 5vw, 64px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+              style={{ minHeight: '440px', padding: 'clamp(32px, 5vw, 64px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '32px' }}
             >
             {/* Background Cover Image with Red Gradient Overlay */}
             <img loading="lazy" decoding="async" 
@@ -283,8 +296,8 @@ export default function VideoManifesto({ isId = false, fullSection = false }) {
             </div>
 
             {/* Bottom Content & Play Button */}
-            <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '32px' }}>
-              <div style={{ maxWidth: '880px', flex: '1 1 500px' }}>
+            <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '24px' }}>
+              <div style={{ maxWidth: '880px', flex: '1 1 280px', minWidth: 0 }}>
                 <h3 style={{ 
                   fontFamily: '"Plus Jakarta Sans", system-ui, sans-serif',
                   fontSize: 'clamp(22px, 2.8vw, 38px)', 
