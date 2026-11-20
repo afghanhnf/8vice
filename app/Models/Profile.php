@@ -14,8 +14,10 @@ class Profile extends Model
     protected $casts = [
         'title' => 'array',
         'role' => 'array',
+        'expertise' => 'array',
         'description' => 'array',
         'short_bio' => 'array',
+        'experiences' => 'array',
         'focus_tags' => 'array',
         'socials' => 'array',
         'quote_title' => 'array',

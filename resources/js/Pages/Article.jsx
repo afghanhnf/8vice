@@ -4,6 +4,7 @@ import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import { useTranslation } from '@/Contexts/TranslationContext';
 import { getAllResearchPapers } from '@/data/researchPapers';
+import { mergePageContent } from '@/utils/mergePageContent';
 
 /* ============================================================================
    Reusable Animated Modern City & Architectural Grid Background
@@ -141,7 +142,7 @@ function PillarIcon({ num }) {
   }
 }
 
-export default function Article({ insights = [] }) {
+export default function Article({ insights = [], pageContent = null }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
   const isCn = lang === 'cn';
@@ -271,7 +272,7 @@ export default function Article({ insights = [] }) {
     }
   };
 
-  const copy = isCn
+  const rawCopy = isCn
     ? {
         breadcrumbHome: '首页',
         breadcrumb: '洞察与合作伙伴',
@@ -624,6 +625,8 @@ export default function Article({ insights = [] }) {
           'Register your organization to explore structured collaboration opportunities across Indonesia and China with the 8 Vice partnership desk.',
         partnerCta: 'Submit Partnership Application'
       };
+
+  const copy = mergePageContent(rawCopy, pageContent);
 
   const hrefOf = (a) => `/insights/${a.slug || a.id}`;
 

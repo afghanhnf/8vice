@@ -5,6 +5,7 @@ import MainLayout from '@/Layouts/MainLayout';
 import { ServiceIcon, Arrow } from '@/Components/InnerBlocks';
 import { useTranslation } from '@/Contexts/TranslationContext';
 import { getServices } from '@/data/services';
+import { mergePageContent } from '@/utils/mergePageContent';
 
 /* -------------------------------------------------------------------------- */
 /*  Animated Modern City Skyline & Architectural Grid Background SVG          */
@@ -116,7 +117,7 @@ function ModernCityBg({ opacity = 0.26, flip = false }) {
   );
 }
 
-export default function Services({ services: cmsServices = [] }) {
+export default function Services({ services: cmsServices = [], pageContent = null }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
   const isCn = lang === 'cn';
@@ -193,7 +194,7 @@ export default function Services({ services: cmsServices = [] }) {
     };
   }, [lang]);
 
-  const copy = isCn
+  const rawCopy = isCn
     ? {
         home: '首页',
         breadcrumb: '我们的服务',
@@ -366,6 +367,8 @@ export default function Services({ services: cmsServices = [] }) {
         ctaPrimary: 'Discuss Your Business Objectives',
         ctaSecondary: 'Explore Indonesia–China Gateway'
       };
+
+  const copy = mergePageContent(rawCopy, pageContent);
 
   return (
     <MainLayout>

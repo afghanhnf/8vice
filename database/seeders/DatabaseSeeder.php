@@ -168,7 +168,8 @@ class DatabaseSeeder extends Seeder
 
             DB::table('profiles')->insert([
                 'call_name' => $profile->call_name,
-                'full_title' => $profile->title,
+                'full_title' => $profile->full_title ?? $profile->title,
+                'chinese_name' => $profile->chinese_name ?? '',
                 'title' => $this->json([
                     'en' => $profile->title,
                     'id' => $profile->title,
@@ -179,11 +180,13 @@ class DatabaseSeeder extends Seeder
                     'id' => $idRole,
                     'cn' => $cnRole,
                 ]),
+                'expertise' => $this->json($profile->expertise ?? ['en' => '', 'id' => '', 'cn' => '']),
                 'short_bio' => $this->json([
                     'en' => $enBio,
                     'id' => $idBio,
                     'cn' => $cnBio,
                 ]),
+                'experiences' => $this->json($profile->experiences ?? ['en' => [], 'id' => [], 'cn' => []]),
                 'focus_tags' => $this->json($profile->focus_tags),
                 'socials' => $this->json($profile->socials),
                 'quote_title' => $this->json([
@@ -484,6 +487,18 @@ class DatabaseSeeder extends Seeder
                 'answer' => $this->json($faq['answer']),
                 'sort_order' => $faq['sort_order'],
                 'is_active' => $faq['is_active'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // ─── 11. Editable Trilingual Page Contents ───
+        DB::table('page_contents')->truncate();
+        foreach (\App\Helpers\PageContentDefaults::all() as $code => $item) {
+            DB::table('page_contents')->insert([
+                'page_code' => $code,
+                'page_name' => $item['page_name'],
+                'content' => $this->json($item['content']),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

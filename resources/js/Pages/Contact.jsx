@@ -85,11 +85,12 @@ function ModernCityBg({ variant = 'default' }) {
   );
 }
 
-export default function Contact() {
+export default function Contact({ pageContent = null }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
   const isCn = lang === 'cn';
   const { siteSettings } = usePage().props;
+  const pc = pageContent && typeof pageContent === 'object' ? pageContent : {};
 
   const hasSiteSettings = Boolean(siteSettings && typeof siteSettings === 'object');
   const rawEmail = (hasSiteSettings ? (siteSettings.email || '') : 'hello@8vice.com').trim();
@@ -431,15 +432,17 @@ export default function Contact() {
 
               <div className="cnt-eyebrow-pill">
                 <span className="cnt-eyebrow-dot" />
-                {isCn
+                {pc.eyebrow || (isCn
                   ? '开启战略征程 · 跨境商业咨询'
                   : isId
                   ? 'MULAI PERJALANAN ANDA · KONSULTASI STRATEGIS'
-                  : 'BEGIN YOUR JOURNEY · STRATEGIC ADVISORY'}
+                  : 'BEGIN YOUR JOURNEY · STRATEGIC ADVISORY')}
               </div>
 
               <h1 className="cnt-hero__title">
-                {isCn ? (
+                {pc.heroTitle ? (
+                  pc.heroTitle
+                ) : isCn ? (
                   <>
                     携手开启您的下一段 <span className="cnt-text-red">跨境征程。</span>
                   </>
@@ -455,11 +458,11 @@ export default function Contact() {
               </h1>
 
               <p className="cnt-hero__subtitle">
-                {isCn
+                {pc.heroSubtitle || (isCn
                   ? '每一次卓有成效的跨境开拓，都始于清晰的战略航向与值得信赖的同行伙伴。'
                   : isId
                   ? 'Setiap langkah ekspansi lintas negara yang berdampak dimulai dari arah yang jelas dan mitra yang tepat.'
-                  : 'Every enduring cross-border venture begins with clear direction and the right partner beside you.'}
+                  : 'Every enduring cross-border venture begins with clear direction and the right partner beside you.')}
               </p>
 
               {/* Quick Direct Communication Pills */}
@@ -652,23 +655,23 @@ export default function Contact() {
                     <div className="cnt-office-card__banner-body">
                       <span className="cnt-eyebrow-pill" style={{ marginBottom: '6px' }}>
                         <span className="cnt-eyebrow-dot" />
-                        {isCn
+                        {pc.officeBadge || (isCn
                           ? '办事处与直通联络'
                           : isId
                           ? 'KANTOR & SALURAN KOMUNIKASI'
-                          : 'OFFICE & DIRECT CHANNELS'}
+                          : 'OFFICE & DIRECT CHANNELS')}
                       </span>
-                      <h2>8 Vice Strategic Advisory</h2>
+                      <h2>{pc.officeHeading || '8 Vice Strategic Advisory'}</h2>
                     </div>
                   </div>
 
                   <div className="cnt-office-card__body">
                     <p className="cnt-office-card__intro">
-                      {isCn
+                      {pc.officeIntro || (isCn
                         ? '我们的咨询团队将评估您的具体需求，并确定最切实的后续策略，全力支持您的跨境战略与海外落地。'
                         : isId
                         ? 'Tim kami akan meninjau kebutuhan Anda dan menentukan langkah tindak lanjut yang paling tepat untuk mendukung ekspansi lintas batas Anda.'
-                        : 'Our team will review your inquiry and determine the most appropriate next steps to support your cross-border objectives.'}
+                        : 'Our team will review your inquiry and determine the most appropriate next steps to support your cross-border objectives.')}
                     </p>
 
                     <div className="cnt-info-list">
@@ -875,19 +878,19 @@ export default function Contact() {
                   ) : (
                     <div className="cnt-form-card__inner">
                       <div className="cnt-kicker">
-                        {isCn ? '项目与合作咨询表格' : isId ? 'FORMULIR EKSPLORASI BISNIS' : 'PROJECT & PARTNERSHIP INQUIRY'}
+                        {pc.formEyebrow || (isCn ? '项目与合作咨询表格' : isId ? 'FORMULIR EKSPLORASI BISNIS' : 'PROJECT & PARTNERSHIP INQUIRY')}
                       </div>
 
                       <h2 className="cnt-form-card__title">
-                        {isCn ? '介绍您的业务需求' : isId ? 'Ceritakan Tentang Bisnis Anda' : 'Tell Us About Your Business'}
+                        {pc.formTitle || (isCn ? '介绍您的业务需求' : isId ? 'Ceritakan Tentang Bisnis Anda' : 'Tell Us About Your Business')}
                       </h2>
 
                       <p className="cnt-form-card__lead">
-                        {isCn
+                        {pc.formSubtitle || (isCn
                           ? '请分享关于贵公司、目标市场及业务目标的简要信息。这将帮助我们更好地了解您的需求并做好针对性的沟通准备。'
                           : isId
                           ? 'Silakan bagikan beberapa detail mengenai perusahaan, target pasar, dan sasaran bisnis Anda. Informasi ini membantu kami memahami kebutuhan Anda dan mempersiapkan diskusi awal yang terarah.'
-                          : 'Please share a few details about your company, target market, and business objectives. This will help us understand your requirements and prepare for an initial discussion.'}
+                          : 'Please share a few details about your company, target market, and business objectives. This will help us understand your requirements and prepare for an initial discussion.')}
                       </p>
                       <p className="cnt-form-card__sub">
                         {isCn

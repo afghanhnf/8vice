@@ -4,6 +4,7 @@ import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import { useTranslation } from '@/Contexts/TranslationContext';
+import { mergePageContent } from '@/utils/mergePageContent';
 import {
   PillarInsightIcon,
   PillarCultureIcon,
@@ -124,7 +125,7 @@ function ModernCityBg({ opacity = 0.28, flip = false }) {
   );
 }
 
-export default function About({ profiles = [] }) {
+export default function About({ profiles = [], pageContent = null }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
   const isCn = lang === 'cn';
@@ -181,7 +182,7 @@ export default function About({ profiles = [] }) {
     };
   }, [lang]);
 
-  const copy = isCn
+  const rawCopy = isCn
     ? {
       breadcrumbHome: '首页',
       breadcrumbCurrent: '关于我们',
@@ -1178,7 +1179,7 @@ export default function About({ profiles = [] }) {
               'Former Finance and Localization Consultant for Pegasus Capital International (Coal Power Plant East Kalimantan, Ulaanbaatar Tunnel Project and Nalgar Khundii Copper/Gold Mine Project).',
               'Former Head of International Business Development, China Film Giant Screen Co., Ltd.',
               'Former Board Member, Advanced Imaging Committee, China Society of Motion Picture and Television Engineers (CSMPTE)',
-              'Former Technology & Marketing Advisor for Cinemaxx Entertainment Project, in Indonesia, Barco America, and Las Vegas'
+              'Former Technology & Marketing Advisor for Cinemaxx Entertainment Project, (in Indonesia, Barco America, and Las Vegas)'
             ]
           }
         ],
@@ -1234,7 +1235,9 @@ export default function About({ profiles = [] }) {
         ctaSecondary: 'Explore Our Services'
       };
 
-  // Combine CMS profiles from backend props cleanly (respecting DB sort_order, photos, socials, and dynamically added rows)
+  const copy = useMemo(() => mergePageContent(rawCopy, pageContent), [rawCopy, pageContent]);
+
+  // Combine CMS profiles from backend props cleanly (DB edits in Admin Panel ALWAYS take precedence across EN/ID/CN)
   const peopleList = useMemo(() => {
     const pickLoc = (val, fallback = '') => {
       if (!val) return fallback;
@@ -1246,7 +1249,7 @@ export default function About({ profiles = [] }) {
             if (parsed && typeof parsed === 'object') {
               return String(parsed[lang] || parsed.en || parsed.id || parsed.cn || fallback).trim();
             }
-          } catch (e) {}
+          } catch (e) { }
         }
         return trimmed;
       }
@@ -1254,6 +1257,17 @@ export default function About({ profiles = [] }) {
         return String(val[lang] || val.en || val.id || val.cn || Object.values(val)[0] || fallback).trim();
       }
       return fallback;
+    };
+
+    const normalizeExpList = (rawExp, fallback = []) => {
+      let arr = rawExp;
+      if (arr && typeof arr === 'object' && !Array.isArray(arr)) {
+        arr = arr[lang] || arr.en || arr.id || arr.cn;
+      }
+      if (!Array.isArray(arr) || arr.length === 0) return fallback;
+      return arr
+        .map((item) => (typeof item === 'string' ? item : (item?.item ?? item?.text ?? '')))
+        .filter((s) => typeof s === 'string' && s.trim() !== '');
     };
 
     const resolvePhotoUrl = (raw, fallback) => {
@@ -1265,9 +1279,10 @@ export default function About({ profiles = [] }) {
       return `/storage/${trimmed}`;
     };
 
+    const fallbackPeople = rawCopy.people || [];
     const findBasePerson = (dbProfile) => {
       const key = `${dbProfile.call_name || ''} ${dbProfile.full_title || ''} ${dbProfile.title || ''}`.toLowerCase();
-      return copy.people.find((bp) => {
+      return fallbackPeople.find((bp) => {
         if (bp.id === 'helda' && key.includes('helda')) return true;
         if (bp.id === 'gandhi' && key.includes('gandhi')) return true;
         if (bp.id === 'christine' && key.includes('christine')) return true;
@@ -1279,47 +1294,39 @@ export default function About({ profiles = [] }) {
     if (Array.isArray(profiles) && profiles.length > 0) {
       return profiles.map((p, idx) => {
         const base = findBasePerson(p);
+        const dbName = pickLoc(p.full_title || p.title_i18n || p.title, p.call_name || base?.fullName || 'Advisor');
+        const dbRole = pickLoc(p.role_i18n || p.role, base?.jobTitle || '');
+        const dbExpertise = pickLoc(p.expertise_i18n || p.expertise, base?.subtitle || '');
         const dbBioText = pickLoc(p.short_bio_i18n || p.short_bio || p.description_i18n || p.description, '');
-        const dbSocials = p.socials && typeof p.socials === 'object' ? p.socials : null;
-
-        if (base) {
-          const dbRole = pickLoc(p.role_i18n || p.role, '');
-          const isLegacySeedRole =
-            dbRole.includes('Co-Founder') ||
-            dbRole.includes('Director of International Business') ||
-            dbRole.includes('Senior China Affairs Specialist') ||
-            dbRole === 'Chief Business Development Officer' ||
-            dbRole === 'Chief China Affairs Officer' ||
-            dbRole.includes('首席执行官兼联合创始人') ||
-            dbRole.includes('国际业务总监') ||
-            dbRole.includes('联合创始人兼战略传播') ||
-            dbRole.includes('中国部资深专家');
-          return {
-            ...base,
-            jobTitle: (!isLegacySeedRole && dbRole) ? dbRole : base.jobTitle,
-            photo: resolvePhotoUrl(p.image, base.photo),
-            socials: dbSocials || base.socials,
-          };
-        }
+        const dbBioParagraphs = dbBioText
+          ? dbBioText.split(/\n\s*\n+|\n+/).map((s) => s.trim()).filter(Boolean)
+          : (base?.bioParagraphs || []);
+        const dbExps = normalizeExpList(p.experiences_i18n || p.experiences, base?.experiences || []);
+        const dbSocials = p.socials && typeof p.socials === 'object'
+          ? { ...(base?.socials || {}), ...p.socials }
+          : (base?.socials || {});
 
         return {
-          id: `profile-${p.id || idx}`,
-          callName: p.call_name || pickLoc(p.title_i18n || p.title, 'Advisor'),
-          fullName: pickLoc(p.full_title_i18n || p.full_title || p.title_i18n || p.title, p.call_name || 'Advisor'),
-          chineseName: '',
-          jobTitle: pickLoc(p.role_i18n || p.role, ''),
-          nameNote: pickLoc(p.role_i18n || p.role, ''),
-          subtitle: Array.isArray(p.focus_tags) && p.focus_tags.length > 0 ? p.focus_tags.join(', ') : '',
-          bioParagraphs: dbBioText ? dbBioText.split(/\n+/).filter(Boolean) : [],
-          photo: resolvePhotoUrl(p.image, '/images/executive_profile_bw.webp'),
-          socials: dbSocials || {},
-          experiences: Array.isArray(p.focus_tags) ? p.focus_tags : [],
+          ...(base || {}),
+          id: base?.id || `profile-${p.id || idx}`,
+          callName: p.call_name || dbName,
+          fullName: dbName,
+          chineseName: (p.chinese_name !== undefined && p.chinese_name !== null && String(p.chinese_name).trim() !== '')
+            ? String(p.chinese_name).trim()
+            : (base?.chineseName || ''),
+          jobTitle: dbRole,
+          nameNote: dbRole,
+          subtitle: dbExpertise,
+          bioParagraphs: dbBioParagraphs,
+          photo: resolvePhotoUrl(p.image, base?.photo || '/images/executive_profile_bw.webp'),
+          socials: dbSocials,
+          experiences: dbExps,
         };
       });
     }
 
-    return copy.people;
-  }, [profiles, copy.people, lang]);
+    return fallbackPeople;
+  }, [profiles, rawCopy.people, pageContent, lang]);
 
   return (
     <MainLayout>
@@ -2132,146 +2139,146 @@ export default function About({ profiles = [] }) {
 
             {/* Visual Bridge Connecting Overview to the 3 Essential Foundations (temporarily hidden) */}
             {false && (
-            <div style={{ marginTop: '64px', position: 'relative' }}>
-              <div
-                style={{
-                  width: '2px',
-                  height: '44px',
-                  background: 'linear-gradient(180deg, rgba(230, 57, 70, 0.0) 0%, #E63946 100%)',
-                  margin: '0 auto 20px'
-                }}
-              />
-
-              <div className="about-anim" style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
+              <div style={{ marginTop: '64px', position: 'relative' }}>
                 <div
                   style={{
-                    fontSize: '12px',
-                    fontWeight: 800,
-                    letterSpacing: '0.14em',
-                    color: '#E63946',
-                    textTransform: 'uppercase',
-                    marginBottom: '10px'
+                    width: '2px',
+                    height: '44px',
+                    background: 'linear-gradient(180deg, rgba(230, 57, 70, 0.0) 0%, #E63946 100%)',
+                    margin: '0 auto 20px'
                   }}
-                >
-                  {copy.foundationsHeader}
+                />
+
+                <div className="about-anim" style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
+                  <div
+                    style={{
+                      fontSize: '12px',
+                      fontWeight: 800,
+                      letterSpacing: '0.14em',
+                      color: '#E63946',
+                      textTransform: 'uppercase',
+                      marginBottom: '10px'
+                    }}
+                  >
+                    {copy.foundationsHeader}
+                  </div>
+                  <p style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.76)', margin: 0, lineHeight: 1.6 }}>
+                    {copy.foundationsSub}
+                  </p>
                 </div>
-                <p style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.76)', margin: 0, lineHeight: 1.6 }}>
-                  {copy.foundationsSub}
-                </p>
-              </div>
 
-              {/* 3 Connected Foundation Cards */}
-              <div className="about-foundations-grid">
-                {copy.foundations.map((f, idx) => {
-                  const icons = [
-                    <svg key="0" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-                    </svg>,
-                    <svg key="1" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>,
-                    <svg key="2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                    </svg>
-                  ];
+                {/* 3 Connected Foundation Cards */}
+                <div className="about-foundations-grid">
+                  {copy.foundations.map((f, idx) => {
+                    const icons = [
+                      <svg key="0" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                      </svg>,
+                      <svg key="1" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>,
+                      <svg key="2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E63946" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                      </svg>
+                    ];
 
-                  return (
-                    <div
-                      key={f.num}
-                      className={`about-glass-card about-anim about-delay-${idx + 1}`}
-                      style={{
-                        padding: '34px 30px',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        borderTop: '3px solid #E63946'
-                      }}
-                    >
+                    return (
                       <div
+                        key={f.num}
+                        className={`about-glass-card about-anim about-delay-${idx + 1}`}
                         style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          marginBottom: '22px'
+                          padding: '34px 30px',
+                          position: 'relative',
+                          overflow: 'hidden',
+                          borderTop: '3px solid #E63946'
                         }}
                       >
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-                          <span
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            marginBottom: '22px'
+                          }}
+                        >
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+                            <span
+                              style={{
+                                width: '38px',
+                                height: '38px',
+                                borderRadius: '10px',
+                                background: 'rgba(230, 57, 70, 0.14)',
+                                border: '1px solid rgba(230, 57, 70, 0.4)',
+                                color: '#FF7B7B',
+                                fontWeight: 800,
+                                fontSize: '13px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                              }}
+                            >
+                              {f.num}
+                            </span>
+                            <span
+                              style={{
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                letterSpacing: '0.1em',
+                                color: 'rgba(255, 255, 255, 0.48)',
+                                textTransform: 'uppercase'
+                              }}
+                            >
+                              {f.tag}
+                            </span>
+                          </div>
+
+                          <div
                             style={{
-                              width: '38px',
-                              height: '38px',
-                              borderRadius: '10px',
-                              background: 'rgba(230, 57, 70, 0.14)',
-                              border: '1px solid rgba(230, 57, 70, 0.4)',
-                              color: '#FF7B7B',
-                              fontWeight: 800,
-                              fontSize: '13px',
+                              width: '44px',
+                              height: '44px',
+                              borderRadius: '12px',
+                              background: 'rgba(255, 255, 255, 0.03)',
+                              border: '1px solid rgba(255, 255, 255, 0.08)',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center'
                             }}
                           >
-                            {f.num}
-                          </span>
-                          <span
-                            style={{
-                              fontSize: '11px',
-                              fontWeight: 700,
-                              letterSpacing: '0.1em',
-                              color: 'rgba(255, 255, 255, 0.48)',
-                              textTransform: 'uppercase'
-                            }}
-                          >
-                            {f.tag}
-                          </span>
+                            {icons[idx]}
+                          </div>
                         </div>
 
-                        <div
+                        <h3
                           style={{
-                            width: '44px',
-                            height: '44px',
-                            borderRadius: '12px',
-                            background: 'rgba(255, 255, 255, 0.03)',
-                            border: '1px solid rgba(255, 255, 255, 0.08)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
+                            fontSize: '20px',
+                            fontWeight: 700,
+                            color: '#FFFFFF',
+                            lineHeight: 1.35,
+                            margin: '0 0 12px'
                           }}
                         >
-                          {icons[idx]}
-                        </div>
+                          {f.title}
+                        </h3>
+
+                        <p
+                          style={{
+                            fontSize: '14.5px',
+                            lineHeight: 1.7,
+                            color: 'rgba(255, 255, 255, 0.68)',
+                            margin: 0
+                          }}
+                        >
+                          {f.desc}
+                        </p>
                       </div>
-
-                      <h3
-                        style={{
-                          fontSize: '20px',
-                          fontWeight: 700,
-                          color: '#FFFFFF',
-                          lineHeight: 1.35,
-                          margin: '0 0 12px'
-                        }}
-                      >
-                        {f.title}
-                      </h3>
-
-                      <p
-                        style={{
-                          fontSize: '14.5px',
-                          lineHeight: 1.7,
-                          color: 'rgba(255, 255, 255, 0.68)',
-                          margin: 0
-                        }}
-                      >
-                        {f.desc}
-                      </p>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
             )}
           </div>
         </section>

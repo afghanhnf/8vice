@@ -4,6 +4,7 @@ import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import ScrollReveal, { Staggered } from '@/Components/ScrollReveal';
 import { useTranslation } from '@/Contexts/TranslationContext';
+import { mergePageContent } from '@/utils/mergePageContent';
 import SeoHead from '@/Components/SeoHead';
 import HeroGateway from '@/Components/HeroGateway';
 import VideoManifesto from '@/Components/VideoManifesto';
@@ -34,7 +35,8 @@ export default function Home({
   services = [],
   industryCoverages = [],
   siteSettings,
-  statistics = []
+  statistics = [],
+  pageContent = null
 }) {
   const { lang } = useTranslation();
   const isId = lang === 'id';
@@ -1004,7 +1006,7 @@ export default function Home({
   const displayEmail = (hasSiteSettings ? (siteSettings.email || '') : 'hello@8vice.com').replace(/^mailto:/i, '').trim();
   const displayAddress = (hasSiteSettings ? (siteSettings.address || '') : baseContent.inquiry.office_addr).trim();
 
-  const c = {
+  const c = mergePageContent({
     ...baseContent,
     services: {
       ...baseContent.services,
@@ -1018,7 +1020,7 @@ export default function Home({
       ...baseContent.inquiry,
       office_addr: displayAddress,
     },
-  };
+  }, pageContent);
 
   // Google Material Design 3 (M3) Motion Observer: Temporarily disabled for screenshots
   useEffect(() => {
@@ -1039,7 +1041,7 @@ export default function Home({
       <SeoHead pageCode="home" />
 
       {/* 1. HERO — Indonesia ↔ China gateway (layered SVG parallax) */}
-      <HeroGateway isId={isId} />
+      <HeroGateway isId={isId} contentOverride={c.gateway_hero} />
 
 
       {/* Dynamic Hover Styles */}

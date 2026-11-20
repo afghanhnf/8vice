@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from '@/Contexts/TranslationContext';
+import { mergePageContent } from '@/utils/mergePageContent';
 
 /* -------------------------------------------------------------------------- */
 /*  SVG shape helpers                                                          */
@@ -143,7 +144,7 @@ const StreetLamp = ({ x, flip = false }) => {
 /*  Component                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export default function HeroGateway({ isId = false }) {
+export default function HeroGateway({ isId = false, contentOverride = null }) {
   const heroRef = useRef(null);
   const { lang } = useTranslation();
   const isCn = lang === 'cn';
@@ -204,7 +205,7 @@ export default function HeroGateway({ isId = false }) {
     };
   }, []);
 
-  const copy = isCn
+  const baseHeroCopy = isCn
     ? {
       title: ['通往印尼与中国的', '战略商业门户', '赋能跨境增长'],
       kicker: '连接双边市场 · 驱动实质增长',
@@ -227,6 +228,7 @@ export default function HeroGateway({ isId = false }) {
         cta: 'Explore Our Services',
         link: 'Discuss Your Business',
       };
+  const copy = mergePageContent(baseHeroCopy, contentOverride);
 
   return (
     <section ref={heroRef} className="hg" data-screen-label="Hero" aria-labelledby="hero-title">

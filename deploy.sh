@@ -119,36 +119,57 @@ if ($row) {
     ->where('og_image', 'images/industry_manufacturing.webp')
     ->update(['og_image' => 'images/industry_infrastructure.webp']);
 
+// Non-destructive sync: populate new CMS fields & PageContent rows ONLY when missing so Admin Panel edits are preserved
+foreach (\App\Helpers\PageContentDefaults::all() as $code => $item) {
+    \App\Models\PageContent::firstOrCreate(
+        ['page_code' => $code],
+        [
+            'page_name' => $item['page_name'],
+            'content' => $item['content'],
+        ]
+    );
+}
+
 $profiles = \App\Helpers\SeedData::getProfiles();
 foreach ($profiles as $idx => $seedProfile) {
     $existing = \App\Models\Profile::where('call_name', $seedProfile->call_name)->first();
     if ($existing) {
-        $existing->update([
+        $updates = [];
+        if (empty($existing->chinese_name) && !empty($seedProfile->chinese_name)) {
+            $updates['chinese_name'] = $seedProfile->chinese_name;
+        }
+        if (empty($existing->expertise)) {
+            $updates['expertise'] = $seedProfile->expertise;
+        }
+        if (empty($existing->experiences)) {
+            $updates['experiences'] = $seedProfile->experiences;
+        }
+        if (!empty($updates)) {
+            $existing->update($updates);
+        }
+    } else {
+        \App\Models\Profile::create([
+            'call_name' => $seedProfile->call_name,
+            'full_title' => $seedProfile->full_title ?? $seedProfile->title,
+            'chinese_name' => $seedProfile->chinese_name ?? '',
+            'title' => ['en' => $seedProfile->title, 'id' => $seedProfile->title, 'cn' => $seedProfile->title],
             'role' => $seedProfile->role,
+            'expertise' => $seedProfile->expertise,
+            'short_bio' => $seedProfile->short_bio,
+            'experiences' => $seedProfile->experiences,
+            'focus_tags' => $seedProfile->focus_tags,
+            'socials' => $seedProfile->socials,
+            'quote_title' => $seedProfile->quote_title,
+            'quote_message' => $seedProfile->quote_message,
+            'description' => [
+                'en' => ($seedProfile->role['en'] ?? '') . "\n\n" . ($seedProfile->short_bio['en'] ?? ''),
+                'id' => ($seedProfile->role['id'] ?? '') . "\n\n" . ($seedProfile->short_bio['id'] ?? ''),
+                'cn' => ($seedProfile->role['cn'] ?? '') . "\n\n" . ($seedProfile->short_bio['cn'] ?? ''),
+            ],
+            'image' => $seedProfile->image,
             'sort_order' => $idx + 1,
         ]);
     }
-}
-$james = end($profiles);
-if ($james && !\App\Models\Profile::where('call_name', 'James He')->exists()) {
-    \App\Models\Profile::create([
-        'call_name' => $james->call_name,
-        'full_title' => $james->title,
-        'title' => ['en' => $james->title, 'id' => $james->title, 'cn' => $james->title],
-        'role' => $james->role,
-        'short_bio' => $james->short_bio,
-        'focus_tags' => $james->focus_tags,
-        'socials' => $james->socials,
-        'quote_title' => $james->quote_title,
-        'quote_message' => $james->quote_message,
-        'description' => [
-            'en' => $james->role['en'] . "\n\n" . $james->short_bio['en'],
-            'id' => $james->role['id'] . "\n\n" . $james->short_bio['id'],
-            'cn' => $james->role['cn'] . "\n\n" . $james->short_bio['cn'],
-        ],
-        'image' => $james->image,
-        'sort_order' => 4,
-    ]);
 }
 PHP
 fi

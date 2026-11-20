@@ -226,182 +226,314 @@ class SeedData
     }
 
     /**
-     * 3. Leadership Team / People Behind 8Vice (Helda Chandra, Gandhi Priambodho, Christine Susanna Tjhin)
+     * 3. Leadership Team / People Behind 8Vice (Helda Chandra, Gandhi Priambodho, Christine Susanna Tjhin, James He)
      */
     public static function getProfiles(): array
     {
         return [
             (object)[
                 'call_name' => 'Helda Chandra',
-                'title' => 'Helda Chandra, S.E., M.Si.',
+                'title' => 'Helda Chandra',
+                'full_title' => 'Helda Chandra',
+                'chinese_name' => '曾宪茹',
                 'role' => [
                     'en' => 'Chief Executive Officer',
                     'id' => 'Chief Executive Officer',
-                    'cn' => 'Chief Executive Officer'
+                    'cn' => 'Chief Executive Officer',
+                ],
+                'expertise' => [
+                    'en' => 'Corporate Strategy, Business Development & Overall Growth',
+                    'id' => 'Corporate Strategy, Business Development & Overall Growth',
+                    'cn' => 'Corporate Strategy, Business Development & Overall Growth',
                 ],
                 'short_bio' => [
-                    'en' => 'Seasoned business strategist with over 20 years guiding multinational corporations, BUMN, and governments. Spearheads cross-border advisory for Alibaba Group, DingTalk, Alipay, DiDi, Coolita, and Skyworth. Serves as Expert Consultant to the Indonesian Ministry of Creative Economy and former PT MRT Jakarta Commissioner Committee.',
-                    'id' => 'Konsultan bisnis dan penasihat strategis dengan pengalaman 20+ tahun memandu korporasi multinasional, BUMN, dan pemerintah. Memimpin advisori lintas batas untuk Alibaba Group, DingTalk, Alipay, DiDi, Coolita, dan Skyworth. Menjabat Konsultan Ahli di Kementerian Ekonomi Kreatif RI dan purna Komite Dewan Komisaris PT MRT Jakarta.',
-                    'cn' => '拥有20余年跨国企业、印尼国有企业及政府战略咨询经验的资深商业战略家。主导阿里巴巴集团、钉钉、支付宝、滴滴出行、酷开及创维等知名企业的跨境咨询项目。现任印尼创意经济部专家顾问，曾任雅加达捷运公司 (PT MRT Jakarta) 监事会专业委员会委员。'
+                    'en' => 'Helda Chandra is a business strategist and entrepreneur with over 20 years of experience advising Indonesian government institutions, state-owned enterprises, and private-sector companies, backed by strong networks across government and business communities in Indonesia and China to facilitate market entry, strategic partnerships, and cross-border business growth.',
+                    'id' => 'Helda Chandra adalah seorang ahli strategi bisnis dan wirausaha dengan lebih dari 20 tahun pengalaman mendampingi lembaga pemerintah Indonesia, badan usaha milik negara (BUMN), serta perusahaan swasta, didukung jaringan kuat di komunitas pemerintahan dan bisnis di Indonesia maupun Tiongkok untuk memfasilitasi masuk pasar, kemitraan strategis, dan pertumbuhan bisnis lintas batas.',
+                    'cn' => '曾宪茹（Helda Chandra）是一位资深商业战略顾问与企业家，拥有20余年为印度尼西亚政府机构、国有企业及私营企业提供战略咨询的丰富经验，并依托印尼与中国政商界的深厚网络，助力企业高效实现市场准入、战略合作与跨境业务增长。',
+                ],
+                'experiences' => [
+                    'en' => [
+                        'Expert Advisor, Ministry of Economic Creative Republic of Indonesia',
+                        'Former Board of Commissioners Committee, PT. MRT Jakarta',
+                        "Former Non Aeronautical Business Consultant, PT. Angkasa Pura II Tbk. (Indonesia’s State Owned Company)",
+                        'Founder & CEO, Communic 8',
+                        'Managing Partner, Gentala Institute',
+                        '20+ Years of Private-Sector Experience in strategic business advisory, marketing, and integrated marketing communications.',
+                        'Guest Lecturer at various universities across Indonesia, sharing expertise in business strategy, marketing, and communications.',
+                        'China Market Entry Consultant, advising Chinese companies on market entry, business development, and strategic partnerships in Indonesia.',
+                    ],
+                    'id' => [
+                        'Expert Advisor, Kementerian Ekonomi Kreatif Republik Indonesia',
+                        'Mantan Komite Dewan Komisaris, PT. MRT Jakarta',
+                        'Mantan Konsultan Bisnis Non-Aeronautika, PT. Angkasa Pura II Tbk. (BUMN Indonesia)',
+                        'Founder & CEO, Communic 8',
+                        'Managing Partner, Gentala Institute',
+                        'Pengalaman 20+ Tahun di Sektor Swasta dalam konsultasi bisnis strategis, pemasaran, dan komunikasi pemasaran terpadu.',
+                        'Dosen Tamu di berbagai universitas di seluruh Indonesia, membagikan keahlian di bidang strategi bisnis, pemasaran, dan komunikasi.',
+                        'Konsultan Masuk Pasar Tiongkok, mendampingi perusahaan Tiongkok dalam ekspansi pasar, pengembangan bisnis, dan kemitraan strategis di Indonesia.',
+                    ],
+                    'cn' => [
+                        '印度尼西亚共和国创意经济部专家顾问',
+                        '前雅加达地铁公司 (PT. MRT Jakarta) 监事会委员会成员',
+                        '前印度尼西亚第二机场公司 (PT. Angkasa Pura II Tbk.，国有企业) 非航空商业顾问',
+                        'Communic 8 创始人兼首席执行官',
+                        '根塔拉研究所 (Gentala Institute) 执行合伙人',
+                        '20余年私营部门实战经验，深耕战略商业咨询、市场营销及整合营销传播领域。',
+                        '受邀担任印尼多所高校客座讲师，分享商业战略、市场营销与品牌传播专业见解。',
+                        '中国市场准入顾问，为中国企业在印度尼西亚的市场准入、业务拓展及战略合作提供咨询支持。',
+                    ],
                 ],
                 'image' => '/images/profiles/helda_chandra.webp',
-                'focus_tags' => ['Indonesia–China Strategy', 'Government Relations', 'Brand Strategy', 'GRC & Advisory', 'Creative Economy'],
+                'focus_tags' => ['Corporate Strategy', 'Business Development', 'Overall Growth', 'Government Relations'],
                 'socials' => [
                     'linkedin' => 'https://www.linkedin.com/in/helda-chandra-a0b27b1b/',
                     'instagram' => 'https://www.instagram.com/heldachandra',
-                    'email' => 'mailto:Heldachandra@gmail.com'
+                    'email' => 'mailto:Heldachandra@gmail.com',
                 ],
                 'quote_title' => [
                     'en' => 'Bridging Governance, Enterprise Innovation, and Bilateral Growth',
                     'id' => 'Menjembatani Tata Kelola, Inovasi Korporasi, dan Pertumbuhan Bilateral',
-                    'cn' => '架设企业治理、前沿创新与双边增长的桥梁'
+                    'cn' => '架设企业治理、前沿创新与双边增长的桥梁',
                 ],
                 'quote_message' => [
                     'en' => [
                         '“In every cross-border initiative between Indonesia and China, sustainable success is never defined by transaction speed alone, but by the depth of institutional trust, regulatory compliance, and nuanced cultural understanding.”',
                         '“With over two decades of advisory experience—from public infrastructure at PT MRT Jakarta and creative economy strategy for the Indonesian Government, to market entry for Alibaba Group, DingTalk, and DiDi—our focus at 8 Vice is building high-trust partnerships that create long-term commercial and sovereign value.”',
-                        '“Education & Credentials: Master of Communication Studies (Marketing Communication) & Bachelor of Economics & Management from University of Indonesia; Associate in Chinese Literature & Culture from Beijing Language and Culture University; Certified Marketing Analyst (AAPM USA) & Certified Strategic Business Analyst (AAFM).”'
                     ],
                     'id' => [
                         '“Dalam setiap inisiatif lintas negara antara Indonesia dan Tiongkok, keberhasilan jangka panjang tidak pernah ditentukan oleh kecepatan transaksi semata, melainkan oleh kedalaman kepercayaan institusional, kepatuhan regulasi, dan pemahaman budaya lokal yang matang.”',
-                        '“Dengan lebih dari dua dekade pengalaman mendampingi BUMN, pemerintah, dan korporasi global—mulai dari infrastruktur publik di PT MRT Jakarta, strategi pemasaran di Kementerian Ekonomi Kreatif RI, hingga ekspansi Alibaba Group, DingTalk, dan DiDi—fokus kami di 8 Vice adalah membangun kemitraan bernilai jangka panjang.”',
-                        '“Latar Belakang Pendidikan & Sertifikasi: Magister Ilmu Komunikasi & Sarjana Ekonomi Universitas Indonesia; Sastra & Budaya Mandarin di Beijing Language and Culture University; Certified Marketing Analyst (AAPM USA) & Certified Strategic Business Analyst (AAFM).”'
+                        '“Dengan lebih dari dua dekade pengalaman mendampingi BUMN, pemerintah, dan korporasi global—fokus kami di 8 Vice adalah membangun kemitraan terpercaya yang menciptakan nilai komersial jangka panjang.”',
                     ],
                     'cn' => [
                         '“在印尼与中国之间的所有跨境商业合作中，长远的成功从来不取决于单次交易的完成速度，而在于机构信任的深度、监管政策的合规把控以及对当地商业文化的深刻理解。”',
-                        '“凭借二十余年服务印尼国有企业、政府部门及全球跨国公司的丰富经验——从雅加达捷运 (MRT Jakarta) 公共基础设施、印尼创意经济部品牌战略，到阿里巴巴集团、钉钉、滴滴出行的市场准入，我们在 8 Vice 的核心使命是构建高信誉度的双边伙伴关系，创造持久的商业与社会价值。”',
-                        '“教育背景与专业资质：印尼大学传播学硕士（营销传播）与经济管理学学士；北京语言大学汉语言文学与文化进修；美国 AAPM 认证营销分析师与 AAFM 认证战略商业分析师。”'
-                    ]
-                ]
+                        '“凭借二十余年服务政府机构、国有企业及跨国企业的经验，我们在 8 Vice 致力于构建高信任度的双边伙伴关系，创造持久商业价值。”',
+                    ],
+                ],
             ],
             (object)[
                 'call_name' => 'Gandhi Priambodho',
                 'title' => 'Gandhi Priambodho',
+                'full_title' => 'Gandhi Priambodho',
+                'chinese_name' => '甘地',
                 'role' => [
                     'en' => 'Chief Business Growth Officer',
                     'id' => 'Chief Business Growth Officer',
-                    'cn' => 'Chief Business Growth Officer'
+                    'cn' => 'Chief Business Growth Officer',
+                ],
+                'expertise' => [
+                    'en' => 'Business, Trade & Investment',
+                    'id' => 'Business, Trade & Investment',
+                    'cn' => 'Business, Trade & Investment',
                 ],
                 'short_bio' => [
-                    'en' => 'Spearheads the expansion of business, trade and investment networks in Indonesia and China. Based in Beijing since 2002, Gandhi has long fostered eclectic business development networks across trade, industrial cooperation, energy & minerals, media, creative industry, tourism, education, real estate, and healthcare.',
-                    'id' => 'Memimpin ekspansi jaringan bisnis, perdagangan, dan investasi di Indonesia dan Tiongkok. Berdomisili di Beijing sejak 2002, Gandhi telah lama membangun jejaring pengembangan bisnis lintas sektor: perdagangan, kerja sama industri, energi & mineral, media, industri kreatif & pariwisata, pendidikan, properti, dan layanan kesehatan.',
-                    'cn' => '主导印尼与中国商业、贸易及投资合作网络的开拓与深化。自2002年起常驻北京，甘地在双边经贸、工业产能合作、能源矿产、媒体与创意产业、旅游、教育、不动产及医疗健康等多元领域建立了深厚且广泛的商业拓展网络。'
+                    'en' => "Gandhi Priambodho is an international business development professional with experience expanding trade, investment, and strategic partnerships between Indonesia and China.\n\nBased in Beijing since 2002, he has established extensive cross-border business networks across multiple sectors, including industrial cooperation, energy and minerals, media and creative industries, tourism, education, real estate, and healthcare.",
+                    'id' => "Gandhi Priambodho adalah profesional pengembangan bisnis internasional dengan pengalaman memperluas perdagangan, investasi, dan kemitraan strategis antara Indonesia dan Tiongkok.\n\nBerdomisili di Beijing sejak 2002, beliau telah membangun jejaring bisnis lintas batas yang luas di berbagai sektor, mencakup kerja sama industri, energi dan mineral, media dan industri kreatif, pariwisata, pendidikan, properti, serta layanan kesehatan.",
+                    'cn' => "Gandhi Priambodho（甘地）是一位拥有丰富国际视野的业务拓展专家，专注于扩大印度尼西亚与中国之间的双边贸易、投资及战略合作伙伴关系。\n\n自2002年起常驻北京以来，他在工业合作、能源与矿产、传媒与文化创意产业、旅游、教育、房地产及医疗健康等多个关键领域建立了广泛而扎实的跨境商业网络。",
+                ],
+                'experiences' => [
+                    'en' => [
+                        'CEO Nanyang Bridge Media, co. Ltd',
+                        'CEO Red&White China',
+                        "Professional experience in real estate consultancy, property investment with exposure to China's property market and international investment opportunities.",
+                        'Professional exposure to media relations, corporate communications, business networking, and Indonesia–China engagement when in Indonesia Shangbao',
+                        'Exposure to corporate business development, strategic partnerships, and diversified business operations across multiple industries in Lippo Group Indonesia',
+                        'Involvement in Air Show Foundation – Indonesia, aviation industry initiatives, institutional relations, strategic partnerships, and aviation sector development Indonesia.',
+                    ],
+                    'id' => [
+                        'CEO Nanyang Bridge Media, co. Ltd',
+                        'CEO Red&White China',
+                        'Pengalaman profesional dalam konsultansi real estat dan investasi properti dengan eksposur pada pasar properti Tiongkok serta peluang investasi internasional.',
+                        'Eksposur profesional pada hubungan media, komunikasi korporat, jejaring bisnis, dan keterlibatan Indonesia–Tiongkok saat di Indonesia Shangbao',
+                        'Eksposur pada pengembangan bisnis korporat, kemitraan strategis, dan operasional bisnis terdiversifikasi lintas industri di Lippo Group Indonesia',
+                        'Keterlibatan di Air Show Foundation – Indonesia, inisiatif industri penerbangan, hubungan kelembagaan, kemitraan strategis, dan pengembangan sektor aviasi Indonesia.',
+                    ],
+                    'cn' => [
+                        '南洋桥传媒有限公司 (Nanyang Bridge Media, co. Ltd) 首席执行官',
+                        '红白中国 (Red&White China) 首席执行官',
+                        '具备房地产咨询与物业投资实战经验，深度参与中国房地产市场及国际投资机遇。',
+                        '在《印尼商报》任职期间积累了丰富的媒体关系、企业传播、商务拓展及印中双边交流经验。',
+                        '在印尼力宝集团 (Lippo Group Indonesia) 积累了多元产业企业业务拓展、战略合作及多元化商业运营经验。',
+                        '参与印尼航展基金会 (Air Show Foundation – Indonesia)，推动航空产业倡议、机构关系对接、战略合作及印尼航空业发展。',
+                    ],
                 ],
                 'image' => '/images/profiles/gandhi_priambodho.webp',
-                'focus_tags' => ['International Business', 'Trade & Investment', 'Energy & Minerals', 'Beijing Network', 'Media & Industry'],
+                'focus_tags' => ['International Business', 'Trade & Investment', 'Energy & Minerals', 'Beijing Network'],
                 'socials' => [
                     'linkedin' => 'https://www.linkedin.com/company/8-vice/',
                     'instagram' => 'https://www.instagram.com/8viceofficial',
-                    'email' => 'mailto:hello@8vice.com'
+                    'email' => 'mailto:hello@8vice.com',
                 ],
                 'quote_title' => [
                     'en' => 'Two Decades of Grounded Cross-Border Networks in Beijing & Jakarta',
                     'id' => 'Dua Dekade Membangun Jejaring Lintas Batas di Beijing & Jakarta',
-                    'cn' => '深耕北京与雅加达二十载的双边商业网络'
+                    'cn' => '深耕北京与雅加达二十载的双边商业网络',
                 ],
                 'quote_message' => [
                     'en' => [
-                        '“DIRECTOR OF INTERNATIONAL BUSINESS spearheads the expansion of business, trade and investment networks in Indonesia and China. Based in Beijing since 2002, Gandhi has long fostered eclectic business development networks in various sectors, including: trade and industrial cooperation, energy and minerals, media, creative industry and tourism, education, real estate, health services and many others.”',
-                        "Educational Background:\n• Renmin University of China - Graduate Program (Contemporary China Studies)\n• American World University in California - Bachelor Program (Business Administration)\n• University of Indonesia - Bachelor Program (Chinese Language and Literature)",
-                        "Professional Experiences:\n• Nanyang Bridge Media, co. Ltd\n• Red&White China\n• Beijing An Hua Property Consultant, China\n• CENTURY 21 Troop Real Estate, China\n• Indonesia Shangbao\n• PT Falah Jaya Agung, Indonesia\n• Lippo Group, Indonesia\n• Indonesia Air Show Foundation"
+                        '“Based in Beijing since 2002, expanding trade, investment, and strategic partnerships across industrial cooperation, energy & minerals, media, tourism, education, real estate, and healthcare.”',
                     ],
                     'id' => [
-                        '“DIRECTOR OF INTERNATIONAL BUSINESS yang memimpin ekspansi jaringan bisnis, perdagangan, dan investasi di Indonesia dan Tiongkok. Menetap di Beijing sejak tahun 2002, Gandhi telah lama membina jejaring pengembangan bisnis di berbagai sektor strategis: perdagangan & kerja sama industri, energi dan mineral, media, industri kreatif & pariwisata, pendidikan, properti, hingga layanan kesehatan.”',
-                        "Latar Belakang Pendidikan:\n• Renmin University of China - Program Pascasarjana (Contemporary China Studies)\n• American World University in California - Sarjana (Administrasi Bisnis)\n• Universitas Indonesia - Sarjana (Bahasa dan Sastra Mandarin)",
-                        "Pengalaman Profesional:\n• Nanyang Bridge Media, co. Ltd\n• Red&White China\n• Beijing An Hua Property Consultant, China\n• CENTURY 21 Troop Real Estate, China\n• Indonesia Shangbao\n• PT Falah Jaya Agung, Indonesia\n• Lippo Group, Indonesia\n• Indonesia Air Show Foundation"
+                        '“Berdomisili di Beijing sejak tahun 2002, memperluas perdagangan, investasi, dan kemitraan strategis lintas sektor antara Indonesia dan Tiongkok.”',
                     ],
                     'cn' => [
-                        '“国际业务总监，负责统筹开拓印尼与中国之间的商业、贸易及产业投资合作网络。自2002年起常驻北京，甘地在经贸与产能合作、能源矿产、传媒、文创与旅游、教育、不动产及医疗服务等关键领域培育了广泛扎实的商业拓展渠道。”',
-                        "教育背景：\n• 中国人民大学研究生课程（当代中国研究）\n• 美国加州世界大学学士（工商管理）\n• 印尼大学学士（汉语言文学）",
-                        "专业任职经历：\n• 南洋桥传媒有限公司 (Nanyang Bridge Media)\n• 红白中国 (Red&White China)\n• 北京安华房地产顾问有限公司\n• 世纪21不动产 (CENTURY 21 Troop Real Estate)\n• 《印尼商报》(Indonesia Shangbao)\n• 印尼 PT Falah Jaya Agung\n• 印尼力宝集团 (Lippo Group)\n• 印尼航展基金会 (Indonesia Air Show Foundation)"
-                    ]
-                ]
+                        '“自2002年起常驻北京，在工业合作、能源矿产、传媒、文旅、教育、不动产及医疗健康领域持续拓展印尼与中国双边经贸合作。”',
+                    ],
+                ],
             ],
             (object)[
                 'call_name' => 'Christine Susanna Tjhin',
                 'title' => 'Christine Susanna Tjhin',
+                'full_title' => 'Christine Susanna Tjhin',
+                'chinese_name' => '陈妹伶',
                 'role' => [
                     'en' => 'Chief Strategy Officer',
                     'id' => 'Chief Strategy Officer',
-                    'cn' => 'Chief Strategy Officer'
+                    'cn' => 'Chief Strategy Officer',
+                ],
+                'expertise' => [
+                    'en' => 'Strategy, Policy & Institutional Relations',
+                    'id' => 'Strategy, Policy & Institutional Relations',
+                    'cn' => 'Strategy, Policy & Institutional Relations',
                 ],
                 'short_bio' => [
-                    'en' => 'Co-Founder and Director of Strategic Communication and Research at Gentala Institute and Partner at 8 Vice. Serves as advisor on China affairs to the Deputy for Geopolitics at the Indonesian National Defense Council (DPN), Member of the Supervisory Body of Indonesia Council of Sinologists, Senior Expert at FPCI China Policy Group, and former CSIS Indonesia researcher.',
-                    'id' => 'Co-Founder dan Director of Strategic Communication and Research di Gentala Institute serta Partner di 8 Vice. Menjabat penasihat urusan Tiongkok untuk Deputi Bidang Geopolitik Dewan Pertahanan Nasional (DPN), Dewan Sinolog Indonesia, Senior Expert FPCI China Policy Group, serta peneliti senior di CSIS Indonesia (2003).',
-                    'cn' => '根塔拉研究所联合创始人兼战略传播与研究总监，8 Vice 战略合伙人。现任印尼国家国防委员会 (DPN) 地缘政治副主任中国事务顾问、印尼汉学家理事会（世界汉学中心）监事会成员、印尼外交政策共同体 (FPCI) 中国政策组资深专家，前印尼战略与国际问题研究中心 (CSIS Indonesia) 资深研究员。'
+                    'en' => 'Christine Susanna Tjhin is a prominent Indonesia–China relations expert with over 20 years of experience in policy research, strategic communication, and international affairs, promotes sustainable and strategic partnerships between Indonesia and China. She also serves as an advisor on China affairs to Indonesia’s National Defense Council (DPN), a Senior Expert at the Foreign Policy Community Indonesia (FPCI), and holds advisory roles in several China-focused policy networks.',
+                    'id' => 'Christine Susanna Tjhin adalah pakar hubungan Indonesia–Tiongkok terkemuka dengan pengalaman lebih dari 20 tahun di bidang riset kebijakan, komunikasi strategis, dan urusan internasional yang mendorong kemitraan strategis dan berkelanjutan antara Indonesia dan Tiongkok. Beliau juga menjabat sebagai penasihat urusan Tiongkok di Dewan Pertahanan Nasional (DPN) RI, Senior Expert di Foreign Policy Community Indonesia (FPCI), serta memegang peran penasihat di berbagai jejaring kebijakan terkait Tiongkok.',
+                    'cn' => 'Christine Susanna Tjhin（陈妹伶）是著名的印中关系专家，在政策研究、战略传播与国际事务领域拥有20余年深厚积淀，长期致力于推动印度尼西亚与中国之间可持续的战略伙伴关系。她同时担任印度尼西亚国家国防委员会 (DPN) 中国事务顾问、印尼外交政策共同体 (FPCI) 资深专家，并在多家聚焦中国事务的政策研究网络担任咨询职务。',
+                ],
+                'experiences' => [
+                    'en' => [
+                        'Supervisory Board Member, Indonesia Council of Sinologists',
+                        'Senior Indonesian Expert at the China-Indonesia Industrial Cooperation Research Center, Fujian, China',
+                        'Southeast Asian Experts Group, Shanxi Carbon-Peak, Carbon-Neutral Energy Revolution Research Institute (CCERR)',
+                        'Senior Expert Member at the Foreign Policy Community Indonesia (FPCI), China Policy Group, Jakarta, Indonesia',
+                        'Intellectual Council Member at the Chinese Indonesian Association (INTI) - Jakarta, Indonesia',
+                        'Formerly Associated with Centre for Strategic and International Studies (CSIS), Indonesia',
+                        'Formerly Associated with Indonesian Pluralism Institute (IPI), Indonesia',
+                    ],
+                    'id' => [
+                        'Anggota Badan Pengawas, Indonesia Council of Sinologists',
+                        'Senior Indonesian Expert di China-Indonesia Industrial Cooperation Research Center, Fujian, Tiongkok',
+                        'Southeast Asian Experts Group, Shanxi Carbon-Peak, Carbon-Neutral Energy Revolution Research Institute (CCERR)',
+                        'Senior Expert Member di Foreign Policy Community Indonesia (FPCI), China Policy Group, Jakarta, Indonesia',
+                        'Anggota Dewan Pakar (Intellectual Council) di Perhimpunan Indonesia Tionghoa (INTI) - Jakarta, Indonesia',
+                        'Sebelumnya terafiliasi dengan Centre for Strategic and International Studies (CSIS), Indonesia',
+                        'Sebelumnya terafiliasi dengan Indonesian Pluralism Institute (IPI), Indonesia',
+                    ],
+                    'cn' => [
+                        '印度尼西亚汉学家理事会监事会成员',
+                        '中国福建省“中国—印尼工业合作研究中心”印尼籍资深专家',
+                        '山西碳达峰碳中和能源革命研究院 (CCERR) 东南亚专家组成员',
+                        '印尼外交政策共同体 (FPCI) 中国政策组资深专家成员，雅加达',
+                        '印度尼西亚华裔总会 (INTI) 智库理事会成员，雅加达',
+                        '曾就职于印度尼西亚战略与国际问题研究中心 (CSIS Indonesia)',
+                        '曾就职于印度尼西亚多元主义研究所 (IPI)',
+                    ],
                 ],
                 'image' => '/images/profiles/christine_tjhin.webp',
-                'focus_tags' => ['Geopolitics & Policy', 'Gentala Institute', 'Sinology & China Affairs', 'CSIS Indonesia', 'Strategic Communications'],
+                'focus_tags' => ['Strategy & Policy', 'Institutional Relations', 'Sinology & China Affairs', 'FPCI'],
                 'socials' => [
                     'linkedin' => 'https://www.linkedin.com/in/christine-susanna-tjhin-0a9557b/',
                     'instagram' => 'https://www.instagram.com/8viceofficial',
-                    'email' => 'mailto:hello@8vice.com'
+                    'email' => 'mailto:hello@8vice.com',
                 ],
                 'quote_title' => [
                     'en' => 'Rigorous Geopolitical Insight as the Bedrock of Resilient Bilateral Partnerships',
                     'id' => 'Wawasan Geopolitik Teruji sebagai Landasan Kemitraan Bilateral yang Tangguh',
-                    'cn' => '严谨的地缘政治洞察是构建稳健双边伙伴关系的基石'
+                    'cn' => '严谨的地缘政治洞察是构建稳健双边伙伴关系的基石',
                 ],
                 'quote_message' => [
                     'en' => [
-                        '“Christine Susanna Tjhin is the Co-Founder and Director of Strategic Communication and Research at Gentala Institute. Established in 2020 to support the distribution of vaccines and medical equipment between Indonesia and China, Gentala Institute has since evolved into a business consultancy and policy research institute promoting sustainable, smart, and socially responsible partnerships.”',
-                        '“Beyond Gentala Institute, Christine serves as an advisor on China affairs to the Deputy for Geopolitics at the Indonesian National Defense Council (DPN); a member of the Supervisory Body of the Indonesia Council of Sinologists (World Sinology Center); a Senior Expert in the China Policy Group at the Foreign Policy Community Indonesia (FPCI); and Coordinator for China observer networks consulting regularly with the Indonesian Ministry of Foreign Affairs.”',
-                        '“She commenced her think tank career in 2002 at the Indonesian Pluralism Institute (IPI) and in 2003 at the Centre for Strategic and International Studies (CSIS Indonesia). She studied Economics, Strategic Management, East Asian Studies, and International Relations across Peking University, Beihang University, Fujian Normal University, Australian National University, and Universitas Tarumanagara.”'
+                        '“Promoting sustainable, strategically grounded partnerships between Indonesia and China through rigorous policy research, strategic communications, and institutional dialogue.”',
                     ],
                     'id' => [
-                        '“Christine Susanna Tjhin adalah Co-Founder dan Director of Strategic Communication and Research di Gentala Institute. Didirikan pada tahun 2020 untuk mendukung distribusi vaksin dan alat kesehatan antara Indonesia dan Tiongkok, Gentala Institute telah berkembang menjadi lembaga riset kebijakan dan konsultasi bisnis yang memajukan kemitraan berkelanjutan dan bertanggung jawab secara sosial.”',
-                        '“Di luar Gentala Institute, Christine menjabat sebagai penasihat urusan Tiongkok untuk Deputi Bidang Geopolitik Dewan Pertahanan Nasional (DPN), Anggota Badan Pengawas Dewan Sinolog Indonesia (World Sinology Center), Pakar Senior China Policy Group di FPCI, dan Koordinator jejaring pengamat Tiongkok untuk Kementerian Luar Negeri RI.”',
-                        '“Memulai karier think-tank pada tahun 2002 di Indonesian Pluralism Institute (IPI) dan tahun 2003 di Centre for Strategic and International Studies (CSIS Indonesia). Menempuh studi Ekonomi, Manajemen Strategis, Studi Asia Timur, dan Hubungan Internasional di Peking University, Beihang University, Fujian Normal University, Australian National University, dan Universitas Tarumanagara.”'
+                        '“Mendorong kemitraan strategis dan berkelanjutan antara Indonesia dan Tiongkok melalui riset kebijakan mendalam, komunikasi strategis, dan dialog institusional.”',
                     ],
                     'cn' => [
-                        '“Christine Susanna Tjhin 是根塔拉研究所 (Gentala Institute) 的联合创始人兼战略传播与研究总监。根塔拉研究所于2020年成立，起初旨在支持印尼与中国之间的疫苗与医疗物资协同分配，现已发展成为一家致力于推动可持续、智能化与具社会责任感双边伙伴关系的商业咨询与政策研究机构。”',
-                        '“除根塔拉研究所外，Christine 还担任印尼国家国防委员会 (DPN) 地缘政治副主任的中国事务顾问、印尼汉学家理事会监事会成员、印尼外交政策共同体 (FPCI) 中国政策组资深专家，并担任常年为印尼外交部提供咨询意见的中国观察家网络协调人。”',
-                        '“她于2002年在印尼多元主义研究所 (IPI) 开启智库研究生涯，并于2003年加入印尼战略与国际问题研究中心 (CSIS Indonesia)。她先后在北京大学、北京航空航天大学、福建师范大学、澳大利亚国立大学及印尼塔鲁玛迦大学研修经济学、战略管理、东亚研究及国际关系。”'
-                    ]
-                ]
+                        '“通过深入的政策研究、战略传播与高层机构对话，持续推动印中之间稳健可持续的战略伙伴关系。”',
+                    ],
+                ],
             ],
             (object)[
                 'call_name' => 'James He',
                 'title' => 'James He',
+                'full_title' => 'James He',
+                'chinese_name' => '何炜',
                 'role' => [
                     'en' => 'Chief International Affairs Officer',
                     'id' => 'Chief International Affairs Officer',
-                    'cn' => 'Chief International Affairs Officer'
+                    'cn' => 'Chief International Affairs Officer',
+                ],
+                'expertise' => [
+                    'en' => 'China Affairs & Industrial Collaboration',
+                    'id' => 'China Affairs & Industrial Collaboration',
+                    'cn' => 'China Affairs & Industrial Collaboration',
                 ],
                 'short_bio' => [
-                    'en' => 'Cross-border advisor spanning government, infrastructure, critical resources, and entertainment technology. Serves as Advisor at Indonesia Cyber Security Forum (ICSF), Senior China Affairs Specialist at Gentala Institute, and facilitator between Institut Teknologi PLN (IT PLN) and North China Electric Power University (NCEPU). Former Head of International Business Development at China Film Giant Screen Co., Ltd. (China Film Group) and University of Toronto B.Com graduate.',
-                    'id' => 'Spesialis lintas batas di sektor pemerintahan, infrastruktur, energi, sumber daya kritis, dan teknologi hiburan. Menjabat Penasihat Indonesia Cyber Security Forum (ICSF), Senior China Affairs Specialist di Gentala Institute, serta fasilitator kolaborasi Institut Teknologi PLN dan North China Electric Power University (NCEPU). Pernah menjabat Head of International Business Development di China Film Giant Screen Co., Ltd. dan lulusan B.Com University of Toronto.',
-                    'cn' => '横跨政府事务、能源与基础设施、关键矿产及娱乐科技领域的资深跨境顾问。现任印尼网络安全论坛 (ICSF) 顾问、根塔拉研究所中国部资深专家，并促成印尼国家电力理工学院 (IT PLN) 与华北电力大学 (NCEPU) 国际核电技术合作。曾任中影巨幕国际业务发展总监，毕业于加拿大多伦多大学商学院。'
+                    'en' => "James He (Wei He) is a cross-border specialist with extensive experience across government advisory, infrastructure finance, critical resources, and entertainment technology in Indonesia, China, and international markets.\n\nEducated in Commerce at the University of Toronto, he pairs over a decade of international business development leadership at China Film Group with strategic advisory roles spanning cybersecurity, energy collaboration, air defense MRO, and large-scale industrial localization.",
+                    'id' => "James He (Wei He) adalah spesialis lintas batas dengan pengalaman luas di bidang advisori pemerintahan, pembiayaan infrastruktur, sumber daya kritis, dan teknologi hiburan di Indonesia, Tiongkok, maupun pasar internasional.\n\nBerpendidikan Commerce di University of Toronto, ia memadukan lebih dari satu dekade kepemimpinan pengembangan bisnis internasional di China Film Group dengan peran advisori strategis di bidang keamanan siber, kolaborasi energi, MRO pertahanan udara, serta lokalisasi industri berskala besar.",
+                    'cn' => "何炜（James He / Wei He）是一位拥有跨国多元经验的资深顾问，业务涵盖印度尼西亚、中国及国际市场的政府事务咨询、基础设施投融资、关键矿产资源以及文化娱乐科技产业。\n\n毕业于加拿大多伦多大学商学院，他兼具十余年中国电影集团国际业务拓展领导经验以及网络安全、能源合作、防空装备 MRO 与大型产业本地化咨询实绩。",
+                ],
+                'experiences' => [
+                    'en' => [
+                        'Advisor and participant, Indonesia Cyber Security Forum (ICSF)',
+                        'Senior China Affair Specialist, Gentala Institute China Desk',
+                        'Air Defence Strategy and Equipment MRO Advisor, Indonesian Air Power Study Center (PSAPI)',
+                        'Nuclear Technology and International Collaboration Advisor',
+                        'Facilitator between Institut Teknologi PLN (IT PLN) and North China Electric Power University (NCEPU)',
+                        'International Strategic Planning Consultant for Exoskeleton Technology Development, Beijing Institute of Technology (BIT)',
+                        'Former Finance and Localization Consultant for Pegasus Capital International (Coal Power Plant East Kalimantan, Ulaanbaatar Tunnel Project and Nalgar Khundii Copper/Gold Mine Project).',
+                        'Former Head of International Business Development, China Film Giant Screen Co., Ltd.',
+                        'Former Board Member, Advanced Imaging Committee, China Society of Motion Picture and Television Engineers (CSMPTE)',
+                        'Former Technology & Marketing Advisor for Cinemaxx Entertainment Project, in Indonesia, Barco America, and Las Vegas',
+                    ],
+                    'id' => [
+                        'Penasihat dan partisipan, Indonesia Cyber Security Forum (ICSF)',
+                        'Senior China Affair Specialist, Gentala Institute China Desk',
+                        'Penasihat Strategi Pertahanan Udara dan Peralatan MRO, Indonesian Air Power Study Center (PSAPI)',
+                        'Penasihat Teknologi Nuklir dan Kolaborasi Internasional',
+                        'Fasilitator antara Institut Teknologi PLN (IT PLN) dan North China Electric Power University (NCEPU)',
+                        'Konsultan Perencanaan Strategis Internasional untuk Pengembangan Teknologi Eksoskeleton, Beijing Institute of Technology (BIT)',
+                        'Mantan Konsultan Keuangan dan Lokalisasi untuk Pegasus Capital International (PLTU Kalimantan Timur, Proyek Terowongan Ulaanbaatar, dan Proyek Tambang Tembaga/Emas Nalgar Khundii).',
+                        'Mantan Head of International Business Development, China Film Giant Screen Co., Ltd.',
+                        'Mantan Anggota Dewan, Advanced Imaging Committee, China Society of Motion Picture and Television Engineers (CSMPTE)',
+                        'Mantan Penasihat Teknologi & Pemasaran untuk Proyek Hiburan Cinemaxx di Indonesia, Barco America, dan Las Vegas',
+                    ],
+                    'cn' => [
+                        '印度尼西亚网络安全论坛 (ICSF) 顾问及参与专家',
+                        '根塔拉研究所 (Gentala Institute) 中国部资深中国事务专家',
+                        '印度尼西亚空军力量研究中心 (PSAPI) 防空战略与装备 MRO 顾问',
+                        '核电技术与国际合作顾问',
+                        '印尼国家电力理工学院 (IT PLN) 与华北电力大学 (NCEPU) 校际合作促进人',
+                        '北京理工大学 (BIT) 外骨骼技术研发国际战略规划顾问',
+                        '曾任 Pegasus Capital International 融资与本地化顾问（涵盖东加里曼丹燃煤电厂、乌兰巴托隧道工程及 Nalgar Khundii 铜金矿项目）',
+                        '曾任中影巨幕有限公司 (China Film Giant Screen Co., Ltd.) 国际业务发展总监',
+                        '曾任中国电影电视技术学会 (CSMPTE) 先进影像专业委员会委员',
+                        '曾任印尼 Cinemaxx 娱乐项目、美国 Barco America 及拉斯维加斯院线技术与营销顾问',
+                    ],
                 ],
                 'image' => '/images/profiles/james_he.webp',
-                'focus_tags' => ['China Affairs', 'Energy & Infrastructure', 'Project Finance', 'Cyber & Defense Tech', 'Cross-Border Localization'],
+                'focus_tags' => ['China Affairs', 'Industrial Collaboration', 'Energy & Infrastructure', 'Cyber & Defense'],
                 'socials' => [
                     'linkedin' => 'https://www.linkedin.com/company/8-vice/',
                     'instagram' => 'https://www.instagram.com/8viceofficial',
-                    'email' => 'mailto:hello@8vice.com'
+                    'email' => 'mailto:hello@8vice.com',
                 ],
                 'quote_title' => [
                     'en' => 'Connecting Industrial Capabilities, Infrastructure Finance & Strategic Technology',
                     'id' => 'Menghubungkan Kapabilitas Industri, Pembiayaan Infrastruktur & Teknologi Strategis',
-                    'cn' => '连接产业实力、基础设施融资与前沿战略科技合作'
+                    'cn' => '连接产业实力、基础设施融资与前沿战略科技合作',
                 ],
                 'quote_message' => [
                     'en' => [
-                        '“Government, Infrastructure & Critical Resources Experience: Advisor & participant at Indonesia Cyber Security Forum (ICSF); Senior China Affairs Specialist at Gentala Institute China Desk; Air defence strategy & MRO advisor at Indonesian Air Power Study Center (PSAPI); Nuclear technology & international collaboration facilitator between IT PLN and North China Electric Power University (NCEPU); International strategic planning consultant for exoskeleton technology at Beijing Institute of Technology (BIT); and Finance & localization consultant for East Kalimantan Calbar-1 2x100MW Coal Power Plant, Ulaanbaatar tunnel project (China Design Group), and Nalgar Khundii Copper/Gold Mine in Mongolia.”',
-                        '“Entertainment & Global Technology Leadership: Head of International Business Development at China Film Giant Screen Co., Ltd., China Film Group (2010–2023); Board Member of Advanced Imaging Committee, CSMPTE; and technology/marketing advisor for Cinemaxx Indonesia (Karawaci & Medan), Barco America, Deluxe Technicolor Burbank, Pixelogic Media Burbank, and Brenden Theater Group Las Vegas.”',
-                        '“Education & Training: B.Com, University of Toronto (Erindale College Mississauga, Canada); Production & Project Management Training at China Film Group Training Center (2021–2022); Production & Finance Training at China Film Association (2020–2021).”'
+                        '“Bridging international industrial capabilities, project financing, and strategic technology collaboration across Indonesia, China, and global markets.”',
                     ],
                     'id' => [
-                        '“Pengalaman Pemerintahan, Infrastruktur & Sumber Daya Kritis: Penasihat di Indonesia Cyber Security Forum (ICSF); Senior China Affairs Specialist di Gentala Institute China Desk; Penasihat strategi pertahanan udara & MRO di Indonesian Air Power Study Center (PSAPI); Fasilitator kolaborasi teknologi nuklir antara IT PLN dan North China Electric Power University (NCEPU); Konsultan perencanaan strategis eksoskeleton di Beijing Institute of Technology (BIT); serta Konsultan keuangan & lokalisasi untuk PLTU Calbar-1 2x100MW Kalimantan Timur, proyek terowongan Ulaanbaatar (China Design Group), dan tambang tembaga/emas Nalgar Khundii di Mongolia.”',
-                        '“Kepemimpinan Industri Hiburan & Teknologi: Head of International Business Development di China Film Giant Screen Co., Ltd., China Film Group (2010–2023); Anggota Dewan Advanced Imaging Committee CSMPTE; serta penasihat teknologi dan pemasaran bagi Cinemaxx Indonesia (Karawaci & Medan), Barco America, Deluxe Technicolor Burbank, Pixelogic Media Burbank, dan Brenden Theater Group Las Vegas.”',
-                        '“Pendidikan & Pelatihan: B.Com, University of Toronto (Erindale College Mississauga, Kanada); Pelatihan Produksi & Manajemen Proyek di China Film Group Training Center (2021–2022); Pelatihan Produksi & Keuangan di China Film Association (2020–2021).”'
+                        '“Menjembatani kapabilitas industri internasional, pembiayaan proyek infrastruktur, dan kolaborasi teknologi strategis di Indonesia, Tiongkok, dan pasar global.”',
                     ],
                     'cn' => [
-                        '“政府事务、基础设施与关键资源领域经验：印尼网络安全论坛 (ICSF) 顾问；根塔拉研究所 (Gentala Institute) 中国部资深专家；印尼空军力量研究中心 (PSAPI) 防空战略与MRO顾问；印尼国家电力理工学院 (IT PLN) 与华北电力大学 (NCEPU) 核电技术合作促进顾问；北京理工大学 (BIT) 外骨骼技术国际战略规划顾问；加里曼丹 Calbar-1 2x100MW 电厂、乌兰巴托隧道工程及蒙古国 Nalgar Khundii 铜金矿项目融资与本地化顾问。”',
-                        '“文化娱乐与全球科技管理履历：中影巨幕有限公司（中国电影集团）国际业务发展总监 (2010–2023)；中国电影电视技术学会 (CSMPTE) 先进影像专业委员会委员；曾任印尼 Cinemaxx（卡拉瓦奇/棉兰）、美国 Barco America、Deluxe Technicolor、Pixelogic Media 及 Brenden Theater Group 资深技术与营销顾问。”',
-                        '“教育与培训背景：加拿大多伦多大学 (University of Toronto) 商学学士；中国电影集团培训中心制片与项目管理培训；中国电影家协会制片与金融培训。”'
-                    ]
-                ]
+                        '“横跨印尼、中国与国际市场，连接产业实操能力、基础设施投融资与战略科技合作。”',
+                    ],
+                ],
             ],
         ];
     }

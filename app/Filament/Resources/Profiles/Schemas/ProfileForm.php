@@ -6,6 +6,7 @@ use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TagsInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
@@ -17,83 +18,168 @@ class ProfileForm
         return $schema
             ->components([
                 Section::make('Profile Identity')
-                    ->columns(3)
+                    ->columns(4)
                     ->schema([
                         TextInput::make('call_name')
-                            ->label('Call / Display Name')
-                            ->placeholder('e.g. Ibu Helda, Pak Gandhi')
+                            ->label('Call / Key Name')
+                            ->placeholder('e.g. Helda Chandra')
                             ->required()
                             ->maxLength(100),
                         TextInput::make('full_title')
-                            ->label('Full Formal Name & Degree')
-                            ->placeholder('e.g. Helda, S.E., M.M.')
+                            ->label('Display Full Name')
+                            ->placeholder('e.g. Helda Chandra')
+                            ->required()
                             ->maxLength(255),
+                        TextInput::make('chinese_name')
+                            ->label('Chinese Name')
+                            ->placeholder('e.g. 曾宪茹')
+                            ->maxLength(100),
                         TextInput::make('sort_order')
                             ->label('Sort Order')
                             ->numeric()
                             ->default(0)
                             ->helperText('Lower numbers appear first.'),
                     ]),
-                Section::make('Role & Leadership Title')
+
+                Section::make('Role, Expertise, Bio & Experiences (Multilingual EN / ID / CN)')
+                    ->description('All fields below map directly to the People Behind 8 Vice section on /about.')
                     ->columns(1)
                     ->schema([
-                        Tabs::make('Role')
+                        Tabs::make('Profile Translations')
                             ->columnSpanFull()
                             ->tabs([
-                                Tabs\Tab::make('EN')->schema([
-                                    TextInput::make('role.en')->label('[EN] Role / Designation')->placeholder('e.g. Co-Founder & Managing Partner')->maxLength(255),
+                                Tabs\Tab::make('English (EN)')->schema([
+                                    TextInput::make('role.en')
+                                        ->label('[EN] Job Title / Designation')
+                                        ->placeholder('e.g. Chief Executive Officer')
+                                        ->required()
+                                        ->maxLength(255),
+                                    TextInput::make('expertise.en')
+                                        ->label('[EN] Expertise Line')
+                                        ->placeholder('Corporate Strategy, Business Development & Overall Growth')
+                                        ->helperText('Shown in red italic below title as "Expertise in ..."')
+                                        ->maxLength(500),
+                                    Textarea::make('short_bio.en')
+                                        ->label('[EN] Biography Paragraphs')
+                                        ->rows(4)
+                                        ->helperText('Use a blank line between paragraphs.')
+                                        ->maxLength(3000),
+                                    Repeater::make('experiences.en')
+                                        ->label('[EN] Experiences List')
+                                        ->simple(TextInput::make('item')->required()->maxLength(500))
+                                        ->reorderable()
+                                        ->addActionLabel('Add Experience (EN)')
+                                        ->defaultItems(0),
                                 ]),
-                                Tabs\Tab::make('ID')->schema([
-                                    TextInput::make('role.id')->label('[ID] Role / Designation')->placeholder('e.g. Co-Founder & Strategic Advisor')->maxLength(255),
+                                Tabs\Tab::make('Indonesian (ID)')->schema([
+                                    TextInput::make('role.id')
+                                        ->label('[ID] Job Title / Designation')
+                                        ->placeholder('e.g. Chief Executive Officer')
+                                        ->maxLength(255),
+                                    TextInput::make('expertise.id')
+                                        ->label('[ID] Expertise Line')
+                                        ->placeholder('Corporate Strategy, Business Development & Overall Growth')
+                                        ->helperText('Ditampilkan miring merah di bawah jabatan sebagai "Expertise in ..."')
+                                        ->maxLength(500),
+                                    Textarea::make('short_bio.id')
+                                        ->label('[ID] Biography Paragraphs')
+                                        ->rows(4)
+                                        ->helperText('Gunakan baris kosong untuk memisahkan paragraf.')
+                                        ->maxLength(3000),
+                                    Repeater::make('experiences.id')
+                                        ->label('[ID] Experiences List')
+                                        ->simple(TextInput::make('item')->required()->maxLength(500))
+                                        ->reorderable()
+                                        ->addActionLabel('Tambah Pengalaman (ID)')
+                                        ->defaultItems(0),
                                 ]),
-                                Tabs\Tab::make('CN')->schema([
-                                    TextInput::make('role.cn')->label('[CN] Role / Designation')->placeholder('e.g. 联合创始人兼执行合伙人')->maxLength(255),
+                                Tabs\Tab::make('Mandarin (CN)')->schema([
+                                    TextInput::make('role.cn')
+                                        ->label('[CN] 职务头衔')
+                                        ->placeholder('e.g. Chief Executive Officer')
+                                        ->maxLength(255),
+                                    TextInput::make('expertise.cn')
+                                        ->label('[CN] 专业领域说明')
+                                        ->placeholder('Corporate Strategy, Business Development & Overall Growth')
+                                        ->helperText('显示在头衔下方 ("Expertise in ...")')
+                                        ->maxLength(500),
+                                    Textarea::make('short_bio.cn')
+                                        ->label('[CN] 个人简介段落')
+                                        ->rows(4)
+                                        ->helperText('段落之间请空一行。')
+                                        ->maxLength(3000),
+                                    Repeater::make('experiences.cn')
+                                        ->label('[CN] 专业履历与经验列表')
+                                        ->simple(TextInput::make('item')->required()->maxLength(500))
+                                        ->reorderable()
+                                        ->addActionLabel('添加履历条目 (CN)')
+                                        ->defaultItems(0),
                                 ]),
                             ]),
-                        Tabs::make('Bio')
-                            ->columnSpanFull()
-                            ->tabs([
-                                Tabs\Tab::make('EN')->schema([
-                                    Textarea::make('short_bio.en')->label('[EN] Professional Bio')->rows(3)->maxLength(1000),
-                                ]),
-                                Tabs\Tab::make('ID')->schema([
-                                    Textarea::make('short_bio.id')->label('[ID] Professional Bio')->rows(3)->maxLength(1000),
-                                ]),
-                                Tabs\Tab::make('CN')->schema([
-                                    Textarea::make('short_bio.cn')->label('[CN] Professional Bio')->rows(3)->maxLength(1000),
-                                ]),
-                            ]),
+
                         TagsInput::make('focus_tags')
-                            ->label('Expertise Focus Tags')
-                            ->placeholder('Add focus area (e.g. Cross-Border Investment, Government Liaison)'),
+                            ->label('Summary Focus Tags')
+                            ->placeholder('Add tag'),
                     ]),
-                Section::make('Executive Portrait & Media')
+
+                Section::make('Portrait Photo & Social Links')
                     ->columns(2)
                     ->schema([
                         FileUpload::make('image')
-                            ->label('Profile Portrait Photo')
+                            ->label('Profile Portrait Photo (1:1 Square)')
                             ->image()
+                            ->disk('public')
                             ->directory('profiles')
                             ->maxSize(4096)
-                            ->helperText('Executive portrait image (auto-converted to WebP).'),
+                            ->helperText('Recommended: 1:1 square WebP/JPG/PNG.'),
+                        Section::make('Social & Contact Links')
+                            ->columns(1)
+                            ->schema([
+                                TextInput::make('socials.linkedin')
+                                    ->label('LinkedIn URL')
+                                    ->url()
+                                    ->maxLength(500),
+                                TextInput::make('socials.instagram')
+                                    ->label('Instagram URL')
+                                    ->url()
+                                    ->maxLength(500),
+                                TextInput::make('socials.email')
+                                    ->label('Email Link (mailto:...)')
+                                    ->placeholder('mailto:hello@8vice.com')
+                                    ->maxLength(255),
+                            ]),
                     ]),
-                Section::make('Strategic Leadership Message / Quote Modal')
+
+                Section::make('Strategic Leadership Message / Modal Quote')
                     ->collapsible()
+                    ->collapsed()
                     ->schema([
                         Tabs::make('Quote Message')
                             ->columnSpanFull()
                             ->tabs([
                                 Tabs\Tab::make('EN')->schema([
-                                    TextInput::make('quote_title.en')->label('[EN] Modal Quote Title')->placeholder('A Message from...')->maxLength(255),
-                                    Textarea::make('quote_message.en')->label('[EN] Strategic Message')->rows(5)->maxLength(5000),
+                                    TextInput::make('quote_title.en')->label('[EN] Modal Quote Title')->maxLength(255),
+                                    Textarea::make('quote_message.en')
+                                        ->label('[EN] Strategic Message')
+                                        ->rows(4)
+                                        ->formatStateUsing(fn ($state) => is_array($state) ? implode("\n\n", $state) : $state)
+                                        ->dehydrateStateUsing(fn ($state) => is_string($state) ? array_values(array_filter(preg_split('/\r\n|\r|\n/', trim($state)))) : $state),
                                 ]),
                                 Tabs\Tab::make('ID')->schema([
-                                    TextInput::make('quote_title.id')->label('[ID] Modal Quote Title')->placeholder('Pesan Strategis dari...')->maxLength(255),
-                                    Textarea::make('quote_message.id')->label('[ID] Strategic Message')->rows(5)->maxLength(5000),
+                                    TextInput::make('quote_title.id')->label('[ID] Modal Quote Title')->maxLength(255),
+                                    Textarea::make('quote_message.id')
+                                        ->label('[ID] Strategic Message')
+                                        ->rows(4)
+                                        ->formatStateUsing(fn ($state) => is_array($state) ? implode("\n\n", $state) : $state)
+                                        ->dehydrateStateUsing(fn ($state) => is_string($state) ? array_values(array_filter(preg_split('/\r\n|\r|\n/', trim($state)))) : $state),
                                 ]),
                                 Tabs\Tab::make('CN')->schema([
-                                    TextInput::make('quote_title.cn')->label('[CN] Modal Quote Title')->placeholder('高管寄语与战略展望')->maxLength(255),
-                                    Textarea::make('quote_message.cn')->label('[CN] Strategic Message')->rows(5)->maxLength(5000),
+                                    TextInput::make('quote_title.cn')->label('[CN] Modal Quote Title')->maxLength(255),
+                                    Textarea::make('quote_message.cn')
+                                        ->label('[CN] Strategic Message')
+                                        ->rows(4)
+                                        ->formatStateUsing(fn ($state) => is_array($state) ? implode("\n\n", $state) : $state)
+                                        ->dehydrateStateUsing(fn ($state) => is_string($state) ? array_values(array_filter(preg_split('/\r\n|\r|\n/', trim($state)))) : $state),
                                 ]),
                             ]),
                     ]),

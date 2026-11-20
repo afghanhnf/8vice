@@ -69,7 +69,8 @@ $pageRoutes = function() use ($resolveLangPrefix) {
     Route::get('/about', function () { 
         $profiles = \App\Models\Profile::orderBy('sort_order', 'asc')->get();
         return Inertia::render('About', [
-            'profiles' => $profiles->isEmpty() ? collect(\App\Helpers\SeedData::getProfiles()) : $profiles
+            'profiles' => $profiles->isEmpty() ? collect(\App\Helpers\SeedData::getProfiles()) : $profiles,
+            'pageContent' => \App\Models\PageContent::getForLocale('about', app()->getLocale()),
         ]); 
     });
     
@@ -77,6 +78,7 @@ $pageRoutes = function() use ($resolveLangPrefix) {
         $services = \App\Models\Service::orderBy('sort_order')->get();
         return Inertia::render('Services', [
             'services' => $services->isEmpty() ? collect(\App\Helpers\SeedData::getServices()) : $services,
+            'pageContent' => \App\Models\PageContent::getForLocale('services', app()->getLocale()),
         ]);
     });
 
@@ -122,7 +124,8 @@ $pageRoutes = function() use ($resolveLangPrefix) {
     $renderInsightsIndex = function () {
         $insights = \App\Models\Insight::published()->orderBy('id', 'desc')->get();
         return Inertia::render('Article', [
-            'insights' => $insights->isEmpty() ? collect(\App\Helpers\SeedData::getInsights()) : $insights
+            'insights' => $insights->isEmpty() ? collect(\App\Helpers\SeedData::getInsights()) : $insights,
+            'pageContent' => \App\Models\PageContent::getForLocale('insights', app()->getLocale()),
         ]);
     };
 
@@ -212,7 +215,11 @@ $pageRoutes = function() use ($resolveLangPrefix) {
         ]); 
     });
     
-    Route::get('/contact', function () { return Inertia::render('Contact'); });
+    Route::get('/contact', function () {
+        return Inertia::render('Contact', [
+            'pageContent' => \App\Models\PageContent::getForLocale('contact', app()->getLocale()),
+        ]);
+    });
 };
 
 // Default English Routes

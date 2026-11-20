@@ -11,6 +11,7 @@ use App\Models\IndustryCoverage;
 use App\Models\Service;
 use App\Models\Statistic;
 use App\Models\SiteSetting;
+use App\Models\PageContent;
 use App\Helpers\SeedData;
 
 class HomeController extends Controller
@@ -109,6 +110,7 @@ class HomeController extends Controller
             'industryCoverages' => $industryCoverages->isEmpty() ? collect(SeedData::getIndustryCoverages()) : $industryCoverages,
             'services' => $services->isEmpty() ? collect(SeedData::getServices()) : $services,
             'siteSettings' => $siteSettings ?: SeedData::getSiteSettings(),
+            'pageContent' => PageContent::getForLocale('home', app()->getLocale()),
         ]);
     }
 
