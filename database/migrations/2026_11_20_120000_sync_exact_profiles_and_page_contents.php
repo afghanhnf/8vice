@@ -14,6 +14,12 @@ return new class extends Migration
         if (Schema::hasTable('profiles')) {
             foreach (SeedData::getProfiles() as $idx => $seedProfile) {
                 $existing = Profile::where('call_name', $seedProfile->call_name)->first();
+                $quoteMsg = [];
+                foreach (['en', 'id', 'cn'] as $loc) {
+                    $val = $seedProfile->quote_message[$loc] ?? '';
+                    $quoteMsg[$loc] = is_array($val) ? implode("\n\n", $val) : (string) $val;
+                }
+
                 $payload = [
                     'call_name' => $seedProfile->call_name,
                     'full_title' => $seedProfile->full_title ?? $seedProfile->title,
@@ -26,7 +32,7 @@ return new class extends Migration
                     'focus_tags' => $seedProfile->focus_tags,
                     'socials' => $seedProfile->socials,
                     'quote_title' => $seedProfile->quote_title,
-                    'quote_message' => $seedProfile->quote_message,
+                    'quote_message' => $quoteMsg,
                     'description' => [
                         'en' => ($seedProfile->role['en'] ?? '') . "\n\n" . ($seedProfile->short_bio['en'] ?? ''),
                         'id' => ($seedProfile->role['id'] ?? '') . "\n\n" . ($seedProfile->short_bio['id'] ?? ''),

@@ -61,10 +61,19 @@ fi
 
 echo "==> [4/7] Checking Composer dependencies..."
 COMPOSER_BIN="$(command -v composer || true)"
-if [ -n "$COMPOSER_BIN" ]; then
-  "$PHP_BIN" "$COMPOSER_BIN" install --no-dev --optimize-autoloader --no-interaction || "$COMPOSER_BIN" install --no-dev --optimize-autoloader --no-interaction
+if [ ! -f "vendor/autoload.php" ]; then
+  if [ -n "$COMPOSER_BIN" ]; then
+    PATH="$(dirname "$PHP_BIN"):$PATH" "$COMPOSER_BIN" install --no-dev --optimize-autoloader --no-interaction
+  elif [ -f "composer.phar" ]; then
+    "$PHP_BIN" composer.phar install --no-dev --optimize-autoloader --no-interaction
+  else
+    echo "ERROR: vendor/autoload.php missing and composer not found."
+    exit 1
+  fi
+elif [ -n "$COMPOSER_BIN" ]; then
+  PATH="$(dirname "$PHP_BIN"):$PATH" "$COMPOSER_BIN" dump-autoload --optimize --no-interaction || echo "    Warning: composer dump-autoload skipped; using existing vendor autoloader."
 elif [ -f "composer.phar" ]; then
-  "$PHP_BIN" composer.phar install --no-dev --optimize-autoloader --no-interaction
+  "$PHP_BIN" composer.phar dump-autoload --optimize --no-interaction || echo "    Warning: composer.phar dump-autoload skipped."
 else
   echo "    Composer binary not found in PATH; skipping (using existing vendor/)."
 fi
