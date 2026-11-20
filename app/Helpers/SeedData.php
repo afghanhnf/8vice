@@ -481,7 +481,7 @@ class SeedData
                         'Nuclear Technology and International Collaboration Advisor',
                         'Facilitator between Institut Teknologi PLN (IT PLN) and North China Electric Power University (NCEPU)',
                         'International Strategic Planning Consultant for Exoskeleton Technology Development, Beijing Institute of Technology (BIT)',
-                        'Former Finance and Localization Consultant for Pegasus Capital International (Coal Power Plant East Kalimantan, Ulaanbaatar Tunnel Project and Nalgar Khundii Copper/Gold Mine Project).',
+                        'Former Finance and Localization Consultant for Pegasus Capital International (Coal Power Plant East Kalimantan, Ulaanbaatar Tunnel Project and Nalgar Khundii Copper/Gold Mine Project.',
                         'Former Head of International Business Development, China Film Giant Screen Co., Ltd.',
                         'Former Board Member, Advanced Imaging Committee, China Society of Motion Picture and Television Engineers (CSMPTE)',
                         'Former Technology & Marketing Advisor for Cinemaxx Entertainment Project, in Indonesia, Barco America, and Las Vegas',
