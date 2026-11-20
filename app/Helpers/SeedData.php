@@ -278,9 +278,9 @@ class SeedData
                 'call_name' => 'Gandhi Priambodho',
                 'title' => 'Gandhi Priambodho',
                 'role' => [
-                    'en' => 'Chief Business Development Officer',
-                    'id' => 'Chief Business Development Officer',
-                    'cn' => 'Chief Business Development Officer'
+                    'en' => 'Chief Business Growth Officer',
+                    'id' => 'Chief Business Growth Officer',
+                    'cn' => 'Chief Business Growth Officer'
                 ],
                 'short_bio' => [
                     'en' => 'Spearheads the expansion of business, trade and investment networks in Indonesia and China. Based in Beijing since 2002, Gandhi has long fostered eclectic business development networks across trade, industrial cooperation, energy & minerals, media, creative industry, tourism, education, real estate, and healthcare.',
@@ -362,11 +362,11 @@ class SeedData
             ],
             (object)[
                 'call_name' => 'James He',
-                'title' => 'James He (Wei He)',
+                'title' => 'James He',
                 'role' => [
-                    'en' => 'Chief China Affairs Officer',
-                    'id' => 'Chief China Affairs Officer',
-                    'cn' => 'Chief China Affairs Officer'
+                    'en' => 'Chief International Affairs Officer',
+                    'id' => 'Chief International Affairs Officer',
+                    'cn' => 'Chief International Affairs Officer'
                 ],
                 'short_bio' => [
                     'en' => 'Cross-border advisor spanning government, infrastructure, critical resources, and entertainment technology. Serves as Advisor at Indonesia Cyber Security Forum (ICSF), Senior China Affairs Specialist at Gentala Institute, and facilitator between Institut Teknologi PLN (IT PLN) and North China Electric Power University (NCEPU). Former Head of International Business Development at China Film Giant Screen Co., Ltd. (China Film Group) and University of Toronto B.Com graduate.',

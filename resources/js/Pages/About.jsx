@@ -374,7 +374,7 @@ export default function About({ profiles = [] }) {
           chineseName: '曾宪茹',
           jobTitle: 'Chief Executive Officer',
           nameNote: 'Chief Executive Officer',
-          subtitle: 'Corporate Strategy, Leadership & Overall Growth',
+          subtitle: 'Corporate Strategy, Business Development & Overall Growth',
           bioParagraphs: [
             '曾宪茹（Helda Chandra）是一位资深商业战略顾问与企业家，拥有20余年为印度尼西亚政府机构、国有企业及私营企业提供战略咨询的丰富经验，并依托印尼与中国政商界的深厚网络，助力企业高效实现市场准入、战略合作与跨境业务增长。'
           ],
@@ -385,23 +385,23 @@ export default function About({ profiles = [] }) {
             email: 'mailto:Heldachandra@gmail.com'
           },
           experiences: [
-            '印度尼西亚共和国创意经济部专家顾问 (2025 – 至今)',
-            '雅加达地铁公司 (PT. MRT Jakarta) 监事会委员会成员 (2019 – 2025)',
-            '印度尼西亚第二机场公司 (PT. Angkasa Pura II Tbk.，国有企业) 非航空商业顾问 (2020 – 2021)',
-            'Communic 8 创始人兼首席执行官 (2014 – 至今)',
-            '根塔拉研究所 (Gentala Institute) 执行合伙人 (2025 – 至今)',
-            '20余年私营部门实战经验，深耕战略商业咨询、市场营销及整合营销传播领域',
-            '受邀担任印尼多所高校客座讲师，讲授商业战略、市场营销与品牌传播课程',
-            '中国企业印尼市场准入顾问，长期为中国企业赴印尼投资布局、业务拓展及战略合作提供专业指引'
+            '印度尼西亚共和国创意经济部专家顾问',
+            '前雅加达地铁公司 (PT. MRT Jakarta) 监事会委员会成员',
+            '前印度尼西亚第二机场公司 (PT. Angkasa Pura II Tbk.，国有企业) 非航空商业顾问',
+            'Communic 8 创始人兼首席执行官',
+            '根塔拉研究所 (Gentala Institute) 执行合伙人',
+            '20余年私营部门实战经验，深耕战略商业咨询、市场营销及整合营销传播领域。',
+            '受邀担任印尼多所高校客座讲师，分享商业战略、市场营销与品牌传播专业见解。',
+            '中国市场准入顾问，为中国企业在印度尼西亚的市场准入、业务拓展及战略合作提供咨询支持。'
           ]
         },
         {
           id: 'gandhi',
           callName: 'Gandhi Priambodho',
           fullName: 'Gandhi Priambodho',
-          chineseName: '',
-          jobTitle: 'Chief Business Development Officer',
-          nameNote: 'Chief Business Development Officer',
+          chineseName: '甘地',
+          jobTitle: 'Chief Business Growth Officer',
+          nameNote: 'Chief Business Growth Officer',
           subtitle: 'Business, Trade & Investment',
           bioParagraphs: [
             'Gandhi Priambodho 是一位拥有丰富国际视野的业务拓展专家，专注于扩大印度尼西亚与中国之间的双边贸易、投资及战略合作伙伴关系。',
@@ -414,26 +414,24 @@ export default function About({ profiles = [] }) {
             email: 'mailto:hello@8vice.com'
           },
           experiences: [
-            '南洋桥传媒有限公司 (Nanyang Bridge Media, co. Ltd)',
-            'Red&White China',
-            '北京安华房地产顾问有限公司 (Beijing An Hua Property Consultant, China)',
-            '21世纪不动产 (CENTURY 21 Troop Real Estate, China)',
-            '《印尼商报》(Indonesia Shangbao)',
-            'PT Falah Jaya Agung, Indonesia',
-            '力宝集团 (Lippo Group, Indonesia)',
-            '印尼航展基金会 (Indonesia Air Show Foundation)'
+            '南洋桥传媒有限公司 (Nanyang Bridge Media, co. Ltd) 首席执行官',
+            '红白中国 (Red&White China) 首席执行官',
+            '具备房地产咨询与物业投资实战经验，深度参与中国房地产市场及国际投资机遇。',
+            '在《印尼商报》任职期间积累了丰富的媒体关系、企业传播、商务拓展及印中双边交流经验。',
+            '在印尼力宝集团 (Lippo Group Indonesia) 积累了多元产业企业业务拓展、战略合作及多元化商业运营经验。',
+            '参与印尼航展基金会 (Air Show Foundation – Indonesia)，推动航空产业倡议、机构关系对接、战略合作及印尼航空业发展。'
           ]
         },
         {
           id: 'christine',
           callName: 'Christine Susanna Tjhin',
           fullName: 'Christine Susanna Tjhin',
-          chineseName: '',
+          chineseName: '陈妹伶',
           jobTitle: 'Chief Strategy Officer',
           nameNote: 'Chief Strategy Officer',
           subtitle: 'Strategy, Policy & Institutional Relations',
           bioParagraphs: [
-            'Christine Susanna Tjhin 是著名的印中关系专家，在政策研究、战略传播与国际事务领域拥有20余年深厚积淀，长期致力于推动印度尼西亚与中国之间可持续的战略伙伴关系。她同时担任印度尼西亚国家国防委员会 (DPN) 中国事务顾问、印尼外交政策共同体 (FPCI) 资深专家，并在多家聚焦中国事务的政策研究网络担任咨询职务。'
+            'Christine Susanna Tjhin（陈妹伶）是著名的印中关系专家，在政策研究、战略传播与国际事务领域拥有20余年深厚积淀，长期致力于推动印度尼西亚与中国之间可持续的战略伙伴关系。她同时担任印度尼西亚国家国防委员会 (DPN) 中国事务顾问、印尼外交政策共同体 (FPCI) 资深专家，并在多家聚焦中国事务的政策研究网络担任咨询职务。'
           ],
           photo: '/images/profiles/christine_tjhin.webp',
           socials: {
@@ -442,26 +440,26 @@ export default function About({ profiles = [] }) {
             email: 'mailto:hello@8vice.com'
           },
           experiences: [
-            '印度尼西亚汉学家理事会监事会成员 (2023 – 至今)',
-            '中国福建省“中国—印尼工业合作研究中心”印尼籍资深专家 (2023 – 至今)',
-            '山西碳达峰碳中和能源革命研究院 (CCERR) 东南亚专家组成员 (2024 – 至今)',
-            '印尼外交政策共同体 (FPCI) 中国政策组资深专家成员，雅加达 (2017 – 至今)',
-            '印度尼西亚华裔总会 (INTI) 智库理事会成员，雅加达 (2005 – 2012)',
-            '印度尼西亚战略与国际问题研究中心 (CSIS Indonesia) 研究员 (2003 – 2019)',
-            '印度尼西亚多元主义研究所 (IPI) 研究员 (2002 – 2003)'
+            '印度尼西亚汉学家理事会监事会成员',
+            '中国福建省“中国—印尼工业合作研究中心”印尼籍资深专家',
+            '山西碳达峰碳中和能源革命研究院 (CCERR) 东南亚专家组成员',
+            '印尼外交政策共同体 (FPCI) 中国政策组资深专家成员，雅加达',
+            '印度尼西亚华裔总会 (INTI) 智库理事会成员，雅加达',
+            '曾就职于印度尼西亚战略与国际问题研究中心 (CSIS Indonesia)',
+            '曾就职于印度尼西亚多元主义研究所 (IPI)'
           ]
         },
         {
           id: 'james',
           callName: 'James He',
-          fullName: 'James He (Wei He)',
+          fullName: 'James He',
           chineseName: '何炜',
-          jobTitle: 'Chief China Affairs Officer',
-          nameNote: 'Chief China Affairs Officer',
+          jobTitle: 'Chief International Affairs Officer',
+          nameNote: 'Chief International Affairs Officer',
           subtitle: 'China Affairs & Industrial Collaboration',
           bioParagraphs: [
             '何炜（James He / Wei He）是一位拥有跨国多元经验的资深顾问，业务涵盖印度尼西亚、中国及国际市场的政府事务咨询、基础设施投融资、关键矿产资源以及文化娱乐科技产业。',
-            '毕业于加拿大多伦多大学商学院，他兼具十余年中国电影集团国际业务拓展领导经验以及网络安全、电力能源国际合作、防空装备 MRO 与大型基建本地化咨询实绩。'
+            '毕业于加拿大多伦多大学商学院，他兼具十余年中国电影集团国际业务拓展领导经验以及网络安全、能源合作、防空装备 MRO 与大型产业本地化咨询实绩。'
           ],
           photo: '/images/profiles/james_he.webp',
           socials: {
@@ -473,11 +471,13 @@ export default function About({ profiles = [] }) {
             '印度尼西亚网络安全论坛 (ICSF) 顾问及参与专家',
             '根塔拉研究所 (Gentala Institute) 中国部资深中国事务专家',
             '印度尼西亚空军力量研究中心 (PSAPI) 防空战略与装备 MRO 顾问',
-            '印尼国家电力理工学院 (IT PLN) 与华北电力大学 (NCEPU) 核电技术与国际合作促进顾问',
+            '核电技术与国际合作顾问',
+            '印尼国家电力理工学院 (IT PLN) 与华北电力大学 (NCEPU) 校际合作促进人',
             '北京理工大学 (BIT) 外骨骼技术研发国际战略规划顾问',
-            '加里曼丹 Calbar-1 2x100MW 燃煤电厂 (Pegasus Capital International, 2019–2025)、蒙古国乌兰巴托隧道 (China Design Group, 2024–2025) 及 Nalgar Khundii 铜金矿 (2023–2025) 项目融资与本地化顾问',
-            '中影巨幕有限公司（中国电影集团）国际业务发展总监 (2010–2023) 暨中国电影电视技术学会 (CSMPTE) 先进影像专委会委员',
-            '印尼 Cinemaxx (Karawaci/Medan, 2013–2023)、美国 Barco America (2015–2023)、Deluxe Technicolor Burbank (2015–2023)、Pixelogic Media (2019–2023) 及 Brenden Theater Group (2015–2021) 技术与营销顾问'
+            '曾任 Pegasus Capital International 融资与本地化顾问（涵盖东加里曼丹燃煤电厂、乌兰巴托隧道工程及 Nalgar Khundii 铜金矿项目）',
+            '曾任中影巨幕有限公司 (China Film Giant Screen Co., Ltd.) 国际业务发展总监',
+            '曾任中国电影电视技术学会 (CSMPTE) 先进影像专业委员会委员',
+            '曾任印尼 Cinemaxx 娱乐项目、美国 Barco America 及拉斯维加斯院线技术与营销顾问'
           ]
         }
       ],
@@ -725,7 +725,7 @@ export default function About({ profiles = [] }) {
             chineseName: '曾宪茹',
             jobTitle: 'Chief Executive Officer',
             nameNote: 'Chief Executive Officer',
-            subtitle: 'Corporate Strategy, Leadership & Overall Growth',
+            subtitle: 'Corporate Strategy, Business Development & Overall Growth',
             bioParagraphs: [
               'Helda Chandra adalah seorang ahli strategi bisnis dan wirausaha dengan lebih dari 20 tahun pengalaman mendampingi lembaga pemerintah Indonesia, badan usaha milik negara (BUMN), serta perusahaan swasta, didukung jaringan kuat di komunitas pemerintahan dan bisnis di Indonesia maupun Tiongkok untuk memfasilitasi masuk pasar, kemitraan strategis, dan pertumbuhan bisnis lintas batas.'
             ],
@@ -736,23 +736,23 @@ export default function About({ profiles = [] }) {
               email: 'mailto:Heldachandra@gmail.com'
             },
             experiences: [
-              'Expert Advisor, Kementerian Ekonomi Kreatif Republik Indonesia (2025 – Sekarang)',
-              'Komite Dewan Komisaris, PT. MRT Jakarta (2019 – 2025)',
-              'Konsultan Bisnis Non-Aeronautika, PT. Angkasa Pura II Tbk. (BUMN) (2020 – 2021)',
-              'Founder & CEO, Communic 8 (2014 – Sekarang)',
-              'Managing Partner, Gentala Institute (2025 – Sekarang)',
-              'Pengalaman 20+ Tahun di Sektor Swasta dalam advisori bisnis strategis, pemasaran, dan komunikasi pemasaran terpadu',
-              'Dosen Tamu di berbagai universitas di Indonesia dalam bidang strategi bisnis, pemasaran, dan komunikasi',
-              'Konsultan Masuk Pasar Tiongkok, mendampingi perusahaan Tiongkok dalam masuk pasar, pengembangan bisnis, dan kemitraan strategis di Indonesia'
+              'Expert Advisor, Kementerian Ekonomi Kreatif Republik Indonesia',
+              'Mantan Komite Dewan Komisaris, PT. MRT Jakarta',
+              'Mantan Konsultan Bisnis Non-Aeronautika, PT. Angkasa Pura II Tbk. (BUMN Indonesia)',
+              'Founder & CEO, Communic 8',
+              'Managing Partner, Gentala Institute',
+              'Pengalaman 20+ Tahun di Sektor Swasta dalam konsultasi bisnis strategis, pemasaran, dan komunikasi pemasaran terpadu.',
+              'Dosen Tamu di berbagai universitas di seluruh Indonesia, membagikan keahlian di bidang strategi bisnis, pemasaran, dan komunikasi.',
+              'Konsultan Masuk Pasar Tiongkok, mendampingi perusahaan Tiongkok dalam ekspansi pasar, pengembangan bisnis, dan kemitraan strategis di Indonesia.'
             ]
           },
           {
             id: 'gandhi',
             callName: 'Gandhi Priambodho',
             fullName: 'Gandhi Priambodho',
-            chineseName: '',
-            jobTitle: 'Chief Business Development Officer',
-            nameNote: 'Chief Business Development Officer',
+            chineseName: '甘地',
+            jobTitle: 'Chief Business Growth Officer',
+            nameNote: 'Chief Business Growth Officer',
             subtitle: 'Business, Trade & Investment',
             bioParagraphs: [
               'Gandhi Priambodho adalah profesional pengembangan bisnis internasional dengan pengalaman memperluas perdagangan, investasi, dan kemitraan strategis antara Indonesia dan Tiongkok.',
@@ -765,21 +765,19 @@ export default function About({ profiles = [] }) {
               email: 'mailto:hello@8vice.com'
             },
             experiences: [
-              'Nanyang Bridge Media, co. Ltd',
-              'Red&White China',
-              'Beijing An Hua Property Consultant, China',
-              'CENTURY 21 Troop Real Estate, China',
-              'Indonesia Shangbao',
-              'PT Falah Jaya Agung, Indonesia',
-              'Lippo Group, Indonesia',
-              'Indonesia Air Show Foundation'
+              'CEO Nanyang Bridge Media, co. Ltd',
+              'CEO Red&White China',
+              'Pengalaman profesional dalam konsultansi real estat dan investasi properti dengan eksposur pada pasar properti Tiongkok serta peluang investasi internasional.',
+              'Eksposur profesional pada hubungan media, komunikasi korporat, jejaring bisnis, dan keterlibatan Indonesia–Tiongkok saat di Indonesia Shangbao',
+              'Eksposur pada pengembangan bisnis korporat, kemitraan strategis, dan operasional bisnis terdiversifikasi lintas industri di Lippo Group Indonesia',
+              'Keterlibatan di Air Show Foundation – Indonesia, inisiatif industri penerbangan, hubungan kelembagaan, kemitraan strategis, dan pengembangan sektor aviasi Indonesia.'
             ]
           },
           {
             id: 'christine',
             callName: 'Christine Susanna Tjhin',
             fullName: 'Christine Susanna Tjhin',
-            chineseName: '',
+            chineseName: '陈妹伶',
             jobTitle: 'Chief Strategy Officer',
             nameNote: 'Chief Strategy Officer',
             subtitle: 'Strategy, Policy & Institutional Relations',
@@ -793,26 +791,26 @@ export default function About({ profiles = [] }) {
               email: 'mailto:hello@8vice.com'
             },
             experiences: [
-              'Anggota Badan Pengawas – Dewan Sinolog Indonesia / Indonesia Council of Sinologists (2023 – Sekarang)',
-              'Senior Indonesian Expert, China-Indonesia Industrial Cooperation Research Center – Fujian, Tiongkok (2023 – Sekarang)',
-              'Southeast Asian Experts Group – Shanxi Carbon-Peak Carbon-Neutral Energy Revolution Research Institute (CCERR) (2024 – Sekarang)',
-              'Senior Expert Member, Foreign Policy Community Indonesia (FPCI), China Policy Group – Jakarta, Indonesia (2017 – Sekarang)',
-              'Anggota Dewan Pakar (Intellectual Council), Perhimpunan Indonesia Tionghoa (INTI) – Jakarta, Indonesia (2005 – 2012)',
-              'Peneliti di Centre for Strategic and International Studies (CSIS), Indonesia (2003 – 2019)',
-              'Indonesian Pluralism Institute (IPI) (2002 – 2003)'
+              'Anggota Badan Pengawas, Indonesia Council of Sinologists',
+              'Senior Indonesian Expert di China-Indonesia Industrial Cooperation Research Center, Fujian, Tiongkok',
+              'Southeast Asian Experts Group, Shanxi Carbon-Peak, Carbon-Neutral Energy Revolution Research Institute (CCERR)',
+              'Senior Expert Member di Foreign Policy Community Indonesia (FPCI), China Policy Group, Jakarta, Indonesia',
+              'Anggota Dewan Pakar (Intellectual Council) di Perhimpunan Indonesia Tionghoa (INTI) - Jakarta, Indonesia',
+              'Sebelumnya terafiliasi dengan Centre for Strategic and International Studies (CSIS), Indonesia',
+              'Sebelumnya terafiliasi dengan Indonesian Pluralism Institute (IPI), Indonesia'
             ]
           },
           {
             id: 'james',
             callName: 'James He',
-            fullName: 'James He (Wei He)',
+            fullName: 'James He',
             chineseName: '何炜',
-            jobTitle: 'Chief China Affairs Officer',
-            nameNote: 'Chief China Affairs Officer',
+            jobTitle: 'Chief International Affairs Officer',
+            nameNote: 'Chief International Affairs Officer',
             subtitle: 'China Affairs & Industrial Collaboration',
             bioParagraphs: [
               'James He (Wei He) adalah spesialis lintas batas dengan pengalaman luas di bidang advisori pemerintahan, pembiayaan infrastruktur, sumber daya kritis, dan teknologi hiburan di Indonesia, Tiongkok, maupun pasar internasional.',
-              'Lulusan B.Com dari University of Toronto, ia memadukan lebih dari satu dekade kepemimpinan pengembangan bisnis internasional di China Film Group dengan peran advisori strategis di bidang keamanan siber, kolaborasi energi, MRO pertahanan udara, serta proyek industri skala besar.'
+              'Berpendidikan Commerce di University of Toronto, ia memadukan lebih dari satu dekade kepemimpinan pengembangan bisnis internasional di China Film Group dengan peran advisori strategis di bidang keamanan siber, kolaborasi energi, MRO pertahanan udara, serta lokalisasi industri berskala besar.'
             ],
             photo: '/images/profiles/james_he.webp',
             socials: {
@@ -821,14 +819,16 @@ export default function About({ profiles = [] }) {
               email: 'mailto:hello@8vice.com'
             },
             experiences: [
-              'Penasihat & partisipan, Indonesia Cyber Security Forum (ICSF)',
+              'Penasihat dan partisipan, Indonesia Cyber Security Forum (ICSF)',
               'Senior China Affair Specialist, Gentala Institute China Desk',
-              'Penasihat strategi pertahanan udara & peralatan MRO, Indonesian Air Power Study Center (PSAPI)',
-              'Penasihat teknologi nuklir dan kolaborasi internasional antara Institut Teknologi PLN (IT PLN) dan North China Electric Power University (NCEPU)',
-              'Konsultan perencanaan strategis internasional untuk pengembangan teknologi eksoskeleton, Beijing Institute of Technology (BIT)',
-              'Konsultan keuangan & lokalisasi untuk Pegasus Capital International (PLTU Calbar-1 2x100MW Kalimantan Timur, 2019–2025), proyek terowongan Ulaanbaatar (China Design Group, 2024–2025), serta tambang tembaga/emas Nalgar Khundii di Mongolia (2023–2025)',
-              'Head of International Business Development, China Film Giant Screen Co., Ltd., China Film Group (2010–2023) & Anggota Dewan Advanced Imaging Committee, CSMPTE',
-              'Penasihat teknologi & pemasaran untuk Cinemaxx Indonesia (Karawaci & Medan, 2013–2023), Barco America (2015–2023), Deluxe Technicolor Burbank (2015–2023), Pixelogic Media Burbank (2019–2023), dan Brenden Theater Group Las Vegas (2015–2021)'
+              'Penasihat Strategi Pertahanan Udara dan Peralatan MRO, Indonesian Air Power Study Center (PSAPI)',
+              'Penasihat Teknologi Nuklir dan Kolaborasi Internasional',
+              'Fasilitator antara Institut Teknologi PLN (IT PLN) dan North China Electric Power University (NCEPU)',
+              'Konsultan Perencanaan Strategis Internasional untuk Pengembangan Teknologi Eksoskeleton, Beijing Institute of Technology (BIT)',
+              'Mantan Konsultan Keuangan dan Lokalisasi untuk Pegasus Capital International (PLTU Kalimantan Timur, Proyek Terowongan Ulaanbaatar, dan Proyek Tambang Tembaga/Emas Nalgar Khundii).',
+              'Mantan Head of International Business Development, China Film Giant Screen Co., Ltd.',
+              'Mantan Anggota Dewan, Advanced Imaging Committee, China Society of Motion Picture and Television Engineers (CSMPTE)',
+              'Mantan Penasihat Teknologi & Pemasaran untuk Proyek Hiburan Cinemaxx di Indonesia, Barco America, dan Las Vegas'
             ]
           }
         ],
@@ -1075,7 +1075,7 @@ export default function About({ profiles = [] }) {
             chineseName: '曾宪茹',
             jobTitle: 'Chief Executive Officer',
             nameNote: 'Chief Executive Officer',
-            subtitle: 'Corporate Strategy, Leadership & Overall Growth',
+            subtitle: 'Corporate Strategy, Business Development & Overall Growth',
             bioParagraphs: [
               'Helda Chandra is a business strategist and entrepreneur with over 20 years of experience advising Indonesian government institutions, state-owned enterprises, and private-sector companies, backed by strong networks across government and business communities in Indonesia and China to facilitate market entry, strategic partnerships, and cross-border business growth.'
             ],
@@ -1086,11 +1086,11 @@ export default function About({ profiles = [] }) {
               email: 'mailto:Heldachandra@gmail.com'
             },
             experiences: [
-              'Expert Advisor, Ministry of Economic Creative Republic of Indonesia (2025 – Now)',
-              'Board of Commissioners Committee, PT. MRT Jakarta (2019 – 2025)',
-              "Non Aeronautical Business Consultant, PT. Angkasa Pura II Tbk. (Indonesia’s State Owned Company) (2020–2021)",
-              'Founder & CEO, Communic 8 (2014 – Now)',
-              'Managing Partner, Gentala Institute (2025 – Now)',
+              'Expert Advisor, Ministry of Economic Creative Republic of Indonesia',
+              'Former Board of Commissioners Committee, PT. MRT Jakarta',
+              "Former Non Aeronautical Business Consultant, PT. Angkasa Pura II Tbk. (Indonesia’s State Owned Company)",
+              'Founder & CEO, Communic 8',
+              'Managing Partner, Gentala Institute',
               '20+ Years of Private-Sector Experience in strategic business advisory, marketing, and integrated marketing communications.',
               'Guest Lecturer at various universities across Indonesia, sharing expertise in business strategy, marketing, and communications.',
               'China Market Entry Consultant, advising Chinese companies on market entry, business development, and strategic partnerships in Indonesia.'
@@ -1100,9 +1100,9 @@ export default function About({ profiles = [] }) {
             id: 'gandhi',
             callName: 'Gandhi Priambodho',
             fullName: 'Gandhi Priambodho',
-            chineseName: '',
-            jobTitle: 'Chief Business Development Officer',
-            nameNote: 'Chief Business Development Officer',
+            chineseName: '甘地',
+            jobTitle: 'Chief Business Growth Officer',
+            nameNote: 'Chief Business Growth Officer',
             subtitle: 'Business, Trade & Investment',
             bioParagraphs: [
               'Gandhi Priambodho is an international business development professional with experience expanding trade, investment, and strategic partnerships between Indonesia and China.',
@@ -1115,21 +1115,19 @@ export default function About({ profiles = [] }) {
               email: 'mailto:hello@8vice.com'
             },
             experiences: [
-              'Nanyang Bridge Media, co. Ltd',
-              'Red&White China',
-              'Beijing An Hua Property Consultant, China',
-              'CENTURY 21 Troop Real Estate, China',
-              'Indonesia Shangbao',
-              'PT Falah Jaya Agung, Indonesia',
-              'Lippo Group, Indonesia',
-              'Indonesia Air Show Foundation'
+              'CEO Nanyang Bridge Media, co. Ltd',
+              'CEO Red&White China',
+              "Professional experience in real estate consultancy, property investment with exposure to China's property market and international investment opportunities.",
+              'Professional exposure to media relations, corporate communications, business networking, and Indonesia–China engagement when in Indonesia Shangbao',
+              'Exposure to corporate business development, strategic partnerships, and diversified business operations across multiple industries in Lippo Group Indonesia',
+              'Involvement in Air Show Foundation – Indonesia, aviation industry initiatives, institutional relations, strategic partnerships, and aviation sector development Indonesia.'
             ]
           },
           {
             id: 'christine',
             callName: 'Christine Susanna Tjhin',
             fullName: 'Christine Susanna Tjhin',
-            chineseName: '',
+            chineseName: '陈妹伶',
             jobTitle: 'Chief Strategy Officer',
             nameNote: 'Chief Strategy Officer',
             subtitle: 'Strategy, Policy & Institutional Relations',
@@ -1143,22 +1141,22 @@ export default function About({ profiles = [] }) {
               email: 'mailto:hello@8vice.com'
             },
             experiences: [
-              'Supervisory Board Member - Indonesia Council of Sinologists (2023 – now)',
-              'Senior Indonesian Expert at the China-Indonesia Industrial Cooperation Research Center - Fujian, China (2023 – now)',
-              '2024 - to date: Southeast Asian Experts Group - Shanxi Carbon-Peak Carbon-Neutral Energy Revolution Research Institute (CCERR) (2024 – now)',
-              'Senior Expert Member at the Foreign Policy Community Indonesia (FPCI), China Policy Group - Jakarta, Indonesia (2017 – now)',
-              'Intellectual Council Member at the Chinese Indonesian Association (INTI) - Jakarta, Indonesia (2005–2012)',
-              'Centre for Strategic and International Studies (CSIS), Indonesia (2003–2019)',
-              'Indonesian Pluralism Institute (IPI) (2002 – 2003)'
+              'Supervisory Board Member, Indonesia Council of Sinologists',
+              'Senior Indonesian Expert at the China-Indonesia Industrial Cooperation Research Center, Fujian, China',
+              'Southeast Asian Experts Group, Shanxi Carbon-Peak, Carbon-Neutral Energy Revolution Research Institute (CCERR)',
+              'Senior Expert Member at the Foreign Policy Community Indonesia (FPCI), China Policy Group, Jakarta, Indonesia',
+              'Intellectual Council Member at the Chinese Indonesian Association (INTI) - Jakarta, Indonesia',
+              'Formerly Associated with Centre for Strategic and International Studies (CSIS), Indonesia',
+              'Formerly Associated with Indonesian Pluralism Institute (IPI), Indonesia'
             ]
           },
           {
             id: 'james',
             callName: 'James He',
-            fullName: 'James He (Wei He)',
+            fullName: 'James He',
             chineseName: '何炜',
-            jobTitle: 'Chief China Affairs Officer',
-            nameNote: 'Chief China Affairs Officer',
+            jobTitle: 'Chief International Affairs Officer',
+            nameNote: 'Chief International Affairs Officer',
             subtitle: 'China Affairs & Industrial Collaboration',
             bioParagraphs: [
               'James He (Wei He) is a cross-border specialist with extensive experience across government advisory, infrastructure finance, critical resources, and entertainment technology in Indonesia, China, and international markets.',
@@ -1173,12 +1171,14 @@ export default function About({ profiles = [] }) {
             experiences: [
               'Advisor and participant, Indonesia Cyber Security Forum (ICSF)',
               'Senior China Affair Specialist, Gentala Institute China Desk',
-              'Air defence strategy and equipment MRO advisor, Indonesian Air Power Study Center (PSAPI)',
-              'Nuclear technology and international collaboration advisor, facilitator between Institut Teknologi PLN (IT PLN) and North China Electric Power University (NCEPU)',
-              'International strategic planning consultant for exoskeleton technology development, Beijing Institute of Technology (BIT)',
-              'Finance and localization consultant for Pegasus Capital International (Calbar-1 2x100MW Coal Power Plant East Kalimantan, 2019–2025), Ulaanbaatar tunnel project (China Design Group, 2024–2025), and Nalgar Khundii Copper/Gold Mine project (Mongolia, 2023–2025)',
-              'Head of International Business Development, China Film Giant Screen Co., Ltd., China Film Group (2010–2023) & Board Member, Advanced Imaging Committee, China Society of Motion Picture and Television Engineers (CSMPTE)',
-              'Technology & marketing advisor for Cinemaxx entertainment project (Karawaci & Medan, Indonesia, 2013–2023), Barco America (2015–2023), Deluxe Technicolor Burbank (2015–2023), Pixelogic Media Burbank (2019–2023), and Brenden Theater Group Las Vegas (2015–2021)'
+              'Air Defence Strategy and Equipment MRO Advisor, Indonesian Air Power Study Center (PSAPI)',
+              'Nuclear Technology and International Collaboration Advisor',
+              'Facilitator between Institut Teknologi PLN (IT PLN) and North China Electric Power University (NCEPU)',
+              'International Strategic Planning Consultant for Exoskeleton Technology Development, Beijing Institute of Technology (BIT)',
+              'Former Finance and Localization Consultant for Pegasus Capital International (Coal Power Plant East Kalimantan, Ulaanbaatar Tunnel Project and Nalgar Khundii Copper/Gold Mine Project).',
+              'Former Head of International Business Development, China Film Giant Screen Co., Ltd.',
+              'Former Board Member, Advanced Imaging Committee, China Society of Motion Picture and Television Engineers (CSMPTE)',
+              'Former Technology & Marketing Advisor for Cinemaxx Entertainment Project, in Indonesia, Barco America, and Las Vegas'
             ]
           }
         ],
@@ -1288,6 +1288,8 @@ export default function About({ profiles = [] }) {
             dbRole.includes('Co-Founder') ||
             dbRole.includes('Director of International Business') ||
             dbRole.includes('Senior China Affairs Specialist') ||
+            dbRole === 'Chief Business Development Officer' ||
+            dbRole === 'Chief China Affairs Officer' ||
             dbRole.includes('首席执行官兼联合创始人') ||
             dbRole.includes('国际业务总监') ||
             dbRole.includes('联合创始人兼战略传播') ||
