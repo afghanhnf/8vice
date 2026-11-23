@@ -711,7 +711,8 @@
                 "show_leadership_perspective": false,
                 "show_people": true,
                 "show_values": false,
-                "show_cta": true
+                "show_cta": true,
+                "show_people_headline": false
             }
         }
     },

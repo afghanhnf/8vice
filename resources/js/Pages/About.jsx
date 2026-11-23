@@ -1253,6 +1253,7 @@ export default function About({ profiles = [], pageContent = null }) {
       show_cross_border_process: true,
       show_leadership_perspective: false,
       show_people: true,
+      show_people_headline: false,
       show_values: false,
       show_cta: true,
       ...(copy.visibility || {}),
@@ -2984,34 +2985,48 @@ export default function About({ profiles = [], pageContent = null }) {
 
           <div className="container" style={{ position: 'relative', zIndex: 2 }}>
             {/* Section Header */}
-            <div className="about-anim" style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto 60px' }}>
+            <div className="about-anim" style={{ textAlign: 'center', maxWidth: '880px', margin: '0 auto 56px' }}>
               {Boolean(copy.peopleEyebrow) && (
-              <div className="about-eyebrow-pill">
-                <span className="about-eyebrow-dot" />
-                <span>{copy.peopleEyebrow}</span>
-              </div>
-              )}
-              {Boolean(copy.peopleTitle) && (
               <h2
                 style={{
-                  fontSize: 'clamp(30px, 3.5vw, 46px)',
+                  fontSize: 'clamp(30px, 3.6vw, 48px)',
                   fontWeight: 800,
-                  lineHeight: 1.15,
-                  letterSpacing: '-0.025em',
+                  lineHeight: 1.12,
+                  letterSpacing: '-0.02em',
+                  textTransform: 'uppercase',
+                  background: 'linear-gradient(90deg, #FF7B7B 0%, #E63946 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  color: '#FF7B7B',
+                  margin: '0 0 18px'
+                }}
+              >
+                {copy.peopleEyebrow}
+              </h2>
+              )}
+              {vis.show_people_headline === true && Boolean(copy.peopleTitle) && (
+              <h3
+                style={{
+                  fontSize: 'clamp(22px, 2.4vw, 32px)',
+                  fontWeight: 700,
+                  lineHeight: 1.25,
+                  letterSpacing: '-0.02em',
                   color: '#FFFFFF',
                   margin: '0 0 16px'
                 }}
               >
                 {copy.peopleTitle}
-              </h2>
+              </h3>
               )}
               {Boolean(copy.peopleLead) && (
               <p
                 style={{
                   fontSize: '16.5px',
-                  lineHeight: 1.7,
-                  color: 'rgba(255, 255, 255, 0.72)',
-                  margin: 0
+                  lineHeight: 1.65,
+                  color: 'rgba(255, 255, 255, 0.76)',
+                  maxWidth: '640px',
+                  margin: '0 auto',
+                  textWrap: 'balance'
                 }}
               >
                 {copy.peopleLead}

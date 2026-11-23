@@ -75,6 +75,9 @@ class PageContentForm
                         Toggle::make('content.visibility.show_people')
                             ->label('05 · The Minds Behind the Move (People)')
                             ->default(true),
+                        Toggle::make('content.visibility.show_people_headline')
+                            ->label('05 · People Secondary Headline (Built on Experience...)')
+                            ->default(false),
                         Toggle::make('content.visibility.show_values')
                             ->label('06 · Core Values Section (Principles That Guide Every Partnership)')
                             ->default(false),
