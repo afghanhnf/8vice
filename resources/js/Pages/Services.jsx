@@ -369,6 +369,16 @@ export default function Services({ services: cmsServices = [], pageContent = nul
       };
 
   const copy = mergePageContent(rawCopy, pageContent);
+  const vis = {
+    show_hero: true,
+    show_hero_eyebrow: true,
+    show_hero_image: true,
+    show_hero_image_badges: false,
+    show_services_grid: true,
+    show_approach: true,
+    show_cta: true,
+    ...(copy.visibility || {}),
+  };
 
   return (
     <MainLayout>
@@ -556,12 +566,14 @@ export default function Services({ services: cmsServices = [], pageContent = nul
                 <span style={{ color: '#FF6B76', fontWeight: 600 }}>{copy.breadcrumb}</span>
               </nav>
 
+              {vis.show_hero_eyebrow !== false && Boolean(copy.eyebrow) && (
               <div>
                 <div className="svc-eyebrow-pill">
                   <span className="svc-eyebrow-dot" />
                   <span>{copy.eyebrow}</span>
                 </div>
               </div>
+              )}
 
               <h1
                 style={{
@@ -573,7 +585,8 @@ export default function Services({ services: cmsServices = [], pageContent = nul
                   margin: 0
                 }}
               >
-                <span style={{ display: 'block' }}>{copy.heroTitleLine1}</span>
+                {Boolean(copy.heroTitleLine1) && <span style={{ display: 'block' }}>{copy.heroTitleLine1}</span>}
+                {Boolean(copy.heroTitleLine2) && (
                 <span
                   style={{
                     display: 'block',
@@ -584,10 +597,12 @@ export default function Services({ services: cmsServices = [], pageContent = nul
                 >
                   {copy.heroTitleLine2}
                 </span>
+                )}
               </h1>
             </div>
 
             {/* Large Panoramic Image with Embedded Hero Lead Statement Inside */}
+            {vis.show_hero_image !== false && (
             <div className="svc-hero-frame m3-reveal m3-reveal--scale is-visible m3-delay-1">
               <img loading="lazy" decoding="async" src="/images/consultancy_hero.webp" alt={copy.breadcrumb} />
 
@@ -600,6 +615,7 @@ export default function Services({ services: cmsServices = [], pageContent = nul
                 }}
               />
 
+              {vis.show_hero_image_badges === true && Boolean(copy.eyebrow) && (
               <div
                 style={{
                   position: 'absolute',
@@ -635,6 +651,7 @@ export default function Services({ services: cmsServices = [], pageContent = nul
                   {copy.eyebrow}
                 </span>
               </div>
+              )}
 
               <div
                 style={{
@@ -674,12 +691,14 @@ export default function Services({ services: cmsServices = [], pageContent = nul
                 </div>
               </div>
             </div>
+            )}
           </div>
         </section>
 
         {/* ========================================================================= */}
         {/* 01 · 6 SERVICE PILLARS GRID                                               */}
         {/* ========================================================================= */}
+        {vis.show_services_grid !== false && (
         <section
           style={{
             position: 'relative',
@@ -789,10 +808,12 @@ export default function Services({ services: cmsServices = [], pageContent = nul
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* OUR STRATEGIC APPROACH (5-STAGE CONNECTED ROADMAP, MOVED FROM ABOUT US)    */}
         {/* ========================================================================= */}
+        {vis.show_approach !== false && (
         <section
           style={{
             position: 'relative',
@@ -954,10 +975,12 @@ export default function Services({ services: cmsServices = [], pageContent = nul
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* 03 · EXECUTIVE CTA BAND                                                   */}
         {/* ========================================================================= */}
+        {vis.show_cta !== false && (
         <section
           style={{
             position: 'relative',
@@ -1056,6 +1079,7 @@ export default function Services({ services: cmsServices = [], pageContent = nul
             </div>
           </div>
         </section>
+        )}
       </div>
     </MainLayout>
   );

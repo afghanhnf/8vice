@@ -125,6 +125,7 @@ class SeoResolver
         }
 
         $ogImage = self::normalizeImageUrl($rawImage, $baseUrl);
+        [$ogImageWidth, $ogImageHeight] = self::resolveImageDimensions($rawImage);
 
         // 4. Resolve Keywords, Robots, Canonical & Locales
         $keywords = '';
@@ -161,6 +162,8 @@ class SeoResolver
             'cn_url' => $cnUrl,
             'og_type' => $ogType,
             'og_image' => $ogImage,
+            'og_image_width' => $ogImageWidth,
+            'og_image_height' => $ogImageHeight,
             'og_locale' => $ogLocale,
             'og_locale_alt' => $ogLocaleAlt,
             'twitter_handle' => $twitterHandle,
@@ -259,5 +262,31 @@ class SeoResolver
             return "{$baseUrl}/images/og-default.webp";
         }
         return "{$baseUrl}/storage/{$rel}";
+    }
+
+    protected static function resolveImageDimensions(string $rawImage): array
+    {
+        $rawImage = trim($rawImage);
+        if ($rawImage === '' || str_starts_with($rawImage, 'http://') || str_starts_with($rawImage, 'https://')) {
+            return [1024, 1024];
+        }
+
+        $rel = ltrim($rawImage, '/');
+        $candidates = [
+            public_path($rel),
+            public_path("storage/{$rel}"),
+            public_path('images/og-default.webp'),
+        ];
+
+        foreach ($candidates as $file) {
+            if ($file && is_file($file)) {
+                $info = @getimagesize($file);
+                if (is_array($info) && !empty($info[0]) && !empty($info[1])) {
+                    return [(int) $info[0], (int) $info[1]];
+                }
+            }
+        }
+
+        return [1024, 1024];
     }
 }

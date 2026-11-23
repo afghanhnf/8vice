@@ -3,8 +3,9 @@ import SeoHead from '@/Components/SeoHead';
 import Link from '@/Components/LocalizedLink';
 import MainLayout from '@/Layouts/MainLayout';
 import { useTranslation } from '@/Contexts/TranslationContext';
-import { getAllResearchPapers } from '@/data/researchPapers';
+import { getAllResearchPapers, getResearchPaperBySlug } from '@/data/researchPapers';
 import { mergePageContent } from '@/utils/mergePageContent';
+import { normalizeResearchPaper } from '@/utils/researchPaperHelper';
 
 /* ============================================================================
    Reusable Animated Modern City & Architectural Grid Background
@@ -165,10 +166,21 @@ export default function Article({ insights = [], pageContent = null }) {
   const [partnerSubmitting, setPartnerSubmitting] = useState(false);
   const [partnerSuccess, setPartnerSuccess] = useState(false);
 
-  /* China In-Depth Research Papers & Intelligence Reports */
-  const allResearchPapers = useMemo(() => getAllResearchPapers(), []);
-  const flagshipPaper = allResearchPapers[0];
-  const secondaryPapers = allResearchPapers.slice(1);
+  /* Locked Research Papers (strictly separated from News & Editorial Articles) */
+  const researchPapers = useMemo(() => {
+    const dbPapers = insights.filter((item) => Boolean(item.is_research_paper));
+    const sourceList = dbPapers.length > 0 ? dbPapers : (insights.length === 0 ? getAllResearchPapers() : []);
+    return sourceList.map((item) => normalizeResearchPaper(item, getResearchPaperBySlug(item.slug), lang));
+  }, [insights, lang]);
+
+  const flagshipPaper = researchPapers[0] || null;
+  const secondaryPapers = researchPapers.slice(1);
+
+  /* Editorial News & Articles ONLY (exclude Locked Research Papers) */
+  const editorialInsights = useMemo(
+    () => insights.filter((item) => !item.is_research_paper),
+    [insights]
+  );
 
   /* IntersectionObserver for Google M3 scroll-reveal animations */
   useEffect(() => {
@@ -208,11 +220,11 @@ export default function Article({ insights = [], pageContent = null }) {
 
   const categories = useMemo(() => {
     const set = new Set();
-    insights.forEach((i) => {
+    editorialInsights.forEach((i) => {
       if (i.cat) set.add(i.cat);
     });
     return ['All', ...Array.from(set)];
-  }, [insights]);
+  }, [editorialInsights]);
 
   const getLocalized = (val) => {
     if (!val) return '';
@@ -221,7 +233,7 @@ export default function Article({ insights = [], pageContent = null }) {
   };
 
   const filteredArticles = useMemo(() => {
-    return insights.filter((a) => {
+    return editorialInsights.filter((a) => {
       const matchCategory = activeCategory === 'All' || a.cat === activeCategory;
       const q = searchQuery.toLowerCase().trim();
       const title = getLocalized(a.t || a.title);
@@ -233,7 +245,7 @@ export default function Article({ insights = [], pageContent = null }) {
         (a.cat || '').toLowerCase().includes(q);
       return matchCategory && matchSearch;
     });
-  }, [insights, activeCategory, searchQuery, isId, isCn]);
+  }, [editorialInsights, activeCategory, searchQuery, isId, isCn]);
 
   const featuredArticle = filteredArticles[0];
   const listArticles = filteredArticles.slice(1);
@@ -1012,193 +1024,283 @@ export default function Article({ insights = [], pageContent = null }) {
         </section>
 
         {/* ================================================================
-            02 · IN-DEPTH CHINA RESEARCH & PAPERS (#china-research)
+            02 · LOCKED RESEARCH PAPERS & SCALEV DIRECT CHECKOUT (#china-research)
             ================================================================ */}
-        <section id="china-research" className="ins-section ins-section--research">
-          <ModernCityBg variant="research" />
+        {researchPapers.length > 0 && (
+          <>
+            <section id="china-research" className="ins-section ins-section--research">
+              <ModernCityBg variant="research" />
 
-          <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-            <div className="ins-stream-head m3-reveal" style={{ marginBottom: '40px' }}>
-              <div>
-                <div className="ins-kicker">{copy.chinaResearchEyebrow}</div>
-                <h2 className="ins-section-title" style={{ margin: 0 }}>
-                  {copy.chinaResearchTitle}
-                </h2>
-              </div>
-              <p className="ins-research-head-lead">
-                {copy.chinaResearchSubtitle}
-              </p>
-            </div>
-
-            {/* Flagship Research Paper Card */}
-            {flagshipPaper && (
-              <div className="ins-research-flagship m3-reveal m3-reveal--scale">
-                {/* Left: Technical Visual & Badges */}
-                <div className="ins-research-flagship__media">
-                  <img
-                    src={flagshipPaper.cover}
-                    alt={isCn ? flagshipPaper.title.cn : isId ? flagshipPaper.title.id : flagshipPaper.title.en}
-                    className="ins-research-flagship__img"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="ins-research-flagship__shade" />
-
-                  {/* Top Badges */}
-                  <div className="ins-research-flagship__badges-top">
-                    <span className="ins-research-badge-pill">
-                      <span className="ins-research-badge-dot" />
-                      {isCn ? flagshipPaper.badgeCn : isId ? flagshipPaper.badgeId : flagshipPaper.badge}
-                    </span>
-                    <span className="ins-research-locked-badge">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '5px' }}>
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                      </svg>
-                      {isCn ? '锁定报告' : isId ? 'DOKUMEN TERKUNCI' : 'LOCKED PAPER'}
-                    </span>
+              <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+                <div className="ins-stream-head m3-reveal" style={{ marginBottom: '40px' }}>
+                  <div>
+                    <div className="ins-kicker">{copy.chinaResearchEyebrow}</div>
+                    <h2 className="ins-section-title" style={{ margin: 0 }}>
+                      {copy.chinaResearchTitle}
+                    </h2>
                   </div>
-
-                  {/* Bottom Spec Pills */}
-                  <div className="ins-research-flagship__badges-bottom">
-                    <div className="ins-research-spec-pill">
-                      <span>📄 58 PAGES UNABRIDGED</span>
-                      <span>·</span>
-                      <span>PDF + RAW XLSX</span>
-                      <span>·</span>
-                      <span>OCT 2026</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: Technical Metadata & Pricing Box */}
-                <div className="ins-research-flagship__body">
-                  <div className="ins-research-flagship__meta">
-                    <span className="ins-research-cat-tag">
-                      {isCn ? flagshipPaper.categoryCn : isId ? flagshipPaper.categoryId : flagshipPaper.category}
-                    </span>
-                    <span className="ins-meta-sep">·</span>
-                    <span className="ins-research-time-tag">
-                      {flagshipPaper.readTime}
-                    </span>
-                  </div>
-
-                  <h3 className="ins-research-flagship__title">
-                    <Link href={`/insights/${flagshipPaper.slug}`}>
-                      {isCn ? flagshipPaper.title.cn : isId ? flagshipPaper.title.id : flagshipPaper.title.en}
-                    </Link>
-                  </h3>
-
-                  <p className="ins-research-flagship__excerpt">
-                    {isCn ? flagshipPaper.subtitle.cn : isId ? flagshipPaper.subtitle.id : flagshipPaper.subtitle.en}
+                  <p className="ins-research-head-lead">
+                    {copy.chinaResearchSubtitle}
                   </p>
-
-                  {/* Highlights Grid */}
-                  <div className="ins-research-highlights-grid">
-                    {(isCn ? flagshipPaper.highlights.cn : isId ? flagshipPaper.highlights.id : flagshipPaper.highlights.en).map((hl, hIdx) => (
-                      <div key={hIdx} className="ins-research-highlight-box">
-                        <div className="ins-research-highlight-val">{hl.value}</div>
-                        <div className="ins-research-highlight-lbl">{hl.label}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Pricing & Lock Callout Box */}
-                  <div className="ins-research-pricing-callout">
-                    <div className="ins-research-pricing-head">
-                      <div>
-                        <div className="ins-research-pricing-sub">
-                          {copy.chinaResearchPriceLabel}
-                        </div>
-                        <div className="ins-research-price-val">
-                          <span className="ins-research-price-amount">
-                            {flagshipPaper.pricing.individualPriceFormatted}
-                          </span>
-                          <span className="ins-research-price-usd">
-                            ({flagshipPaper.pricing.individualPriceUsd})
-                          </span>
-                        </div>
-                      </div>
-                      <span className="ins-research-locked-pill">
-                        🔒 {isCn ? '默认锁定' : isId ? 'Default Terkunci' : 'Default Locked'}
-                      </span>
-                    </div>
-                    <p className="ins-research-pricing-note">
-                      {copy.chinaResearchPriceNote}
-                    </p>
-                  </div>
-
-                  {/* Action CTAs */}
-                  <div className="ins-research-flagship__actions">
-                    <Link
-                      href={`/insights/${flagshipPaper.slug}`}
-                      className="ins-research-btn ins-research-btn--primary"
-                    >
-                      <span>{copy.chinaResearchCtaPrimary}</span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                      </svg>
-                    </Link>
-
-                    <Link
-                      href={`/insights/${flagshipPaper.slug}#article-research-paper`}
-                      className="ins-research-btn ins-research-btn--locked"
-                    >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                      </svg>
-                      <span>{copy.chinaResearchCtaLocked}</span>
-                    </Link>
-                  </div>
                 </div>
-              </div>
-            )}
 
-            {/* Secondary China Research Briefs */}
-            {secondaryPapers.length > 0 && (
-              <div className="ins-research-secondary-wrap m3-reveal">
-                <div className="ins-research-secondary-head">
-                  <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: '#FFFFFF' }}>
-                    {copy.chinaResearchOtherTitle}
-                  </h4>
-                </div>
-                <div className="ins-research-secondary-grid">
-                  {secondaryPapers.map((paper) => (
-                    <div key={paper.id} className="ins-research-secondary-card">
-                      <div className="ins-research-secondary-card__top">
-                        <span className="ins-research-mini-badge">
-                          {isCn ? paper.badgeCn : isId ? paper.badgeId : paper.badge}
+                {/* Flagship Research Paper Card */}
+                {flagshipPaper && (
+                  <div className="ins-research-flagship m3-reveal m3-reveal--scale">
+                    {/* Left: Technical Visual & Badges */}
+                    <div className="ins-research-flagship__media">
+                      <img
+                        src={flagshipPaper.cover}
+                        alt={flagshipPaper.title}
+                        className="ins-research-flagship__img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div className="ins-research-flagship__shade" />
+
+                      {/* Top Badges */}
+                      <div className="ins-research-flagship__badges-top">
+                        <span className="ins-research-badge-pill">
+                          <span className="ins-research-badge-dot" />
+                          {flagshipPaper.badge}
                         </span>
-                        <span className="ins-research-mini-locked">🔒 {paper.pagesCount}p PDF</span>
+                        {flagshipPaper.isLocked && (
+                          <span className="ins-research-locked-badge">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '5px' }}>
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            {isCn ? '锁定专享报告' : isId ? 'DOKUMEN TERKUNCI' : 'LOCKED PAPER'}
+                          </span>
+                        )}
                       </div>
-                      <h4 className="ins-research-secondary-card__title">
-                        <Link href={`/insights/${paper.slug}`}>
-                          {isCn ? paper.title.cn : isId ? paper.title.id : paper.title.en}
-                        </Link>
-                      </h4>
-                      <p className="ins-research-secondary-card__desc">
-                        {isCn ? paper.subtitle.cn : isId ? paper.subtitle.id : paper.subtitle.en}
+
+                      {/* Bottom Spec Pills */}
+                      <div className="ins-research-flagship__badges-bottom">
+                        <div className="ins-research-spec-pill">
+                          <span>📄 {flagshipPaper.pagesCount} PAGES</span>
+                          <span>·</span>
+                          <span>{flagshipPaper.fileFormat}</span>
+                          <span>·</span>
+                          <span>{flagshipPaper.date}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right: Technical Metadata & Scalev Pricing Box */}
+                    <div className="ins-research-flagship__body">
+                      <div className="ins-research-flagship__meta">
+                        <span className="ins-research-cat-tag">
+                          {flagshipPaper.category}
+                        </span>
+                        <span className="ins-meta-sep">·</span>
+                        <span className="ins-research-time-tag">
+                          {flagshipPaper.readTime}
+                        </span>
+                      </div>
+
+                      <h3 className="ins-research-flagship__title">
+                        {flagshipPaper.scalevUrl ? (
+                          <a href={flagshipPaper.scalevUrl} target="_blank" rel="noopener noreferrer">
+                            {flagshipPaper.title}
+                          </a>
+                        ) : (
+                          <Link href={`/insights/${flagshipPaper.slug}`}>
+                            {flagshipPaper.title}
+                          </Link>
+                        )}
+                      </h3>
+
+                      <p className="ins-research-flagship__excerpt">
+                        {flagshipPaper.subtitle}
                       </p>
-                      <div className="ins-research-secondary-card__foot">
-                        <span className="ins-research-secondary-card__price">
-                          {paper.pricing.individualPriceFormatted}
-                        </span>
+
+                      {/* Highlights Grid */}
+                      <div className="ins-research-highlights-grid">
+                        {flagshipPaper.highlights.map((hl, hIdx) => (
+                          <div key={hIdx} className="ins-research-highlight-box">
+                            <div className="ins-research-highlight-val">{hl.value}</div>
+                            <div className="ins-research-highlight-lbl">{hl.label}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Pricing & Deliverables Callout Box */}
+                      <div className="ins-research-pricing-callout">
+                        <div className="ins-research-pricing-head">
+                          <div>
+                            <div className="ins-research-pricing-sub">
+                              {copy.chinaResearchPriceLabel}
+                            </div>
+                            <div className="ins-research-price-val">
+                              {flagshipPaper.originalPriceIdrFormatted && (
+                                <span className="ins-research-price-strike">
+                                  {flagshipPaper.originalPriceIdrFormatted}
+                                </span>
+                              )}
+                              {flagshipPaper.priceIdrFormatted ? (
+                                <span className="ins-research-price-amount">
+                                  {flagshipPaper.priceIdrFormatted}
+                                </span>
+                              ) : (
+                                <span className="ins-research-price-amount">
+                                  {isCn ? '付费解锁获取' : isId ? 'Akses Berbayar Scalev' : 'Premium Scalev Access'}
+                                </span>
+                              )}
+                              {flagshipPaper.priceUsd && (
+                                <span className="ins-research-price-usd">
+                                  ({flagshipPaper.priceUsd})
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <span className="ins-research-locked-pill">
+                            🔒 {isCn ? 'Scalev 直连授权' : isId ? 'Checkout Langsung Scalev' : 'Direct Scalev Access'}
+                          </span>
+                        </div>
+
+                        {flagshipPaper.includes.length > 0 ? (
+                          <ul className="ins-research-includes-list">
+                            {flagshipPaper.includes.map((inc, iIdx) => (
+                              <li key={iIdx}>✓ {inc}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="ins-research-pricing-note">
+                            {copy.chinaResearchPriceNote}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Action CTAs — Direct Link to Scalev */}
+                      <div className="ins-research-flagship__actions">
+                        {flagshipPaper.scalevUrl ? (
+                          <a
+                            href={flagshipPaper.scalevUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ins-research-btn ins-research-btn--primary"
+                          >
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <span>{flagshipPaper.ctaLabel}</span>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <path d="M7 17L17 7M7 7h10v10" />
+                            </svg>
+                          </a>
+                        ) : (
+                          <Link
+                            href={`/insights/${flagshipPaper.slug}`}
+                            className="ins-research-btn ins-research-btn--primary"
+                          >
+                            <span>{copy.chinaResearchCtaPrimary}</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <line x1="5" y1="12" x2="19" y2="12" />
+                              <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                          </Link>
+                        )}
+
                         <Link
-                          href={`/insights/${paper.slug}#article-research-paper`}
-                          className="ins-research-secondary-card__link"
+                          href={`/insights/${flagshipPaper.slug}`}
+                          className="ins-research-btn ins-research-btn--locked"
                         >
-                          {isCn ? '解锁报告 →' : isId ? 'Buka Paper →' : 'Unlock Paper →'}
+                          <span>{isCn ? '查看报告摘要与目录 →' : isId ? 'Lihat Ringkasan & Daftar Isi →' : 'Read Executive Abstract →'}</span>
                         </Link>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+
+                {/* Additional Locked Research Papers */}
+                {secondaryPapers.length > 0 && (
+                  <div className="ins-research-secondary-wrap m3-reveal">
+                    <div className="ins-research-secondary-head">
+                      <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: '#FFFFFF' }}>
+                        {copy.chinaResearchOtherTitle}
+                      </h4>
+                    </div>
+                    <div className="ins-research-secondary-grid">
+                      {secondaryPapers.map((paper) => (
+                        <div key={paper.id} className="ins-research-secondary-card">
+                          <div>
+                            <div className="ins-research-secondary-card__top">
+                              <span className="ins-research-mini-badge">
+                                {paper.badge}
+                              </span>
+                              <span className="ins-research-mini-locked">🔒 {paper.pagesCount}p</span>
+                            </div>
+                            <h4 className="ins-research-secondary-card__title">
+                              {paper.scalevUrl ? (
+                                <a href={paper.scalevUrl} target="_blank" rel="noopener noreferrer">
+                                  {paper.title}
+                                </a>
+                              ) : (
+                                <Link href={`/insights/${paper.slug}`}>
+                                  {paper.title}
+                                </Link>
+                              )}
+                            </h4>
+                            <p className="ins-research-secondary-card__desc">
+                              {paper.subtitle}
+                            </p>
+                          </div>
+                          <div className="ins-research-secondary-card__foot">
+                            <div className="ins-research-secondary-card__price-wrap">
+                              {paper.originalPriceIdrFormatted && (
+                                <span className="ins-research-price-strike ins-research-price-strike--sm">
+                                  {paper.originalPriceIdrFormatted}
+                                </span>
+                              )}
+                              <span className="ins-research-secondary-card__price">
+                                {paper.priceIdrFormatted || paper.priceUsd || (isId ? 'Akses Scalev' : 'Scalev Access')}
+                              </span>
+                            </div>
+                            {paper.scalevUrl ? (
+                              <a
+                                href={paper.scalevUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="ins-research-secondary-card__link"
+                              >
+                                {paper.ctaLabel} ↗
+                              </a>
+                            ) : (
+                              <Link
+                                href={`/insights/${paper.slug}`}
+                                className="ins-research-secondary-card__link"
+                              >
+                                {isCn ? '查看详情 →' : isId ? 'Buka Paper →' : 'View Paper →'}
+                              </Link>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </section>
+            </section>
+
+            {/* Dedicated Visual Divider Line Separating Locked Research Papers from News & Articles */}
+            <div className="ins-section-divider" role="separator" aria-label="Section separator between Locked Research Papers and News & Articles">
+              <div className="container ins-section-divider__inner">
+                <span className="ins-section-divider__line" />
+                <span className="ins-section-divider__pill">
+                  <span className="ins-section-divider__dot" />
+                  {isCn
+                    ? '以上为付费锁定研报 · 以下为免费新闻与战略简报'
+                    : isId
+                    ? 'BATAS PEMISAH · RISET BERBAYAR DI ATAS | BERITA & ARTIKEL DI BAWAH'
+                    : 'PREMIUM LOCKED PAPERS ABOVE · FREE NEWS & BRIEFINGS BELOW'}
+                </span>
+                <span className="ins-section-divider__line" />
+              </div>
+            </div>
+          </>
+        )}
 
         {/* ================================================================
             03 · FEATURED PERSPECTIVES & ARTICLES STREAM (#insights-stream)
@@ -2076,7 +2178,7 @@ export default function Article({ insights = [], pageContent = null }) {
           padding: 38px 40px;
           display: flex;
           flex-direction: column;
-          justifyContent: space-between;
+          justify-content: space-between;
           background: linear-gradient(135deg, rgba(20, 24, 34, 0.9) 0%, rgba(12, 14, 20, 0.96) 100%);
         }
         .ins-research-flagship__meta {
@@ -2173,7 +2275,30 @@ export default function Article({ insights = [], pageContent = null }) {
         .ins-research-price-val {
           display: flex;
           align-items: baseline;
-          gap: 8px;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 4px;
+        }
+        .ins-research-price-strike {
+          font-size: 14px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.42);
+          text-decoration: line-through;
+        }
+        .ins-research-price-strike--sm {
+          font-size: 12px;
+          margin-right: 6px;
+        }
+        .ins-research-includes-list {
+          list-style: none;
+          padding: 8px 0 0;
+          margin: 8px 0 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          display: grid;
+          gap: 5px;
+          font-size: 12.5px;
+          line-height: 1.5;
+          color: rgba(255, 255, 255, 0.78);
         }
         .ins-research-price-amount {
           font-size: 20px;
@@ -2249,7 +2374,7 @@ export default function Article({ insights = [], pageContent = null }) {
         }
         .ins-research-secondary-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
           gap: 20px;
         }
         .ins-research-secondary-card {
@@ -2259,8 +2384,51 @@ export default function Article({ insights = [], pageContent = null }) {
           padding: 24px;
           display: flex;
           flex-direction: column;
-          justifyContent: space-between;
+          justify-content: space-between;
           transition: transform 0.35s ease, border-color 0.35s ease;
+        }
+        .ins-research-secondary-card__price-wrap {
+          display: flex;
+          align-items: baseline;
+          flex-wrap: wrap;
+        }
+        /* Dedicated Visual Separator between Locked Research Papers & Editorial News */
+        .ins-section-divider {
+          background: linear-gradient(180deg, rgba(11, 13, 19, 1) 0%, rgba(8, 9, 12, 1) 100%);
+          padding: 10px 0;
+        }
+        .ins-section-divider__inner {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        .ins-section-divider__line {
+          flex: 1;
+          height: 1px;
+          background: linear-gradient(90deg, rgba(230, 57, 70, 0.08), rgba(230, 57, 70, 0.65), rgba(230, 57, 70, 0.08));
+        }
+        .ins-section-divider__pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 7px 16px;
+          border-radius: 999px;
+          background: rgba(230, 57, 70, 0.12);
+          border: 1px solid rgba(230, 57, 70, 0.4);
+          color: rgba(255, 255, 255, 0.88);
+          font-size: 10.5px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          text-align: center;
+        }
+        .ins-section-divider__dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #E63946;
+          box-shadow: 0 0 8px #E63946;
+          flex-shrink: 0;
         }
         .ins-research-secondary-card:hover {
           transform: translateY(-4px);
@@ -2980,6 +3148,18 @@ export default function Article({ insights = [], pageContent = null }) {
           .ins-articles-grid,
           .ins-form-row {
             grid-template-columns: 1fr;
+          }
+          .ins-section-divider__pill {
+            font-size: 9.5px;
+            letter-spacing: 0.08em;
+            padding: 6px 12px;
+          }
+          .ins-research-flagship__actions {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .ins-research-btn {
+            justify-content: center;
           }
         }
       `}</style>

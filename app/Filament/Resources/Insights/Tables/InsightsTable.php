@@ -9,6 +9,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 
 
 class InsightsTable
@@ -20,11 +22,17 @@ class InsightsTable
                 TextColumn::make('t')->label('Title')->searchable(),
                 TextColumn::make('cat')->label('Category')->searchable(),
                 IconColumn::make('is_research_paper')
-                    ->label('Paper')
+                    ->label('Locked Paper')
                     ->boolean()
-                    ->trueIcon('heroicon-o-document-check')
+                    ->trueIcon('heroicon-o-lock-closed')
                     ->falseIcon('heroicon-o-minus')
                     ->alignCenter(),
+                TextColumn::make('paper_price_idr')
+                    ->label('Paper Price')
+                    ->formatStateUsing(fn ($state, $record): string => $record?->is_research_paper
+                        ? ($state ? 'Rp ' . number_format((int) $state, 0, ',', '.') : 'Not set')
+                        : '—')
+                    ->sortable(),
                 TextColumn::make('rt')->label('Read Time'),
                 TextColumn::make('status')
                     ->label('Status')
@@ -40,7 +48,12 @@ class InsightsTable
             ])
             ->defaultSort('id', 'desc')
             ->filters([
-                \Filament\Tables\Filters\SelectFilter::make('status')
+                TernaryFilter::make('is_research_paper')
+                    ->label('Content Type')
+                    ->placeholder('All Items')
+                    ->trueLabel('Locked Research Papers Only')
+                    ->falseLabel('News & Articles Only'),
+                SelectFilter::make('status')
                     ->options(['Draft' => 'Draft', 'Publish' => 'Publish', 'Archive' => 'Archive']),
             ])
             ->recordActions([

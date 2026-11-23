@@ -36,18 +36,28 @@ class TrafficStatsOverviewWidget extends StatsOverviewWidget
             $sparkline[] = TrafficLog::whereDate('created_at', $d)->count();
         }
 
-        $totalViews = TrafficLog::count();
-        $uniqueVisitors = TrafficLog::distinct('ip_address')->count('ip_address');
-        $totalInquiries = ContactMessage::count();
+        $since30Days = Carbon::today()->subDays(29);
+        $totalViews = TrafficLog::where('created_at', '>=', $since30Days)->count();
+        $uniqueVisitors = TrafficLog::where('created_at', '>=', $since30Days)
+            ->distinct('ip_address')
+            ->count('ip_address');
 
-        // Top Referer
+        // Top External Acquisition Source (ignore self-referrals)
         $topReferer = TrafficLog::whereNotNull('referer')
+            ->where('referer', '!=', '')
+            ->where('referer', 'not like', '%8vice.com%')
+            ->where('referer', 'not like', '%127.0.0.1%')
+            ->where('referer', 'not like', '%localhost%')
             ->selectRaw('CASE 
-                WHEN referer LIKE "%google%" THEN "Google Search" 
-                WHEN referer LIKE "%linkedin%" THEN "LinkedIn" 
-                WHEN referer LIKE "%whatsapp%" THEN "WhatsApp" 
-                WHEN referer LIKE "%weixin%" OR referer LIKE "%wechat%" THEN "WeChat" 
-                ELSE "Referrals / Other" 
+                WHEN LOWER(referer) LIKE "%google%" THEN "Google Search" 
+                WHEN LOWER(referer) LIKE "%bing.%" OR LOWER(referer) LIKE "%baidu.%" OR LOWER(referer) LIKE "%yahoo.%" THEN "Bing / Baidu / Search"
+                WHEN LOWER(referer) LIKE "%linkedin%" THEN "LinkedIn" 
+                WHEN LOWER(referer) LIKE "%instagram%" THEN "Instagram"
+                WHEN LOWER(referer) LIKE "%facebook%" OR LOWER(referer) LIKE "%fb.%" THEN "Facebook"
+                WHEN LOWER(referer) LIKE "%whatsapp%" THEN "WhatsApp" 
+                WHEN LOWER(referer) LIKE "%weixin%" OR LOWER(referer) LIKE "%wechat%" THEN "WeChat" 
+                WHEN LOWER(referer) LIKE "%twitter%" OR LOWER(referer) LIKE "%t.co%" OR LOWER(referer) LIKE "%x.com%" THEN "X / Twitter"
+                ELSE "External Referrals" 
             END as source, count(*) as count')
             ->groupBy('source')
             ->orderByDesc('count')
@@ -63,13 +73,13 @@ class TrafficStatsOverviewWidget extends StatsOverviewWidget
                 ->chart($sparkline),
 
             Stat::make('Total Pageviews (30 Days)', number_format($totalViews))
-                ->description('Aggregated website traffic')
+                ->description('Real visitor pageviews (last 30 days)')
                 ->descriptionIcon('heroicon-m-chart-bar')
                 ->color('primary')
                 ->chart($sparkline),
 
-            Stat::make('Unique Visitors', number_format($uniqueVisitors))
-                ->description('Distinct IP addresses')
+            Stat::make('Unique Visitors (30 Days)', number_format($uniqueVisitors))
+                ->description('Distinct IP addresses (last 30 days)')
                 ->descriptionIcon('heroicon-m-users')
                 ->color('info'),
 

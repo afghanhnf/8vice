@@ -180,7 +180,7 @@ export default function About({ profiles = [], pageContent = null }) {
       window.removeEventListener('keydown', handleKeyDown);
       observer.disconnect();
     };
-  }, [lang]);
+  }, [lang, pageContent]);
 
   const rawCopy = isCn
     ? {
@@ -192,6 +192,7 @@ export default function About({ profiles = [], pageContent = null }) {
       heroSubtitle:
         '横跨印尼与中国的战略咨询、跨境合作伙伴构建与本土市场深耕。',
       heroBannerBadge: '我们的创立使命 · 印尼—中国战略商业走廊',
+      heroBannerCorridor: 'JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN',
       heroBannerQuote:
         '8 Vice 的创立旨在协助企业从容应对跨境扩张中的商业机遇与复杂挑战，重点深耕印尼与中国两大核心市场。',
       heroBannerSub:
@@ -234,7 +235,7 @@ export default function About({ profiles = [], pageContent = null }) {
       ],
 
       who: {
-        eyebrow: '关于我们',
+        eyebrow: '关于我们。',
         title: ['连接双边市场。', '构建战略合作。', '创造商业机遇。'],
         lead:
           '8 Vice 是一家专注于印尼—中国走廊的战略咨询与业务拓展机构，致力于协助企业以更清晰的视野、更笃定的信心与更精准的战略方向把握跨境商业机遇。',
@@ -359,10 +360,10 @@ export default function About({ profiles = [], pageContent = null }) {
         }
       ],
 
-      peopleEyebrow: '8 VICE 核心领导团队',
-      peopleTitle: '8 Vice 背后的领军人物。',
+      peopleEyebrow: '核心团队背后的力量',
+      peopleTitle: '源于深厚积淀。成于高效连接。',
       peopleLead:
-        '认识推动我们在印尼与中国开展战略咨询、政商网络对接与跨境落地执行的跨学科领导团队。',
+        '汇集跨越政府机构、国有企业与私营部门的数十年战略咨询积淀，全力赋能您的市场准入与增长。',
       experiencesHeading: '专业履历与经验',
       peopleClickHint: '查看完整履历',
       peopleModalClose: '关闭简介',
@@ -543,6 +544,7 @@ export default function About({ profiles = [], pageContent = null }) {
         heroSubtitle:
           'Penasihat Strategis, Kemitraan Lintas Batas, dan Keterlibatan Pasar di Seluruh Indonesia dan Tiongkok.',
         heroBannerBadge: 'MANDAT PENDIRIAN KAMI · KORIDOR INDONESIA–TIONGKOK',
+        heroBannerCorridor: 'JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN',
         heroBannerQuote:
           '8 Vice didirikan untuk membantu bisnis menavigasi peluang dan kompleksitas ekspansi lintas batas negara, dengan fokus khusus pada pasar Indonesia dan Tiongkok.',
         heroBannerSub:
@@ -585,7 +587,7 @@ export default function About({ profiles = [], pageContent = null }) {
         ],
 
         who: {
-          eyebrow: 'TENTANG KAMI',
+          eyebrow: 'TENTANG KAMI.',
           title: ['Menjembatani Pasar.', 'Membangun Kemitraan.', 'Menciptakan Peluang.'],
           lead:
             '8 Vice adalah firma penasihat strategis dan pengembangan bisnis Indonesia–China yang berfokus membantu organisasi menavigasi peluang lintas batas dengan kejelasan, keyakinan, dan arah strategis yang tepat.',
@@ -710,10 +712,10 @@ export default function About({ profiles = [], pageContent = null }) {
           }
         ],
 
-        peopleEyebrow: 'THE PEOPLE BEHIND 8 VICE',
-        peopleTitle: 'Sosok di Balik 8 Vice.',
+        peopleEyebrow: 'DI BALIK LANGKAH STRATEGIS',
+        peopleTitle: 'Dibangun di Atas Pengalaman. Digerakkan oleh Koneksi.',
         peopleLead:
-          'Sinergi para pemimpin strategis yang menggabungkan pengalaman lintas industri, jaringan kelembagaan, dan pemahaman budaya bisnis Indonesia–Tiongkok.',
+          'Puluhan tahun pengalaman konsultasi di sektor pemerintahan, BUMN, dan swasta—kini hadir untuk mendukung ekspansi pasar Anda.',
         experiencesHeading: 'Pengalaman',
         peopleClickHint: 'Lihat profil lengkap',
         peopleModalClose: 'Tutup Profil',
@@ -893,6 +895,7 @@ export default function About({ profiles = [], pageContent = null }) {
         heroSubtitle:
           'Strategic Advisory, Cross-Border Partnerships, and Market Engagement Across Indonesia and China.',
         heroBannerBadge: 'OUR FOUNDING MANDATE · INDONESIA–CHINA CORRIDOR',
+        heroBannerCorridor: 'JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN',
         heroBannerQuote:
           '8 Vice was established to help businesses navigate the opportunities and complexities of cross-border expansion, with a particular focus on Indonesia and China.',
         heroBannerSub:
@@ -935,7 +938,7 @@ export default function About({ profiles = [], pageContent = null }) {
         ],
 
         who: {
-          eyebrow: 'WHO WE ARE',
+          eyebrow: 'WHO WE ARE.',
           title: ['Bridging Markets.', 'Building Partnerships.', 'Creating Opportunities.'],
           lead:
             '8 Vice is an Indonesia–China strategic advisory and business development firm focused on helping organizations navigate cross-border opportunities with greater clarity, confidence, and strategic direction.',
@@ -1060,10 +1063,10 @@ export default function About({ profiles = [], pageContent = null }) {
           }
         ],
 
-        peopleEyebrow: 'THE PEOPLE BEHIND 8 VICE',
-        peopleTitle: 'The People Behind 8 Vice.',
+        peopleEyebrow: 'THE MINDS BEHIND THE MOVE',
+        peopleTitle: 'Built on Experience. Driven by Connection.',
         peopleLead:
-          'Meet the multidisciplinary leaders driving our strategic advisory, stakeholder connectivity, and cross-border execution across Indonesia and China.',
+          'Decades of combined advisory across government, SOEs, and private enterprise, now working for your market entry.',
         experiencesHeading: 'Experiences',
         peopleClickHint: 'View full profile',
         peopleModalClose: 'Close Profile',
@@ -1236,6 +1239,26 @@ export default function About({ profiles = [], pageContent = null }) {
       };
 
   const copy = useMemo(() => mergePageContent(rawCopy, pageContent), [rawCopy, pageContent]);
+
+  const vis = useMemo(
+    () => ({
+      show_hero: true,
+      show_hero_image: true,
+      show_hero_image_badges: false,
+      show_overview: true,
+      show_overview_image_badges: false,
+      show_overview_foundations: false,
+      show_who: true,
+      show_vision_mission: true,
+      show_cross_border_process: true,
+      show_leadership_perspective: false,
+      show_people: true,
+      show_values: false,
+      show_cta: true,
+      ...(copy.visibility || {}),
+    }),
+    [copy.visibility]
+  );
 
   // Combine CMS profiles from backend props cleanly (DB edits in Admin Panel ALWAYS take precedence across EN/ID/CN)
   const peopleList = useMemo(() => {
@@ -1739,6 +1762,7 @@ export default function About({ profiles = [], pageContent = null }) {
         {/* ========================================================================= */}
         {/* 00 · HERO BANNER: CENTERED TITLE & BREADCRUMB + LARGE STATEMENT IMAGE     */}
         {/* ========================================================================= */}
+        {vis.show_hero !== false && (
         <section
           style={{
             position: 'relative',
@@ -1777,12 +1801,14 @@ export default function About({ profiles = [], pageContent = null }) {
                 <span style={{ color: '#FF6B76', fontWeight: 600 }}>{copy.breadcrumbCurrent}</span>
               </nav>
 
+              {Boolean(copy.eyebrow) && (
               <div>
                 <div className="about-eyebrow-pill">
                   <span className="about-eyebrow-dot" />
                   <span>{copy.eyebrow}</span>
                 </div>
               </div>
+              )}
 
               <h1
                 style={{
@@ -1794,7 +1820,8 @@ export default function About({ profiles = [], pageContent = null }) {
                   margin: '0 0 20px'
                 }}
               >
-                <span style={{ display: 'block' }}>{copy.heroTitleLine1}</span>
+                {Boolean(copy.heroTitleLine1) && <span style={{ display: 'block' }}>{copy.heroTitleLine1}</span>}
+                {Boolean(copy.heroTitleLine2) && (
                 <span
                   style={{
                     display: 'block',
@@ -1805,8 +1832,10 @@ export default function About({ profiles = [], pageContent = null }) {
                 >
                   {copy.heroTitleLine2}
                 </span>
+                )}
               </h1>
 
+              {Boolean(copy.heroSubtitle) && (
               <p
                 style={{
                   fontSize: 'clamp(16px, 1.8vw, 20px)',
@@ -1818,9 +1847,11 @@ export default function About({ profiles = [], pageContent = null }) {
               >
                 {copy.heroSubtitle}
               </p>
+              )}
             </div>
 
             {/* Large Panoramic Image with Embedded Statement Inside */}
+            {vis.show_hero_image !== false && (
             <div className="about-hero-frame about-anim about-anim--scale is-visible about-delay-1">
               <img
                 src="/images/china_city_network.webp"
@@ -1839,7 +1870,8 @@ export default function About({ profiles = [], pageContent = null }) {
                 }}
               />
 
-              {/* Top Corner Status Pills */}
+              {/* Top Corner Status Pills (controllable via Admin Visibility Toggle) */}
+              {vis.show_hero_image_badges === true && (Boolean(copy.heroBannerBadge) || Boolean(copy.heroBannerCorridor)) && (
               <div
                 style={{
                   position: 'absolute',
@@ -1854,6 +1886,7 @@ export default function About({ profiles = [], pageContent = null }) {
                   zIndex: 2
                 }}
               >
+                {Boolean(copy.heroBannerBadge) && (
                 <span
                   style={{
                     display: 'inline-flex',
@@ -1874,7 +1907,9 @@ export default function About({ profiles = [], pageContent = null }) {
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#E63946' }} />
                   {copy.heroBannerBadge}
                 </span>
+                )}
 
+                {Boolean(copy.heroBannerCorridor) && (
                 <span
                   style={{
                     padding: '6px 14px',
@@ -1888,11 +1923,14 @@ export default function About({ profiles = [], pageContent = null }) {
                     color: '#FFB3B8'
                   }}
                 >
-                  JAKARTA &harr; BEIJING &middot; SHANGHAI &middot; SHENZHEN
+                  {copy.heroBannerCorridor}
                 </span>
+                )}
               </div>
+              )}
 
               {/* Embedded Statement Inside the Large Image */}
+              {(Boolean(copy.heroBannerQuote) || Boolean(copy.heroBannerSub)) && (
               <div
                 style={{
                   position: 'absolute',
@@ -1916,18 +1954,21 @@ export default function About({ profiles = [], pageContent = null }) {
                     boxShadow: '0 20px 50px rgba(0, 0, 0, 0.65)'
                   }}
                 >
+                  {Boolean(copy.heroBannerQuote) && (
                   <p
                     style={{
                       fontSize: 'clamp(18px, 2.2vw, 26px)',
                       fontWeight: 700,
                       lineHeight: 1.42,
                       color: '#FFFFFF',
-                      margin: '0 0 12px',
+                      margin: copy.heroBannerSub ? '0 0 12px' : 0,
                       letterSpacing: '-0.015em'
                     }}
                   >
                     &ldquo;{copy.heroBannerQuote}&rdquo;
                   </p>
+                  )}
+                  {Boolean(copy.heroBannerSub) && (
                   <p
                     style={{
                       fontSize: '14.5px',
@@ -1938,15 +1979,20 @@ export default function About({ profiles = [], pageContent = null }) {
                   >
                     {copy.heroBannerSub}
                   </p>
+                  )}
                 </div>
               </div>
+              )}
             </div>
+            )}
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* 01 · COMPANY OVERVIEW & 3 CONNECTED FOUNDATIONS                           */}
         {/* ========================================================================= */}
+        {vis.show_overview !== false && (
         <section
           style={{
             position: 'relative',
@@ -1963,13 +2009,16 @@ export default function About({ profiles = [], pageContent = null }) {
             <div className="about-split-2">
               {/* Left Column */}
               <div className="about-anim about-anim--left" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                {Boolean(copy.overviewEyebrow) && (
                 <div>
                   <div className="about-eyebrow-pill">
                     <span className="about-eyebrow-dot" />
                     <span>{copy.overviewEyebrow}</span>
                   </div>
                 </div>
+                )}
 
+                {Boolean(copy.overviewTitle) && (
                 <h2
                   style={{
                     fontSize: 'clamp(30px, 3.4vw, 46px)',
@@ -1982,7 +2031,9 @@ export default function About({ profiles = [], pageContent = null }) {
                 >
                   {copy.overviewTitle}
                 </h2>
+                )}
 
+                {Boolean(copy.overviewLead) && (
                 <p
                   style={{
                     fontSize: '17px',
@@ -1994,7 +2045,9 @@ export default function About({ profiles = [], pageContent = null }) {
                 >
                   {copy.overviewLead}
                 </p>
+                )}
 
+                {Boolean(copy.overviewP1) && (
                 <p
                   style={{
                     fontSize: '15.5px',
@@ -2005,7 +2058,9 @@ export default function About({ profiles = [], pageContent = null }) {
                 >
                   {copy.overviewP1}
                 </p>
+                )}
 
+                {Boolean(copy.overviewP2) && (
                 <p
                   style={{
                     fontSize: '15.5px',
@@ -2016,8 +2071,10 @@ export default function About({ profiles = [], pageContent = null }) {
                 >
                   {copy.overviewP2}
                 </p>
+                )}
 
                 {/* Integrated Quote Callout Box */}
+                {Boolean(copy.overviewQuote) && (
                 <div
                   style={{
                     background: 'linear-gradient(135deg, rgba(230, 57, 70, 0.14) 0%, rgba(255, 255, 255, 0.02) 100%)',
@@ -2041,6 +2098,7 @@ export default function About({ profiles = [], pageContent = null }) {
                     &ldquo;{copy.overviewQuote}&rdquo;
                   </div>
                 </div>
+                )}
               </div>
 
               {/* Right Column: Clean Executive Framed Image */}
@@ -2079,7 +2137,8 @@ export default function About({ profiles = [], pageContent = null }) {
                     }}
                   />
 
-                  {/* Top Badge */}
+                  {/* Top Image Badge (Hidden by default, toggleable via Admin) */}
+                  {vis.show_overview_image_badges === true && Boolean(copy.overviewPhotoBadge) && (
                   <div style={{ position: 'absolute', top: '22px', left: '22px' }}>
                     <span
                       style={{
@@ -2102,8 +2161,10 @@ export default function About({ profiles = [], pageContent = null }) {
                       {copy.overviewPhotoBadge}
                     </span>
                   </div>
+                  )}
 
-                  {/* Bottom Caption & Pillar Summary inside Image */}
+                  {/* Bottom Caption & Optional Badge inside Image */}
+                  {Boolean(copy.overviewPhotoTitle) && (
                   <div
                     style={{
                       position: 'absolute',
@@ -2117,6 +2178,7 @@ export default function About({ profiles = [], pageContent = null }) {
                       backdropFilter: 'blur(12px)'
                     }}
                   >
+                    {vis.show_overview_image_badges === true && (
                     <div
                       style={{
                         fontSize: '11.5px',
@@ -2129,16 +2191,18 @@ export default function About({ profiles = [], pageContent = null }) {
                     >
                       INDONESIA &harr; CHINA ADVISORY
                     </div>
+                    )}
                     <div style={{ fontSize: '18px', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.35 }}>
                       {copy.overviewPhotoTitle}
                     </div>
                   </div>
+                  )}
                 </div>
               </div>
             </div>
 
-            {/* Visual Bridge Connecting Overview to the 3 Essential Foundations (temporarily hidden) */}
-            {false && (
+            {/* Visual Bridge Connecting Overview to the 3 Essential Foundations */}
+            {vis.show_overview_foundations === true && (
               <div style={{ marginTop: '64px', position: 'relative' }}>
                 <div
                   style={{
@@ -2282,10 +2346,12 @@ export default function About({ profiles = [], pageContent = null }) {
             )}
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* WHO WE ARE (MOVED FROM HOMEPAGE, AFTER COMPANY OVERVIEW)                 */}
         {/* ========================================================================= */}
+        {vis.show_who !== false && (
         <section
           id="who"
           style={{
@@ -2303,9 +2369,14 @@ export default function About({ profiles = [], pageContent = null }) {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))', gap: '56px', alignItems: 'center' }}>
               {/* Left Column: Narrative */}
               <div className="about-anim about-anim--left">
-                <div style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', color: '#E63946', marginBottom: '14px', textTransform: 'uppercase' }}>
-                  {copy.who.eyebrow}
+                {Boolean(copy.who?.eyebrow) && (
+                <div>
+                  <div className="about-eyebrow-pill">
+                    <span className="about-eyebrow-dot" />
+                    <span>{copy.who.eyebrow}</span>
+                  </div>
                 </div>
+                )}
                 <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, marginBottom: '20px', color: '#FFFFFF' }}>
                   {Array.isArray(copy.who.title) ? copy.who.title.map((line, i) => (
                     <span key={i} style={{ display: 'block' }}>{line}</span>
@@ -2368,10 +2439,12 @@ export default function About({ profiles = [], pageContent = null }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* 02 · VISION & MISSION (CLEAN ARCHITECTURAL CENTERPIECE)                   */}
         {/* ========================================================================= */}
+        {vis.show_vision_mission !== false && (
         <section
           style={{
             position: 'relative',
@@ -2536,7 +2609,9 @@ export default function About({ profiles = [], pageContent = null }) {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
-                          marginBottom: '20px'
+                          flexWrap: 'wrap',
+                          gap: '8px 12px',
+                          marginBottom: '18px'
                         }}
                       >
                         <span
@@ -2546,28 +2621,33 @@ export default function About({ profiles = [], pageContent = null }) {
                             background: 'rgba(230, 57, 70, 0.14)',
                             border: '1px solid rgba(230, 57, 70, 0.35)',
                             color: '#E63946',
-                            fontSize: '13px',
+                            fontSize: '12.5px',
                             fontWeight: 800,
-                            letterSpacing: '0.08em'
+                            letterSpacing: '0.08em',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0
                           }}
                         >
                           MISSION {m.code}
                         </span>
+                        {Boolean(m.enTitle) && (
                         <span
                           style={{
                             fontSize: '11.5px',
                             fontWeight: 600,
-                            color: 'rgba(255, 255, 255, 0.42)',
-                            letterSpacing: '0.04em'
+                            color: 'rgba(255, 255, 255, 0.48)',
+                            letterSpacing: '0.03em',
+                            lineHeight: 1.35
                           }}
                         >
                           {m.enTitle}
                         </span>
+                        )}
                       </div>
 
                       <h4
                         style={{
-                          fontSize: '20px',
+                          fontSize: 'clamp(17.5px, 1.4vw, 19.5px)',
                           fontWeight: 700,
                           color: '#FFFFFF',
                           margin: '0 0 10px',
@@ -2594,10 +2674,12 @@ export default function About({ profiles = [], pageContent = null }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* OUR CROSS-BORDER PROCESS (MOVED FROM HOMEPAGE, AFTER VISION & MISSION)    */}
         {/* ========================================================================= */}
+        {vis.show_cross_border_process !== false && (
         <section
           id="cross-border-process"
           style={{
@@ -2640,10 +2722,12 @@ export default function About({ profiles = [], pageContent = null }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* 03 · FOUNDER & MULTIDISCIPLINARY LEADERSHIP PERSPECTIVE                   */}
         {/* ========================================================================= */}
+        {vis.show_leadership_perspective === true && (
         <section
           style={{
             position: 'relative',
@@ -2691,6 +2775,7 @@ export default function About({ profiles = [], pageContent = null }) {
                     }}
                   />
 
+                  {vis.show_overview_image_badges === true && (
                   <div style={{ position: 'absolute', top: '22px', left: '22px' }}>
                     <span
                       style={{
@@ -2712,6 +2797,7 @@ export default function About({ profiles = [], pageContent = null }) {
                       {isId ? 'KEPEMIMPINAN MULTIDISIPLIN' : 'MULTIDISCIPLINARY LEADERSHIP'}
                     </span>
                   </div>
+                  )}
 
                   <div
                     style={{
@@ -2878,10 +2964,12 @@ export default function About({ profiles = [], pageContent = null }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
-        {/* 04 · THE PEOPLE BEHIND 8 VICE (IBU HELDA, PAK GANDHI, CI CHRISTINE)       */}
+        {/* 04 · THE MINDS BEHIND THE MOVE (PEOPLE BEHIND 8 VICE)                     */}
         {/* ========================================================================= */}
+        {vis.show_people !== false && (
         <section
           id="people-behind-8vice"
           style={{
@@ -2897,10 +2985,13 @@ export default function About({ profiles = [], pageContent = null }) {
           <div className="container" style={{ position: 'relative', zIndex: 2 }}>
             {/* Section Header */}
             <div className="about-anim" style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto 60px' }}>
+              {Boolean(copy.peopleEyebrow) && (
               <div className="about-eyebrow-pill">
                 <span className="about-eyebrow-dot" />
                 <span>{copy.peopleEyebrow}</span>
               </div>
+              )}
+              {Boolean(copy.peopleTitle) && (
               <h2
                 style={{
                   fontSize: 'clamp(30px, 3.5vw, 46px)',
@@ -2913,6 +3004,8 @@ export default function About({ profiles = [], pageContent = null }) {
               >
                 {copy.peopleTitle}
               </h2>
+              )}
+              {Boolean(copy.peopleLead) && (
               <p
                 style={{
                   fontSize: '16.5px',
@@ -2923,6 +3016,7 @@ export default function About({ profiles = [], pageContent = null }) {
               >
                 {copy.peopleLead}
               </p>
+              )}
             </div>
 
             {/* 4 Executive Horizontal Profile Rows: Portrait (1:1) | Bio | Experiences */}
@@ -3117,10 +3211,12 @@ export default function About({ profiles = [], pageContent = null }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* 06 · OUR VALUES (6 CORE PRINCIPLES GRID)                                  */}
         {/* ========================================================================= */}
+        {vis.show_values === true && (
         <section
           style={{
             position: 'relative',
@@ -3246,10 +3342,12 @@ export default function About({ profiles = [], pageContent = null }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* 07 · EXECUTIVE CTA BAND                                                   */}
         {/* ========================================================================= */}
+        {vis.show_cta !== false && (
         <section
           style={{
             position: 'relative',
@@ -3348,6 +3446,7 @@ export default function About({ profiles = [], pageContent = null }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* MODAL: EXECUTIVE MESSAGE & PROFILE (IBU HELDA, PAK GANDHI, CI CHRISTINE)  */}

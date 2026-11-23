@@ -1022,6 +1022,13 @@ export default function Home({
     },
   }, pageContent);
 
+  const vis = {
+    show_overview_image_badge: false,
+    show_why_image_badge: true,
+    show_consultation_image_badge: true,
+    ...(c.visibility || {}),
+  };
+
   // Google Material Design 3 (M3) Motion Observer: Temporarily disabled for screenshots
   useEffect(() => {
     // M3 transitions disabled so all sections are immediately visible for screenshots
@@ -1783,7 +1790,8 @@ export default function Home({
                     }}
                   />
 
-                  {/* Top Floating Badge */}
+                  {/* Top Floating Badge (Controllable via Admin Home Visibility) */}
+                  {vis.show_overview_image_badge === true && Boolean(c.overview?.photo_badge) && (
                   <div style={{ position: 'absolute', top: '20px', left: '20px' }}>
                     <span style={{
                       background: 'rgba(10, 12, 16, 0.85)',
@@ -1805,6 +1813,7 @@ export default function Home({
                       {c.overview.photo_badge}
                     </span>
                   </div>
+                  )}
 
                   {/* Bottom Content with Direct to Profile Button */}
                   <div style={{ position: 'absolute', bottom: '26px', left: '24px', right: '24px' }}>
@@ -2104,6 +2113,7 @@ export default function Home({
                     pointerEvents: 'none'
                   }}
                 />
+                {vis.show_why_image_badge !== false && (
                 <div style={{ position: 'absolute', top: '14px', left: '16px' }}>
                   <span style={{
                     background: 'rgba(10, 12, 16, 0.85)',
@@ -2121,6 +2131,7 @@ export default function Home({
                     {isCn ? '双边战略桥梁' : isId ? 'Jembatan Strategis Bilateral' : 'Bilateral Strategic Bridge'}
                   </span>
                 </div>
+                )}
                 <div style={{ position: 'absolute', bottom: '16px', left: '20px', right: '20px' }}>
                   <p style={{ margin: 0, fontSize: '13px', color: 'rgba(255, 255, 255, 0.9)', fontStyle: 'italic', lineHeight: 1.55 }}>
                     “{c.why.quote}”
@@ -2568,7 +2579,13 @@ export default function Home({
                         <div key={cIdx} className="client-partner-item" title={client.name}>
                           {imgSrc ? (
                             <img
-                              src={imgSrc.startsWith('/') ? imgSrc : `/${imgSrc}`}
+                              src={
+                                imgSrc.startsWith('/') || imgSrc.startsWith('http')
+                                  ? imgSrc
+                                  : imgSrc.startsWith('images/')
+                                  ? `/${imgSrc}`
+                                  : `/storage/${imgSrc}`
+                              }
                               alt={client.name || 'Partner'}
                               width="140"
                               height="48"
@@ -2942,6 +2959,7 @@ export default function Home({
                     pointerEvents: 'none'
                   }}
                 />
+                {vis.show_consultation_image_badge !== false && (
                 <div style={{ position: 'absolute', top: '14px', right: '16px' }}>
                   <span style={{
                     background: 'rgba(10, 12, 16, 0.85)',
@@ -2958,6 +2976,7 @@ export default function Home({
                     {isCn ? '线下会晤与线上会议' : isId ? 'Tatap Muka & Daring' : 'In-Person & Virtual'}
                   </span>
                 </div>
+                )}
                 <div style={{ position: 'absolute', bottom: '16px', left: '20px', right: '20px' }}>
                   <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#E63946', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2px' }}>
                     {isCn ? '高管战略咨询会议室' : isId ? 'Ruang Rapat Penasihat Strategis' : 'Executive Advisory Boardroom'}

@@ -5,6 +5,7 @@ import MainLayout from '@/Layouts/MainLayout';
 import { useTranslation } from '@/Contexts/TranslationContext';
 import { getArticleExtras } from '@/data/articleExtras';
 import { getResearchPaperBySlug } from '@/data/researchPapers';
+import { normalizeResearchPaper } from '@/utils/researchPaperHelper';
 
 /* ============================================================================
    Helper: Curated Contextual Gallery Images & Backlink Graph by Category/Slug
@@ -202,8 +203,12 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
   /* Copy Citation / Backlink Feedback State */
   const [copiedType, setCopiedType] = useState('');
 
-  /* China Research Paper & Paywall Access State */
+  /* China Research Paper & Scalev Checkout State */
   const researchPaper = useMemo(() => getResearchPaperBySlug(insight?.slug), [insight?.slug]);
+  const normalizedPaper = useMemo(() => {
+    if (!insight?.is_research_paper && !researchPaper) return null;
+    return normalizeResearchPaper(insight, researchPaper, lang);
+  }, [insight, researchPaper, lang]);
   const [isPaperUnlocked, setIsPaperUnlocked] = useState(false);
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
   const [selectedLicense, setSelectedLicense] = useState('individual'); // 'individual' | 'corporate'
@@ -212,11 +217,11 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [readerActivePage, setReaderActivePage] = useState(1);
 
-  const redirectUrl = insight?.research_paper_link || researchPaper?.paymentLink;
+  const redirectUrl = normalizedPaper?.scalevUrl || insight?.research_paper_link || researchPaper?.paymentLink;
 
   const handlePaperRedirectOrCheckout = () => {
     if (redirectUrl) {
-      window.location.href = redirectUrl;
+      window.open(redirectUrl, '_blank', 'noopener,noreferrer');
       return;
     }
     setIsCheckoutModalOpen(true);
@@ -299,7 +304,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
       });
     });
 
-    if (researchPaper) {
+    if (normalizedPaper) {
       scanned.push({
         id: 'article-research-paper',
         text: isCn ? '研究报告与付费解锁权限' : isId ? 'Dokumen Riset & Paywall Akses' : 'Research Paper & Document Access',
@@ -629,7 +634,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                 {/* ==========================================================
                     01.5 RESEARCH PAPER & LOCKED PAYWALL DOCUMENT VIEWER (#article-research-paper)
                     ========================================================== */}
-                {researchPaper && (
+                {normalizedPaper && (
                   <section id="article-research-paper" className="ad-block-section ad-paper-section">
                     <div className="ad-paper-card">
                       {/* Paper Section Header */}
@@ -637,7 +642,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                         <div className="ad-paper-badges-row">
                           <span className="ad-paper-badge-pill">
                             <span className="ad-paper-badge-dot" />
-                            {isCn ? researchPaper.badgeCn : isId ? researchPaper.badgeId : researchPaper.badge}
+                            {normalizedPaper.badge}
                           </span>
                           <span className={`ad-paper-status-pill ${isPaperUnlocked ? 'is-unlocked' : 'is-locked'}`}>
                             {isPaperUnlocked ? (
@@ -654,37 +659,37 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                 </svg>
-                                {isCn ? '默认锁定 · 付费专享保护' : isId ? 'DEFAULT TERKUNCI · AKSES BERBAYAR' : 'DEFAULT LOCKED · PAYWALL PROTECTED'}
+                                {isCn ? '默认锁定 · Scalev 专享保护' : isId ? 'DEFAULT TERKUNCI · AKSES SCALEV' : 'LOCKED PAPER · SCALEV ACCESS'}
                               </>
                             )}
                           </span>
                         </div>
 
                         <h2 className="ad-paper-title">
-                          {isCn ? researchPaper.title.cn : isId ? researchPaper.title.id : researchPaper.title.en}
+                          {normalizedPaper.title}
                         </h2>
 
                         <p className="ad-paper-subtitle">
-                          {isCn ? researchPaper.subtitle.cn : isId ? researchPaper.subtitle.id : researchPaper.subtitle.en}
+                          {normalizedPaper.subtitle}
                         </p>
 
                         {/* Technical Specifications Strip */}
                         <div className="ad-paper-specs-strip">
                           <div className="ad-paper-spec-item">
                             <span className="ad-paper-spec-lbl">{isCn ? '报告总篇幅' : isId ? 'VOLUME DOKUMEN' : 'TOTAL VOLUME'}</span>
-                            <span className="ad-paper-spec-val">58 Pages Unabridged</span>
+                            <span className="ad-paper-spec-val">{normalizedPaper.pagesCount} Pages Unabridged</span>
                           </div>
                           <div className="ad-paper-spec-item">
                             <span className="ad-paper-spec-lbl">{isCn ? '文件格式' : isId ? 'FORMAT BERKAS' : 'FILE FORMAT'}</span>
-                            <span className="ad-paper-spec-val">PDF A4 (300 DPI) + XLSX</span>
+                            <span className="ad-paper-spec-val">{normalizedPaper.fileFormat}</span>
                           </div>
                           <div className="ad-paper-spec-item">
                             <span className="ad-paper-spec-lbl">{isCn ? '发布日期' : isId ? 'TANGGAL RILIS' : 'RELEASE DATE'}</span>
-                            <span className="ad-paper-spec-val">October 2026 (Quarterly)</span>
+                            <span className="ad-paper-spec-val">{normalizedPaper.date}</span>
                           </div>
                           <div className="ad-paper-spec-item">
                             <span className="ad-paper-spec-lbl">{isCn ? '研究机构' : isId ? 'TIM RISET' : 'RESEARCH DESK'}</span>
-                            <span className="ad-paper-spec-val">8 Vice Macro & Industrial Desk</span>
+                            <span className="ad-paper-spec-val">{normalizedPaper.author?.name || '8 Vice Research Desk'}</span>
                           </div>
                         </div>
                       </div>
@@ -696,12 +701,12 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                             {isCn ? '研究报告章节目录与访问权限矩阵' : isId ? 'Daftar Bab Riset & Status Akses Dokumen' : 'Research Chapter Breakdown & Access Matrix'}
                           </h3>
                           <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>
-                            {isCn ? '第 1–2 章免费预览 · 第 3–5 章与数据模型已锁定' : isId ? 'Bab 1–2 terbuka gratis · Bab 3–5 & Lampiran terkunci' : 'Ch. 1–2 free preview · Ch. 3–5 & Datasets locked'}
+                            {isCn ? '第 1–2 章免费预览 · 其余完整章节已锁定' : isId ? 'Pratinjau awal tersedia · Bab lengkap terkunci' : 'Opening preview open · Full paper locked'}
                           </span>
                         </div>
 
                         <div className="ad-paper-chapters-grid">
-                          {researchPaper.tocPreview.map((ch) => {
+                          {normalizedPaper.tocPreview.map((ch) => {
                             const isChUnlocked = isPaperUnlocked || !ch.isLocked;
                             return (
                               <div
@@ -742,7 +747,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                           </div>
                           <div className="ad-paper-toolbar-center">
                             <span className="ad-paper-page-counter">
-                              {isCn ? `第 ${readerActivePage} / 58 页` : isId ? `Halaman ${readerActivePage} dari 58` : `Page ${readerActivePage} of 58`}
+                              {isCn ? `第 ${readerActivePage} / ${normalizedPaper.pagesCount} 页` : isId ? `Halaman ${readerActivePage} dari ${normalizedPaper.pagesCount}` : `Page ${readerActivePage} of ${normalizedPaper.pagesCount}`}
                             </span>
                           </div>
                           <div className="ad-paper-toolbar-right">
@@ -776,10 +781,10 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                 {isCn ? '2026–2030 产业落地执行蓝图' : isId ? 'CETAKTAKBIR EKSEKUSI INDUSTRI 2026–2030' : 'INDUSTRIAL EXECUTION BLUEPRINT 2026–2030'}
                               </div>
                               <h1 className="ad-paper-page-title">
-                                {isCn ? researchPaper.title.cn : isId ? researchPaper.title.id : researchPaper.title.en}
+                                {normalizedPaper.title}
                               </h1>
                               <p className="ad-paper-page-meta-line">
-                                By {researchPaper.author.name} · {researchPaper.publishedDate} · Jakarta / Shanghai
+                                By {normalizedPaper.author?.name || '8 Vice Research Desk'} · {normalizedPaper.date} · Jakarta / Shanghai
                               </p>
                             </div>
 
@@ -788,7 +793,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                                 {isCn ? '执行摘要 (EXECUTIVE ABSTRACT)' : isId ? 'RINGKASAN EKSEKUTIF (EXECUTIVE ABSTRACT)' : 'EXECUTIVE SUMMARY & ABSTRACT'}
                               </h4>
                               <p style={{ margin: 0, fontSize: '14.5px', lineHeight: 1.7, color: 'rgba(255,255,255,0.88)' }}>
-                                &ldquo;{isCn ? researchPaper.sampleExcerpt.cn : isId ? researchPaper.sampleExcerpt.id : researchPaper.sampleExcerpt.en}&rdquo;
+                                &ldquo;{isCn ? normalizedPaper.sampleExcerpt?.cn : isId ? normalizedPaper.sampleExcerpt?.id : normalizedPaper.sampleExcerpt?.en}&rdquo;
                               </p>
                             </div>
 
@@ -876,95 +881,87 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
 
                                 <h3 className="ad-paywall-title">
                                   {isCn
-                                    ? '解锁完整 58 页研究报告与原始 Excel 财务模型'
+                                    ? `解锁完整 ${normalizedPaper.pagesCount} 页深度研究报告`
                                     : isId
-                                    ? 'Buka Akses Laporan Riset 58 Halaman & Model Finansial Excel'
-                                    : 'Unlock the Full 58-Page Research Paper & Raw Excel Financial Models'}
+                                    ? `Buka Akses Laporan Riset Lengkap (${normalizedPaper.pagesCount} Halaman)`
+                                    : `Unlock the Full ${normalizedPaper.pagesCount}-Page Research Paper`}
                                 </h3>
 
                                 <p className="ad-paywall-desc">
-                                  {isCn
-                                    ? '完整版 58 页 PDF 报告、24 页高管演示文稿以及原始财务模型数据表（.xlsx）仅向认证授权持有者开放。'
-                                    : isId
-                                    ? 'Laporan lengkap menyajikan matriks formula 40% TKDN, komparasi biaya operasional kawasan industri di 4 koridor, survei empiris 120 korporasi Tiongkok, serta template model finansial Excel mentah.'
-                                    : 'The unabridged 58-page PDF report, 24-slide executive presentation deck, and raw financial model spreadsheets (.xlsx) are restricted to verified license holders.'}
+                                  {normalizedPaper.subtitle}
                                 </p>
 
-                                {/* Pricing Options Grid */}
-                                <div className="ad-paywall-tiers-grid">
-                                  <div
-                                    className={`ad-paywall-tier-card ${selectedLicense === 'individual' ? 'is-selected' : ''}`}
-                                    onClick={() => setSelectedLicense('individual')}
-                                  >
+                                {/* Single Clean Scalev Pricing Card synced from Admin */}
+                                <div className="ad-paywall-tiers-grid" style={{ gridTemplateColumns: '1fr' }}>
+                                  <div className="ad-paywall-tier-card is-selected">
+                                    <div className="ad-tier-ribbon">{isCn ? 'SCALEV 官方直连结账' : isId ? 'CHECKOUT LANGSUNG VIA SCALEV' : 'DIRECT SCALEV CHECKOUT'}</div>
                                     <div className="ad-tier-header">
                                       <div className="ad-tier-radio">
-                                        <span className={`ad-radio-dot ${selectedLicense === 'individual' ? 'is-active' : ''}`} />
+                                        <span className="ad-radio-dot is-active" />
                                       </div>
                                       <div>
-                                        <div className="ad-tier-name">{isCn ? '高管个人授权' : isId ? 'Lisensi Eksekutif' : 'Executive License'}</div>
-                                        <div className="ad-tier-scope">{isCn ? '单用户访问权限' : isId ? 'Pengguna Tunggal' : 'Single User Access'}</div>
+                                        <div className="ad-tier-name">{isCn ? '完整研究报告专享授权' : isId ? 'Akses Penuh Research Paper' : 'Full Research Paper Access'}</div>
+                                        <div className="ad-tier-scope">{normalizedPaper.fileFormat}</div>
                                       </div>
                                     </div>
-                                    <div className="ad-tier-price">
-                                      <span className="ad-tier-currency">Rp</span>
-                                      <span className="ad-tier-val">1.490.000</span>
-                                      <span className="ad-tier-usd">($99 USD)</span>
+                                    <div className="ad-tier-price" style={{ flexWrap: 'wrap', gap: '10px' }}>
+                                      {normalizedPaper.originalPriceIdrFormatted && (
+                                        <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.42)', textDecoration: 'line-through', width: '100%' }}>
+                                          {normalizedPaper.originalPriceIdrFormatted}
+                                        </span>
+                                      )}
+                                      {normalizedPaper.priceIdrFormatted ? (
+                                        <span className="ad-tier-val">{normalizedPaper.priceIdrFormatted}</span>
+                                      ) : (
+                                        <span className="ad-tier-val">{isId ? 'Lihat Harga di Scalev' : 'View Price on Scalev'}</span>
+                                      )}
+                                      {normalizedPaper.priceUsd && (
+                                        <span className="ad-tier-usd">({normalizedPaper.priceUsd})</span>
+                                      )}
                                     </div>
-                                    <ul className="ad-tier-features">
-                                      <li>✓ {isCn ? '完整 58 页 PDF 深度研究报告' : isId ? 'Laporan PDF Lengkap 58 Halaman' : 'Full 58-Page PDF Report'}</li>
-                                      <li>✓ {isCn ? '24 页高管简报演示文稿 (PPT)' : isId ? 'Slide Presentasi Eksekutif (24 Slide)' : 'Executive 24-Slide Deck'}</li>
-                                      <li>✓ {isCn ? '即时下载与永久云端访问' : isId ? 'Tautan Unduhan Instan & Cloud Permanen' : 'Instant Download & Cloud Access'}</li>
-                                    </ul>
-                                  </div>
-
-                                  <div
-                                    className={`ad-paywall-tier-card ${selectedLicense === 'corporate' ? 'is-selected' : ''}`}
-                                    onClick={() => setSelectedLicense('corporate')}
-                                  >
-                                    <div className="ad-tier-ribbon">{isCn ? '企业首选推荐' : isId ? 'REKOMENDASI KORPORAT' : 'CORPORATE CHOICE'}</div>
-                                    <div className="ad-tier-header">
-                                      <div className="ad-tier-radio">
-                                        <span className={`ad-radio-dot ${selectedLicense === 'corporate' ? 'is-active' : ''}`} />
-                                      </div>
-                                      <div>
-                                        <div className="ad-tier-name">{isCn ? '企业团队与咨询授权' : isId ? 'Lisensi Korporat & Konsultasi' : 'Corporate & Advisory License'}</div>
-                                        <div className="ad-tier-scope">{isCn ? '最多支持 25 名团队成员' : isId ? 'Hingga 25 Anggota Tim' : 'Up to 25 Team Seats'}</div>
-                                      </div>
-                                    </div>
-                                    <div className="ad-tier-price">
-                                      <span className="ad-tier-currency">Rp</span>
-                                      <span className="ad-tier-val">7.490.000</span>
-                                      <span className="ad-tier-usd">($499 USD)</span>
-                                    </div>
-                                    <ul className="ad-tier-features">
-                                      <li>✓ {isCn ? '企业内部 25 人团队分发授权' : isId ? 'Lisensi Distribusi Internal 25 User' : 'Enterprise 25-Seat Distribution'}</li>
-                                      <li>✓ {isCn ? '原始 Excel 财务模型数据表 (.xlsx)' : isId ? 'Dataset Mentah Model Finansial Excel (.xlsx)' : 'Raw Excel Financial Models (.xlsx)'}</li>
-                                      <li>✓ {isCn ? '与研究总监进行 30 分钟一对一答疑' : isId ? 'Sesi Tanya-Jawab 30 Menit Bersama Direktur Riset' : '30-Min Q&A Call with Research Directors'}</li>
-                                      <li>✓ {isCn ? '提供正式企业税务发票' : isId ? 'Penerbitan Faktur Pajak Resmi' : 'Official Corporate Tax Invoice'}</li>
-                                    </ul>
+                                    {normalizedPaper.includes.length > 0 && (
+                                      <ul className="ad-tier-features">
+                                        {normalizedPaper.includes.map((feat, fIdx) => (
+                                          <li key={fIdx}>✓ {feat}</li>
+                                        ))}
+                                      </ul>
+                                    )}
                                   </div>
                                 </div>
 
-                                {/* Action Buttons to Pay & Unlock */}
+                                {/* Action Buttons — Direct Link to Scalev */}
                                 <div className="ad-paywall-actions">
-                                  <button
-                                    type="button"
-                                    className="ad-paywall-btn ad-paywall-btn--primary"
-                                    onClick={handlePaperRedirectOrCheckout}
-                                  >
-                                    <span>
-                                      {selectedLicense === 'individual'
-                                        ? (isCn ? '立即购买并解锁报告 ($99 / Rp 1.49M)' : isId ? 'Beli & Buka Akses Paper (Rp 1.490.000 / $99)' : 'Unlock Full Paper ($99 / Rp 1.49M)')
-                                        : (isCn ? '购买企业团队授权 ($499 / Rp 7.49M)' : isId ? 'Beli Lisensi Korporat (Rp 7.490.000 / $499)' : 'Purchase Corporate License ($499 / Rp 7.49M)')}
-                                    </span>
-                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                      <line x1="5" y1="12" x2="19" y2="12" />
-                                      <polyline points="12 5 19 12 12 19" />
-                                    </svg>
-                                  </button>
+                                  {redirectUrl ? (
+                                    <a
+                                      href={redirectUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="ad-paywall-btn ad-paywall-btn--primary"
+                                    >
+                                      <span>
+                                        {normalizedPaper.ctaLabel}
+                                        {normalizedPaper.priceIdrFormatted ? ` (${normalizedPaper.priceIdrFormatted})` : ''}
+                                      </span>
+                                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                        <path d="M7 17L17 7M7 7h10v10" />
+                                      </svg>
+                                    </a>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      className="ad-paywall-btn ad-paywall-btn--primary"
+                                      onClick={handlePaperRedirectOrCheckout}
+                                    >
+                                      <span>{normalizedPaper.ctaLabel}</span>
+                                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                        <polyline points="12 5 19 12 12 19" />
+                                      </svg>
+                                    </button>
+                                  )}
 
                                   <Link
-                                    href={`/contact?service=research-paper&paper=${researchPaper.slug}&tier=${selectedLicense}`}
+                                    href={`/contact?service=research-paper&paper=${normalizedPaper.slug}&tier=${selectedLicense}`}
                                     className="ad-paywall-btn ad-paywall-btn--secondary"
                                   >
                                     <span>{isCn ? '通过企业采购订单 (PO) 订购 →' : isId ? 'Pesan via Faktur Perusahaan / PO →' : 'Inquire via Corporate Purchase Order →'}</span>
@@ -1607,7 +1604,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
         {/* ================================================================
             EXECUTIVE CHECKOUT & PAYMENT MODAL (#ad-checkout-modal)
             ================================================================ */}
-        {isCheckoutModalOpen && researchPaper && (
+        {isCheckoutModalOpen && normalizedPaper && (
           <div className="ad-checkout-overlay" onClick={() => !checkoutProcessing && setIsCheckoutModalOpen(false)}>
             <div className="ad-checkout-modal" onClick={(e) => e.stopPropagation()}>
               <div className="ad-checkout-modal__header">
@@ -1629,12 +1626,10 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                 <div className="ad-checkout-modal__body">
                   <div className="ad-checkout-product-summary">
                     <div className="ad-checkout-product-title">
-                      {isId ? researchPaper.title.id : researchPaper.title.en}
+                      {normalizedPaper.title}
                     </div>
                     <div className="ad-checkout-product-meta">
-                      <span>📄 58 Pages Unabridged (PDF)</span>
-                      <span>·</span>
-                      <span>📊 Raw Financial Models (.xlsx)</span>
+                      <span>📄 {normalizedPaper.pagesCount} Pages ({normalizedPaper.fileFormat})</span>
                       <span>·</span>
                       <span>Instant Delivery</span>
                     </div>
@@ -1833,7 +1828,7 @@ export default function ArticleDetail({ insight, relatedInsights = [], allInsigh
                     </button>
 
                     <Link
-                      href={`/contact?service=research-paper&paper=${researchPaper.slug}&tier=${selectedLicense}`}
+                      href={`/contact?service=research-paper&paper=${normalizedPaper.slug}&tier=${selectedLicense}`}
                       className="ad-checkout-contact-link"
                     >
                       {isId ? 'Atau bayar via Invoice Resmi / Hubungi Tim →' : 'Or pay via Corporate Invoice / Contact Desk →'}

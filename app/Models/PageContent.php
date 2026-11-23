@@ -29,7 +29,14 @@ class PageContent extends Model
             }
 
             $locData = $record->content[$loc] ?? [];
-            return is_array($locData) ? $locData : [];
+            $data = is_array($locData) ? $locData : [];
+
+            $visibility = $record->content['visibility'] ?? null;
+            if (is_array($visibility)) {
+                $data['visibility'] = $visibility;
+            }
+
+            return $data;
         } catch (\Throwable $e) {
             return [];
         }

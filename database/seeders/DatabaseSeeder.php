@@ -374,12 +374,43 @@ class DatabaseSeeder extends Seeder
                     'id' => "<p>{$idExcerpt}</p><p>Untuk konsultasi strategis komprehensif dan kajian sektoral mendalam, hubungi meja penasihat bilateral 8vice.</p>",
                     'cn' => "<p>{$cnExcerpt}</p><p>如需获取更详尽的双边战略咨询建议与特定行业定制研报，请随时联络 8vice 战略顾问咨询窗口。</p>"
                 ]),
-                'views_count' => rand(140, 890),
+                'views_count' => 0,
                 'status' => 'Publish',
                 'is_research_paper' => $isPaper ? 1 : 0,
-                'research_paper_link' => $isPaper ? ($insight->research_paper_link ?? 'https://8vice.id/checkout/china-cross-border-blueprint') : null,
+                'research_paper_link' => $isPaper ? ($insight->research_paper_link ?? 'https://8vice.scalev.id/china-cross-border-blueprint') : null,
                 'paper_pages' => $isPaper ? 58 : 0,
                 'is_paywall_locked' => $isPaper ? 1 : 0,
+                'paper_badge' => $isPaper ? $this->json([
+                    'en' => 'FLAGSHIP RESEARCH PAPER · LOCKED',
+                    'id' => 'RISET MENDALAM · DOKUMEN TERKUNCI',
+                    'cn' => '核心深度研究报告 · 锁定专享',
+                ]) : null,
+                'paper_price_idr' => $isPaper ? 1490000 : null,
+                'paper_original_price_idr' => $isPaper ? 2490000 : null,
+                'paper_price_usd' => $isPaper ? '$99 USD' : null,
+                'paper_file_format' => $isPaper ? 'PDF (58 Pages) + Raw Financial Model (.XLSX)' : null,
+                'paper_includes' => $isPaper ? $this->json([
+                    'en' => [
+                        'Full 58-Page Research Paper PDF (Print-Ready 300 DPI)',
+                        'Raw Excel Industrial Estate & TKDN Cost Matrix (.XLSX)',
+                        'Direct Instant Delivery via Scalev Checkout',
+                    ],
+                    'id' => [
+                        'Laporan Riset Lengkap 58 Halaman (PDF Resolusi Tinggi)',
+                        'Model Matriks Biaya Kawasan & TKDN Mentah (.XLSX)',
+                        'Akses Unduhan Instan Langsung via Scalev Checkout',
+                    ],
+                    'cn' => [
+                        '完整 58 页深度研究报告 PDF 印刷级文档',
+                        '原始 Excel 工业园区成本与 TKDN 合规测算模型 (.XLSX)',
+                        '通过 Scalev 结账后即时自动获取下载链接',
+                    ],
+                ]) : null,
+                'paper_cta_label' => $isPaper ? $this->json([
+                    'en' => 'Unlock & Buy via Scalev',
+                    'id' => 'Beli & Buka Akses via Scalev',
+                    'cn' => '通过 Scalev 购买解锁全文',
+                ]) : null,
                 'tags' => $this->json($paperTags),
                 'faqs' => $this->json($paperFaqs),
                 'references' => $this->json([
@@ -427,9 +458,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // ─── 13. Page SEO & Traffic Logs ───
+        // ─── 13. Page SEO ───
         $this->call(PageSeoSeeder::class);
-        $this->call(TrafficLogSeeder::class);
 
         // ─── 14. Bilateral FAQs ───
         DB::table('faqs')->truncate();

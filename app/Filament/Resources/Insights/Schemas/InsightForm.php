@@ -16,6 +16,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Utilities\Get;
 
 class InsightForm
 {
@@ -79,28 +80,141 @@ class InsightForm
                                     ->default('Publish')
                                     ->required(),
                             ]),
-                        Section::make('Research Paper & Monetization (Gate / Paywall)')
-                            ->description('Configure this insight as an exclusive research paper with paid access redirect.')
+                        Section::make('Locked Research Paper & Scalev Checkout')
+                            ->description('Items marked as Locked Research Paper are separated from News & Articles on /insights and link directly to Scalev.')
                             ->columnSpan(12)
-                            ->columns(3)
+                            ->columns(12)
                             ->schema([
                                 Toggle::make('is_research_paper')
-                                    ->label('Is Research Paper?')
-                                    ->helperText('Enable if this article represents a premium deep-dive research paper.')
-                                    ->default(false),
-                                TextInput::make('research_paper_link')
-                                    ->label('Research Paper Landing & Checkout Link (Redirect URL)')
-                                    ->placeholder('https://... (URL landing & product bayar khusus paper)')
-                                    ->helperText('Redirect link placement: clicking unlock/buy directly sends readers here.')
-                                    ->columnSpan(2),
-                                TextInput::make('paper_pages')
-                                    ->label('Document Page Count')
-                                    ->numeric()
-                                    ->default(48),
+                                    ->label('Is Locked Research Paper?')
+                                    ->helperText('Displays in the dedicated Locked Research Papers section above News & Articles.')
+                                    ->default(false)
+                                    ->live()
+                                    ->columnSpan(4),
                                 Toggle::make('is_paywall_locked')
-                                    ->label('Lock with Paywall Default')
-                                    ->helperText('Keep document preview locked behind paywall until purchased.')
-                                    ->default(true),
+                                    ->label('Lock Document Access')
+                                    ->helperText('Shows Locked Paper status badge & gated preview on the detail page.')
+                                    ->default(true)
+                                    ->visible(fn (Get $get): bool => (bool) $get('is_research_paper'))
+                                    ->columnSpan(4),
+                                TextInput::make('paper_pages')
+                                    ->label('Page Count')
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->suffix('Pages')
+                                    ->default(58)
+                                    ->visible(fn (Get $get): bool => (bool) $get('is_research_paper'))
+                                    ->columnSpan(4),
+                                TextInput::make('research_paper_link')
+                                    ->label('Scalev Direct Checkout / Product URL')
+                                    ->url()
+                                    ->maxLength(500)
+                                    ->placeholder('https://8vice.scalev.id/your-research-paper')
+                                    ->helperText('Direct external link to your Scalev checkout or sales page. Clicking Unlock/Buy sends readers directly here.')
+                                    ->visible(fn (Get $get): bool => (bool) $get('is_research_paper'))
+                                    ->columnSpan(8),
+                                TextInput::make('paper_file_format')
+                                    ->label('File Format & Deliverables')
+                                    ->maxLength(255)
+                                    ->placeholder('PDF (58 Pages) + Raw Financial Model (.XLSX)')
+                                    ->visible(fn (Get $get): bool => (bool) $get('is_research_paper'))
+                                    ->columnSpan(4),
+                                TextInput::make('paper_price_idr')
+                                    ->label('Selling Price (IDR)')
+                                    ->numeric()
+                                    ->minValue(0)
+                                    ->prefix('Rp')
+                                    ->placeholder('1490000')
+                                    ->helperText('Numeric value in Rupiah (formatted automatically as Rp 1.490.000).')
+                                    ->visible(fn (Get $get): bool => (bool) $get('is_research_paper'))
+                                    ->columnSpan(4),
+                                TextInput::make('paper_original_price_idr')
+                                    ->label('Normal / Strikethrough Price (IDR)')
+                                    ->numeric()
+                                    ->minValue(0)
+                                    ->prefix('Rp')
+                                    ->placeholder('2490000')
+                                    ->helperText('Optional higher anchor price shown crossed-out beside Selling Price.')
+                                    ->visible(fn (Get $get): bool => (bool) $get('is_research_paper'))
+                                    ->columnSpan(4),
+                                TextInput::make('paper_price_usd')
+                                    ->label('USD Equivalent Label (Optional)')
+                                    ->maxLength(60)
+                                    ->placeholder('$99 USD')
+                                    ->helperText('Optional international currency label shown next to IDR price.')
+                                    ->visible(fn (Get $get): bool => (bool) $get('is_research_paper'))
+                                    ->columnSpan(4),
+                                Tabs::make('Paper Localization & Deliverables')
+                                    ->visible(fn (Get $get): bool => (bool) $get('is_research_paper'))
+                                    ->columnSpan(12)
+                                    ->tabs([
+                                        Tabs\Tab::make('ID')
+                                            ->schema([
+                                                TextInput::make('paper_badge.id')
+                                                    ->label('[ID] Badge Label')
+                                                    ->placeholder('RISET MENDALAM · DOKUMEN TERKUNCI')
+                                                    ->maxLength(120),
+                                                TextInput::make('paper_cta_label.id')
+                                                    ->label('[ID] Scalev Button Label')
+                                                    ->placeholder('Beli & Buka Akses via Scalev')
+                                                    ->maxLength(120),
+                                                Repeater::make('paper_includes.id')
+                                                    ->label('[ID] Included Deliverables')
+                                                    ->simple(
+                                                        TextInput::make('item')
+                                                            ->placeholder('Contoh: Laporan Riset Lengkap 58 Halaman (PDF)')
+                                                            ->required()
+                                                            ->maxLength(255)
+                                                    )
+                                                    ->addActionLabel('Add Deliverable')
+                                                    ->defaultItems(0)
+                                                    ->reorderableWithButtons(),
+                                            ]),
+                                        Tabs\Tab::make('EN')
+                                            ->schema([
+                                                TextInput::make('paper_badge.en')
+                                                    ->label('[EN] Badge Label')
+                                                    ->placeholder('FLAGSHIP RESEARCH PAPER · LOCKED')
+                                                    ->maxLength(120),
+                                                TextInput::make('paper_cta_label.en')
+                                                    ->label('[EN] Scalev Button Label')
+                                                    ->placeholder('Unlock & Buy via Scalev')
+                                                    ->maxLength(120),
+                                                Repeater::make('paper_includes.en')
+                                                    ->label('[EN] Included Deliverables')
+                                                    ->simple(
+                                                        TextInput::make('item')
+                                                            ->placeholder('e.g. Full 58-Page Research Paper PDF (300 DPI)')
+                                                            ->required()
+                                                            ->maxLength(255)
+                                                    )
+                                                    ->addActionLabel('Add Deliverable')
+                                                    ->defaultItems(0)
+                                                    ->reorderableWithButtons(),
+                                            ]),
+                                        Tabs\Tab::make('CN')
+                                            ->schema([
+                                                TextInput::make('paper_badge.cn')
+                                                    ->label('[CN] Badge Label')
+                                                    ->placeholder('核心深度研究报告 · 锁定专享')
+                                                    ->maxLength(120),
+                                                TextInput::make('paper_cta_label.cn')
+                                                    ->label('[CN] Scalev Button Label')
+                                                    ->placeholder('通过 Scalev 购买解锁全文')
+                                                    ->maxLength(120),
+                                                Repeater::make('paper_includes.cn')
+                                                    ->label('[CN] Included Deliverables')
+                                                    ->simple(
+                                                        TextInput::make('item')
+                                                            ->placeholder('例如：完整 58 页深度研究报告 PDF 文档')
+                                                            ->required()
+                                                            ->maxLength(255)
+                                                    )
+                                                    ->addActionLabel('Add Deliverable')
+                                                    ->defaultItems(0)
+                                                    ->reorderableWithButtons(),
+                                            ]),
+                                    ]),
                             ]),
                         Section::make('Author')
                             ->columnSpan(12)

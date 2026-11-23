@@ -28,7 +28,7 @@ class HomeController extends Controller
         };
 
         try {
-            $clients = Client::select(['id', 'name', 'logo', 'website', 'sort_order'])->get();
+            $clients = Client::all(['id', 'name', 'glyph', 'image']);
             $insights = Insight::published()
                 ->orderByDesc('id')
                 ->take(3)

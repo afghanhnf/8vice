@@ -20,6 +20,12 @@ class Insight extends Model
         'references' => 'array',
         'is_research_paper' => 'boolean',
         'is_paywall_locked' => 'boolean',
+        'paper_pages' => 'integer',
+        'paper_price_idr' => 'integer',
+        'paper_original_price_idr' => 'integer',
+        'paper_badge' => 'array',
+        'paper_includes' => 'array',
+        'paper_cta_label' => 'array',
     ];
 
     /**

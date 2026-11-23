@@ -6,6 +6,7 @@ use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 
@@ -30,6 +31,105 @@ class PageContentForm
                             ->disabled(fn ($record) => $record !== null)
                             ->helperText('System page identifier: about, home, services, insights, contact')
                             ->maxLength(80),
+                    ]),
+
+                Section::make('Section & Badge Visibility (Show / Hide)')
+                    ->description('Toggle sections and image overlay badges ON or OFF. Applies immediately across EN, ID, and CN once saved.')
+                    ->columnSpanFull()
+                    ->columns(3)
+                    ->collapsible()
+                    ->visible(fn ($record): bool => ($record?->page_code ?? 'about') === 'about')
+                    ->schema([
+                        Toggle::make('content.visibility.show_hero')
+                            ->label('00 · Hero Section')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_hero_image')
+                            ->label('00 · Hero Banner Image & Statement')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_hero_image_badges')
+                            ->label('00 · Hero Image Badges (Mandate & Cities)')
+                            ->helperText('OUR FOUNDING MANDATE & JAKARTA ↔ BEIJING pills.')
+                            ->default(false),
+                        Toggle::make('content.visibility.show_overview')
+                            ->label('01 · Our Background & Overview')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_overview_image_badges')
+                            ->label('01 · Image Overlay Badges (Corridor Tags)')
+                            ->helperText('EXECUTIVE ADVISORY CORRIDOR & image badges.')
+                            ->default(false),
+                        Toggle::make('content.visibility.show_overview_foundations')
+                            ->label('01 · Three Foundations Cards')
+                            ->default(false),
+                        Toggle::make('content.visibility.show_who')
+                            ->label('02 · Who We Are & 4 Pillars')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_vision_mission')
+                            ->label('03 · Vision & 5 Missions')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_cross_border_process')
+                            ->label('03B · Cross-Border Process (5 Steps)')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_leadership_perspective')
+                            ->label('04 · Leadership with a Cross-Border Perspective')
+                            ->default(false),
+                        Toggle::make('content.visibility.show_people')
+                            ->label('05 · The Minds Behind the Move (People)')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_values')
+                            ->label('06 · Core Values Section (Principles That Guide Every Partnership)')
+                            ->default(false),
+                        Toggle::make('content.visibility.show_cta')
+                            ->label('07 · Bottom CTA Band')
+                            ->default(true),
+                    ]),
+
+                Section::make('Services Section & Badge Visibility (Show / Hide)')
+                    ->description('Toggle Services page sections and hero image overlay badge ON or OFF.')
+                    ->columnSpanFull()
+                    ->columns(3)
+                    ->collapsible()
+                    ->visible(fn ($record): bool => ($record?->page_code ?? '') === 'services')
+                    ->schema([
+                        Toggle::make('content.visibility.show_hero_eyebrow')
+                            ->label('00 · Hero Eyebrow Pill Above Headline')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_hero_image')
+                            ->label('00 · Hero Banner Image & Statement')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_hero_image_badges')
+                            ->label('00 · Hero Image Overlay Badge')
+                            ->helperText('CORE CAPABILITIES · STRATEGIC ADVISORY pill on top of the hero image.')
+                            ->default(false),
+                        Toggle::make('content.visibility.show_services_grid')
+                            ->label('01 · Services Grid Section')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_approach')
+                            ->label('02 · 5-Stage Strategic Approach Section')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_cta')
+                            ->label('03 · Bottom CTA Section')
+                            ->default(true),
+                    ]),
+
+                Section::make('Home Image Badges Visibility (Show / Hide)')
+                    ->description('Toggle floating image badges on the Homepage ON or OFF.')
+                    ->columnSpanFull()
+                    ->columns(3)
+                    ->collapsible()
+                    ->visible(fn ($record): bool => ($record?->page_code ?? '') === 'home')
+                    ->schema([
+                        Toggle::make('content.visibility.show_overview_image_badge')
+                            ->label('Overview Photo Badge')
+                            ->helperText('BILATERAL STRATEGIC ADVISORY badge on Overview image.')
+                            ->default(false),
+                        Toggle::make('content.visibility.show_why_image_badge')
+                            ->label('Why 8 Vice Photo Badge')
+                            ->helperText('Bilateral Strategic Bridge badge on Why image.')
+                            ->default(true),
+                        Toggle::make('content.visibility.show_consultation_image_badge')
+                            ->label('Consultation Photo Badge')
+                            ->helperText('In-Person & Virtual badge on Consultation image.')
+                            ->default(true),
                     ]),
 
                 Tabs::make('Language Content')
@@ -58,6 +158,7 @@ class PageContentForm
     {
         return [
             Section::make('01 · Hero & Founding Mandate')
+                ->description('Clear any text field and save to hide that individual text element on the page.')
                 ->columns(2)
                 ->collapsible()
                 ->schema([
@@ -65,7 +166,8 @@ class PageContentForm
                     TextInput::make("content.{$l}.heroTitleLine1")->label('Hero Title Line 1'),
                     TextInput::make("content.{$l}.heroTitleLine2")->label('Hero Title Line 2'),
                     Textarea::make("content.{$l}.heroSubtitle")->label('Hero Subtitle')->rows(2)->columnSpanFull(),
-                    TextInput::make("content.{$l}.heroBannerBadge")->label('Banner Badge')->columnSpanFull(),
+                    TextInput::make("content.{$l}.heroBannerBadge")->label('Banner Left Badge (Hidden unless Hero Image Badges toggled ON)'),
+                    TextInput::make("content.{$l}.heroBannerCorridor")->label('Banner Right Badge (Corridor Cities)'),
                     Textarea::make("content.{$l}.heroBannerQuote")->label('Banner Quote Statement')->rows(2)->columnSpanFull(),
                     Textarea::make("content.{$l}.heroBannerSub")->label('Banner Supporting Text')->rows(2)->columnSpanFull(),
                 ]),
@@ -81,6 +183,8 @@ class PageContentForm
                     Textarea::make("content.{$l}.overviewP1")->label('Paragraph 1')->rows(2)->columnSpanFull(),
                     Textarea::make("content.{$l}.overviewP2")->label('Paragraph 2')->rows(2)->columnSpanFull(),
                     Textarea::make("content.{$l}.overviewQuote")->label('Highlight Quote')->rows(2)->columnSpanFull(),
+                    TextInput::make("content.{$l}.overviewPhotoBadge")->label('Overview Image Badge (Hidden unless Image Badges toggled ON)'),
+                    TextInput::make("content.{$l}.overviewPhotoTitle")->label('Overview Image Caption'),
                     TextInput::make("content.{$l}.foundationsHeader")->label('Foundations Heading')->columnSpanFull(),
                     Textarea::make("content.{$l}.foundationsSub")->label('Foundations Subtitle')->rows(2)->columnSpanFull(),
                     Repeater::make("content.{$l}.foundations")

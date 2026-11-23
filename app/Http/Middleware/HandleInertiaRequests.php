@@ -38,17 +38,24 @@ class HandleInertiaRequests extends Middleware
         app()->setLocale($locale);
 
         $ua = strtolower((string) $request->userAgent());
-        $isPerfBot = str_contains($ua, 'lighthouse') || str_contains($ua, 'pagespeed') || str_contains($ua, 'gtmetrix') || str_contains($ua, 'headlesschrome');
+        $isBotOrProbe = $ua === ''
+            || (bool) preg_match('/bot|crawl|spider|slurp|lighthouse|pagespeed|gtmetrix|headless|curl|wget|python|postman|insomnia|facebookexternalhit|whatsapp|telegrambot|twitterbot|linkedinbot/i', $ua);
 
-        if (!$isPerfBot && $request->isMethod('GET') && !$request->is('admin*', 'livewire*', 'api*', '_debugbar*')) {
+        $isExcludedPath = $request->is(
+            'admin*', 'livewire*', 'api*', '_debugbar*',
+            'storage*', '_private_storage*', 'sitemap*', 'robots.txt', 'llms*',
+            'up', 'login', 'register', 'password*', 'forgot-password*', 'reset-password*'
+        ) || str_contains($request->path(), '..');
+
+        if (!$isBotOrProbe && $request->isMethod('GET') && !$isExcludedPath) {
             try {
                 $path = '/' . ltrim($request->path(), '/');
                 $contentType = 'page';
                 $contentId = null;
                 $pageName = null;
 
-                if (str_starts_with($path, '/article/') || str_starts_with($path, '/id/article/') || str_starts_with($path, '/cn/article/') || str_starts_with($path, '/insights/') || str_starts_with($path, '/id/insights/') || str_starts_with($path, '/cn/insights/')) {
-                    $slug = basename($path);
+                if (preg_match('#^/(?:(?:id|cn)/)?(?:article|insights)/([^/]+)$#', $path, $m)) {
+                    $slug = $m[1];
                     $insight = \App\Models\Insight::where('slug', $slug)->orWhere('id', $slug)->first();
                     if ($insight) {
                         $contentType = 'article';
@@ -57,14 +64,23 @@ class HandleInertiaRequests extends Middleware
                         $pageName = 'Article: ' . ($pageTitle ?: $slug);
                         $insight->increment('views_count');
                     }
-                } elseif (str_starts_with($path, '/case-study/') || str_starts_with($path, '/id/case-study/') || str_starts_with($path, '/cn/case-study/')) {
-                    $slug = basename($path);
+                } elseif (preg_match('#^/(?:(?:id|cn)/)?case-study/([^/]+)$#', $path, $m)) {
+                    $slug = $m[1];
                     $case = \App\Models\CaseStudy::where('slug', $slug)->orWhere('id', $slug)->first();
                     if ($case) {
                         $contentType = 'case_study';
                         $contentId = $case->id;
-                        $caseTitle = is_array($case->t) ? ($case->t['en'] ?? reset($case->t)) : $case->t;
+                        $caseTitle = is_array($case->h) ? ($case->h['en'] ?? reset($case->h)) : $case->h;
                         $pageName = 'Case Study: ' . ($caseTitle ?: $slug);
+                    }
+                } elseif (preg_match('#^/(?:(?:id|cn)/)?services/([^/]+)$#', $path, $m)) {
+                    $slug = $m[1];
+                    $service = \App\Models\Service::where('slug', $slug)->orWhere('id', $slug)->first();
+                    if ($service) {
+                        $contentType = 'service';
+                        $contentId = $service->id;
+                        $svcTitle = is_array($service->title) ? ($service->title['en'] ?? reset($service->title)) : $service->title;
+                        $pageName = 'Service: ' . ($svcTitle ?: $slug);
                     }
                 }
 

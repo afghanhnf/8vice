@@ -48,7 +48,8 @@
           @endif
         </script>
 
-        <title inertia>{{ $seoMeta['title'] }}</title>
+        <title inertia>{{ $seoMeta['title'] ?: '8vice | Strategic Advisory & Cross-Border Business Gateway' }}</title>
+        <meta name="application-name" content="8vice">
         <meta name="description" inertia="description" content="{{ $seoMeta['description'] }}">
         <meta name="keywords" inertia="keywords" content="{{ $seoMeta['keywords'] }}">
         <meta name="author" inertia="author" content="8vice Advisory">
@@ -61,15 +62,15 @@
         <link rel="alternate" hreflang="zh-CN" inertia="hreflang-cn" href="{{ $seoMeta['cn_url'] }}">
         <link rel="alternate" hreflang="x-default" inertia="hreflang-default" href="{{ $seoMeta['en_url'] }}">
 
-        <meta property="og:site_name" inertia="og:site_name" content="8VICE">
+        <meta property="og:site_name" inertia="og:site_name" content="8vice">
         <meta property="og:type" inertia="og:type" content="{{ $seoMeta['og_type'] }}">
         <meta property="og:url" inertia="og:url" content="{{ $seoMeta['current_url'] }}">
         <meta property="og:title" inertia="og:title" content="{{ $seoMeta['title'] }}">
         <meta property="og:description" inertia="og:description" content="{{ $seoMeta['description'] }}">
         <meta property="og:image" inertia="og:image" content="{{ $seoMeta['og_image'] }}">
         <meta property="og:image:secure_url" inertia="og:image:secure_url" content="{{ $seoMeta['og_image'] }}">
-        <meta property="og:image:width" inertia="og:image:width" content="1200">
-        <meta property="og:image:height" inertia="og:image:height" content="630">
+        <meta property="og:image:width" content="{{ $seoMeta['og_image_width'] ?? 1024 }}">
+        <meta property="og:image:height" content="{{ $seoMeta['og_image_height'] ?? 1024 }}">
         <meta property="og:image:alt" inertia="og:image:alt" content="{{ $seoMeta['title'] }}">
         <meta property="og:locale" inertia="og:locale" content="{{ $seoMeta['og_locale'] }}">
         <meta property="og:locale:alternate" inertia="og:locale:alternate" content="{{ $seoMeta['og_locale_alt'] }}">
@@ -81,6 +82,37 @@
         <meta name="twitter:description" inertia="twitter:description" content="{{ $seoMeta['description'] }}">
         <meta name="twitter:image" inertia="twitter:image" content="{{ $seoMeta['og_image'] }}">
         <meta name="twitter:image:alt" inertia="twitter:image:alt" content="{{ $seoMeta['title'] }}">
+
+        @php
+            $ssrOrigin = rtrim((string) \App\Http\Controllers\SitemapController::getBaseUrl(), '/');
+            $ssrSchema = [
+                '@context' => 'https://schema.org',
+                '@graph' => [
+                    [
+                        '@type' => 'Organization',
+                        '@id' => "{$ssrOrigin}/#organization",
+                        'name' => '8vice',
+                        'alternateName' => ['8 Vice', '8vice Advisory'],
+                        'url' => $ssrOrigin,
+                        'logo' => [
+                            '@type' => 'ImageObject',
+                            'url' => "{$ssrOrigin}/images/profil/8vice-logo.webp",
+                            'caption' => '8vice Logo',
+                        ],
+                        'description' => $seoMeta['description'],
+                    ],
+                    [
+                        '@type' => 'WebSite',
+                        '@id' => "{$ssrOrigin}/#website",
+                        'url' => $ssrOrigin,
+                        'name' => '8vice',
+                        'alternateName' => ['8 Vice', '8vice Advisory'],
+                        'publisher' => ['@id' => "{$ssrOrigin}/#organization"],
+                    ],
+                ],
+            ];
+        @endphp
+        <script type="application/ld+json" inertia="jsonld">{!! json_encode($ssrSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
 
         @if($settings)
             @if($gaId && $gaId !== 'G-1234567890')

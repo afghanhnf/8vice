@@ -36,15 +36,15 @@ class PageStatistic extends Model
             ->groupBy('path', 'page_name')
             ->get();
 
+        self::query()->delete();
+
         foreach ($records as $r) {
-            self::updateOrCreate(
-                ['path' => $r->path],
-                [
-                    'page_name' => $r->page_name,
-                    'views_count' => $r->views,
-                    'unique_visitors' => $r->visitors,
-                ]
-            );
+            self::create([
+                'path' => $r->path,
+                'page_name' => $r->page_name,
+                'views_count' => $r->views,
+                'unique_visitors' => $r->visitors,
+            ]);
         }
     }
 }

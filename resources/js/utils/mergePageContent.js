@@ -1,6 +1,7 @@
 /**
  * Deeply merges CMS page content overrides (for active locale) onto static default copy.
- * Empty strings, null, or empty arrays fall back gracefully to defaults so partial edits never blank out a section.
+ * Explicitly cleared strings ("" or null) replace string defaults so Admin edits can hide fields immediately,
+ * while undefined values or missing keys fall back to defaults. Booleans always take precedence.
  */
 export function mergePageContent(base, override) {
   if (!override || typeof override !== 'object') {
@@ -10,7 +11,20 @@ export function mergePageContent(base, override) {
   const out = Array.isArray(base) ? [...base] : { ...base };
 
   for (const [key, val] of Object.entries(override)) {
-    if (val === null || val === undefined || val === '') {
+    if (val === undefined) {
+      continue;
+    }
+
+    if (typeof val === 'boolean') {
+      out[key] = val;
+      continue;
+    }
+
+    if (val === null || val === '') {
+      // If Admin explicitly cleared an existing string field, honor empty string so content disappears cleanly
+      if (typeof base?.[key] === 'string') {
+        out[key] = '';
+      }
       continue;
     }
 
@@ -29,6 +43,11 @@ export function mergePageContent(base, override) {
 
     if (typeof val === 'object' && typeof base?.[key] === 'object' && !Array.isArray(base?.[key])) {
       out[key] = mergePageContent(base[key], val);
+      continue;
+    }
+
+    if (typeof val === 'object' && !Array.isArray(val) && base?.[key] === undefined) {
+      out[key] = { ...val };
       continue;
     }
 

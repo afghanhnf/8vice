@@ -4,7 +4,8 @@ import { createRoot } from 'react-dom/client';
 import { TranslationProvider, detectPathnameLang, preloadTranslation } from '@/Contexts/TranslationContext';
 import { registerWebMcpTools } from '@/utils/webmcp';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const rawAppName = import.meta.env.VITE_APP_NAME;
+const appName = !rawAppName || rawAppName.trim().toLowerCase() === 'laravel' ? '8vice' : rawAppName.trim();
 
 router.on('invalid', (event) => {
     event.preventDefault();
@@ -12,7 +13,16 @@ router.on('invalid', (event) => {
 });
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => {
+        const clean = (title || '').trim();
+        if (!clean || clean.toLowerCase() === 'laravel') {
+            return appName;
+        }
+        if (/8\s?vice/i.test(clean)) {
+            return clean;
+        }
+        return `${clean} | ${appName}`;
+    },
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.jsx`,

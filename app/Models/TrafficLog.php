@@ -23,6 +23,17 @@ class TrafficLog extends Model
 
         $deviceInfo = self::parseUserAgent($userAgent);
 
+        $rawReferer = $request->header('referer');
+        $externalReferer = null;
+        if ($rawReferer) {
+            $refHost = strtolower((string) parse_url($rawReferer, PHP_URL_HOST));
+            $reqHost = strtolower((string) $request->getHost());
+            $ownHosts = array_filter([$reqHost, '8vice.com', 'www.8vice.com', '127.0.0.1', 'localhost']);
+            if ($refHost !== '' && !in_array($refHost, $ownHosts, true)) {
+                $externalReferer = substr($rawReferer, 0, 500);
+            }
+        }
+
         $log = self::create([
             'url' => $request->fullUrl(),
             'path' => $path,
@@ -34,7 +45,7 @@ class TrafficLog extends Model
             'device' => $deviceInfo['device'],
             'browser' => $deviceInfo['browser'],
             'platform' => $deviceInfo['platform'],
-            'referer' => $request->header('referer') ? substr($request->header('referer'), 0, 500) : null,
+            'referer' => $externalReferer,
             'session_id' => $request->session()->getId(),
         ]);
 
@@ -54,17 +65,21 @@ class TrafficLog extends Model
      */
     public static function detectPageName(string $path): string
     {
-        $clean = preg_replace('/^\/id(\/|$)/', '/', $path);
+        $clean = preg_replace('/^\/(id|cn)(\/|$)/', '/', $path);
         $clean = '/' . ltrim($clean, '/');
 
         $map = [
             '/' => 'Home Page',
             '/about' => 'About Us',
             '/services' => 'Our Services',
+            '/gateway' => 'Strategic Gateway',
+            '/industries' => 'Industries Coverage',
             '/consultancy' => 'Strategic Consultancy',
             '/training' => 'Corporate Training',
             '/market-intelligence' => 'Market Intelligence',
             '/article' => 'Insights & Articles',
+            '/insights' => 'Insights & Articles',
+            '/insights-partnerships' => 'Insights & Partnerships',
             '/insight' => 'Insights & Articles',
             '/client' => 'Clients & Partners',
             '/case-study' => 'Case Studies',

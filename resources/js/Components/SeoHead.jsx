@@ -187,6 +187,7 @@ export default function SeoHead({
         '@type': 'Organization',
         '@id': `${origin}/#organization`,
         'name': '8vice',
+        'alternateName': ['8 Vice', '8vice Advisory'],
         'url': origin,
         'logo': {
           '@type': 'ImageObject',
@@ -210,6 +211,7 @@ export default function SeoHead({
         '@id': `${origin}/#website`,
         'url': origin,
         'name': '8vice',
+        'alternateName': ['8 Vice', '8vice Advisory'],
         'publisher': {
           '@id': `${origin}/#organization`,
         },
@@ -267,15 +269,13 @@ export default function SeoHead({
       <link head-key="hreflang-default" rel="alternate" hrefLang="x-default" href={enUrl} />
 
       {/* Open Graph / Facebook / LinkedIn / WhatsApp */}
-      <meta head-key="og:site_name" property="og:site_name" content="8VICE" />
+      <meta head-key="og:site_name" property="og:site_name" content="8vice" />
       <meta head-key="og:type" property="og:type" content={resolvedOgType} />
       <meta head-key="og:url" property="og:url" content={canonicalPathUrl} />
       <meta head-key="og:title" property="og:title" content={resolvedTitle} />
       <meta head-key="og:description" property="og:description" content={resolvedDescription} />
       <meta head-key="og:image" property="og:image" content={resolvedOgImage} />
       <meta head-key="og:image:secure_url" property="og:image:secure_url" content={resolvedOgImage} />
-      <meta head-key="og:image:width" property="og:image:width" content="1200" />
-      <meta head-key="og:image:height" property="og:image:height" content="630" />
       <meta head-key="og:image:alt" property="og:image:alt" content={resolvedTitle} />
       <meta head-key="og:locale" property="og:locale" content={locale} />
       <meta head-key="og:locale:alternate" property="og:locale:alternate" content={alternateLocale} />
