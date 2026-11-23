@@ -360,6 +360,7 @@ export default function About({ profiles = [], pageContent = null }) {
         }
       ],
 
+      peopleBadge: '8 VICE 核心领导团队',
       peopleEyebrow: '核心团队背后的力量',
       peopleTitle: '源于深厚积淀。成于高效连接。',
       peopleLead:
@@ -712,6 +713,7 @@ export default function About({ profiles = [], pageContent = null }) {
           }
         ],
 
+        peopleBadge: 'TIM KEPEMIMPINAN 8 VICE',
         peopleEyebrow: 'DI BALIK LANGKAH STRATEGIS',
         peopleTitle: 'Dibangun di Atas Pengalaman. Digerakkan oleh Koneksi.',
         peopleLead:
@@ -1063,6 +1065,7 @@ export default function About({ profiles = [], pageContent = null }) {
           }
         ],
 
+        peopleBadge: 'THE PEOPLE BEHIND 8 VICE',
         peopleEyebrow: 'THE MINDS BEHIND THE MOVE',
         peopleTitle: 'Built on Experience. Driven by Connection.',
         peopleLead:
@@ -2986,6 +2989,14 @@ export default function About({ profiles = [], pageContent = null }) {
           <div className="container" style={{ position: 'relative', zIndex: 2 }}>
             {/* Section Header */}
             <div className="about-anim" style={{ textAlign: 'center', maxWidth: '880px', margin: '0 auto 56px' }}>
+              {Boolean(copy.peopleBadge) && (
+              <div>
+                <div className="about-eyebrow-pill">
+                  <span className="about-eyebrow-dot" />
+                  <span>{copy.peopleBadge}</span>
+                </div>
+              </div>
+              )}
               {Boolean(copy.peopleEyebrow) && (
               <h2
                 style={{
@@ -2994,10 +3005,10 @@ export default function About({ profiles = [], pageContent = null }) {
                   lineHeight: 1.12,
                   letterSpacing: '-0.02em',
                   textTransform: 'uppercase',
-                  background: 'linear-gradient(90deg, #FF7B7B 0%, #E63946 100%)',
+                  background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 60%, #FF8A93 88%, #E63946 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  color: '#FF7B7B',
+                  color: '#FFFFFF',
                   margin: '0 0 18px'
                 }}
               >

@@ -294,8 +294,9 @@ class PageContentForm
                 ->collapsible()
                 ->collapsed()
                 ->schema([
-                    TextInput::make("content.{$l}.peopleEyebrow")->label('People Eyebrow'),
-                    TextInput::make("content.{$l}.peopleTitle")->label('People Heading'),
+                    TextInput::make("content.{$l}.peopleBadge")->label('People Top Eyebrow Pill'),
+                    TextInput::make("content.{$l}.peopleEyebrow")->label('People Main Headline'),
+                    TextInput::make("content.{$l}.peopleTitle")->label('People Secondary Headline (Hidden unless toggled ON)'),
                     Textarea::make("content.{$l}.peopleLead")->label('People Intro Paragraph')->rows(2)->columnSpanFull(),
                     TextInput::make("content.{$l}.experiencesHeading")->label('Experiences Column Heading'),
                 ]),

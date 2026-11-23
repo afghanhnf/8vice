@@ -232,7 +232,8 @@
                 "ctaDesc": "立即联系我们的高管顾问团队，洽谈您的市场准入优先级、战略合作伙伴寻源或双边商业合作计划。",
                 "ctaPrimary": "开启战略咨询对话",
                 "ctaSecondary": "探索我们的核心服务",
-                "heroBannerCorridor": "JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN"
+                "heroBannerCorridor": "JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN",
+                "peopleBadge": "8 VICE 核心领导团队"
             },
             "id": {
                 "breadcrumbHome": "Beranda",
@@ -464,7 +465,8 @@
                 "ctaDesc": "Diskusikan rencana ekspansi pasar, pencarian mitra strategis, atau inisiatif kolaborasi bilateral Anda bersama tim penasihat kami.",
                 "ctaPrimary": "Mulai Percakapan Strategis",
                 "ctaSecondary": "Jelajahi Layanan Kami",
-                "heroBannerCorridor": "JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN"
+                "heroBannerCorridor": "JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN",
+                "peopleBadge": "TIM KEPEMIMPINAN 8 VICE"
             },
             "en": {
                 "breadcrumbHome": "Home",
@@ -696,7 +698,8 @@
                 "ctaDesc": "Connect with our advisory team to discuss your market entry priorities, strategic partnership search, or bilateral business initiatives.",
                 "ctaPrimary": "Start a Conversation",
                 "ctaSecondary": "Explore Our Services",
-                "heroBannerCorridor": "JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN"
+                "heroBannerCorridor": "JAKARTA ↔ BEIJING · SHANGHAI · SHENZHEN",
+                "peopleBadge": "THE PEOPLE BEHIND 8 VICE"
             },
             "visibility": {
                 "show_hero": true,
