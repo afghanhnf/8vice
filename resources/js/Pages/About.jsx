@@ -1065,7 +1065,7 @@ export default function About({ profiles = [], pageContent = null }) {
           }
         ],
 
-        peopleBadge: 'THE PEOPLE BEHIND 8 VICE',
+        peopleBadge: 'OUR LEADERSHIP TEAM',
         peopleEyebrow: 'THE MINDS BEHIND THE MOVE',
         peopleTitle: 'Built on Experience. Driven by Connection.',
         peopleLead:
@@ -2971,7 +2971,7 @@ export default function About({ profiles = [], pageContent = null }) {
         )}
 
         {/* ========================================================================= */}
-        {/* 04 · THE MINDS BEHIND THE MOVE (PEOPLE BEHIND 8 VICE)                     */}
+        {/* 04 · THE MINDS BEHIND THE MOVE (OUR LEADERSHIP TEAM)                      */}
         {/* ========================================================================= */}
         {vis.show_people !== false && (
         <section
